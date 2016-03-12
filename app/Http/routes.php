@@ -1,31 +1,17 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Routes File
-|--------------------------------------------------------------------------
-|
-| Here is where you will register all of the routes in an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+use Illuminate\Routing\Router;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/* @var Router $router */
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| This route group applies the "web" middleware group to every route
-| it contains. The "web" middleware group is defined in your HTTP
-| kernel and includes session state, CSRF protection, and more.
-|
-*/
+$router->get('/', ['middleware' => 'web', 'uses' => 'HomeController@home']);
 
-Route::group(['middleware' => ['web']], function () {
-    //
+$router->group(['prefix' => 'api', 'namespace' => 'Api', 'middleware' => ['web']], function (Router $router) {
+    $router->group(['prefix' => 'v1', 'namespace' => 'V1'], function (Router $router) {
+        $router->group(['prefix' => 'auth', 'middleware' => ['throttle:5,1']], function (Router $router) {
+            $router->get('sign-in', 'AuthController@signIn');
+            $router->get('sign-out', 'AuthController@signOut');
+            $router->get('sign-up', 'AuthController@signUp');
+        });
+    });
 });
