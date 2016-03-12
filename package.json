@@ -1,10 +1,133 @@
 {
   "private": true,
-  "devDependencies": {
-    "gulp": "^3.8.8"
+  "engines": {
+    "node": ">=4.2.0",
+    "npm": "^3.0.0"
   },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "compile": "node -r dotenv/config --harmony bin/compile",
+    "migrate": "node -r dotenv/config -r babel-register --harmony bin/migrate",
+    "keygen": "node -r dotenv/config -r babel-register --harmony bin/keygen",
+    "lint": "eslint . ./",
+    "lint:fix": "npm run lint -- --fix",
+    "start": "better-npm-run start",
+    "dev": "better-npm-run dev",
+    "dev:nw": "npm run dev -- --nw",
+    "dev:no-debug": "npm run dev -- --no_debug",
+    "test": "better-npm-run test",
+    "test:dev": "npm run test -- --watch",
+    "deploy": "better-npm-run deploy"
+  },
+  "betterScripts": {
+    "dev": {
+      "command": "nodemon -r dotenv/config bin/server",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    },
+    "deploy": {
+      "command": "npm run clean && npm run compile && npm run keygen",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "start": {
+      "command": "node -r dotenv/config bin/server"
+    },
+    "test": {
+      "command": "node -r dotenv/config ./node_modules/karma/bin/karma start bin/karma.js",
+      "env": {
+        "NODE_ENV": "test"
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sunday-Without-God/Juice.git"
+  },
+  "author": "DanSnow",
   "dependencies": {
-    "laravel-elixir": "^4.0.0",
-    "bootstrap-sass": "^3.0.0"
+    "better-npm-run": "0.0.7",
+    "core-decorators": "^0.11.0",
+    "debug": "^2.2.0",
+    "dotenv": "^2.0.0",
+    "history": "^2.0.0",
+    "immutable": "^3.7.6",
+    "js-cookie": "^2.1.0",
+    "lodash": "^4.5.1",
+    "material-ui": "^0.14.4",
+    "radium": "^0.16.6",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-redux": "^4.4.0",
+    "react-router": "^2.0.0",
+    "react-tap-event-plugin": "^0.2.2",
+    "redux": "^3.3.1",
+    "redux-actions": "^0.9.1",
+    "react-router-redux": "^2.0.4",
+    "redux-thunk": "^1.0.3",
+    "url": "^0.11.0",
+    "validate.js": "^0.9.0",
+    "when": "^3.7.7"
+  },
+  "devDependencies": {
+    "babel-core": "^6.5.2",
+    "babel-eslint": "^5.0.0",
+    "babel-loader": "^6.2.3",
+    "babel-plugin-add-module-exports": "^0.1.2",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-runtime": "^6.5.2",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-react-hmre": "^1.1.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.5.2",
+    "babel-runtime": "^6.5.0",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.2.0",
+    "css-loader": "^0.23.1",
+    "cssnano": "^3.5.2",
+    "eslint": "^2.2.0",
+    "eslint-config-standard": "^5.1.0",
+    "eslint-config-standard-react": "^2.3.0",
+    "eslint-loader": "^1.3.0",
+    "eslint-plugin-babel": "^3.1.0",
+    "eslint-plugin-promise": "^1.0.8",
+    "eslint-plugin-react": "^4.1.0",
+    "eslint-plugin-standard": "^1.3.2",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.5",
+    "fs-extra": "^0.26.5",
+    "html-webpack-plugin": "^2.9.0",
+    "isparta-loader": "^2.0.0",
+    "json-loader": "^0.5.4",
+    "karma": "^0.13.21",
+    "karma-chai": "^0.1.0",
+    "karma-chai-as-promised": "^0.1.2",
+    "karma-chai-sinon": "^0.1.5",
+    "karma-coverage": "^0.5.3",
+    "karma-mocha": "^0.2.2",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-spec-reporter": "0.0.24",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.4.5",
+    "node-sass": "^3.4.2",
+    "nodemon": "^1.9.0",
+    "phantomjs-polyfill": "0.0.1",
+    "phantomjs-prebuilt": "^2.1.4",
+    "postcss-loader": "^0.8.1",
+    "react-addons-test-utils": "^0.14.7",
+    "redux-devtools": "^3.1.1",
+    "redux-devtools-log-monitor": "^1.0.4",
+    "sass-loader": "^3.1.2",
+    "sinon": "^1.17.3",
+    "sinon-chai": "^2.8.0",
+    "style-loader": "^0.13.0",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.12.14",
+    "webpack-dev-middleware": "1.5.1",
+    "webpack-hot-middleware": "^2.7.1"
   }
 }
