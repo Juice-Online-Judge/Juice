@@ -5,6 +5,9 @@ export default {
       maximum: 32
     }
   },
+  nickname: {
+    presence: true
+  },
   password: {
     presence: true
   },
