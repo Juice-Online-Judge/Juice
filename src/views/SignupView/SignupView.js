@@ -6,7 +6,7 @@ import validate from 'validate.js';
 import pick from 'lodash/pick';
 
 import { actions as loginActions } from '../../redux/modules/auth';
-import { routeActions } from 'redux-simple-router';
+import { routeActions } from 'react-router-redux';
 
 import Paper from 'material-ui/lib/paper';
 import Card from 'material-ui/lib/card/card';
