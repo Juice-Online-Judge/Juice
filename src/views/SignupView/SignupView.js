@@ -34,6 +34,7 @@ export class SignupView extends React.Component {
     super(...args);
     this.state = {
       username: '',
+      nickname: '',
       password: '',
       email: '',
       passwordConfirm: '',
@@ -62,6 +63,7 @@ export class SignupView extends React.Component {
   fetchErrorMessage(props) {
     let errorMessage = {
       username: null,
+      nickname: null,
       email: null,
       password: null,
       passwordConfirm: null
@@ -84,6 +86,11 @@ export class SignupView extends React.Component {
   }
 
   @autobind
+  setNickname(event) {
+    this.setState({nickname: event.target.value});
+  }
+
+  @autobind
   setPassword(event) {
     this.setState({password: event.target.value});
   }
@@ -102,6 +109,7 @@ export class SignupView extends React.Component {
   signup(event) {
     let fields = [
       'username',
+      'nickname',
       'password',
       'email',
       'passwordConfirm'
@@ -141,6 +149,12 @@ export class SignupView extends React.Component {
                   onChange={ this.setEmail }
                   errorText={ errorMessage.email }
                   floatingLabelText='Email' />
+              </CardActions>
+              <CardActions style={ styles.flexContainer }>
+                <TextField style={ styles.action }
+                  onChange={ this.setNickname }
+                  errorText={ errorMessage.nickname }
+                  floatingLabelText='Nickname' />
               </CardActions>
               <CardActions style={ styles.flexContainer }>
                 <TextField style={ styles.action }

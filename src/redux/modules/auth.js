@@ -25,10 +25,10 @@ export const login = (username, password) => {
   return (dispatch) => {
     let body = { username, password };
     api({
-      path: 'auth/signin',
+      path: 'auth/sign-in',
       entity: body
     }).entity()
-      .then((response) => {
+      .then(() => {
         dispatch(setLoginState(true));
       })
       .catch((error) => {
@@ -43,13 +43,11 @@ export const login = (username, password) => {
 export const logout = () => {
   return (dispatch) => {
     api({
-      path: 'auth/logout',
-      method: 'delete'
+      path: 'auth/sign-out',
+      method: 'get'
     }).entity()
       .then((response) => {
-        if (response.success) {
-          dispatch(clearUser());
-        }
+        dispatch(clearUser());
       })
       .catch((error) => {
         console.warn(error);
@@ -88,13 +86,11 @@ export const fetchUserInfo = () => {
 export const registerUser = (info) => {
   return (dispatch) => {
     api({
-      path: 'auth/register',
+      path: 'auth/sign-up',
       entity: info
     }).entity()
       .then((response) => {
-        if (response.success) {
-          dispatch(setUserInfo(info));
-        }
+        dispatch(setUserInfo(info));
       })
       .catch((error) => {
         console.warn(error);
