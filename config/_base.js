@@ -12,7 +12,7 @@ const config = {
   // ----------------------------------
   path_base  : path.resolve(__dirname, '../'),
   dir_client : 'src',
-  dir_dist   : 'dist',
+  dir_dist   : 'public',
   dir_server : 'server',
   dir_test   : 'tests',
 
@@ -21,18 +21,6 @@ const config = {
   // ----------------------------------
   server_host : 'localhost',
   server_port : process.env.PORT || 3000,
-  app_key     : process.env.APP_KEY,
-
-  // ----------------------------------
-  // Database Configuration
-  // ----------------------------------
-  db : {
-    adapter  : process.env.DB_ADAPTER || 'mysql',
-    host  : process.env.DB_HOST || 'localhost',
-    database : process.env.DB_DATABASE || 'juice',
-    username : process.env.DB_USERNAME || 'juice',
-    password : process.env.DB_PASSWORD || 'juice'
-  },
 
   // ----------------------------------
   // Compiler Configuration
@@ -42,7 +30,7 @@ const config = {
   compiler_hash_type       : 'hash',
   compiler_fail_on_warning : false,
   compiler_quiet           : false,
-  compiler_public_path     : '',
+  compiler_public_path     : '/',
   compiler_stats           : {
     chunks : false,
     chunkModules : false,
@@ -58,7 +46,7 @@ const config = {
     'react-router',
     'redux',
     'redux-actions',
-    'redux-simple-router',
+    'react-router-redux',
     'react-tap-event-plugin',
     'radium',
     'rest',

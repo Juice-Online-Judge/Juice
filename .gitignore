@@ -4,3 +4,8 @@
 Homestead.yaml
 Homestead.json
 .env
+
+resources/views/main.blade.php
+public/*.js
+public/*.map
+public/humans.txt

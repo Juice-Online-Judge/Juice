@@ -50,7 +50,7 @@ webpackConfig.plugins = [
     template: paths.client('index.html'),
     hash: false,
     favicon: paths.client('static/favicon.ico'),
-    filename: 'index.html',
+    filename: '../resources/views/main.blade.php',
     inject: 'body',
     minify: {
       collapseWhitespace: true
