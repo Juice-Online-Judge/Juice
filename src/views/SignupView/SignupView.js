@@ -25,7 +25,7 @@ export class SignupView extends React.Component {
     login: PropTypes.func.isRequired,
     fetchUserInfo: PropTypes.func.isRequired,
     registerUser: PropTypes.func.isRequired,
-    clearError: PropTypes.func.isRquired
+    clearError: PropTypes.func.isRequired
   };
 
   constructor(...args) {
