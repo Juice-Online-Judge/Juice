@@ -7,31 +7,19 @@
   "scripts": {
     "clean": "rm -rf dist",
     "compile": "node -r dotenv/config --harmony bin/compile",
+    "watch": "node -r dotenv/config --harmony bin/watch",
     "lint": "eslint . ./",
     "lint:fix": "npm run lint -- --fix",
-    "start": "better-npm-run start",
-    "dev": "better-npm-run dev",
-    "dev:nw": "npm run dev -- --nw",
-    "dev:no-debug": "npm run dev -- --no_debug",
     "test": "better-npm-run test",
     "test:dev": "npm run test -- --watch",
     "deploy": "better-npm-run deploy"
   },
   "betterScripts": {
-    "dev": {
-      "command": "nodemon -r dotenv/config bin/server",
-      "env": {
-        "NODE_ENV": "development"
-      }
-    },
     "deploy": {
       "command": "npm run clean && npm run compile && npm run keygen",
       "env": {
         "NODE_ENV": "production"
       }
-    },
-    "start": {
-      "command": "node -r dotenv/config bin/server"
     },
     "test": {
       "command": "node -r dotenv/config ./node_modules/karma/bin/karma start bin/karma.js",
@@ -127,7 +115,6 @@
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.14",
-    "webpack-dev-middleware": "1.5.1",
-    "webpack-hot-middleware": "^2.7.1"
+    "webpack-dev-server": "^1.14.1",
   }
 }
