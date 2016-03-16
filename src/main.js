@@ -8,10 +8,10 @@ import Root from './containers/Root';
 import configureStore from './redux/configureStore';
 
 const historyConfig = { basename: __BASENAME__ };
-const history = useRouterHistory(createHistory)(historyConfig);
+const browserHistory = useRouterHistory(createHistory)(historyConfig);
 
 const initialState = window.__INITIAL_STATE__;
-const store = configureStore({ initialState, history });
+const { store, history } = configureStore({ initialState, browserHistory });
 
 injectTapEventPlugin();
 

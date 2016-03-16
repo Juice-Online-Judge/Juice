@@ -4,7 +4,7 @@ import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
 
 import { actions as loginActions } from '../../redux/modules/auth';
-import { routeActions } from 'react-router-redux';
+import { push } from 'react-router-redux';
 
 import Paper from 'material-ui/lib/paper';
 import Card from 'material-ui/lib/card/card';
@@ -12,8 +12,6 @@ import CardTitle from 'material-ui/lib/card/card-title';
 import CardActions from 'material-ui/lib/card/card-actions';
 import TextField from 'material-ui/lib/text-field';
 import FlatButton from 'material-ui/lib/flat-button';
-
-let { push } = routeActions;
 
 @Radium
 export class SigninView extends React.Component {

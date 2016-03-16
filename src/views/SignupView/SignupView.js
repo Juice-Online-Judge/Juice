@@ -6,7 +6,7 @@ import validate from 'validate.js';
 import pick from 'lodash/pick';
 
 import { actions as loginActions } from '../../redux/modules/auth';
-import { routeActions } from 'react-router-redux';
+import { push } from 'react-router-redux';
 
 import Paper from 'material-ui/lib/paper';
 import Card from 'material-ui/lib/card/card';
@@ -16,8 +16,6 @@ import TextField from 'material-ui/lib/text-field';
 import FlatButton from 'material-ui/lib/flat-button';
 
 import rule from 'validation/register';
-
-let { push } = routeActions;
 
 @Radium
 export class SignupView extends React.Component {
