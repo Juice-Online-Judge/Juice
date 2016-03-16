@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import { Link, IndexLink } from 'react-router';
 import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
 
@@ -61,7 +61,14 @@ export class AppBar extends React.Component {
   render() {
     return (
       <MuiAppBar
-        title='Juice'
+        title={
+          <IndexLink style={ {
+            color: 'white',
+            textDecoration: 'inherit'
+          } } to='/'>
+            Juice
+          </IndexLink>
+        }
         iconElementRight={ this.rightMenu } />
     );
   }
