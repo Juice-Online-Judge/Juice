@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Judge;
-use App\Models\Submission;
+use App\Entities\Judge;
+use App\Entities\Submission;
 use Illuminate\Database\Seeder;
 
 class SubmissionsTableSeeder extends Seeder

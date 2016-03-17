@@ -15,5 +15,5 @@ $router->group(['middleware' => ['web']], function (Router $router) {
         });
     });
 
-    $router->get('{redirect}', 'HomeController@home')->where('redirect', '.*');
+    $router->get('{redirect}', ['as' => 'home', 'uses' => 'HomeController@home'])->where('redirect', '.*');
 });

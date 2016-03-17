@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models\User;
+namespace App\Entities\User;
 
-use App\Models\Core\Entity;
+use App\Entities\Core\Entity;
 
 class Role extends Entity
 {

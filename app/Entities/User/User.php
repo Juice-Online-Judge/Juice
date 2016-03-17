@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models\User;
+namespace App\Entities\User;
 
-use App\Models\Core\Entity;
+use App\Entities\Core\Entity;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 

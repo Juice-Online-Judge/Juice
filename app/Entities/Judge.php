@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Entities;
 
-use App\Models\Core\Entity;
+use App\Entities\Core\Entity;
 
 class Judge extends Entity
 {
