@@ -14,7 +14,7 @@ class SubmissionRequest extends Request
     public function rules()
     {
         return [
-            'code'  => 'required|string|max:10000',
+            'code' => 'required|string|max:10000',
         ];
     }
 }

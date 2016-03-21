@@ -24,8 +24,8 @@ class SubmissionController extends ApiController
         }
 
         $created = $question->submissions()->save(new Submission([
-            'user_id'   => $request->user()->getAuthIdentifier(),
-            'code'      => $request->input('code'),
+            'user_id' => $request->user()->getAuthIdentifier(),
+            'code'    => $request->input('code'),
         ]));
 
         if (false === $created) {

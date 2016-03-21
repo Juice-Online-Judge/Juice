@@ -13,9 +13,9 @@ class Question extends Entity
      */
     protected $attributes = [
         'restriction' => [
-            'time' => 3.0,
-            'memory' => 8,
-            'file' => 3,
+            'time'    => 3.0,
+            'memory'  => 8,
+            'file'    => 3,
             'library' => [],
         ],
     ];
@@ -27,7 +27,7 @@ class Question extends Entity
      */
     protected $casts = [
         'restriction' => 'array',
-        'public' => 'boolean',
+        'public'      => 'boolean',
     ];
 
     /**
