@@ -18,7 +18,8 @@ class AuthController extends ApiController
     public function signIn(Request $request)
     {
         if (! Auth::attempt($request->only(['username', 'password']))) {
-            return $this->setMessages(['failed' => 'These credentials do not match our records.'])->responseUnprocessableEntity();
+            return $this->setMessages(['failed' => 'These credentials do not match our records.'])
+                ->responseUnprocessableEntity();
         }
 
         return $this->responseOk();

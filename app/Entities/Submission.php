@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use App\Entities\Core\Entity;
+use Carbon\Carbon;
 
 class Submission extends Entity
 {
@@ -52,5 +53,19 @@ class Submission extends Entity
     public function judge()
     {
         return $this->hasOne(Judge::class);
+    }
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        
+        static::creating(function (Submission $submission) {
+            $submission->setAttribute('submitted_at', Carbon::now());
+        });
     }
 }

@@ -29,4 +29,14 @@ class Question extends Entity
         'restriction' => 'array',
         'public' => 'boolean',
     ];
+
+    /**
+     * 取得該題所有 submit 紀錄.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function submissions()
+    {
+        return $this->hasMany(Submission::class);
+    }
 }
