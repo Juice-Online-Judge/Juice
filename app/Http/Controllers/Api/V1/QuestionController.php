@@ -29,7 +29,7 @@ class QuestionController extends ApiController
     /**
      * Get question content.
      *
-     * @param integer $id
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)

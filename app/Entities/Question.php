@@ -41,7 +41,7 @@ class Question extends Entity
 
     /**
      * 取得該題所有 submit 紀錄.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function submissions()

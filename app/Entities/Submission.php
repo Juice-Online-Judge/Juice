@@ -45,7 +45,7 @@ class Submission extends Entity
     /**
      * Get the judging status.
      *
-     * @return boolean
+     * @return bool
      */
     public function getJudgingAttribute()
     {
@@ -70,7 +70,7 @@ class Submission extends Entity
     protected static function boot()
     {
         parent::boot();
-        
+
         static::creating(function (Submission $submission) {
             $submission->setAttribute('submitted_at', Carbon::now());
         });
