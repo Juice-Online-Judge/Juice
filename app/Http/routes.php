@@ -12,6 +12,11 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 $router->get('sign-out', 'AuthController@signOut');
                 $router->post('sign-up', 'AuthController@signUp');
             });
+
+            $router->group(['prefix' => 'submissions', 'middleware' => ['auth']], function (Router $router) {
+                $router->post('/', 'SubmissionController@store');
+                $router->get('{id}', 'SubmissionController@show');
+            });
         });
     });
 

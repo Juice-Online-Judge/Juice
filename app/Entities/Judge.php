@@ -14,6 +14,13 @@ class Judge extends Entity
     public $timestamps = false;
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = ['submission_id'];
+
+    /**
      * The attributes that should be mutated to dates.
      *
      * @var array

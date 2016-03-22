@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Entities\Question;
 use App\Entities\Submission;
 use App\Http\Requests\Api\V1;
+use Illuminate\Http\Request;
 
 class SubmissionController extends ApiController
 {
@@ -33,5 +34,25 @@ class SubmissionController extends ApiController
         }
 
         return $this->responseCreated();
+    }
+
+    /**
+     * Get submission and judge info.
+     *
+     * @param Request $request
+     * @param $submissionId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show(Request $request, $submissionId)
+    {
+        $submission = Submission::find($submissionId);
+
+        if (is_null($submission)) {
+            return $this->responseNotFound();
+        } elseif ($submission->getAttribute('user_id') != $request->user()->getAuthIdentifier()) {
+            return $this->responseForbidden();
+        }
+
+        return $this->setData($submission)->responseOk();
     }
 }
