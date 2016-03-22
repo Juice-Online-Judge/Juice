@@ -21,6 +21,15 @@ class Question extends Entity
     ];
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'title', 'description', 'test_data', 'restriction', 'public',
+    ];
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array

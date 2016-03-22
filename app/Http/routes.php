@@ -13,6 +13,11 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 $router->post('sign-up', 'AuthController@signUp');
             });
 
+            $router->group(['prefix' => 'questions', 'middleware' => ['auth']], function (Router $router) {
+                $router->post('/', 'QuestionController@store');
+                $router->get('{id}', 'QuestionController@show');
+            });
+
             $router->group(['prefix' => 'submissions', 'middleware' => ['auth']], function (Router $router) {
                 $router->post('/', 'SubmissionController@store');
                 $router->get('{id}', 'SubmissionController@show');
