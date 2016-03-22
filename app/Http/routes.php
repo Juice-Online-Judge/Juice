@@ -13,8 +13,13 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 $router->post('sign-up', 'AuthController@signUp');
             });
 
-            $router->group(['prefix' => 'questions', 'middleware' => ['auth']], function (Router $router) {
-                $router->post('/', 'QuestionController@store');
+            $router->group(['prefix' => 'users'], function (Router $router) {
+                $router->get('profile', 'UserController@profile');
+                $router->get('submissions', ['middleware' => ['auth'], 'uses' => 'UserController@submissions']);
+            });
+
+            $router->group(['prefix' => 'questions'], function (Router $router) {
+                $router->post('/', ['middleware' => ['auth'], 'uses' => 'QuestionController@store']);
                 $router->get('{id}', 'QuestionController@show');
             });
 

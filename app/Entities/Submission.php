@@ -53,6 +53,16 @@ class Submission extends Entity
     }
 
     /**
+     * Submission 的題目.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function question()
+    {
+        return $this->belongsTo(Question::class);
+    }
+
+    /**
      * Submission 的 judge 結果.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
