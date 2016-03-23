@@ -15,7 +15,7 @@ class CreateQuestionsTable extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title', 96);
-            $table->string('description', 2500);
+            $table->string('description', 10000);
             $table->string('test_data', 1500);
             $table->string('restriction', 1500);
             $table->boolean('public')->default(false)->index();

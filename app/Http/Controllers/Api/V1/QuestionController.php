@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Entities\Question;
 use App\Http\Requests\Api\V1;
+use Ramsey\Uuid\Uuid;
 
 class QuestionController extends ApiController
 {
@@ -15,11 +16,13 @@ class QuestionController extends ApiController
      */
     public function store(V1\QuestionRequest $request)
     {
-        $question = Question::create($request->only([
-            'title', 'description', 'test_data', 'restriction', 'public',
-        ]));
+        $question = new Question($request->only(['title', 'description', 'public']));
 
-        if (! $question->exists) {
+        $question->setAttribute('uuid', $request->has('uuid') ? $request->input('uuid') : Uuid::uuid4()->toString());
+
+        // parse judge field
+
+        if (! $question->save()) {
             return $this->responseUnknownError();
         }
 
@@ -34,7 +37,7 @@ class QuestionController extends ApiController
      */
     public function show($id)
     {
-        $question = Question::find($id);
+        $question = Question::where('public', true)->find($id);
 
         if (is_null($question)) {
             return $this->responseNotFound();

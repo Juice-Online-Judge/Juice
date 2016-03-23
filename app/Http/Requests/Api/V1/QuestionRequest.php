@@ -14,9 +14,10 @@ class QuestionRequest extends Request
     public function rules()
     {
         return [
+            'uuid'                  => 'sometimes|required|string|max:36|unique:questions',
             'title'                 => 'required|string|max:96',
             'description'           => 'required|string|max:2000',
-            'test_data'             => 'required|string|max:1200',
+//            'test_data'             => 'required|string|max:1200',
             'restriction'           => 'required|array',
             'restriction.time'      => 'required|numeric',
             'restriction.memory'    => 'required|numeric',

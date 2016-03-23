@@ -12,22 +12,25 @@ class Question extends Entity
      * @var array
      */
     protected $attributes = [
-        'restriction' => [
-            'time'    => 3.0,
-            'memory'  => 8,
-            'file'    => 3,
-            'library' => [],
+        'judge'   => [
+            'input'       => [],
+            'output'      => [],
+            'argument'    => [],
+            'restriction' => [
+                'time'    => 3.0,
+                'memory'  => 8,
+                'file'    => 3,
+                'library' => [],
+            ],
         ],
     ];
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $fillable = [
-        'title', 'description', 'test_data', 'restriction', 'public',
-    ];
+    protected $hidden = ['user_id'];
 
     /**
      * The attributes that should be cast to native types.
@@ -35,8 +38,8 @@ class Question extends Entity
      * @var array
      */
     protected $casts = [
-        'restriction' => 'array',
-        'public'      => 'boolean',
+        'judge'   => 'array',
+        'public' => 'boolean',
     ];
 
     /**
