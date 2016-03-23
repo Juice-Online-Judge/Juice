@@ -7,30 +7,11 @@ use App\Entities\Core\Entity;
 class Question extends Entity
 {
     /**
-     * The model's attributes.
-     *
-     * @var array
-     */
-    protected $attributes = [
-        'judge'   => [
-            'input'       => [],
-            'output'      => [],
-            'argument'    => [],
-            'restriction' => [
-                'time'    => 3.0,
-                'memory'  => 8,
-                'file'    => 3,
-                'library' => [],
-            ],
-        ],
-    ];
-
-    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = ['user_id'];
+    protected $hidden = ['id', 'user_id', 'public'];
 
     /**
      * The attributes that should be cast to native types.
@@ -38,7 +19,7 @@ class Question extends Entity
      * @var array
      */
     protected $casts = [
-        'judge'   => 'array',
+        'judge'  => 'array',
         'public' => 'boolean',
     ];
 
