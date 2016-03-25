@@ -65,17 +65,13 @@ export const fetchUserInfo = () => {
       return;
     }
     api({
-      path: 'auth/user'
+      path: 'users/profile'
     }).entity()
       .then((response) => {
-        if (response.user) {
-          dispatch(setUserInfo(response.user));
-        } else {
-          dispatch(setLoginState(false));
-        }
+        dispatch(setUserInfo(response));
       })
       .catch((error) => {
-        console.warn(error);
+        dispatch(setLoginState(false));
         if (error instanceof Error) {
           throw error;
         }
