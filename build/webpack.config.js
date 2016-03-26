@@ -26,9 +26,7 @@ const webpackConfig = {
 const APP_ENTRY_PATH = paths.base(config.dir_client) + '/main.js';
 
 webpackConfig.entry = {
-  app: __DEV__
-    ? [APP_ENTRY_PATH, 'webpack-hot-middleware/client?path=/__webpack_hmr']
-    : [APP_ENTRY_PATH],
+  app: [APP_ENTRY_PATH],
   vendor: config.compiler_vendor
 };
 
@@ -36,7 +34,7 @@ webpackConfig.entry = {
 // Bundle Output
 // ------------------------------------
 webpackConfig.output = {
-  filename: `[name].[${config.compiler_hash_type}].js`,
+  filename: `[name].js`,
   path: paths.base(config.dir_dist),
   publicPath: config.compiler_public_path
 };
@@ -59,9 +57,8 @@ webpackConfig.plugins = [
 ];
 
 if (__DEV__) {
-  debug('Enable plugins for live development (HMR, NoErrors).');
+  debug('Enable plugins for live development (NoErrors).');
   webpackConfig.plugins.push(
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   );
 } else if (__PROD__) {
@@ -111,9 +108,7 @@ webpackConfig.module.loaders = [{
   query: {
     cacheDirectory: true,
     plugins: ['transform-runtime', 'transform-decorators-legacy'],
-    presets: __DEV__
-      ? ['es2015', 'react', 'stage-0', 'react-hmre']
-      : ['es2015', 'react', 'stage-0']
+    presets: ['es2015', 'react', 'stage-0']
   }
 },
 {
