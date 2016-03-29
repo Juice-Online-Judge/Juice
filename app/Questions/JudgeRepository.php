@@ -45,12 +45,12 @@ class JudgeRepository extends Repository
     /**
      * Get judge info.
      *
-     * @return array|null
+     * @return array|void
      */
     public function getJudge()
     {
         if (is_null($this->request) || is_null($this->getBasePath())) {
-            return null;
+            return;
         }
 
         return [
@@ -95,7 +95,7 @@ class JudgeRepository extends Repository
 
         $this->$type = [
             'basePath'  => $this->getBasePath(),
-            'files'     => $this->request->hasFile("{$type}.file") 
+            'files'     => $this->request->hasFile("{$type}.file")
                 ? $this->ioUsingFiles($type, $this->request->file("{$type}.file"))
                 : $this->ioUsingTextarea($type, $this->request->input("{$type}.textarea")),
         ];

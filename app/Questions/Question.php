@@ -25,6 +25,18 @@ class Question extends Entity
     ];
 
     /**
+     * Scope a query to only include questions of a given type.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param bool $public
+     * @return $this
+     */
+    public function scopePublic($query, $public = true)
+    {
+        return $query->where('public', (bool) $public);
+    }
+
+    /**
      * 取得該題所有 submit 紀錄.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

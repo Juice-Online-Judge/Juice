@@ -16,7 +16,7 @@ class QuestionController extends ApiController
      */
     public function index()
     {
-        $questions = Question::where('public', true)->paginate();
+        $questions = Question::public()->paginate();
 
         return $this->setData($questions)->responseOk();
     }
@@ -53,7 +53,7 @@ class QuestionController extends ApiController
      */
     public function show($id)
     {
-        $question = Question::where('public', true)->find($id);
+        $question = Question::public()->find($id);
 
         if (is_null($question)) {
             return $this->responseNotFound();

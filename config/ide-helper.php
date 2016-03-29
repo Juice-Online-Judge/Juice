@@ -42,7 +42,12 @@ return [
     */
 
     'model_locations' => [
-        'app/Entities',
+        'app/Accounts',
+        'app/Configs',
+        'app/Core',
+        'app/Judges',
+        'app/Questions',
+        'app/Submissions',
     ],
 
     /*
