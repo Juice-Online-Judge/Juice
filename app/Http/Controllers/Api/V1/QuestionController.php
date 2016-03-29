@@ -10,6 +10,18 @@ use Ramsey\Uuid\Uuid;
 class QuestionController extends ApiController
 {
     /**
+     * Get questions.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index()
+    {
+        $questions = Question::where('public', true)->paginate();
+
+        return $this->setData($questions)->responseOk();
+    }
+
+    /**
      * Create a new question.
      *
      * @param V1\QuestionRequest $request

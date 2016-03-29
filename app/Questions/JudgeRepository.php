@@ -54,8 +54,8 @@ class JudgeRepository extends Repository
         }
 
         return [
-            'input'       => $this->getInput(),
-            'output'      => $this->getOutput(),
+            'input'        => $this->getInput(),
+            'output'       => $this->getOutput(),
             'arguments'    => $this->getArguments(),
             'restrictions' => $this->getRestrictions(),
         ];
@@ -95,7 +95,7 @@ class JudgeRepository extends Repository
 
         $this->$type = [
             'basePath'  => $this->getBasePath(),
-            'files' => $this->request->hasFile("{$type}.file")
+            'files'     => $this->request->hasFile("{$type}.file") 
                 ? $this->ioUsingFiles($type, $this->request->file("{$type}.file"))
                 : $this->ioUsingTextarea($type, $this->request->input("{$type}.textarea")),
         ];

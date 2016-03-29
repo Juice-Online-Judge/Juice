@@ -19,6 +19,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             });
 
             $router->group(['prefix' => 'questions'], function (Router $router) {
+                $router->get('/', 'QuestionController@index');
                 $router->post('/', ['middleware' => ['auth'], 'uses' => 'QuestionController@store']);
                 $router->get('{id}', 'QuestionController@show');
             });
