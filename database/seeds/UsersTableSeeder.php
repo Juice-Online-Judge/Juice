@@ -12,7 +12,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        if (app()->environment('local')) {
+        if (app()->environment('local') && ! User::where('username', 'test')->exists()) {
             factory(User::class)->create([
                 'username' => 'test',
                 'password' => bcrypt('test'),

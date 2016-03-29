@@ -11,14 +11,17 @@ $factory->define(App\Accounts\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Questions\Question::class, function (Faker\Generator $faker) {
     return [
+        'uuid' => $faker->uuid,
+        'user_id' => \App\Accounts\User::all(['id'])->random()->getAttribute('id'),
         'title' => $faker->sentence,
         'description' => $faker->paragraph,
-        'test_data' => $faker->sentence,
-        'restriction' => [
-            'time' => $faker->randomFloat(null, 1.0, 10.0),
-            'memory' => $faker->randomFloat(null, 1.0, 100.0),
-            'file' => $faker->numberBetween(0, 10),
-            'library' => $faker->randomElement(['strstr', 'strlen', 'malloc']),
+        'judge' => [
+            'restrictions' => [
+                'time' => $faker->randomFloat(null, 1.0, 10.0),
+                'memory' => $faker->randomFloat(null, 1.0, 100.0),
+                'file' => $faker->numberBetween(0, 10),
+                'library' => $faker->randomElement(['strstr', 'strlen', 'malloc']),
+            ],
         ],
         'public' => $faker->boolean(),
     ];
