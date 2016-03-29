@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Entities;
+namespace App\Submissions;
 
-use App\Entities\Core\Entity;
+use App\Core\Entity;
+use App\Judges\Judge;
+use App\Questions\Question;
 use Carbon\Carbon;
 
 class Submission extends Entity

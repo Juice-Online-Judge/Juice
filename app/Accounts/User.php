@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Entities\User;
+namespace App\Accounts;
 
-use App\Entities\Core\Entity;
-use App\Entities\Submission;
+use App\Core\Entity;
+use App\Submissions\Submission;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 

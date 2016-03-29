@@ -1,6 +1,6 @@
 <?php
 
-$factory->define(App\Entities\User\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Accounts\User::class, function (Faker\Generator $faker) {
     return [
         'username' => $faker->userName,
         'password' => bcrypt(str_random(10)),
@@ -9,7 +9,7 @@ $factory->define(App\Entities\User\User::class, function (Faker\Generator $faker
     ];
 });
 
-$factory->define(App\Entities\Question::class, function (Faker\Generator $faker) {
+$factory->define(App\Questions\Question::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->sentence,
         'description' => $faker->paragraph,
@@ -24,16 +24,16 @@ $factory->define(App\Entities\Question::class, function (Faker\Generator $faker)
     ];
 });
 
-$factory->define(App\Entities\Submission::class, function (Faker\Generator $faker) {
+$factory->define(App\Submissions\Submission::class, function (Faker\Generator $faker) {
     return [
-        'user_id' => \App\Entities\User\User::all(['id'])->random()->getAttribute('id'),
-        'question_id' => \App\Entities\Question::all(['id'])->random()->getAttribute('id'),
+        'user_id' => \App\Accounts\User::all(['id'])->random()->getAttribute('id'),
+        'question_id' => \App\Questions\Question::all(['id'])->random()->getAttribute('id'),
         'code' => $faker->paragraph,
         'submitted_at' => $faker->dateTime,
     ];
 });
 
-$factory->define(App\Entities\Judge::class, function (Faker\Generator $faker) {
+$factory->define(App\Judges\Judge::class, function (Faker\Generator $faker) {
     return [
         'result' => $faker->randomElement(['AC', 'WA', 'SE', 'CE', 'RE', 'TLE', 'MLE', 'EOF']),
         'compiled_info' => $faker->boolean() ? $faker->sentence : null,

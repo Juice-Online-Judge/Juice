@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Entities\Core;
+namespace App\Configs;
+
+use App\Core\Entity;
 
 class Config extends Entity
 {

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Entities\Question;
 use App\Http\Requests\Api\V1;
+use App\Questions\JudgeRepository;
+use App\Questions\Question;
 use Ramsey\Uuid\Uuid;
 
 class QuestionController extends ApiController
@@ -18,13 +19,16 @@ class QuestionController extends ApiController
     {
         $question = new Question($request->only(['title', 'description', 'public']));
 
-        $question->setAttribute('uuid', $request->has('uuid') ? $request->input('uuid') : Uuid::uuid4()->toString());
-
-        // parse judge field
+        $question->setAttribute('uuid', $request->input('uuid', '') ?: Uuid::uuid4()->toString())
+            ->setAttribute('judge', []);
 
         if (! $question->save()) {
             return $this->responseUnknownError();
         }
+
+        $question->setAttribute('judge', (new JudgeRepository($request, $question->getAttribute('id')))->getJudge());
+
+        $question->save();
 
         return $this->setData($question->fresh())->responseCreated();
     }

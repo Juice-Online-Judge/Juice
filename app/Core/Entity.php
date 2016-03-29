@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entities\Core;
+namespace App\Core;
 
 class Entity extends \Eloquent
 {

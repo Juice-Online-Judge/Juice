@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Entities;
+namespace App\Questions;
 
-use App\Entities\Core\Entity;
+use App\Core\Entity;
+use App\Submissions\Submission;
 
 class Question extends Entity
 {

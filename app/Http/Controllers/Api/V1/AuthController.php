@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Accounts\User;
 use App\Http\Requests\Api\V1;
-use App\Entities\User\User;
 use Auth;
 use Illuminate\Http\Request;
 
