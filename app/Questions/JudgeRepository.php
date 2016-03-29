@@ -2,8 +2,8 @@
 
 namespace App\Questions;
 
+use File;
 use Illuminate\Http\Request;
-use Storage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class JudgeRepository extends Repository
@@ -21,10 +21,10 @@ class JudgeRepository extends Repository
     /**
      * Create a new question repository instance.
      *
-     * @param Request $request
-     * @param int $questionId
+     * @param Request|null $request
+     * @param int|null $questionId
      */
-    public function __construct(Request $request, $questionId)
+    public function __construct(Request $request = null, $questionId = null)
     {
         $this->request = $request;
 
@@ -32,12 +32,27 @@ class JudgeRepository extends Repository
     }
 
     /**
+     * Remove input and output files according to the given question id.
+     *
+     * @param int|null $questionId
+     * @return bool
+     */
+    public function removeFiles($questionId = null)
+    {
+        return File::cleanDirectory($this->getBasePath($questionId));
+    }
+
+    /**
      * Get judge info.
      *
-     * @return array
+     * @return array|null
      */
     public function getJudge()
     {
+        if (is_null($this->request) || is_null($this->getBasePath())) {
+            return null;
+        }
+
         return [
             'input'       => $this->getInput(),
             'output'      => $this->getOutput(),
@@ -79,7 +94,7 @@ class JudgeRepository extends Repository
         }
 
         $this->$type = [
-            'base'  => $this->getBasePath(),
+            'basePath'  => $this->getBasePath(),
             'files' => $this->request->hasFile("{$type}.file")
                 ? $this->ioUsingFiles($type, $this->request->file("{$type}.file"))
                 : $this->ioUsingTextarea($type, $this->request->input("{$type}.textarea")),
@@ -116,7 +131,7 @@ class JudgeRepository extends Repository
     private function ioUsingTextarea($type, array $textarea)
     {
         return $this->storeIo($type, $textarea, function ($text, $index) use ($type) {
-            return Storage::disk()->put(get_target_path($this->getBasePath(), "{$type}_{$index}"), $text);
+            return File::put(get_target_path($this->getBasePath(), "{$type}_{$index}"), $text);
         });
     }
 
@@ -177,5 +192,31 @@ class JudgeRepository extends Repository
         }
 
         return $this->restrictions;
+    }
+
+    /**
+     * Set request.
+     *
+     * @param Request $request
+     * @return $this
+     */
+    public function setRequest(Request $request)
+    {
+        $this->request = $request;
+
+        return $this;
+    }
+
+    /**
+     * Use question id to set base path.
+     *
+     * @param int $questionId
+     * @return $this
+     */
+    public function setQuestionId($questionId)
+    {
+        $this->getBasePath($questionId);
+
+        return $this;
     }
 }
