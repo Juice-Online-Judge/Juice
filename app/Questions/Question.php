@@ -31,9 +31,9 @@ class Question extends Entity
      * @param bool $public
      * @return $this
      */
-    public function scopePublic($query, $public = true)
+    public function scopeIsPublic($query, $public = true)
     {
-        return $query->where('public', (bool) $public);
+        return $query->where('public', $public);
     }
 
     /**
