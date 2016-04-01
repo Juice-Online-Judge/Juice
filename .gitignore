@@ -9,3 +9,4 @@ resources/views/main.blade.php
 public/*.js
 public/*.map
 public/humans.txt
+*.log
