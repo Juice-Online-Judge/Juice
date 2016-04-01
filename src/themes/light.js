@@ -1,6 +1,6 @@
-import ThemeManager from 'material-ui/lib/styles/theme-manager';
-import LightRawTheme from 'material-ui/lib/styles/raw-themes/light-raw-theme';
+import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
+import LightBaseTheme from 'material-ui/lib/styles/baseThemes/lightBaseTheme';
 
-let theme = ThemeManager.getMuiTheme(LightRawTheme);
+let theme = getMuiTheme(LightBaseTheme);
 
 export default theme;

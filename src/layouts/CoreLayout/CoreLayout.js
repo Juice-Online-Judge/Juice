@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
-import Radium from 'radium';
-import Theme from 'material-ui/lib/styles/theme-decorator';
+import MuiThemeProvider from 'material-ui/lib/MuiThemeProvider';
 
 import '../../styles/core.scss';
 import theme from '../../themes/light';
@@ -16,8 +15,6 @@ import AppBar from 'components/AppBar';
 //
 // CoreLayout is a pure function of its props, so we can
 // define it with a plain javascript function...
-@Theme(theme)
-@Radium
 export class CoreLayout extends React.Component {
   static propTypes = {
     children: PropTypes.element
@@ -25,12 +22,14 @@ export class CoreLayout extends React.Component {
 
   render() {
     return (
-      <div className='page-container' style={ styles.container }>
-        <div className='view-container' style={ styles.container }>
-          <AppBar />
-          { this.props.children }
+      <MuiThemeProvider muiTheme={ theme }>
+        <div className='page-container' style={ styles.container }>
+          <div className='view-container' style={ styles.container }>
+            <AppBar />
+            { this.props.children }
+          </div>
         </div>
-      </div>
+      </MuiThemeProvider>
     );
   }
 }
