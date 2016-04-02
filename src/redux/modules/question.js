@@ -3,7 +3,7 @@ import { Record, List } from 'immutable';
 import api from 'lib/api';
 
 const QuestionState = new Record({
-  list: new List()
+  list: new List(),
   loading: true,
   page: 0,
   total: 0,
