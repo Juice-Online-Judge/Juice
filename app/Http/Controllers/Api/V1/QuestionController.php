@@ -16,7 +16,7 @@ class QuestionController extends ApiController
      */
     public function index()
     {
-        $questions = Question::isPublic()->paginate();
+        $questions = Question::isPublic()->paginate(null, ['id', 'uuid', 'title', 'created_at']);
 
         return $this->setData($questions)->responseOk();
     }
