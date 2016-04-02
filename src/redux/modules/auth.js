@@ -29,7 +29,7 @@ export const login = (username, password) => {
       entity: body
     }).entity()
       .then(() => {
-        dispatch(setLoginState(true));
+        dispatch(fetchUserInfo());
       })
       .catch((error) => {
         console.warn(error);
