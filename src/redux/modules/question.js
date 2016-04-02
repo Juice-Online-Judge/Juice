@@ -46,6 +46,10 @@ export const fetchQuestion = (query = { page: 1 }) => {
   };
 };
 
+export const actions = {
+  fetchQuestion
+};
+
 export default handleActions({
   [SET_QUESTION]: (state, { payload }) => state.merge(payload),
   [SET_LOADING]: (state, { payload }) => state.set('loading', payload),
