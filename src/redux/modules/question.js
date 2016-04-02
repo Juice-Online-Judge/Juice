@@ -20,7 +20,7 @@ export const setQuestion = createAction(SET_QUESTION);
 export const setLoading = createAction(SET_LOADING);
 export const setError = createAction(SET_ERROR);
 
-export const fetchQuestion(query = { page: 1 }) => {
+export const fetchQuestion = (query = { page: 1 }) => {
   return (dispatch) => {
     dispatch(setLoading(true));
     api({
@@ -39,12 +39,12 @@ export const fetchQuestion(query = { page: 1 }) => {
     .catch((error) => {
       dispatch(setLoading(false));
       dispatch(setError('Server error'));
-      if(error instanceof Error) {
+      if (error instanceof Error) {
         throw error;
       }
     });
   };
-}
+};
 
 export default handleActions({
   [SET_QUESTION]: (state, { payload }) => state.merge(payload),
