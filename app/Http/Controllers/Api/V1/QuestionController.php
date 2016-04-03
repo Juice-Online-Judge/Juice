@@ -48,12 +48,12 @@ class QuestionController extends ApiController
     /**
      * Get question content.
      *
-     * @param int $id
+     * @param string $uuid
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show($uuid)
     {
-        $question = Question::isPublic()->find($id);
+        $question = Question::isPublic()->where('uuid', $uuid)->first();
 
         if (is_null($question)) {
             return $this->responseNotFound();
