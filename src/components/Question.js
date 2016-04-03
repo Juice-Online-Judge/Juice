@@ -40,7 +40,7 @@ export class Question extends Component {
 
   get expandButton() {
     const { uuid } = this.props;
-    if (this.expanded) {
+    if (this.props.expanded) {
       return null;
     }
 
@@ -63,7 +63,9 @@ export class Question extends Component {
           showExpandableButton={ !expanded }
           title={ question.get('title') } />
         <CardText style={ styles.textContainer } expandable={ !expanded }>
-          { question.get('description') }
+          <div style={ styles.textWrap }>
+            { question.get('description') }
+          </div>
           { this.expandButton }
         </CardText>
         <CardActions expandable={ !expanded }>
@@ -94,6 +96,9 @@ const styles = {
   },
   textContainer: {
     position: 'relative'
+  },
+  textWrap: {
+    marginRight: '54px'
   }
 };
 
