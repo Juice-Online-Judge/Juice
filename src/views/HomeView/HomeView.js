@@ -13,22 +13,17 @@ export class HomeView extends React.Component {
 
   get questionList() {
     const { question } = this.props;
-    if (question.get('loading')) {
+    return question.get('uuids').map((uuid, idx) => {
       return (
-        <CenterLoading loading />
+        <Question uuid={ uuid } key={ idx } />
       );
-    } else {
-      return question.get('uuids').map((uuid, idx) => {
-        return (
-          <Question uuid={ uuid } key={ idx } />
-        );
-      });
-    }
+    });
   }
 
   render() {
     return (
       <div>
+        <CenterLoading loading={ question.get('loading') } />
         { this.questionList }
       </div>
     );
