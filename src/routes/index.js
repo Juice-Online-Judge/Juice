@@ -12,12 +12,14 @@ import NotFoundView from 'views/NotFoundView/NotFoundView';
 import SigninView from 'views/SigninView/SigninView';
 import SignupView from 'views/SignupView/SignupView';
 import QuestionView from 'views/QuestionView/QuestionView';
+import QuestionNewView from 'views/QuestionNewView/QuestionNewView';
 
 export default (
   <Route path='/' component={ CoreLayout }>
     <IndexRoute component={ HomeView } />
     <Route path='signin' component={ SigninView } />
     <Route path='signup' component={ SignupView } />
+    <Route path='question/new' component={ QuestionNewView } />
     <Route path='question/:uuid' component={ QuestionView } />
     <Route path='/404' component={ NotFoundView } />
     <Redirect from='*' to='/404' />

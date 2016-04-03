@@ -5,10 +5,17 @@ import { actions as questionActions } from 'redux/modules/question';
 
 import Question from 'components/Question';
 import CenterLoading from 'components/CenterLoading';
+import { RequestStatus } from 'lib/const';
 
 export class HomeView extends React.Component {
   componentDidMount() {
     this.props.fetchQuestion();
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.question.get('status') === RequestStatus.SUCCESS) {
+      this.props.clearStatus();
+    }
   }
 
   get questionList() {
@@ -21,9 +28,11 @@ export class HomeView extends React.Component {
   }
 
   render() {
+    const { question } = this.props;
+
     return (
       <div>
-        <CenterLoading loading={ question.get('loading') } />
+        <CenterLoading loading={ question.get('status') === RequestStatus.PENDING } />
         { this.questionList }
       </div>
     );
@@ -32,7 +41,8 @@ export class HomeView extends React.Component {
 
 HomeView.propTypes = {
   question: PropTypes.object.isRequired,
-  fetchQuestion: PropTypes.func.isRequired
+  fetchQuestion: PropTypes.func.isRequired,
+  clearStatus: PropTypes.func.isRequired
 };
 
 export default connect((state) => {
