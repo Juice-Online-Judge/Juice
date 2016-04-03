@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { autobind } from 'core-decorators';
 
 import { Link } from 'react-router';
 import Card from 'material-ui/lib/card/card';
@@ -9,26 +11,53 @@ import FlatButton from 'material-ui/lib/flat-button';
 import IconButton from 'material-ui/lib/icon-button';
 import LaunchIcon from 'material-ui/lib/svg-icons/action/launch';
 
-class Question extends Component {
+import { actions as questionActions, questionSelector } from 'redux/modules/question';
+
+export class Question extends Component {
+  componentDidMount() {
+    const { expanded } = this.props;
+    if (expanded) {
+      this.fetchQuestionDetail();
+    }
+  }
+
+  @autobind
+  handleExpandChange(expandedState) {
+    if (expandedState && !this.state.fetched) {
+      this.fetchQuestionDetail();
+    }
+  }
+
+  fetchQuestionDetail() {
+    const { question, uuid } = this.props;
+    if (question && question.get('detail')) {
+      this.setState({ fetched: true });
+      return;
+    }
+
+    this.props.fetchQuestionDetail(uuid);
+  }
+
   get expandButton() {
-    const { question } = this.props;
+    const { uuid } = this.props;
     if (this.expanded) {
       return null;
     }
 
     return (
-      <Link to={ `/question/${question.get('uuid')}` }>
+      <Link to={ `/question/${uuid}` }>
         <IconButton style={ styles.iconBtn }>
           <LaunchIcon />
         </IconButton>
       </Link>
     );
   }
+
   render() {
     const { question, expanded } = this.props;
 
     return (
-      <Card>
+      <Card onExpandChange={ this.handleExpandChange }>
         <CardTitle
           actAsExpander={ !expanded }
           showExpandableButton={ !expanded }
@@ -43,10 +72,16 @@ class Question extends Component {
       </Card>
     );
   }
+
+  state = {
+    fetched: false
+  };
 }
 
 Question.propTypes = {
-  question: PropTypes.object.isRequired,
+  uuid: PropTypes.string.isRequired,
+  question: PropTypes.object,
+  fetchQuestionDetail: PropTypes.func.isRequired,
   expanded: PropTypes.bool
 };
 
@@ -62,4 +97,6 @@ const styles = {
   }
 };
 
-export default Question;
+export default connect((state, props) => {
+  return { question: questionSelector(state, props) };
+}, questionActions)(Question);
