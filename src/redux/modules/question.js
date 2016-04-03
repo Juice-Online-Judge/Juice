@@ -1,12 +1,13 @@
 import { createAction, handleActions } from 'redux-actions';
 import { fromJS, Record, List, Map } from 'immutable';
 import api from 'lib/api';
+import { RequestStatus } from 'lib/const';
 import omit from 'lodash/omit';
 
 const QuestionState = new Record({
   uuids: new List(),
   entities: new Map(),
-  loading: true,
+  status: RequestStatus.PENDING,
   page: 0,
   total: 0,
   error: null
@@ -16,15 +17,17 @@ const initialState = new QuestionState();
 
 const SET_QUESTION = 'SET_QUESTION';
 const SET_QUESTION_DETAIL = 'SET_QUESTION_DETAIL';
-const SET_LOADING = 'SET_LOADING';
+const SET_STATUS = 'SET_STATUS';
 const SET_ERROR = 'SET_ERROR';
+const CLEAR_STATUS = 'CLEAR_STATUS';
 
 export const setQuestion = createAction(SET_QUESTION);
 export const setQuestionDetail = createAction(SET_QUESTION_DETAIL, (payload) => {
   return {detail: true, ...payload};
 });
-export const setLoading = createAction(SET_LOADING);
+export const setStatus = createAction(SET_STATUS);
 export const setError = createAction(SET_ERROR);
+export const clearStatus = createAction(CLEAR_STATUS);
 
 const normalizeQuestion = (questions) => {
   let uuids = [];
@@ -40,9 +43,17 @@ const normalizeQuestion = (questions) => {
   };
 };
 
+const handleError = (dispatch, error) => {
+  dispatch(setStatus(RequestStatus.FAIL));
+  dispatch(setError('Server error'));
+  if (error instanceof Error) {
+    throw error;
+  }
+};
+
 export const fetchQuestion = (query = { page: 1 }) => {
   return (dispatch) => {
-    dispatch(setLoading(true));
+    dispatch(setStatus(RequestStatus.PENDING));
     api({
       path: 'questions',
       params: query
@@ -55,21 +66,15 @@ export const fetchQuestion = (query = { page: 1 }) => {
         page: query.page,
         total: entity.total
       }));
-      dispatch(setLoading(false));
+      dispatch(setStatus(RequestStatus.SUCCESS));
     })
-    .catch((error) => {
-      dispatch(setLoading(false));
-      dispatch(setError('Server error'));
-      if (error instanceof Error) {
-        throw error;
-      }
-    });
+    .catch(handleError.bind(null, dispatch));
   };
 };
 
 export const fetchQuestionDetail = (uuid) => {
   return (dispatch) => {
-    dispatch(setLoading(true));
+    dispatch(setStatus(RequestStatus.PENDING));
     api({
       path: 'questions/{uuid}',
       params: {
@@ -79,15 +84,31 @@ export const fetchQuestionDetail = (uuid) => {
     .entity()
     .then((entity) => {
       dispatch(setQuestionDetail(entity));
-      dispatch(setLoading(false));
+      dispatch(setStatus(RequestStatus.SUCCESS));
     })
-    .catch((error) => {
-      dispatch(setLoading(false));
-      dispatch(setError('Server error'));
-      if (error instanceof Error) {
-        throw error;
-      }
-    });
+    .catch(handleError.bind(null, dispatch));
+  };
+};
+
+export const addQuestion = (data) => {
+  return (dispatch) => {
+    dispatch(setStatus(RequestStatus.PENDING));
+
+    if (!data.uuid) {
+      delete data.uuid;
+    }
+
+    api({
+      path: 'questions',
+      methods: 'POST',
+      entity: data
+    })
+    .entity()
+    .then((entity) => {
+      dispatch(setQuestionDetail(entity));
+      dispatch(setStatus(RequestStatus.SUCCESS));
+    })
+    .catch(handleError.bind(null, dispatch));
   };
 };
 
@@ -99,10 +120,12 @@ export const questionSelector = (state, props) => state.question
 export const actions = {
   fetchQuestion,
   fetchQuestionDetail,
+  addQuestion,
   setQuestion,
   setQuestionDetail,
-  setLoading,
-  setError
+  setStatus,
+  setError,
+  clearStatus
 };
 
 export default handleActions({
@@ -110,6 +133,7 @@ export default handleActions({
     .merge(omit(payload, 'entities')),
   [SET_QUESTION_DETAIL]: (state, { payload }) => state
     .setIn(['entities', payload.uuid], fromJS(omit(payload, 'uuid'))),
-  [SET_LOADING]: (state, { payload }) => state.set('loading', payload),
-  [SET_ERROR]: (state, { payload }) => state.set('error', payload)
+  [SET_STATUS]: (state, { payload }) => state.set('status', payload),
+  [SET_ERROR]: (state, { payload }) => state.set('error', payload),
+  [CLEAR_STATUS]: (state) => state.set('status', RequestStatus.NONE)
 }, initialState);
