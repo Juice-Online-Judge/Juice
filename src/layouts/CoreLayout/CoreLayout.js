@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { StyleRoot } from 'radium';
 import MuiThemeProvider from 'material-ui/lib/MuiThemeProvider';
 
 import '../../styles/core.scss';
@@ -16,8 +17,10 @@ export class CoreLayout extends React.Component {
       <MuiThemeProvider muiTheme={ theme }>
         <div className='page-container' style={ styles.container }>
           <div className='view-container' style={ styles.container }>
-            <AppBar />
-            { this.props.children }
+            <StyleRoot>
+              <AppBar />
+              { this.props.children }
+            </StyleRoot>
           </div>
         </div>
       </MuiThemeProvider>
