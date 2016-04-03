@@ -1,5 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
-import { Record, List, Map } from 'immutable';
+import { fromJS, Record, List, Map } from 'immutable';
 import api from 'lib/api';
 import omit from 'lodash/omit';
 
@@ -31,7 +31,7 @@ const normalizeQuestion = (questions) => {
   let entities = {};
   questions.forEach((question) => {
     uuids.push(question.uuid);
-    entities[question.uuid] = { detail: true, ...omit(question, 'uuid') };
+    entities[question.uuid] = { detail: false, ...omit(question, 'uuid') };
   });
 
   return {
@@ -78,7 +78,7 @@ export const fetchQuestionDetail = (uuid) => {
     })
     .entity()
     .then((entity) => {
-      setQuestionDetail(entity);
+      dispatch(setQuestionDetail(entity));
       dispatch(setLoading(false));
     })
     .catch((error) => {
@@ -93,7 +93,8 @@ export const fetchQuestionDetail = (uuid) => {
 
 // Selector
 
-export const questionSelector = (state, props) => state.question.getIn(['entities', props.uuid]);
+export const questionSelector = (state, props) => state.question
+  .getIn(['entities', props.uuid], new Map());
 
 export const actions = {
   fetchQuestion,
@@ -107,7 +108,8 @@ export const actions = {
 export default handleActions({
   [SET_QUESTION]: (state, { payload }) => state.mergeIn(['entities'], payload.entities)
     .merge(omit(payload, 'entities')),
-  [SET_QUESTION_DETAIL]: (state, { payload }) => state.setIn(['entities', payload.uuid], omit(payload, 'uuid')),
+  [SET_QUESTION_DETAIL]: (state, { payload }) => state
+    .setIn(['entities', payload.uuid], fromJS(omit(payload, 'uuid'))),
   [SET_LOADING]: (state, { payload }) => state.set('loading', payload),
   [SET_ERROR]: (state, { payload }) => state.set('error', payload)
 }, initialState);
