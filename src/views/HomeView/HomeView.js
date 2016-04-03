@@ -18,9 +18,9 @@ export class HomeView extends React.Component {
         <CenterLoading loading />
       );
     } else {
-      return question.get('list').map((ques, idx) => {
+      return question.get('uuids').map((uuid, idx) => {
         return (
-          <Question question={ ques } key={ idx } />
+          <Question uuid={ uuid } key={ idx } />
         );
       });
     }
