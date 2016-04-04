@@ -18,6 +18,8 @@ class QuestionController extends ApiController
     {
         $questions = Question::with(['tags'])->isPublic()->paginate(null, ['id', 'uuid', 'title', 'created_at']);
 
+        pluck_relation_field($questions->items(), 'tags', 'name', 'id');
+
         return $this->setData($questions)->responseOk();
     }
 
@@ -62,6 +64,8 @@ class QuestionController extends ApiController
         if (is_null($question)) {
             return $this->responseNotFound();
         }
+
+        pluck_relation_field($question, 'tags', 'name', 'id');
 
         return $this->setData($question)->responseOk();
     }

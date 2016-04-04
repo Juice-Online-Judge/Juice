@@ -20,7 +20,7 @@ class AccountController extends ApiController
             return $this->setMessages(['Unauthorized'])->responseUnauthorized();
         }
 
-        $user->setRelation('roles', $user->getRelation('roles')->pluck('name'));
+        pluck_relation_field($user, 'roles', 'name');
 
         return $this->setData($user)->responseOk();
     }
