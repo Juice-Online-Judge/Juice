@@ -17,8 +17,8 @@ import QuestionNewView from 'views/QuestionNewView/QuestionNewView';
 export default (
   <Route path='/' component={ CoreLayout }>
     <IndexRoute component={ HomeView } />
-    <Route path='signin' component={ SigninView } />
-    <Route path='signup' component={ SignupView } />
+    <Route path='sign-in' component={ SigninView } />
+    <Route path='sign-up' component={ SignupView } />
     <Route path='question/new' component={ QuestionNewView } />
     <Route path='question/:uuid' component={ QuestionView } />
     <Route path='/404' component={ NotFoundView } />
