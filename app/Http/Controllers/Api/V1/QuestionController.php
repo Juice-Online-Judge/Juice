@@ -16,7 +16,7 @@ class QuestionController extends ApiController
      */
     public function index()
     {
-        $questions = Question::isPublic()->paginate(null, ['id', 'uuid', 'title', 'created_at']);
+        $questions = Question::with(['tags'])->isPublic()->paginate(null, ['id', 'uuid', 'title', 'created_at']);
 
         return $this->setData($questions)->responseOk();
     }
@@ -41,8 +41,12 @@ class QuestionController extends ApiController
         $question->setAttribute('judge', (new JudgeRepository($request, $question->getAttribute('id')))->getJudge());
 
         $question->save();
+        
+        if ($request->has('tag')) {
+            $question->tags()->sync($request->input('tag'));
+        }
 
-        return $this->setData($question->fresh())->responseCreated();
+        return $this->setData($question->fresh(['tags']))->responseCreated();
     }
 
     /**
@@ -53,7 +57,7 @@ class QuestionController extends ApiController
      */
     public function show($uuid)
     {
-        $question = Question::isPublic()->where('uuid', $uuid)->first();
+        $question = Question::with(['tags'])->isPublic()->where('uuid', $uuid)->first();
 
         if (is_null($question)) {
             return $this->responseNotFound();

@@ -4,6 +4,7 @@ namespace App\Questions;
 
 use App\Core\Entity;
 use App\Submissions\Submission;
+use App\Tags\Tag;
 
 class Question extends Entity
 {
@@ -44,5 +45,15 @@ class Question extends Entity
     public function submissions()
     {
         return $this->hasMany(Submission::class);
+    }
+    
+    /**
+     * 取得該題的標籤.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
     }
 }

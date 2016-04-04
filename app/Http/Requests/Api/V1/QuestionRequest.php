@@ -36,6 +36,8 @@ class QuestionRequest extends Request
             'restriction.library'   => 'array',
             'restriction.library.*' => 'sometimes|required|string',
             'public'                => 'required|boolean',
+            'tag'                   => 'array',
+            'tag.*'                 => 'sometimes|required|integer|exists:tags',
         ];
     }
 }

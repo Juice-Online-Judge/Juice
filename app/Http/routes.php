@@ -28,6 +28,8 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 $router->post('/', 'SubmissionController@store');
                 $router->get('{id}', 'SubmissionController@show');
             });
+
+            $router->resource('tags', 'TagController', ['except' => ['create', 'edit']]);
         });
     });
 
