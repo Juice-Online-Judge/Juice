@@ -17,7 +17,7 @@ export class FileButton extends Component {
       <FlatButton label={ this.props.label } labelPosition='before'>
         <input type='file' style={ styles.file } onChange={ this.handleChange } />
       </FlatButton>
-    ):
+    );
   }
 
   static propTypes = {
