@@ -65,7 +65,7 @@ export const fetchUserInfo = () => {
       return;
     }
     api({
-      path: 'users/profile'
+      path: 'account/profile'
     }).entity()
       .then((response) => {
         dispatch(setUserInfo(response));
