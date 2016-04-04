@@ -29,6 +29,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 $router->get('{id}', 'SubmissionController@show');
             });
 
+            $router->resource('configs', 'ConfigController', ['only' => ['index', 'show', 'update']]);
             $router->resource('tags', 'TagController', ['except' => ['create', 'edit']]);
         });
     });
