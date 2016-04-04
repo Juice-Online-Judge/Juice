@@ -9,6 +9,13 @@ $factory->define(App\Accounts\User::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(\App\Accounts\Role::class, function (Faker\Generator $faker) {
+    return [
+        'name'   => $faker->word,
+        'remark' => $faker->boolean() ? $faker->sentence : null,
+    ];
+});
+
 $factory->define(App\Questions\Question::class, function (Faker\Generator $faker) {
     return [
         'uuid' => $faker->uuid,
@@ -39,10 +46,17 @@ $factory->define(App\Submissions\Submission::class, function (Faker\Generator $f
 $factory->define(App\Judges\Judge::class, function (Faker\Generator $faker) {
     return [
         'result' => $faker->randomElement(['AC', 'WA', 'SE', 'CE', 'RE', 'TLE', 'MLE', 'EOF']),
-        'compiled_info' => $faker->boolean() ? $faker->sentence : null,
+        'judge_message' => $faker->boolean() ? $faker->sentence : null,
         'time' => $faker->randomFloat(null, 1.0, 10.0),
         'memory' => $faker->randomFloat(null, 1.0, 100.0),
         'file' => $faker->numberBetween(0, 10),
         'judged_at' => $faker->dateTime,
+    ];
+});
+
+$factory->define(\App\Tags\Tag::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+        'type' => $faker->word,
     ];
 });

@@ -28,7 +28,7 @@ class Submission extends Entity
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'language'];
+    protected $fillable = ['user_id', 'language', 'submitted_at'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -62,19 +62,5 @@ class Submission extends Entity
     public function judge()
     {
         return $this->hasOne(Judge::class);
-    }
-
-    /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function (Submission $submission) {
-            $submission->setAttribute('submitted_at', Carbon::now());
-        });
     }
 }
