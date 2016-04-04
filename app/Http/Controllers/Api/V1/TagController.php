@@ -64,7 +64,7 @@ class TagController extends ApiController
 
         return $this->setData($tag)->responseOk();
     }
-    
+
     /**
      * Update tag info.
      *
@@ -92,7 +92,7 @@ class TagController extends ApiController
 
         return $this->setData($tag->fresh())->responseOk();
     }
-    
+
     /**
      * Delete the tag.
      *

@@ -17,14 +17,14 @@ class User extends Entity implements AuthenticatableContract
      * @var array
      */
     protected $hidden = ['password', 'remember_token', 'created_at', 'updated_at'];
-    
+
     /**
      * The relations to eager load on every query.
      *
      * @var array
      */
     protected $with = ['roles'];
-    
+
     /**
      * 使用者所屬群組.
      *

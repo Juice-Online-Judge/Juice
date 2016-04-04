@@ -43,7 +43,7 @@ class QuestionController extends ApiController
         $question->setAttribute('judge', (new JudgeRepository($request, $question->getAttribute('id')))->getJudge());
 
         $question->save();
-        
+
         if ($request->has('tag')) {
             $question->tags()->sync($request->input('tag'));
         }
