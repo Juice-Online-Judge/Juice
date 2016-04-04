@@ -16,6 +16,13 @@ class Tag extends Entity
     public $timestamps = false;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name'];
+
+    /**
      * 取得指定標籤的所有題目.
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany

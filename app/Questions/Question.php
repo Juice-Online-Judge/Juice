@@ -16,6 +16,13 @@ class Question extends Entity
     protected $hidden = ['id', 'user_id', 'public'];
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['title', 'description', 'public'];
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array
@@ -46,7 +53,7 @@ class Question extends Entity
     {
         return $this->hasMany(Submission::class);
     }
-    
+
     /**
      * 取得該題的標籤.
      *

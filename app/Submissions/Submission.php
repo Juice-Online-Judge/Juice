@@ -21,7 +21,7 @@ class Submission extends Entity
      *
      * @var array
      */
-    protected $hidden = ['user_id', 'question_id'];
+    protected $hidden = ['user_id', 'question_id', 'code'];
 
     /**
      * The accessors to append to the model's array form.
@@ -29,6 +29,13 @@ class Submission extends Entity
      * @var array
      */
     protected $appends = ['judging'];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['user_id', 'language'];
 
     /**
      * The attributes that should be mutated to dates.
