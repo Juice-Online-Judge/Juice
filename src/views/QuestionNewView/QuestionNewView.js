@@ -10,6 +10,8 @@ import FlatButton from 'material-ui/lib/flat-button';
 import Toggle from 'material-ui/lib/toggle';
 import SnackBar from 'material-ui/lib/snackbar';
 
+import FileArea from 'components/FileArea';
+
 import { actions as questionActions } from 'redux/modules/question';
 import { RequestStatus } from 'lib/const';
 
@@ -92,6 +94,9 @@ class QuestionNewView extends Component {
               multiLine
               onChange={ this.handleDescChange }
               rows={ 10 }/>
+          </CardActions>
+          <CardActions>
+            <FileArea />
           </CardActions>
           <CardActions>
             <Toggle
