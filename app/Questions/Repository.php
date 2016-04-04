@@ -23,9 +23,7 @@ class Repository
             return $this->basePath;
         }
 
-        $hash = md5($questionId);
-
-        $dir = get_target_path('questions', substr($hash, 0, 3), substr($hash, 3));
+        $dir = get_target_path('questions', intval(floor($questionId / 1000)), $questionId);
 
         $this->makeDirectoryIfNotExists($dir);
 
