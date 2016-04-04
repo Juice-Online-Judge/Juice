@@ -24,13 +24,6 @@ class Submission extends Entity
     protected $hidden = ['user_id', 'question_id', 'code'];
 
     /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
-     */
-    protected $appends = ['judging'];
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -50,16 +43,6 @@ class Submission extends Entity
      * @var array
      */
     protected $with = ['judge'];
-
-    /**
-     * Get the judging status.
-     *
-     * @return bool
-     */
-    public function getJudgingAttribute()
-    {
-        return is_null($this->getRelation('judge'));
-    }
 
     /**
      * Submission 的題目.

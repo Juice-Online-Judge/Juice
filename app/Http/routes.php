@@ -25,7 +25,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             });
 
             $router->group(['prefix' => 'submissions', 'middleware' => ['auth']], function (Router $router) {
-                $router->post('/', 'SubmissionController@store');
+                $router->post('{uuid}', 'SubmissionController@store')->middleware(['auth']);
                 $router->get('{id}', 'SubmissionController@show');
             });
 
