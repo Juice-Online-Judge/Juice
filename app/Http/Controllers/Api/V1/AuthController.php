@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Accounts\User;
-use App\Http\Requests\Api\V1;
+use App\Http\Requests\Api\V1\SignUpRequest;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -40,10 +40,10 @@ class AuthController extends ApiController
     /**
      * User sign up.
      *
-     * @param V1\SignUpRequest $request
+     * @param SignUpRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function signUp(V1\SignUpRequest $request)
+    public function signUp(SignUpRequest $request)
     {
         $user = new User($request->only(['username', 'nickname', 'email']));
 

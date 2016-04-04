@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\Api\V1;
+use App\Http\Requests\Api\V1\QuestionRequest;
 use App\Questions\JudgeRepository;
 use App\Questions\Question;
 use Ramsey\Uuid\Uuid;
@@ -26,10 +26,10 @@ class QuestionController extends ApiController
     /**
      * Create a new question.
      *
-     * @param V1\QuestionRequest $request
+     * @param QuestionRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(V1\QuestionRequest $request)
+    public function store(QuestionRequest $request)
     {
         $question = new Question($request->only(['title', 'description', 'public']));
 

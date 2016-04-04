@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\Api\V1;
+use App\Http\Requests\Api\V1\SubmissionRequest;
 use App\Questions\Question;
 use App\Submissions\Repository;
 use App\Submissions\Submission;
@@ -14,11 +14,11 @@ class SubmissionController extends ApiController
     /**
      * User submit code.
      *
-     * @param V1\SubmissionRequest $request
+     * @param SubmissionRequest $request
      * @param string $uuid
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(V1\SubmissionRequest $request, $uuid)
+    public function store(SubmissionRequest $request, $uuid)
     {
         $question = Question::where('uuid', $uuid)->first(['id']);
 
