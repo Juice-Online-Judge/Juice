@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
 
-class UserController extends ApiController
+class AccountController extends ApiController
 {
     /**
      * Get user profile.
@@ -17,8 +17,10 @@ class UserController extends ApiController
         $user = $request->user();
 
         if (is_null($user)) {
-            return $this->responseUnauthorized();
+            return $this->setMessages(['Unauthorized'])->responseUnauthorized();
         }
+
+        $user->setRelation('roles', $user->getRelation('roles')->pluck('name'));
 
         return $this->setData($user)->responseOk();
     }

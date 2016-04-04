@@ -7,21 +7,21 @@ use Illuminate\Routing\Router;
 $router->group(['middleware' => ['web']], function (Router $router) {
     $router->group(['prefix' => 'api', 'namespace' => 'Api'], function (Router $router) {
         $router->group(['prefix' => 'v1', 'namespace' => 'V1'], function (Router $router) {
-            $router->group(['prefix' => 'auth', 'middleware' => ['throttle:5,1']], function (Router $router) {
+            $router->group(['prefix' => 'auth'], function (Router $router) {
                 $router->post('sign-in', 'AuthController@signIn');
                 $router->get('sign-out', 'AuthController@signOut');
                 $router->post('sign-up', 'AuthController@signUp');
             });
 
-            $router->group(['prefix' => 'users'], function (Router $router) {
-                $router->get('profile', 'UserController@profile');
-                $router->get('submissions', ['middleware' => ['auth'], 'uses' => 'UserController@submissions']);
+            $router->group(['prefix' => 'account'], function (Router $router) {
+                $router->get('profile', 'AccountController@profile');
+                $router->get('submissions', 'AccountController@submissions')->middleware(['auth']);
             });
 
             $router->group(['prefix' => 'questions'], function (Router $router) {
                 $router->get('/', 'QuestionController@index');
-                $router->post('/', ['middleware' => ['auth'], 'uses' => 'QuestionController@store']);
-                $router->get('{id}', 'QuestionController@show');
+                $router->post('/', 'QuestionController@store')->middleware(['auth']);
+                $router->get('{uuid}', 'QuestionController@show');
             });
 
             $router->group(['prefix' => 'submissions', 'middleware' => ['auth']], function (Router $router) {
