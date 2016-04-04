@@ -2,9 +2,9 @@
 
 namespace App\Questions;
 
-use Storage;
+use App\Core\BaseRepository;
 
-class Repository
+class Repository extends BaseRepository
 {
     /**
      * @var string
@@ -23,24 +23,10 @@ class Repository
             return $this->basePath;
         }
 
-        $dir = get_target_path('questions', intval(floor($questionId / 1000)), $questionId);
+        $this->basePath = get_target_path($this->diskPath, 'questions', intval(floor($questionId / 1000)), $questionId);
 
-        $this->makeDirectoryIfNotExists($dir);
-
-        $this->basePath = get_target_path(config('filesystems.disks.local.root'), $dir);
+        $this->makeDirectoryIfNotExists($this->basePath);
 
         return $this->basePath;
-    }
-
-    /**
-     * Make the target directory if it does not exist.
-     *
-     * @param string $dir
-     */
-    protected function makeDirectoryIfNotExists($dir)
-    {
-        if (! Storage::disk()->exists($dir)) {
-            Storage::disk()->makeDirectory($dir);
-        }
     }
 }

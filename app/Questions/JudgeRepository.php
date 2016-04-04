@@ -26,6 +26,8 @@ class JudgeRepository extends Repository
      */
     public function __construct(Request $request = null, $questionId = null)
     {
+        parent::__construct();
+
         $this->request = $request;
 
         $this->getBasePath($questionId);
