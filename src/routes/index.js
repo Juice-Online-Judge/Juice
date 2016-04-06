@@ -21,7 +21,7 @@ export default (
     <Route path='sign-up' component={ SignupView } />
     <Route path='question/new' component={ QuestionNewView } />
     <Route path='question/:uuid' component={ QuestionView } />
-    <Route path='/404' component={ NotFoundView } />
-    <Redirect from='*' to='/404' />
+    <Route path='/page-not-found' component={ NotFoundView } />
+    <Redirect from='*' to='/page-not-found' />
   </Route>
 );
