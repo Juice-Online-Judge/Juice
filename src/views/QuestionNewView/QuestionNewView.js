@@ -8,6 +8,7 @@ import CardActions from 'material-ui/lib/card/card-actions';
 import SnackBar from 'material-ui/lib/snackbar';
 import Tabs from 'material-ui/lib/tabs/tabs';
 import Tab from 'material-ui/lib/tabs/tab';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 
 import { actions as questionActions } from 'redux/modules/question';
 import { RequestStatus } from 'lib/const';
@@ -71,6 +72,15 @@ class QuestionNewView extends Component {
       <div>
         <Card>
           <CardActions>
+            <Grid>
+              <Row end='md'>
+                <Col md={ 2 }>
+                  <FlatButton label='Add' onTouchTap={ this.handleAddQuestion } />
+                </Col>
+              </Row>
+            </Grid>
+          </CardActions>
+          <CardActions>
             <Tabs>
               <Tab label='Basic Info.'>
                 <BasicInfoTab onChange={ this.handleBasicInfoChange } />
@@ -82,9 +92,6 @@ class QuestionNewView extends Component {
                 <RestrictionTab onChange={ this.handleRestrictionChange } />
               </Tab>
             </Tabs>
-          </CardActions>
-          <CardActions>
-            <FlatButton label='Add' onTouchTap={ this.handleAddQuestion } />
           </CardActions>
         </Card>
         <SnackBar
