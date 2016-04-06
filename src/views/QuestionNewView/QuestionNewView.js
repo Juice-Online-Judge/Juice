@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
 import pick from 'lodash/pick';
-import mapKeys from 'lodash/mapKeys';
 
 import Card from 'material-ui/lib/card/card';
 import CardActions from 'material-ui/lib/card/card-actions';
@@ -15,12 +14,8 @@ import FileArea from 'components/FileArea';
 
 import { actions as questionActions } from 'redux/modules/question';
 import { RequestStatus } from 'lib/const';
+import { createFormDataDeep } from 'lib/utils';
 
-const toFormObject = (object, key) => {
-  return mapKeys(object, (_v, k) => {
-    return `${key}[${k}][]`;
-  });
-};
 
 class QuestionNewView extends Component {
   componentWillMount() {
@@ -63,7 +58,7 @@ class QuestionNewView extends Component {
 
   @autobind
   handleInputChange(content) {
-    this.setState(toFormObject(content, 'input'));
+    this.setState({ input: content });
   }
 
   @autobind
@@ -73,12 +68,11 @@ class QuestionNewView extends Component {
       'title',
       'description',
       'uuid',
-      'input[file][]',
-      'input[textarea][]',
+      'input',
       'output'
     ]);
 
-    this.props.addQuestion(data);
+    this.props.addQuestion(createFormDataDeep(data));
   }
 
   @autobind
