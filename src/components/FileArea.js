@@ -74,7 +74,7 @@ export class FileArea extends Component {
         <div>
           <RadioButtonGroup
             name={ `FileArea-type-${uniqueId()}` }
-            defaultSelect='file'
+            defaultSelected='file'
             onChange={ this.handleTypeChange }>
             <RadioButton
               style={ styles.radio }
