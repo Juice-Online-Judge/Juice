@@ -1,21 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
-import pick from 'lodash/pick';
 
+import FlatButton from 'material-ui/lib/flat-button';
 import Card from 'material-ui/lib/card/card';
 import CardActions from 'material-ui/lib/card/card-actions';
-import TextField from 'material-ui/lib/text-field';
-import FlatButton from 'material-ui/lib/flat-button';
-import Toggle from 'material-ui/lib/toggle';
 import SnackBar from 'material-ui/lib/snackbar';
-
-import FileArea from 'components/FileArea';
+import Tabs from 'material-ui/lib/tabs/tabs';
+import Tab from 'material-ui/lib/tabs/tab';
 
 import { actions as questionActions } from 'redux/modules/question';
 import { RequestStatus } from 'lib/const';
 import { createFormDataDeep } from 'lib/utils';
-
+import BasicInfoTab from './BasicInfoTab';
+import AnswerTab from './AnswerTab';
 
 class QuestionNewView extends Component {
   componentWillMount() {
@@ -37,41 +35,22 @@ class QuestionNewView extends Component {
   }
 
   @autobind
-  handleUuidChange(event) {
-    this.setState({ uuid: event.target.value });
+  handleBasicInfoChange(data) {
+    this.setState({ basicInfo: data });
   }
 
   @autobind
-  handleTitleChange(event) {
-    this.setState({ title: event.target.value });
-  }
-
-  @autobind
-  handleDescChange(event) {
-    this.setState({ description: event.target.value });
-  }
-
-  @autobind
-  handlePublicChange(event) {
-    this.setState({ public: event.target.checked });
-  }
-
-  @autobind
-  handleInputChange(content) {
-    this.setState({ input: content });
+  handleAnswerChange(data) {
+    this.setState({ answer: data });
   }
 
   @autobind
   handleAddQuestion() {
-    const data = pick(this.state, [
-      'public',
-      'title',
-      'description',
-      'uuid',
-      'input',
-      'output'
-    ]);
-
+    const data = Object.assign(
+      {},
+      this.state.basicInfo,
+      this.state.answer
+    );
     this.props.addQuestion(createFormDataDeep(data));
   }
 
@@ -85,34 +64,14 @@ class QuestionNewView extends Component {
       <div>
         <Card>
           <CardActions>
-            <TextField
-              floatingLabelText='UUID (optional)'
-              fullWidth
-              onChange={ this.handleUuidChange } />
-          </CardActions>
-          <CardActions>
-            <TextField
-              floatingLabelText='Title'
-              fullWidth
-              onChange={ this.handleTitleChange } />
-          </CardActions>
-          <CardActions>
-            <TextField
-              floatingLabelText='Description'
-              fullWidth
-              multiLine
-              onChange={ this.handleDescChange }
-              rows={ 10 }/>
-          </CardActions>
-          <CardActions>
-            <FileArea onChange={ this.handleInputChange } />
-          </CardActions>
-          <CardActions>
-            <Toggle
-              label='Public'
-              labelPosition='right'
-              defaultToggled
-              onToggle={ this.handlePublicChange } />
+            <Tabs>
+              <Tab label='Basic Info.'>
+                <BasicInfoTab onChange={ this.handleBasicInfoChange } />
+              </Tab>
+              <Tab label='Answer'>
+                <AnswerTab onChange={ this.handleAnswerChange } />
+              </Tab>
+            </Tabs>
           </CardActions>
           <CardActions>
             <FlatButton label='Add' onTouchTap={ this.handleAddQuestion } />
@@ -128,11 +87,6 @@ class QuestionNewView extends Component {
   }
 
   state = {
-    uuid: '',
-    title: '',
-    description: '',
-    public: true,
-    input: null,
     message: 'Add success',
     open: false
   };
