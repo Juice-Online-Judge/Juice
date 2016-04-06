@@ -132,8 +132,7 @@ class QuestionNewView extends Component {
     title: '',
     description: '',
     public: true,
-    'input.textarea': null,
-    'input.file': null,
+    input: null,
     message: 'Add success',
     open: false
   };
