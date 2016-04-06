@@ -1,7 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { autobind } from 'core-decorators';
+import uniqueId from 'lodash/uniqueId';
+import toArray from 'lodash/toArray';
 
 import TextField from 'material-ui/lib/text-field';
+import RadioButton from 'material-ui/lib/radio-button';
+import RadioButtonGroup from 'material-ui/lib/radio-button-group';
 
 import FileButton from './FileButton';
 
@@ -9,14 +13,9 @@ export class FileArea extends Component {
   @autobind
   handleFileChange(fileList) {
     const content = {};
+
     content[this.props.textKey] = null;
-    if (fileList.length) {
-      content[this.props.fileKey] = fileList[0];
-      this.setState({ file: fileList[0] });
-    } else {
-      content[this.props.fileKey] = null;
-      this.setState({ file: null });
-    }
+    content[this.props.fileKey] = toArray(fileList);
 
     this.handleChange(content);
   }
@@ -25,49 +24,75 @@ export class FileArea extends Component {
   handleTextChange(event) {
     const { value } = event.target;
     const content = {};
+
     content[this.props.fileKey] = null;
     content[this.props.textKey] = null;
     if (value) {
       content[this.props.textKey] = value;
     }
 
-    this.setState({ text: value });
     this.handleChange(content);
   }
 
   handleChange(content) {
-    const { fileKey } = this.props;
-    if (!content[fileKey] && this.state.file) {
-      // Don't fire change event on textarea change when both input have value
-      return;
-    }
-
     if (this.props.onChange) {
       this.props.onChange(content);
     }
   }
 
-  render() {
+  @autobind
+  handleTypeChange(event) {
+    const { value } = event.target;
+    this.setState({ type: value });
+  }
+
+  areaContent(type) {
     const { label, rows } = this.props;
-    return (
-      <div>
+
+    if (type === 'file') {
+      return (
         <div>
-          <FileButton onChange={ this.handleFileChange } label={ label } />
+          <FileButton onChange={ this.handleFileChange } multiple label={ label } />
         </div>
+      );
+    } else {
+      return (
         <div>
           <TextField
             onChange={ this.handleTextChange }
-            floatingLabelText='Or input in here'
+            floatingLabelText='Input in here'
             multiLine
             rows={ rows } />
         </div>
+      );
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <div>
+          <RadioButtonGroup
+            name={ `FileArea-type-${uniqueId()}` }
+            defaultSelect='file'
+            onChange={ this.handleTypeChange }>
+            <RadioButton
+              style={ styles.radio }
+              value='file'
+              label='File' />
+            <RadioButton
+              style={ styles.radio }
+              value='textarea'
+              label='TextArea' />
+          </RadioButtonGroup>
+        </div>
+        { this.areaContent(this.state.type) }
       </div>
     );
   }
 
   state = {
-    file: null,
-    text: ''
+    type: 'file'
   };
 
   static propTypes = {
@@ -85,5 +110,13 @@ export class FileArea extends Component {
     textKey: 'textarea'
   };
 }
+
+const styles = {
+  radio: {
+    display: 'inline-block',
+    width: 'auto',
+    marginRight: '15px'
+  }
+};
 
 export default FileArea;
