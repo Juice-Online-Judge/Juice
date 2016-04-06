@@ -101,6 +101,9 @@ export const addQuestion = (data) => {
     api({
       path: 'questions',
       methods: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
       entity: data
     })
     .entity()
