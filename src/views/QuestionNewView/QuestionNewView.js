@@ -74,7 +74,7 @@ class QuestionNewView extends Component {
           <CardActions>
             <Grid>
               <Row end='xs'>
-                <Col md={ 2 } xs={ 6 }>
+                <Col md={ 2 } sm={ 6 }>
                   <FlatButton label='Add' onTouchTap={ this.handleAddQuestion } />
                 </Col>
               </Row>
