@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { autobind } from 'core-decorators';
+import map from 'lodash/map';
 
 import FlatButton from 'material-ui/lib/flat-button';
 import TextField from 'material-ui/lib/text-field';
@@ -9,7 +10,10 @@ export class FileButton extends Component {
   handleChange(event) {
     const files = event.target.files;
     if (files.length) {
-      this.setState({ filename: files[0].name });
+      const filename = map(files, (file) => {
+        return file.name;
+      }).join(', ');
+      this.setState({ filename });
     } else {
       this.setState({ filename: null });
     }
@@ -22,8 +26,14 @@ export class FileButton extends Component {
   render() {
     return (
       <div>
-        <FlatButton primary label={ this.props.label } labelPosition='before'>
-          <input type='file' style={ styles.file } onChange={ this.handleChange } />
+        <FlatButton
+          primary
+          label={ this.props.label }
+          labelPosition='before'>
+          <input type='file'
+            style={ styles.file }
+            multiple={ this.props.multiple }
+            onChange={ this.handleChange } />
         </FlatButton>
         <TextField hintText='Please select file' value={ this.state.filename } />
       </div>
@@ -36,7 +46,8 @@ export class FileButton extends Component {
 
   static propTypes = {
     label: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    multiple: PropTypes.bool
   };
 }
 
