@@ -128,7 +128,7 @@ const cssLoader = !config.compiler_css_modules
 
 webpackConfig.module.loaders.push({
   test: /\.scss$/,
-  include: /src/,
+  include: /(src|flexboxgrid)/,
   loaders: [
     'style',
     cssLoader,
@@ -139,7 +139,7 @@ webpackConfig.module.loaders.push({
 
 webpackConfig.module.loaders.push({
   test: /\.css$/,
-  include: /src/,
+  include: /(src|flexboxgrid)/,
   loaders: [
     'style',
     cssLoader,
@@ -150,7 +150,7 @@ webpackConfig.module.loaders.push({
 // Don't treat global SCSS as modules
 webpackConfig.module.loaders.push({
   test: /\.scss$/,
-  exclude: /src/,
+  exclude: /(src|flexboxgrid)/,
   loaders: [
     'style',
     'css?sourceMap',
@@ -162,7 +162,7 @@ webpackConfig.module.loaders.push({
 // Don't treat global, third-party CSS as modules
 webpackConfig.module.loaders.push({
   test: /\.css$/,
-  exclude: /src/,
+  exclude: /(src|flexboxgrid)/,
   loaders: [
     'style',
     'css?sourceMap',
