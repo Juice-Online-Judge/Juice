@@ -14,9 +14,9 @@ class JudgeRepository extends Repository
 
     private $output;
 
-    private $arguments;
+    private $argument;
 
-    private $restrictions;
+    private $restriction;
 
     /**
      * Create a new question repository instance.
@@ -58,8 +58,8 @@ class JudgeRepository extends Repository
         return [
             'input'        => $this->getInput(),
             'output'       => $this->getOutput(),
-            'arguments'    => $this->getArguments(),
-            'restrictions' => $this->getRestrictions(),
+            'argument'     => $this->getArgument(),
+            'restriction'  => $this->getRestriction(),
         ];
     }
 
@@ -161,39 +161,39 @@ class JudgeRepository extends Repository
     }
 
     /**
-     * Get the compile arguments.
+     * Get the compile argument.
      *
      * @return array
      */
-    protected function getArguments()
+    protected function getArgument()
     {
-        if (! is_null($this->arguments)) {
-            return $this->arguments;
+        if (! is_null($this->argument)) {
+            return $this->argument;
         }
 
-        $this->arguments = $this->request->input('arguments');
+        $this->argument = $this->request->input('argument');
 
-        return $this->arguments;
+        return $this->argument;
     }
 
     /**
-     * Get the judge restrictions.
+     * Get the judge restriction.
      *
      * @return array
      */
-    protected function getRestrictions()
+    protected function getRestriction()
     {
-        if (! is_null($this->restrictions)) {
-            return $this->restrictions;
+        if (! is_null($this->restriction)) {
+            return $this->restriction;
         }
 
-        $this->restrictions = $this->request->input('restrictions');
+        $this->restriction = $this->request->input('restriction');
 
-        if (! isset($this->restrictions['library'])) {
-            $this->restrictions['library'] = [];
+        if (! isset($this->restriction['library'])) {
+            $this->restriction['library'] = [];
         }
 
-        return $this->restrictions;
+        return $this->restriction;
     }
 
     /**
