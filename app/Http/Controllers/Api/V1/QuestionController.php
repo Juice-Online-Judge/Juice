@@ -33,7 +33,8 @@ class QuestionController extends ApiController
     {
         $question = new Question($request->only(['title', 'description', 'public']));
 
-        $question->setAttribute('uuid', $request->input('uuid', '') ?: Uuid::uuid4()->toString())
+        $question->setAttribute('user_id', $request->user()->getAuthIdentifier())
+            ->setAttribute('uuid', $request->input('uuid', '') ?: Uuid::uuid4()->toString())
             ->setAttribute('judge', []);
 
         if (! $question->save()) {
