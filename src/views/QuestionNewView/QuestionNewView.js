@@ -14,6 +14,7 @@ import { RequestStatus } from 'lib/const';
 import { createFormDataDeep } from 'lib/utils';
 import BasicInfoTab from './BasicInfoTab';
 import AnswerTab from './AnswerTab';
+import RestrictionTab from './RestrictionTab';
 
 class QuestionNewView extends Component {
   componentWillMount() {
@@ -45,11 +46,17 @@ class QuestionNewView extends Component {
   }
 
   @autobind
+  handleRestrictionChange(data) {
+    this.setState({ restriction: data });
+  }
+
+  @autobind
   handleAddQuestion() {
     const data = Object.assign(
       {},
       this.state.basicInfo,
-      this.state.answer
+      this.state.answer,
+      this.state.restriction
     );
     this.props.addQuestion(createFormDataDeep(data));
   }
@@ -70,6 +77,9 @@ class QuestionNewView extends Component {
               </Tab>
               <Tab label='Answer'>
                 <AnswerTab onChange={ this.handleAnswerChange } />
+              </Tab>
+              <Tab label='Restriction'>
+                <RestrictionTab onChange={ this.handleRestrictionChange } />
               </Tab>
             </Tabs>
           </CardActions>
