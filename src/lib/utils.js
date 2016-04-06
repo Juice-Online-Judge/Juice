@@ -1,6 +1,7 @@
 import mapKeys from 'lodash/mapKeys';
 import isArray from 'lodash/isArray';
 import isObject from 'lodash/isObject';
+import isBoolean from 'lodash/isBoolean';
 import forEach from 'lodash/forEach';
 
 export const prefixKeys = (object, prefix) => {
@@ -30,6 +31,9 @@ export const createFormDataDeep = (object) => {
     if (data instanceof File) {
       formData.append(key, data, data.name);
     } else if (!isArray(data) && !isObject(data)) {
+      if (isBoolean(data)) {
+        data = data ? 1 : 0;
+      }
       formData.append(key, String(data));
     } else {
       createFormData(data, key);
