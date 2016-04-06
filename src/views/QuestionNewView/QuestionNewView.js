@@ -55,12 +55,18 @@ class QuestionNewView extends Component {
   }
 
   @autobind
+  handleInputChange(content) {
+    this.setState({ input: content });
+  }
+
+  @autobind
   handleAddQuestion() {
     const data = pick(this.state, [
       'public',
       'title',
       'description',
-      'uuid'
+      'uuid',
+      'input'
     ]);
 
     this.props.addQuestion(data);
@@ -96,7 +102,7 @@ class QuestionNewView extends Component {
               rows={ 10 }/>
           </CardActions>
           <CardActions>
-            <FileArea />
+            <FileArea onChange={ this.handleInputChange } />
           </CardActions>
           <CardActions>
             <Toggle
@@ -123,6 +129,10 @@ class QuestionNewView extends Component {
     title: '',
     description: '',
     public: true,
+    input: {
+      file: null,
+      textarea: null
+    },
     message: 'Add success',
     open: false
   };
