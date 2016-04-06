@@ -28,7 +28,7 @@ export class FileArea extends Component {
     content[this.props.fileKey] = null;
     content[this.props.textKey] = null;
     if (value) {
-      content[this.props.textKey] = value;
+      content[this.props.textKey] = [value];
     }
 
     this.handleChange(content);
