@@ -23,6 +23,10 @@ export const createFormDataDeep = (object) => {
     }
   };
   const appendFormData = (key, data) => {
+    if (data === null) {
+      return;
+    }
+
     if (data instanceof File) {
       formData.append(key, data, data.name);
     } else if (!isArray(data) && !isObject(data)) {
