@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
 import uniqueId from 'lodash/uniqueId';
 
@@ -9,6 +10,7 @@ import FlatButton from 'material-ui/lib/flat-button';
 import FileArea from './FileArea';
 import Label from './Label';
 
+import { actions as submissionActions } from 'redux/modules/submission';
 import commonStyles from 'lib/styles';
 
 export class SubmitCode extends Component {
@@ -24,6 +26,8 @@ export class SubmitCode extends Component {
 
   @autobind
   handleSubmit() {
+    const { uuid } = this.props;
+    this.props.submitCode(uuid, this.state);
   }
 
   render() {
@@ -56,6 +60,13 @@ export class SubmitCode extends Component {
     );
   }
 
+  static propTypes = {
+    uuid: PropTypes.string.isRequired,
+    submission: PropTypes.object.isRequired,
+    submitCode: PropTypes.func.isRequired,
+    expanded: PropTypes.bool
+  };
+
   state = {
     language: 'c'
   };
@@ -67,4 +78,6 @@ const styles = {
   }
 };
 
-export default SubmitCode;
+export default connect((state) => {
+  return { submission: state.submission };
+}, submissionActions)(SubmitCode);
