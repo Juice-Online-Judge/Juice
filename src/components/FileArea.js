@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { autobind } from 'core-decorators';
 import uniqueId from 'lodash/uniqueId';
 import toArray from 'lodash/toArray';
+import times from 'lodash/times';
+import clone from 'lodash/clone';
 
 import TextField from 'material-ui/lib/text-field';
 import RadioButton from 'material-ui/lib/radio-button';
@@ -22,14 +24,21 @@ export class FileArea extends Component {
   }
 
   @autobind
-  handleTextChange(event) {
+  handleTextChange(event, idx) {
     const { value } = event.target;
+    const { multiple } = this.props;
     const content = {};
+    const textarea = clone(this.state.textarea);
 
     content[this.props.fileKey] = null;
     content[this.props.textKey] = null;
     if (value) {
-      content[this.props.textKey] = [value];
+      if (multiple) {
+        textarea[idx] = value;
+        content[this.props.textKey] = textarea;
+      } else {
+        content[this.props.textKey] = value;
+      }
     }
 
     this.handleChange(content);
@@ -47,8 +56,33 @@ export class FileArea extends Component {
     this.setState({ type: value });
   }
 
+  get textareas() {
+    const { rows, multiple } = this.props;
+
+    if (multiple) {
+      return times(this.state.count, (idx) => {
+        return (
+          <TextField
+            onChange={ (event) => this.handleTextChange(event, idx) }
+            floatingLabelText='Input in here'
+            multiLine
+            key={ idx }
+            rows={ rows } />
+        );
+      });
+    } else {
+      return (
+        <TextField
+          onChange={ (event) => this.handleTextChange(event) }
+          floatingLabelText='Input in here'
+          multiLine
+          rows={ rows } />
+      );
+    }
+  }
+
   areaContent(type) {
-    const { label, rows } = this.props;
+    const { label } = this.props;
 
     if (type === 'file') {
       return (
@@ -62,11 +96,7 @@ export class FileArea extends Component {
     } else {
       return (
         <div>
-          <TextField
-            onChange={ this.handleTextChange }
-            floatingLabelText='Input in here'
-            multiLine
-            rows={ rows } />
+          { this.textareas }
         </div>
       );
     }
@@ -96,7 +126,9 @@ export class FileArea extends Component {
   }
 
   state = {
-    type: 'file'
+    type: 'file',
+    count: 1,
+    textarea: []
   };
 
   static propTypes = {
