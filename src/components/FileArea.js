@@ -8,6 +8,7 @@ import RadioButton from 'material-ui/lib/radio-button';
 import RadioButtonGroup from 'material-ui/lib/radio-button-group';
 
 import FileButton from './FileButton';
+import styles from 'lib/styles';
 
 export class FileArea extends Component {
   @autobind
@@ -52,7 +53,10 @@ export class FileArea extends Component {
     if (type === 'file') {
       return (
         <div>
-          <FileButton onChange={ this.handleFileChange } multiple label={ label } />
+          <FileButton
+            onChange={ this.handleFileChange }
+            multiple={ this.props.multiple }
+            label={ label } />
         </div>
       );
     } else {
@@ -77,11 +81,11 @@ export class FileArea extends Component {
             defaultSelected='file'
             onChange={ this.handleTypeChange }>
             <RadioButton
-              style={ styles.radio }
+              style={ styles.inlineRadio }
               value='file'
               label='File' />
             <RadioButton
-              style={ styles.radio }
+              style={ styles.inlineRadio }
               value='textarea'
               label='TextArea' />
           </RadioButtonGroup>
@@ -100,6 +104,7 @@ export class FileArea extends Component {
     rows: PropTypes.number,
     fileKey: PropTypes.string,
     textKey: PropTypes.string,
+    multiple: PropTypes.bool,
     onChange: PropTypes.func
   };
 
@@ -110,13 +115,5 @@ export class FileArea extends Component {
     textKey: 'textarea'
   };
 }
-
-const styles = {
-  radio: {
-    display: 'inline-block',
-    width: 'auto',
-    marginRight: '15px'
-  }
-};
 
 export default FileArea;
