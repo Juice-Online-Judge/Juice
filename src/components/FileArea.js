@@ -4,6 +4,7 @@ import uniqueId from 'lodash/uniqueId';
 import toArray from 'lodash/toArray';
 import times from 'lodash/times';
 import clone from 'lodash/clone';
+import omit from 'lodash/omit';
 
 import TextField from 'material-ui/lib/text-field';
 import RadioButton from 'material-ui/lib/radio-button';
@@ -62,8 +63,9 @@ export class FileArea extends Component {
     if (multiple) {
       return times(this.state.count, (idx) => {
         return (
-          <TextField
-            onChange={ (event) => this.handleTextChange(event, idx) }
+          <IndexableTextField
+            onChange={ this.handleTextChange }
+            index={ idx }
             floatingLabelText='Input in here'
             multiLine
             key={ idx }
@@ -73,7 +75,7 @@ export class FileArea extends Component {
     } else {
       return (
         <TextField
-          onChange={ (event) => this.handleTextChange(event) }
+          onChange={ this.handleTextChange }
           floatingLabelText='Input in here'
           multiLine
           rows={ rows } />
@@ -149,3 +151,26 @@ export class FileArea extends Component {
 }
 
 export default FileArea;
+
+class IndexableTextField extends Component {
+  @autobind
+  handleChange(event) {
+    const { onChange, index } = this.props;
+    if (onChange) {
+      onChange(event, index);
+    }
+  }
+
+  render() {
+    const props = omit(this.props, ['index', 'onChange']);
+
+    return (
+      <TextField onChange={ this.handleChange } { ...props } />
+    );
+  }
+
+  static propTypes = {
+    index: PropTypes.number.isRequired,
+    onChange: PropTypes.func
+  };
+}
