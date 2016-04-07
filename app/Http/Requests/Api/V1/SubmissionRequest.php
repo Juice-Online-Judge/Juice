@@ -14,7 +14,8 @@ class SubmissionRequest extends Request
     public function rules()
     {
         return [
-            'code' => 'required',
+            'code'     => 'required',
+            'language' => 'required',
         ];
     }
 }
