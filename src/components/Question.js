@@ -59,23 +59,31 @@ export class Question extends Component {
   render() {
     const { uuid, question, expanded } = this.props;
 
-    return (
-      <Card onExpandChange={ this.handleExpandChange }>
-        <CardTitle
-          actAsExpander={ !expanded }
-          showExpandableButton={ !expanded }
-          title={ question.get('title') } />
-        <CardText style={ styles.textContainer } expandable={ !expanded }>
-          <div style={ styles.textWrap }>
-            { question.get('description') }
-          </div>
-          { this.expandButton }
-        </CardText>
-        <CardActions expandable={ !expanded }>
-          <SubmitArea uuid={ uuid } expanded={ expanded } />
-        </CardActions>
-      </Card>
-    );
+    if (expanded) {
+      return (
+        <Card>
+          <CardTitle
+            title={ question.get('title') } />
+          <CardText style={ styles.textContainer }>
+            <div style={ styles.textWrap }>
+              { question.get('description') }
+            </div>
+          </CardText>
+          <CardActions>
+            <SubmitArea expanded uuid={ uuid }/>
+          </CardActions>
+        </Card>
+      );
+    } else {
+      return (
+        <Link style={ styles.noUnderline } to={ `/question/${uuid}` }>
+          <Card>
+            <CardTitle
+              title={ question.get('title') } />
+          </Card>
+        </Link>
+      );
+    }
   }
 
   state = {
@@ -167,5 +175,8 @@ const styles = {
   },
   textWrap: {
     marginRight: '54px'
+  },
+  noUnderline: {
+    textDecoration: 'none'
   }
 };
