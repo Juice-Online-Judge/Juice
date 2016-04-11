@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import Question from 'components/Question';
-import Inset from 'components/Inset';
+import Inset from 'layouts/Inset';
 
 export class QuestionView extends Component {
   render() {

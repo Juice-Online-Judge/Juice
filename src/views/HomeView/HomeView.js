@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { actions as questionActions } from 'redux/modules/question';
 
-import Inset from 'components/Inset';
+import Inset from 'layouts/Inset';
 import Question from 'components/Question';
 import CenterLoading from 'components/CenterLoading';
 import { RequestStatus } from 'lib/const';
