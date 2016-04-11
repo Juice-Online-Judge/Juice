@@ -1,12 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 
 import Question from 'components/Question';
+import Inset from 'components/Inset';
 
 export class QuestionView extends Component {
   render() {
     const { uuid } = this.props.params;
     return (
-      <Question uuid={ uuid } expanded />
+      <Inset>
+        <Question uuid={ uuid } expanded />
+      </Inset>
     );
   }
 

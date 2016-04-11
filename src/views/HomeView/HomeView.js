@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { actions as questionActions } from 'redux/modules/question';
 
+import Inset from 'components/Inset';
 import Question from 'components/Question';
 import CenterLoading from 'components/CenterLoading';
 import { RequestStatus } from 'lib/const';
@@ -33,7 +34,9 @@ export class HomeView extends React.Component {
     return (
       <div>
         <CenterLoading loading={ question.get('status') === RequestStatus.PENDING } />
-        { this.questionList }
+        <Inset>
+          { this.questionList }
+        </Inset>
       </div>
     );
   }
