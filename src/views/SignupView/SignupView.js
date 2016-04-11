@@ -15,6 +15,7 @@ import CardActions from 'material-ui/lib/card/card-actions';
 import TextField from 'material-ui/lib/text-field';
 import FlatButton from 'material-ui/lib/flat-button';
 
+import CenterBlock from 'layouts/CenterBlock';
 import rule from 'validation/register';
 
 @Radium
@@ -131,50 +132,53 @@ export class SignupView extends React.Component {
   render() {
     let { errorMessage } = this.state;
     return (
-      <div style={ styles.container }>
-        <div style={ [styles.margin, styles.flexContainer] }>
-          <Paper zDepth={ 3 } style={ styles.paper }>
-            <Card>
-              <CardTitle style={ styles.flexContainer } title='Signup' />
-              <CardActions style={ styles.flexContainer }>
-                <TextField style={ styles.action }
-                  onChange={ this.setUsername }
-                  errorText={ errorMessage.username }
-                  floatingLabelText='Username' />
-              </CardActions>
-              <CardActions style={ styles.flexContainer }>
-                <TextField style={ styles.action }
-                  onChange={ this.setEmail }
-                  errorText={ errorMessage.email }
-                  floatingLabelText='Email' />
-              </CardActions>
-              <CardActions style={ styles.flexContainer }>
-                <TextField style={ styles.action }
-                  onChange={ this.setNickname }
-                  errorText={ errorMessage.nickname }
-                  floatingLabelText='Nickname' />
-              </CardActions>
-              <CardActions style={ styles.flexContainer }>
-                <TextField style={ styles.action }
-                  type='password'
-                  onChange={ this.setPassword }
-                  errorText={ errorMessage.password }
-                  floatingLabelText='Password' />
-              </CardActions>
-              <CardActions style={ styles.flexContainer }>
-                <TextField style={ styles.action }
-                  type='password'
-                  onChange={ this.setPasswordConfirm }
-                  errorText={ errorMessage.passwordConfirm }
-                  floatingLabelText='PasswordConfirm' />
-              </CardActions>
-              <CardActions style={ styles.flexContainer }>
-                <FlatButton label='Signup' primary onClick={ this.signup } />
-              </CardActions>
-            </Card>
-          </Paper>
-        </div>
-      </div>
+      <CenterBlock>
+        <Paper zDepth={ 3 } style={ Object.assign({}, styles.paper, styles.marginTop) }>
+          <Card>
+            <CardTitle title='Signup' />
+            <CardActions>
+              <TextField
+                style={ styles.action }
+                onChange={ this.setUsername }
+                errorText={ errorMessage.username }
+                floatingLabelText='Username' />
+            </CardActions>
+            <CardActions>
+              <TextField
+                style={ styles.action }
+                onChange={ this.setEmail }
+                errorText={ errorMessage.email }
+                floatingLabelText='Email' />
+            </CardActions>
+            <CardActions>
+              <TextField
+                style={ styles.action }
+                onChange={ this.setNickname }
+                errorText={ errorMessage.nickname }
+                floatingLabelText='Nickname' />
+            </CardActions>
+            <CardActions>
+              <TextField
+                style={ styles.action }
+                type='password'
+                onChange={ this.setPassword }
+                errorText={ errorMessage.password }
+                floatingLabelText='Password' />
+            </CardActions>
+            <CardActions>
+              <TextField
+                style={ styles.action }
+                type='password'
+                onChange={ this.setPasswordConfirm }
+                errorText={ errorMessage.passwordConfirm }
+                floatingLabelText='PasswordConfirm' />
+            </CardActions>
+            <CardActions>
+              <FlatButton label='Signup' primary onClick={ this.signup } />
+            </CardActions>
+          </Card>
+        </Paper>
+      </CenterBlock>
     );
   }
 }
@@ -184,23 +188,14 @@ export default connect((state) => {
 }, Object.assign({}, loginActions, { push }))(SignupView);
 
 let styles = {
-  container: {
-    height: '100%',
-    width: '100%'
-  },
-  flexContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  margin: {
-    marginTop: '20px'
-  },
   paper: {
-    width: '40%',
-    height: '40%'
+    width: '100%',
+    height: '100%'
   },
   action: {
     width: '80%'
+  },
+  marginTop: {
+    marginTop: '20px'
   }
 };

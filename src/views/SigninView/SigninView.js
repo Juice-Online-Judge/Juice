@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import Radium from 'radium';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
 
@@ -13,7 +12,8 @@ import CardActions from 'material-ui/lib/card/card-actions';
 import TextField from 'material-ui/lib/text-field';
 import FlatButton from 'material-ui/lib/flat-button';
 
-@Radium
+import CenterBlock from 'layouts/CenterBlock';
+
 export class SigninView extends React.Component {
   static propTypes = {
     push: PropTypes.func.isRequired,
@@ -65,29 +65,29 @@ export class SigninView extends React.Component {
 
   render() {
     return (
-      <div style={ styles.container }>
-        <div style={ [styles.margin, styles.flexContainer] }>
-          <Paper zDepth={ 3 } style={ styles.paper }>
-            <Card>
-              <CardTitle style={ styles.flexContainer } title='Juice' />
-              <CardActions style={ styles.flexContainer }>
-                <TextField style={ styles.action }
-                  onChange={ this.setUsername }
-                  floatingLabelText='Username' />
-              </CardActions>
-              <CardActions style={ styles.flexContainer }>
-                <TextField style={ styles.action }
-                  type='password'
-                  onChange={ this.setPassword }
-                  floatingLabelText='Password' />
-              </CardActions>
-              <CardActions style={ styles.flexContainer }>
-                <FlatButton label='Signin' primary onClick={ this.login } />
-              </CardActions>
-            </Card>
-          </Paper>
-        </div>
-      </div>
+      <CenterBlock>
+        <Paper zDepth={ 3 } style={ Object.assign({}, styles.paper, styles.marginTop) }>
+          <Card>
+            <CardTitle title='Juice' />
+            <CardActions>
+              <TextField
+                style={ styles.action }
+                onChange={ this.setUsername }
+                floatingLabelText='Username' />
+            </CardActions>
+            <CardActions>
+              <TextField
+                style={ styles.action }
+                type='password'
+                onChange={ this.setPassword }
+                floatingLabelText='Password' />
+            </CardActions>
+            <CardActions>
+              <FlatButton label='Signin' primary onClick={ this.login } />
+            </CardActions>
+          </Card>
+        </Paper>
+      </CenterBlock>
     );
   }
 }
@@ -97,23 +97,14 @@ export default connect((state) => {
 }, Object.assign({}, loginActions, { push }))(SigninView);
 
 let styles = {
-  container: {
-    height: '100%',
-    width: '100%'
-  },
-  flexContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  margin: {
-    marginTop: '20px'
-  },
   paper: {
-    width: '40%',
-    height: '40%'
+    width: '100%',
+    height: '100%'
   },
   action: {
     width: '80%'
+  },
+  marginTop: {
+    marginTop: '20%'
   }
 };
