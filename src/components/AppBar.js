@@ -47,10 +47,10 @@ export class AppBar extends React.Component {
     } else {
       return (
         <div>
-          <Link to='/signup'>
+          <Link to='/sign-up'>
             <FlatButton labelStyle={ { color: 'white' } } label='Signup' />
           </Link>
-          <Link to='/signin'>
+          <Link to='/sign-in'>
             <FlatButton labelStyle={ { color: 'white' } } label='Signin' />
           </Link>
         </div>
