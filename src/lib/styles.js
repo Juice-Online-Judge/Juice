@@ -3,6 +3,9 @@ export const styles = {
     display: 'inline-block',
     width: 'auto',
     marginRight: '15px'
+  },
+  noUnderline: {
+    textDecoration: 'none'
   }
 };
 

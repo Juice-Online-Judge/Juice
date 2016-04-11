@@ -10,6 +10,7 @@ import CardActions from 'material-ui/lib/card/card-actions';
 import SubmitCode from './SubmitCode';
 
 import { actions as questionActions, questionSelector } from 'redux/modules/question';
+import commonStyles from 'lib/styles';
 
 export class Question extends Component {
   componentDidMount() {
@@ -49,7 +50,7 @@ export class Question extends Component {
       );
     } else {
       return (
-        <Link style={ styles.noUnderline } to={ `/question/${uuid}` }>
+        <Link style={ commonStyles.noUnderline } to={ `/question/${uuid}` }>
           <Card>
             <CardTitle
               title={ question.get('title') } />
@@ -108,8 +109,5 @@ const styles = {
   },
   textWrap: {
     marginRight: '54px'
-  },
-  noUnderline: {
-    textDecoration: 'none'
   }
 };
