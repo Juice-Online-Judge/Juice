@@ -27,16 +27,16 @@ export const login = (username, password) => {
     api({
       path: 'auth/sign-in',
       entity: body
-    }).entity()
-      .then(() => {
-        dispatch(fetchUserInfo());
-      })
-      .catch((error) => {
-        console.warn(error);
-        if (error instanceof Error) {
-          throw error;
-        }
-      });
+    })
+    .then(() => {
+      dispatch(fetchUserInfo({ force: true }));
+    })
+    .catch((error) => {
+      console.warn(error);
+      if (error instanceof Error) {
+        throw error;
+      }
+    });
   };
 };
 
@@ -45,37 +45,39 @@ export const logout = () => {
     api({
       path: 'auth/sign-out',
       method: 'get'
-    }).entity()
-      .then((response) => {
-        dispatch(clearUser());
-      })
-      .catch((error) => {
-        console.warn(error);
-        if (error instanceof Error) {
-          throw error;
-        }
-      });
+    })
+    .then(() => {
+      dispatch(clearUser());
+    })
+    .catch((error) => {
+      console.warn(error);
+      if (error instanceof Error) {
+        throw error;
+      }
+    });
   };
 };
 
-export const fetchUserInfo = () => {
+export const fetchUserInfo = (options = { force: false }) => {
+  const { force } = options;
   return (dispatch, getState) => {
     let { auth } = getState();
-    if (auth.get('valid')) {
+    if (auth.get('valid') && !force) {
       return;
     }
     api({
       path: 'account/profile'
-    }).entity()
-      .then((response) => {
-        dispatch(setUserInfo(response));
-      })
-      .catch((error) => {
-        dispatch(setLoginState(false));
-        if (error instanceof Error) {
-          throw error;
-        }
-      });
+    })
+    .entity()
+    .then((response) => {
+      dispatch(setUserInfo(response));
+    })
+    .catch((error) => {
+      dispatch(setLoginState(false));
+      if (error instanceof Error) {
+        throw error;
+      }
+    });
   };
 };
 
@@ -84,18 +86,19 @@ export const registerUser = (info) => {
     api({
       path: 'auth/sign-up',
       entity: info
-    }).entity()
-      .then((response) => {
-        dispatch(setUserInfo(info));
-      })
-      .catch((error) => {
-        console.warn(error);
-        if (error instanceof Error) {
-          throw error;
-        } else {
-          dispatch(setError(error.message));
-        }
-      });
+    })
+    .entity()
+    .then(() => {
+      dispatch(setUserInfo(info));
+    })
+    .catch((error) => {
+      console.warn(error);
+      if (error instanceof Error) {
+        throw error;
+      } else {
+        dispatch(setError(error.message));
+      }
+    });
   };
 };
 
