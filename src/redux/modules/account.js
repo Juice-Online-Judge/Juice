@@ -61,8 +61,8 @@ export const logout = () => {
 export const fetchUserInfo = (options = { force: false }) => {
   const { force } = options;
   return (dispatch, getState) => {
-    let { auth } = getState();
-    if (auth.get('valid') && !force) {
+    let { account } = getState();
+    if (account.get('valid') && !force) {
       return;
     }
     api({
