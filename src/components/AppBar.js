@@ -10,15 +10,11 @@ import IconMenu from 'material-ui/lib/menus/icon-menu';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import FontIcon from 'material-ui/lib/font-icon';
 
+import LeftNav from './LeftNav';
+
 import { actions as accountActions } from 'redux/modules/account';
 
 export class AppBar extends React.Component {
-  static propTypes = {
-    loginState: PropTypes.object.isRequired,
-    fetchUserInfo: PropTypes.func.isRequired,
-    logout: PropTypes.func.isRequired
-  };
-
   componentDidMount() {
     this.props.fetchUserInfo();
   }
@@ -26,6 +22,27 @@ export class AppBar extends React.Component {
   @autobind
   logout() {
     this.props.logout();
+  }
+
+  @autobind
+  handleClose() {
+    this.setState({ open: false });
+  }
+
+  @autobind
+  handleToggle() {
+    const open = !this.state.open;
+    this.setState({ open });
+  }
+
+  get leftMenu() {
+    return (
+      <IconButton onTouchTap={ this.handleToggle }>
+        <FontIcon className='material-icons'>
+          menu
+        </FontIcon>
+      </IconButton>
+    );
   }
 
   get rightMenu() {
@@ -69,9 +86,22 @@ export class AppBar extends React.Component {
             Juice
           </IndexLink>
         }
-        iconElementRight={ this.rightMenu } />
+        iconElementLeft={ this.leftMenu }
+        iconElementRight={ this.rightMenu } >
+        <LeftNav open={ this.state.open } onRequestChange={ this.handleClose } />
+      </MuiAppBar>
     );
   }
+
+  static propTypes = {
+    loginState: PropTypes.object.isRequired,
+    fetchUserInfo: PropTypes.func.isRequired,
+    logout: PropTypes.func.isRequired
+  };
+
+  state = {
+    open: false
+  };
 }
 
 export default connect((state) => {
