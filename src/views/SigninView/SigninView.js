@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
 
-import { actions as loginActions } from '../../redux/modules/auth';
+import { actions as accountActions } from '../../redux/modules/account';
 import { push } from 'react-router-redux';
 
 import Paper from 'material-ui/lib/paper';
@@ -93,8 +93,8 @@ export class SigninView extends React.Component {
 }
 
 export default connect((state) => {
-  return {loginState: state.auth};
-}, Object.assign({}, loginActions, { push }))(SigninView);
+  return {loginState: state.account};
+}, Object.assign({}, accountActions, { push }))(SigninView);
 
 let styles = {
   paper: {

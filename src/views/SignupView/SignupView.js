@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import validate from 'validate.js';
 import pick from 'lodash/pick';
 
-import { actions as loginActions } from '../../redux/modules/auth';
+import { actions as accountActions } from '../../redux/modules/account';
 import { push } from 'react-router-redux';
 
 import Paper from 'material-ui/lib/paper';
@@ -184,8 +184,8 @@ export class SignupView extends React.Component {
 }
 
 export default connect((state) => {
-  return {loginState: state.auth};
-}, Object.assign({}, loginActions, { push }))(SignupView);
+  return {loginState: state.account};
+}, Object.assign({}, accountActions, { push }))(SignupView);
 
 let styles = {
   paper: {
