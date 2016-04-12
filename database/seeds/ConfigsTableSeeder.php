@@ -17,10 +17,12 @@ class ConfigsTableSeeder extends Seeder
         ];
 
         foreach ($configs as $key => $value) {
-            Config::firstOrCreate([
-                'key'   => $key,
-                'value' => $value,
-            ]);
+            if (is_null(Config::find($key))) {
+                Config::create([
+                    'key'   => $key,
+                    'value' => $value,
+                ]);   
+            }
         }
     }
 }

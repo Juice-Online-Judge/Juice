@@ -38,6 +38,7 @@ $factory->define(App\Submissions\Submission::class, function (Faker\Generator $f
     return [
         'user_id' => \App\Accounts\User::all(['id'])->random()->getAttribute('id'),
         'question_id' => \App\Questions\Question::all(['id'])->random()->getAttribute('id'),
+        'language' => $faker->randomElement(['c', 'c++']),
         'code' => $faker->paragraph,
         'submitted_at' => $faker->dateTime,
     ];
@@ -58,5 +59,13 @@ $factory->define(\App\Tags\Tag::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,
         'type' => $faker->word,
+    ];
+});
+
+$factory->define(\App\Exams\Exam::class, function (Faker\Generator $faker) {
+    return [
+        'name'     => $faker->sentence,
+        'began_at' => $faker->dateTime,
+        'ended_at' => $faker->dateTime,
     ];
 });
