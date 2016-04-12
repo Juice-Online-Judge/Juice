@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
 import uniqueId from 'lodash/uniqueId';
 
-import RadioButton from 'material-ui/lib/radio-button';
-import RadioButtonGroup from 'material-ui/lib/radio-button-group';
+import SelectField from 'material-ui/lib/select-field';
+import MenuItem from 'material-ui/lib/menus/menu-item'
 import FlatButton from 'material-ui/lib/flat-button';
 
 import FileArea from './FileArea';
@@ -34,20 +34,13 @@ export class SubmitCode extends Component {
     return (
       <div>
         <Label label='Language: ' />
-        <RadioButtonGroup
-          name={ `language-${uniqueId()}` }
-          defaultSelected='c'
-          style={ styles.btnGroup }
-          onChange={ this.handleLanguageChange } >
-          <RadioButton
-            value='c'
-            label='C'
-            style={ commonStyles.inlineRadio } />
-          <RadioButton
-            value='c++'
-            label='C++'
-            style={ commonStyles.inlineRadio } />
-        </RadioButtonGroup>
+        <SelectField
+          style={ styles.margin }
+          value={this.state.language}
+          onChange={this.handleLanguageChange} >
+          <MenuItem value='c' primaryText='C' />
+          <MenuItem value='c++' primaryText='C++' />
+        </SelectField>
         <FileArea
           fileKey='code'
           textKey='code'
@@ -73,7 +66,8 @@ export class SubmitCode extends Component {
 }
 
 const styles = {
-  btnGroup: {
+  margin: {
+    marginLeft: '5px'
     marginBottom: '5px'
   }
 };
