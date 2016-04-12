@@ -1,17 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
-import uniqueId from 'lodash/uniqueId';
 
 import SelectField from 'material-ui/lib/select-field';
-import MenuItem from 'material-ui/lib/menus/menu-item'
+import MenuItem from 'material-ui/lib/menus/menu-item';
 import FlatButton from 'material-ui/lib/flat-button';
 
 import FileArea from './FileArea';
 import Label from './Label';
 
 import { actions as submissionActions } from 'redux/modules/submission';
-import commonStyles from 'lib/styles';
 
 export class SubmitCode extends Component {
   @autobind
@@ -36,8 +34,8 @@ export class SubmitCode extends Component {
         <Label label='Language: ' />
         <SelectField
           style={ styles.margin }
-          value={this.state.language}
-          onChange={this.handleLanguageChange} >
+          value={ this.state.language }
+          onChange={ this.handleLanguageChange } >
           <MenuItem value='c' primaryText='C' />
           <MenuItem value='c++' primaryText='C++' />
         </SelectField>
@@ -67,7 +65,7 @@ export class SubmitCode extends Component {
 
 const styles = {
   margin: {
-    marginLeft: '5px'
+    marginLeft: '5px',
     marginBottom: '5px'
   }
 };
