@@ -35,11 +35,7 @@ class ConfigController extends ApiController
      */
     public function show($key)
     {
-        $config = Config::where('public', true)->find($key, ['value']);
-
-        if (is_null($config)) {
-            return $this->responseNotFound();
-        }
+        $config = Config::where('public', true)->findOrFail($key, ['value']);
 
         return $this->setData($config->getAttribute('value'))->responseOk();
     }
@@ -53,11 +49,7 @@ class ConfigController extends ApiController
      */
     public function update(ConfigRequest $request, $key)
     {
-        $config = Config::find($key);
-
-        if (is_null($config)) {
-            return $this->responseNotFound();
-        }
+        $config = Config::findOrFail($key);
 
         if (! $config->update($request->only(['value', 'public']))) {
             return $this->responseUnknownError();

@@ -60,11 +60,7 @@ class QuestionController extends ApiController
      */
     public function show($uuid)
     {
-        $question = Question::with(['tags'])->isPublic()->where('uuid', $uuid)->first();
-
-        if (is_null($question)) {
-            return $this->responseNotFound();
-        }
+        $question = Question::with(['tags'])->isPublic()->where('uuid', $uuid)->firstOrFail();
 
         pluck_relation_field($question, 'tags', 'name', 'id');
 

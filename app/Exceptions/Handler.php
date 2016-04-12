@@ -45,6 +45,17 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if ($request->is('api/*') || $request->wantsJson()) {
+            switch (true) {
+                case ($e instanceof AuthorizationException): $status = 403; break;
+                case ($e instanceof ModelNotFoundException): $status = 404; break;
+            }
+
+            if (isset($status)) {
+                return response()->json(['messages' => []], $status);
+            }
+        }
+
         return parent::render($request, $e);
     }
 }

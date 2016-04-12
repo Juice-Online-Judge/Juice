@@ -56,11 +56,7 @@ class TagController extends ApiController
      */
     public function show($id)
     {
-        $tag = Tag::find($id);
-
-        if (is_null($tag)) {
-            return $this->responseNotFound();
-        }
+        $tag = Tag::findOrFail($id);
 
         return $this->setData($tag)->responseOk();
     }
@@ -74,11 +70,7 @@ class TagController extends ApiController
      */
     public function update(TagRequest $request, $id)
     {
-        $tag = Tag::find($id);
-
-        if (is_null($tag)) {
-            return $this->responseNotFound();
-        }
+        $tag = Tag::findOrFail($id);
 
         $tag->setAttribute('name', $request->input('name'));
 
@@ -102,11 +94,7 @@ class TagController extends ApiController
      */
     public function destroy($id)
     {
-        $tag = Tag::find($id);
-
-        if (is_null($tag)) {
-            return $this->responseNotFound();
-        }
+        $tag = Tag::findOrFail($id);
 
         if (! $tag->delete()) {
             return $this->responseUnknownError();

@@ -7,7 +7,8 @@ use App\Questions\Question;
 use App\Submissions\Repository;
 use App\Submissions\Submission;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+use File;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class SubmissionController extends ApiController
 {
@@ -20,11 +21,7 @@ class SubmissionController extends ApiController
      */
     public function store(SubmissionRequest $request, $uuid)
     {
-        $question = Question::where('uuid', $uuid)->first(['id']);
-
-        if (is_null($question)) {
-            return $this->responseNotFound();
-        }
+        $question = Question::where('uuid', $uuid)->firstOrFail(['id']);
 
         $submission = $question->submissions()->save(new Submission([
             'user_id'      => $request->user()->getAuthIdentifier(),
@@ -62,20 +59,36 @@ class SubmissionController extends ApiController
     /**
      * Get submission and judge info.
      *
-     * @param Request $request
-     * @param $submissionId
+     * @param int $submissionId
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Request $request, $submissionId)
+    public function show($submissionId)
     {
-        $submission = Submission::find($submissionId);
+        $submission = Submission::findOrFail($submissionId);
 
-        if (is_null($submission)) {
-            return $this->responseNotFound();
-        } elseif ($submission->getAttribute('user_id') != $request->user()->getAuthIdentifier()) {
-            return $this->responseForbidden();
-        }
+        $this->authorize($submission);
 
         return $this->setData($submission)->responseOk();
+    }
+
+    /**
+     * Get the submission code.
+     *
+     * @param int $submissionId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function code($submissionId)
+    {
+        $submission = Submission::findOrFail($submissionId);
+
+        $this->authorize($submission);
+
+        try {
+            $code = File::get($submission->getAttribute('code'));
+        } catch (FileNotFoundException $e) {
+            return $this->responseUnknownError();
+        }
+
+        return $this->setData($code)->responseOk();
     }
 }
