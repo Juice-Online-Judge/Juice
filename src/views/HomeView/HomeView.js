@@ -4,19 +4,25 @@ import { connect } from 'react-redux';
 import { actions as questionActions } from 'redux/modules/question';
 
 import Inset from 'layouts/Inset';
-import Question from 'components/Question';
 import CenterLoading from 'components/CenterLoading';
+import Question from 'components/Question';
+import Pagination from 'components/Pagination';
 import { RequestStatus } from 'lib/const';
 
 export class HomeView extends React.Component {
   componentDidMount() {
-    this.props.fetchQuestion();
+    const { query } = this.props.location;
+    this.props.fetchQuestion(query);
   }
 
   componentWillReceiveProps(newProps) {
+    const { query } = newProps.location;
+
     if (newProps.question.get('status') === RequestStatus.SUCCESS) {
       this.props.clearStatus();
     }
+
+    this.props.fetchQuestion(query);
   }
 
   get questionList() {
@@ -30,6 +36,8 @@ export class HomeView extends React.Component {
 
   render() {
     const { question } = this.props;
+    const { query } = this.props.location;
+    const page = parseInt(query.page || 1);
 
     return (
       <div>
@@ -37,12 +45,17 @@ export class HomeView extends React.Component {
         <Inset>
           { this.questionList }
         </Inset>
+        <Pagination
+          baseUrl='/'
+          maxPage={ Math.ceil(question.get('total') / 10) }
+          current={ page } />
       </div>
     );
   }
 }
 
 HomeView.propTypes = {
+  location: PropTypes.object.isRequired,
   question: PropTypes.object.isRequired,
   fetchQuestion: PropTypes.func.isRequired,
   clearStatus: PropTypes.func.isRequired
