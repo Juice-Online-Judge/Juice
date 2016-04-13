@@ -48,6 +48,7 @@
     "material-ui": "^0.15.0-alpha.2",
     "radium": "^0.17.1",
     "react": "^0.14.8",
+    "react-display-name": "^0.1.1",
     "react-dom": "^0.14.8",
     "react-flexbox-grid": "^0.9.5",
     "react-redux": "^4.4.2",
