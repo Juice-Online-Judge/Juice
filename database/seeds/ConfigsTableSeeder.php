@@ -21,7 +21,7 @@ class ConfigsTableSeeder extends Seeder
                 Config::create([
                     'key'   => $key,
                     'value' => $value,
-                ]);   
+                ]);
             }
         }
     }
