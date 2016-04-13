@@ -51,13 +51,13 @@ const handleError = (dispatch, error) => {
   }
 };
 
-export const fetchQuestion = (query = { page: 1 }, opt = { force: false }) => {
+export const fetchQuestion = (query = { page: 1 }, opts = { force: false }) => {
   return (dispatch, getState) => {
     const state = getState().question;
     const page = state.get('page');
     const uuids = state.get('uuids');
 
-    if (page == query.page && uuids.size && !opts.force) {
+    if (page === query.page && uuids.size && !opts.force) {
       return;
     }
 
@@ -85,7 +85,7 @@ export const fetchQuestionDetail = (uuid, opts = { force: false }) => {
   return (dispatch, getState) => {
     const entities = getState().question.get('entities');
 
-    if (entities.has(uuid) && !opts.force) {
+    if (entities.has(uuid) && entities.getIn([uuid, 'detail']) && !opts.force) {
       return;
     }
 
@@ -147,8 +147,13 @@ export const actions = {
 };
 
 export default handleActions({
-  [SET_QUESTION]: (state, { payload }) => state.mergeIn(['entities'], payload.entities)
-    .merge(omit(payload, 'entities')),
+  [SET_QUESTION]: (state, { payload }) => {
+    return state
+    .updateIn(['entities'], (entities) => entities.withMutations((entities) => {
+      return entities.merge(payload.entities).merge(state.get('entities'));
+    }))
+    .merge(omit(payload, 'entities'));
+  },
   [SET_QUESTION_DETAIL]: (state, { payload }) => state
     .setIn(['entities', payload.uuid], fromJS(omit(payload, 'uuid'))),
   [SET_STATUS]: (state, { payload }) => state.set('status', payload),
