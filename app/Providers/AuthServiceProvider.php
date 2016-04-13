@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Exams\Exam;
+use App\Policies\Api\v1\ExamPolicy;
 use App\Policies\Api\V1\SubmissionPolicy;
 use App\Submissions\Submission;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
@@ -15,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
+        Exam::class       => ExamPolicy::class,
         Submission::class => SubmissionPolicy::class,
     ];
 
