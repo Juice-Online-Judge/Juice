@@ -7,7 +7,7 @@ import omit from 'lodash/omit';
 const QuestionState = new Record({
   uuids: new List(),
   entities: new Map(),
-  status: RequestStatus.PENDING,
+  status: RequestStatus.NONE,
   page: 1,
   total: 0,
   error: null
@@ -56,8 +56,13 @@ export const fetchQuestion = (query = { page: 1 }, opts = { force: false }) => {
     const state = getState().question;
     const page = state.get('page');
     const uuids = state.get('uuids');
+    const status = state.get('status');
 
     if (page === query.page && uuids.size && !opts.force) {
+      return;
+    }
+
+    if (status === RequestStatus.PENDING && !opts.force) {
       return;
     }
 
