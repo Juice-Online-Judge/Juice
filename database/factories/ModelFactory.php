@@ -64,6 +64,7 @@ $factory->define(\App\Tags\Tag::class, function (Faker\Generator $faker) {
 
 $factory->define(\App\Exams\Exam::class, function (Faker\Generator $faker) {
     return [
+        'user_id'  => \App\Accounts\User::all(['id'])->random()->getAttribute('id'),
         'name'     => $faker->sentence,
         'began_at' => $faker->dateTime,
         'ended_at' => $faker->dateTime,
