@@ -1,7 +1,11 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
 import { actions as questionActions } from 'redux/modules/question';
+
+import FloatingActionButton from 'material-ui/lib/floating-action-button';
+import AddIcon from 'material-ui/lib/svg-icons/content/add';
 
 import Inset from 'layouts/Inset';
 import LoadingContainer from 'components/LoadingContainer';
@@ -48,6 +52,11 @@ export class HomeView extends React.Component {
           baseUrl='/'
           maxPage={ Math.ceil(question.get('total') / 10) }
           current={ page } />
+        <Link to='/question/new'>
+          <FloatingActionButton style={ styles.floatBtn } >
+            <AddIcon />
+          </FloatingActionButton>
+        </Link>
       </LoadingContainer>
     );
   }
@@ -63,3 +72,11 @@ HomeView.propTypes = {
 export default connect((state) => {
   return { question: state.question };
 }, questionActions)(HomeView);
+
+const styles = {
+  floatBtn: {
+    position: 'fixed',
+    right: '20px',
+    bottom: '10px'
+  }
+};
