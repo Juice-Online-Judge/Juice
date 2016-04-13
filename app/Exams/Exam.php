@@ -2,6 +2,7 @@
 
 namespace App\Exams;
 
+use App\Accounts\Role;
 use App\Accounts\User;
 use App\Core\Entity;
 use App\Questions\Question;
@@ -29,6 +30,16 @@ class Exam extends Entity
      * @var array
      */
     protected $dates = ['began_at', 'ended_at'];
+
+    /**
+     * 取得該測驗授權群組.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 
     /**
      * 取得該測驗所有題目.
