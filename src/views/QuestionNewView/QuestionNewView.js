@@ -8,7 +8,7 @@ import CardActions from 'material-ui/lib/card/card-actions';
 import SnackBar from 'material-ui/lib/snackbar';
 import Tabs from 'material-ui/lib/tabs/tabs';
 import Tab from 'material-ui/lib/tabs/tab';
-import { Grid, Row, Col } from 'react-flexbox-grid';
+import { Row, Col } from 'react-flexbox-grid';
 
 import { actions as questionActions } from 'redux/modules/question';
 import { RequestStatus } from 'lib/const';
