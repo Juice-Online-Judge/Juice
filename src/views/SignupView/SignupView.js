@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
 import { autobind } from 'core-decorators';
-import { connect } from 'react-redux';
-import validate from 'validate.js';
 import pick from 'lodash/pick';
 
 import { actions as accountActions } from '../../redux/modules/account';
@@ -17,6 +15,8 @@ import FlatButton from 'material-ui/lib/flat-button';
 
 import CenterBlock from 'layouts/CenterBlock';
 import rule from 'validation/register';
+import validateConnect from 'lib/validateConnect';
+import { silencePromise } from 'lib/utils';
 
 @Radium
 export class SignupView extends React.Component {
@@ -24,9 +24,10 @@ export class SignupView extends React.Component {
     push: PropTypes.func.isRequired,
     loginState: PropTypes.object.isRequired,
     login: PropTypes.func.isRequired,
+    validation: PropTypes.object.isRequired,
     fetchUserInfo: PropTypes.func.isRequired,
     registerUser: PropTypes.func.isRequired,
-    clearError: PropTypes.func.isRequired
+    validateForm: PropTypes.func.isRequired
   };
 
   constructor(...args) {
@@ -36,41 +37,17 @@ export class SignupView extends React.Component {
       nickname: '',
       password: '',
       email: '',
-      passwordConfirm: '',
-      errorMessage: {
-        username: null,
-        email: null,
-        password: null,
-        passwordConfirm: null
-      }
+      passwordConfirm: ''
     };
   }
 
   componentDidMount() {
     this.props.fetchUserInfo();
-    this.props.clearError();
     this.checkLoginState(this.props);
-    this.fetchErrorMessage(this.props);
   }
 
   componentWillReceiveProps(nextProp) {
     this.checkLoginState(nextProp);
-    this.fetchErrorMessage(nextProp);
-  }
-
-  @autobind
-  fetchErrorMessage(props) {
-    let errorMessage = {
-      username: null,
-      nickname: null,
-      email: null,
-      password: null,
-      passwordConfirm: null
-    };
-    Object.keys(errorMessage).forEach((key) => {
-      errorMessage[key] = props.loginState.getIn(['errorMessage', key], null);
-    });
-    this.setState({ errorMessage });
   }
 
   checkLoginState(props) {
@@ -115,22 +92,14 @@ export class SignupView extends React.Component {
     ];
     let datas = pick(this.state, fields);
     event.preventDefault();
-    validate.async(datas, rule)
-      .then(() => {
-        this.props.registerUser(datas);
-      })
-      .catch((error) => {
-        if (error instanceof Error) {
-          console.warn(error);
-          throw error;
-        } else {
-          this.setState({ errorMessage: error });
-        }
-      });
+    silencePromise(this.props.validateForm(datas)
+    .then(() => {
+      this.props.registerUser(datas);
+    }));
   }
 
   render() {
-    let { errorMessage } = this.state;
+    const message = this.props.validation;
     return (
       <CenterBlock>
         <Paper zDepth={ 3 } style={ Object.assign({}, styles.paper, styles.marginTop) }>
@@ -140,21 +109,21 @@ export class SignupView extends React.Component {
               <TextField
                 style={ styles.action }
                 onChange={ this.setUsername }
-                errorText={ errorMessage.username }
+                errorText={ message.get('username') }
                 floatingLabelText='Username' />
             </CardActions>
             <CardActions>
               <TextField
                 style={ styles.action }
                 onChange={ this.setEmail }
-                errorText={ errorMessage.email }
+                errorText={ message.get('email') }
                 floatingLabelText='Email' />
             </CardActions>
             <CardActions>
               <TextField
                 style={ styles.action }
                 onChange={ this.setNickname }
-                errorText={ errorMessage.nickname }
+                errorText={ message.get('nickname') }
                 floatingLabelText='Nickname' />
             </CardActions>
             <CardActions>
@@ -162,7 +131,7 @@ export class SignupView extends React.Component {
                 style={ styles.action }
                 type='password'
                 onChange={ this.setPassword }
-                errorText={ errorMessage.password }
+                errorText={ message.get('password') }
                 floatingLabelText='Password' />
             </CardActions>
             <CardActions>
@@ -170,7 +139,7 @@ export class SignupView extends React.Component {
                 style={ styles.action }
                 type='password'
                 onChange={ this.setPasswordConfirm }
-                errorText={ errorMessage.passwordConfirm }
+                errorText={ message.get('passwordConfirm') }
                 floatingLabelText='PasswordConfirm' />
             </CardActions>
             <CardActions>
@@ -183,7 +152,7 @@ export class SignupView extends React.Component {
   }
 }
 
-export default connect((state) => {
+export default validateConnect(rule, (state) => {
   return {loginState: state.account};
 }, Object.assign({}, accountActions, { push }))(SignupView);
 
