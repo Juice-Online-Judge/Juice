@@ -7,7 +7,7 @@ export const CenterLoading = (props) => {
   const status = loading ? 'loading' : 'hide';
   return (
     <div style={ styles.flexContainer }>
-      <RefreshIndicator status={ status } left={ 0 } top={ 10 } />
+      <RefreshIndicator status={ status } left={ window.innerWidth / 2 - 20 } top={ 10 } />
     </div>
   );
 };
