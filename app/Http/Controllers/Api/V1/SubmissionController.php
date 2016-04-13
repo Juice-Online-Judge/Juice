@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Exams\TokenRepository;
 use App\Http\Requests\Api\V1\SubmissionRequest;
 use App\Questions\Question;
 use App\Submissions\Repository;
@@ -42,7 +43,7 @@ class SubmissionController extends ApiController
      */
     public function storeUsingTurnIn(Request $request, $uuid)
     {
-        $data = Cache::tags(['exam', 'token'])->get($request->input('token'));
+        $data = TokenRepository::getData($request->input('token'));
 
         if (is_null($data)) {
             return $this->setMessages(['Token mismatch.'])->responseUnauthorized();
