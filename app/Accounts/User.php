@@ -63,6 +63,10 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
             $roles = $this->getRelation('roles')->pluck('name');
         }
 
+        if ($roles->contains('admin')) {
+            return true;
+        }
+
         $role = is_array($role) ? $role : func_get_args();
 
         return $roles->diff($role)->isEmpty();
