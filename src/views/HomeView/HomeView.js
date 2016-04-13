@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { actions as questionActions } from 'redux/modules/question';
 
 import Inset from 'layouts/Inset';
-import CenterLoading from 'components/CenterLoading';
+import LoadingContainer from 'components/LoadingContainer';
 import Question from 'components/Question';
 import Pagination from 'components/Pagination';
 import { RequestStatus } from 'lib/const';
@@ -40,8 +40,7 @@ export class HomeView extends React.Component {
     const page = parseInt(query.page || 1);
 
     return (
-      <div>
-        <CenterLoading loading={ question.get('status') === RequestStatus.PENDING } />
+      <LoadingContainer loading={ question.get('status') === RequestStatus.PENDING } >
         <Inset>
           { this.questionList }
         </Inset>
@@ -49,7 +48,7 @@ export class HomeView extends React.Component {
           baseUrl='/'
           maxPage={ Math.ceil(question.get('total') / 10) }
           current={ page } />
-      </div>
+      </LoadingContainer>
     );
   }
 }
