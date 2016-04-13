@@ -13,8 +13,8 @@ import { actions as submissionActions } from 'redux/modules/submission';
 
 export class SubmitCode extends Component {
   @autobind
-  handleLanguageChange(event) {
-    this.setState({ language: event.target.value });
+  handleLanguageChange(_event, _index, value) {
+    this.setState({ language: value });
   }
 
   @autobind
