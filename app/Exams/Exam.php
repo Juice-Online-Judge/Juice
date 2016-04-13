@@ -5,6 +5,7 @@ namespace App\Exams;
 use App\Accounts\User;
 use App\Core\Entity;
 use App\Questions\Question;
+use App\Submissions\Submission;
 
 class Exam extends Entity
 {
@@ -37,7 +38,7 @@ class Exam extends Entity
     public function questions()
     {
         return $this->belongsToMany(Question::class)
-            ->wherePivot('score');
+            ->withPivot(['score']);
     }
 
     /**
@@ -48,5 +49,15 @@ class Exam extends Entity
     public function users()
     {
         return $this->belongsToMany(User::class);
+    }
+
+    /**
+     * 取得該測驗所有 submit 資料.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function submissions()
+    {
+        return $this->hasMany(Submission::class);
     }
 }
