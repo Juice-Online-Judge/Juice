@@ -5,21 +5,16 @@ import api from 'lib/api';
 let initialState = Immutable.fromJS({
   valid: false,
   state: false,
-  user: {},
-  errorMessage: null
+  user: {}
 });
 
 export const SET_LOGIN_STATE = 'SET_LOGIN_STATE';
 export const SET_USER_INFO = 'SET_USER_INFO';
-export const SET_ERROR = 'SET_ERROR';
 export const CLEAR_USER = 'CLEAR_USER';
-export const CLEAR_ERROR = 'CLEAR_ERROR';
 
 export const setLoginState = createAction(SET_LOGIN_STATE, (state = false) => state);
 export const setUserInfo = createAction(SET_USER_INFO, (info) => info);
-export const setError = createAction(SET_ERROR, (msg) => msg);
 export const clearUser = createAction(CLEAR_USER);
-export const clearError = createAction(CLEAR_ERROR);
 
 export const login = (username, password) => {
   return (dispatch) => {
@@ -95,8 +90,6 @@ export const registerUser = (info) => {
       console.warn(error);
       if (error instanceof Error) {
         throw error;
-      } else {
-        dispatch(setError(error.message));
       }
     });
   };
@@ -108,7 +101,6 @@ export let actions = {
   setUserInfo,
   fetchUserInfo,
   clearUser,
-  clearError,
   registerUser,
   logout
 };
@@ -122,7 +114,5 @@ export default handleActions({
       return state.merge({valid: true, state: true, user: payload});
     }
   },
-  [SET_ERROR]: (state, { payload }) => state.merge({errorMessage: payload}),
-  [CLEAR_USER]: (state) => state.merge({valid: true, state: false, user: {}}),
-  [CLEAR_ERROR]: (state) => state.merge({errorMessage: null})
+  [CLEAR_USER]: (state) => state.merge({valid: true, state: false, user: {}})
 }, initialState);
