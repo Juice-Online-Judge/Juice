@@ -7,7 +7,6 @@ use App\Http\Requests\Api\V1\SubmissionRequest;
 use App\Questions\Question;
 use App\Submissions\Repository;
 use App\Submissions\Submission;
-use Cache;
 use Carbon\Carbon;
 use File;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;

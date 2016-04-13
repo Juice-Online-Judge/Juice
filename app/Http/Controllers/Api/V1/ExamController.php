@@ -6,7 +6,6 @@ use App\Exams\Exam;
 use App\Exams\Exception\AccessDeniedException;
 use App\Exams\Exception\UnavailableException;
 use App\Exams\TokenRepository;
-use App\Http\Requests;
 use App\Http\Requests\Api\V1\ExamRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -71,7 +70,7 @@ class ExamController extends ApiController
         ])->findOrFail($id);
 
         $this->authorize($exam);
-        
+
         return $this->setData($exam)->responseOk();
     }
 

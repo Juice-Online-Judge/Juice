@@ -47,8 +47,8 @@ class Handler extends ExceptionHandler
     {
         if ($request->is('api/*') || $request->wantsJson()) {
             switch (true) {
-                case ($e instanceof AuthorizationException): $status = 403; break;
-                case ($e instanceof ModelNotFoundException): $status = 404; break;
+                case $e instanceof AuthorizationException: $status = 403; break;
+                case $e instanceof ModelNotFoundException: $status = 404; break;
             }
 
             if (isset($status)) {
