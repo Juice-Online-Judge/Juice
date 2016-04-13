@@ -3,6 +3,8 @@ import isArray from 'lodash/isArray';
 import isObject from 'lodash/isObject';
 import isBoolean from 'lodash/isBoolean';
 import forEach from 'lodash/forEach';
+import noop from 'lodash/noop';
+import { isPromiseLike } from 'when';
 
 export const prefixKeys = (object, prefix) => {
   return mapKeys(object, (_value, key) => {
@@ -46,7 +48,16 @@ export const createFormDataDeep = (object) => {
   return formData;
 };
 
+export const silencePromise = (promise) => {
+  if (isPromiseLike(promise)) {
+    return promise.then(noop, noop);
+  } else {
+    return promise;
+  }
+};
+
 export default {
   prefixKeys,
-  createFormDataDeep
+  createFormDataDeep,
+  silencePromise
 };
