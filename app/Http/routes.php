@@ -31,8 +31,7 @@ $router->group(['prefix' => 'api', 'namespace' => 'Api'], function (Router $rout
             });
 
             $router->get('exams/{id}/token', 'ExamController@token');
-            $router->resource('exams', 'ExamController');
-            $router->resource('admin/exams', 'ExamController');
+            $router->resource('exams', 'ExamController', ['except' => ['create', 'edit']]);
 
             $router->resource('configs', 'ConfigController', ['only' => ['index', 'show', 'update']]);
             $router->resource('tags', 'TagController', ['except' => ['create', 'edit']]);
