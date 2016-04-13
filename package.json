@@ -44,15 +44,15 @@
     "history": "^2.0.0",
     "immutable": "^3.7.6",
     "js-cookie": "^2.1.0",
-    "lodash": "^4.9.0",
+    "lodash": "^4.10.0",
     "material-ui": "^0.15.0-alpha.2",
     "radium": "^0.17.1",
     "react": "^0.14.8",
     "react-display-name": "^0.1.1",
     "react-dom": "^0.14.8",
     "react-flexbox-grid": "^0.9.5",
-    "react-redux": "^4.4.2",
-    "react-router": "^2.0.0",
+    "react-redux": "^4.4.4",
+    "react-router": "^2.1.1",
     "react-router-redux": "^4.0.0",
     "react-tap-event-plugin": "^0.2.2",
     "redux": "^3.4.0",
@@ -120,7 +120,7 @@
     "sinon-chai": "^2.8.0",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
-    "webpack": "^1.12.14",
+    "webpack": "^1.12.15",
     "webpack-dev-server": "^1.14.1"
   }
 }
