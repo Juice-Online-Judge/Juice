@@ -16,6 +16,7 @@ import { createFormDataDeep } from 'lib/utils';
 import BasicInfoTab from './BasicInfoTab';
 import AnswerTab from './AnswerTab';
 import RestrictionTab from './RestrictionTab';
+import Inset from 'layouts/Inset';
 
 class QuestionNewView extends Component {
   componentWillMount() {
@@ -70,30 +71,30 @@ class QuestionNewView extends Component {
   render() {
     return (
       <div>
-        <Card>
-          <CardActions>
-            <Grid>
+        <Inset>
+          <Card>
+            <CardActions>
               <Row end='xs'>
                 <Col md={ 2 } sm={ 6 }>
                   <FlatButton label='Add' onTouchTap={ this.handleAddQuestion } />
                 </Col>
               </Row>
-            </Grid>
-          </CardActions>
-          <CardActions>
-            <Tabs>
-              <Tab label='Basic Info.'>
-                <BasicInfoTab onChange={ this.handleBasicInfoChange } />
-              </Tab>
-              <Tab label='Answer'>
-                <AnswerTab onChange={ this.handleAnswerChange } />
-              </Tab>
-              <Tab label='Restriction'>
-                <RestrictionTab onChange={ this.handleRestrictionChange } />
-              </Tab>
-            </Tabs>
-          </CardActions>
-        </Card>
+            </CardActions>
+            <CardActions>
+              <Tabs>
+                <Tab label='Basic Info.'>
+                  <BasicInfoTab onChange={ this.handleBasicInfoChange } />
+                </Tab>
+                <Tab label='Answer'>
+                  <AnswerTab onChange={ this.handleAnswerChange } />
+                </Tab>
+                <Tab label='Restriction'>
+                  <RestrictionTab onChange={ this.handleRestrictionChange } />
+                </Tab>
+              </Tabs>
+            </CardActions>
+          </Card>
+        </Inset>
         <SnackBar
           open={ this.state.open }
           message={ this.state.message }
