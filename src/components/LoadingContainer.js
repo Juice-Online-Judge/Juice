@@ -14,7 +14,7 @@ class LoadingContainer extends Component {
 
   static propTypes = {
     children: PropTypes.node,
-    loading: PropTypes.boolean
+    loading: PropTypes.bool
   }
 }
 
