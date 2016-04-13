@@ -8,7 +8,7 @@ const QuestionState = new Record({
   uuids: new List(),
   entities: new Map(),
   status: RequestStatus.PENDING,
-  page: 0,
+  page: 1,
   total: 0,
   error: null
 });
@@ -51,9 +51,18 @@ const handleError = (dispatch, error) => {
   }
 };
 
-export const fetchQuestion = (query = { page: 1 }) => {
-  return (dispatch) => {
+export const fetchQuestion = (query = { page: 1 }, opt = { force: false }) => {
+  return (dispatch, getState) => {
+    const state = getState().question;
+    const page = state.get('page');
+    const uuids = state.get('uuids');
+
+    if (page == query.page && uuids.size && !opts.force) {
+      return;
+    }
+
     dispatch(setStatus(RequestStatus.PENDING));
+
     api({
       path: 'questions',
       params: query
@@ -72,8 +81,14 @@ export const fetchQuestion = (query = { page: 1 }) => {
   };
 };
 
-export const fetchQuestionDetail = (uuid) => {
-  return (dispatch) => {
+export const fetchQuestionDetail = (uuid, opts = { force: false }) => {
+  return (dispatch, getState) => {
+    const entities = getState().question.get('entities');
+
+    if (entities.has(uuid) && !opts.force) {
+      return;
+    }
+
     dispatch(setStatus(RequestStatus.PENDING));
     api({
       path: 'questions/{uuid}',
