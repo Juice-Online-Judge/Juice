@@ -54,7 +54,11 @@ export class Pagination extends Component {
       const page = min + i;
       return (
         <Link key={ i } to={ `${baseUrl}?page=${page}` }>
-          <FlatButton style={ styles.page } labelStyle={ styles.noPadding } label={ `${page}` } />
+          <FlatButton
+            primary={ page == current }
+            style={ styles.page }
+            labelStyle={ styles.noPadding }
+            label={ `${page}` } />
         </Link>
       );
     });
