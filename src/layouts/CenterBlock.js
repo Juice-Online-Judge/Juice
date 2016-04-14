@@ -6,7 +6,7 @@ export class Inset extends Component {
     return (
       <Grid>
         <Row center='md' middle='md'>
-          <Col md={ 6 } sm={ 12 }>
+          <Col md={ this.props.fullwidth ? 12 : 6 } sm={ 12 }>
             <div style={ styles.fullWidth }>
               { this.props.children }
             </div>
@@ -17,7 +17,8 @@ export class Inset extends Component {
   }
 
   static propTypes = {
-    children: PropTypes.node
+    children: PropTypes.node,
+    fullwidth: PropTypes.bool
   };
 }
 
