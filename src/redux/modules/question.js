@@ -39,9 +39,17 @@ const normalizeQuestion = (questions) => {
 
 const handleError = (dispatch, error) => {
   dispatch(setStatus(RequestStatus.FAIL));
-  dispatch(setError('Server error'));
   if (error instanceof Error) {
     throw error;
+  } else {
+    let { code, text } = error.status;
+    let { messages } = error.entity;
+
+    if (!messages.length) {
+      dispatch(setError({ code, messages: [text] }));
+    } else {
+      dispatch(setError({ code, messages }));
+    }
   }
 };
 
@@ -66,8 +74,7 @@ export const fetchQuestion = (query = { page: 1 }, opts = { force: false }) => {
       path: 'questions',
       params: query
     })
-    .entity()
-    .then((entity) => {
+    .then(({ entity }) => {
       const questions = normalizeQuestion(entity.data);
       dispatch(setQuestion({
         ...questions,
@@ -95,8 +102,7 @@ export const fetchQuestionDetail = (uuid, opts = { force: false }) => {
         uuid
       }
     })
-    .entity()
-    .then((entity) => {
+    .then(({ entity }) => {
       dispatch(setQuestionDetail(entity));
       dispatch(setStatus(RequestStatus.SUCCESS));
     })
@@ -120,8 +126,7 @@ export const addQuestion = (data) => {
       },
       entity: data
     })
-    .entity()
-    .then((entity) => {
+    .then(({ entity }) => {
       dispatch(setQuestionDetail(entity));
       dispatch(setStatus(RequestStatus.SUCCESS));
     })
