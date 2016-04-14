@@ -1,12 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 
+import { Grid, Row, Col } from 'react-flexbox-grid';
+import { Link } from 'react-router';
 import Card from 'material-ui/lib/card/card';
 import CardText from 'material-ui/lib/card/card-text';
-import { Grid, Row, Col } from 'react-flexbox-grid';
+import IconButton from 'material-ui/lib/icon-button';
+import CodeIcon from  'material-ui/lib/svg-icons/action/code';
 
 class Submission extends Component {
   render() {
     const {
+      quesUuid,
       title,
       language,
       time,
@@ -15,13 +19,15 @@ class Submission extends Component {
     } = this.props;
     return (
       <Card>
-        <CardText>
+        <CardText style={ styles.padding }>
           <Grid>
-            <Row>
+            <Row middle='xs'>
               <Col xs={ 6 }>
-                { title }
+                <Link to={ `/question/${quesUuid}` }>
+                  { title }
+                </Link>
               </Col>
-              <Col xs={ 2 } /> { /* Use for padding */ }
+              <Col xs={ 1 } /> { /* Use for padding */ }
               <Col xs={ 1 } style={ result === 'AC' ? styles.pass : styles.noPass }>
                 { result }
               </Col>
@@ -33,6 +39,11 @@ class Submission extends Component {
               </Col>
               <Col xs={ 1 }>
                 { memory } (KB)
+              </Col>
+              <Col xs={ 1 }>
+                <IconButton tooltip='View Code'>
+                  <CodeIcon />
+                </IconButton>
               </Col>
             </Row>
           </Grid>
@@ -61,6 +72,9 @@ const styles = {
   },
   noPass: {
     color: 'red'
+  },
+  padding: {
+    padding: '0 16px'
   }
 };
 
