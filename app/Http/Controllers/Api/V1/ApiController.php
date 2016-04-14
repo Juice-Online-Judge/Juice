@@ -89,6 +89,18 @@ class ApiController extends Controller
     }
 
     /**
+     * Http bad request response.
+     *
+     * @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#400
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function responseBadRequest()
+    {
+        return $this->responseError(SymfonyResponse::HTTP_BAD_REQUEST);
+    }
+
+    /**
      * Http unauthorized response.
      *
      * @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#401
