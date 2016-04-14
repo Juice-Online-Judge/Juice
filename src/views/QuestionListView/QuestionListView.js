@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
@@ -14,7 +14,7 @@ import Question from 'components/Question';
 import Pagination from 'components/Pagination';
 import { RequestStatus } from 'lib/const';
 
-export class HomeView extends React.Component {
+export class QuestionListView extends Component {
   componentDidMount() {
     const { query } = this.props.location;
     this.props.fetchQuestion(query);
@@ -63,7 +63,7 @@ export class HomeView extends React.Component {
   }
 }
 
-HomeView.propTypes = {
+QuestionListView.propTypes = {
   location: PropTypes.object.isRequired,
   app: PropTypes.object.isRequired,
   question: PropTypes.object.isRequired,
@@ -73,7 +73,7 @@ HomeView.propTypes = {
 
 export default connect((state) => {
   return { question: state.question, app: state.app };
-}, Object.assign({}, questionActions, appActions))(HomeView);
+}, Object.assign({}, questionActions, appActions))(QuestionListView);
 
 const styles = {
   floatBtn: {
