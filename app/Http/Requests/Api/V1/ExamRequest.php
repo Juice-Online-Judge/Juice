@@ -14,10 +14,15 @@ class ExamRequest extends Request
     public function rules()
     {
         return [
-            'role_id'  => 'sometimes|required|integer|exists:roles,id',
-            'name'     => 'required|string|max:48',
-            'began_at' => 'required|date',
-            'ended_at' => 'required|date',
+            'role_id'          => 'sometimes|required|integer|exists:roles,id',
+            'name'             => 'required|string|max:48',
+            'began_at'         => 'required|date',
+            'ended_at'         => 'required|date',
+            'question'         => 'required|array',
+            'question.*'       => 'required|array|exists:questions',
+            'question.*.score' => 'required|integer|min:0|max:100',
+            'user'             => 'required|array',
+            'user.*'           => 'required|integer|exists:users',
         ];
     }
 }
