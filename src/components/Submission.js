@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Radium from 'radium';
 
 import { Row, Col } from 'react-flexbox-grid';
 import { Link } from 'react-router';
@@ -7,9 +8,11 @@ import CardText from 'material-ui/lib/card/card-text';
 import IconButton from 'material-ui/lib/icon-button';
 import CodeIcon from 'material-ui/lib/svg-icons/action/code';
 
+@Radium
 class Submission extends Component {
   render() {
     const {
+      id,
       quesUuid,
       title,
       language,
@@ -27,8 +30,10 @@ class Submission extends Component {
               </Link>
             </Col>
             <Col xs={ 1 } /> { /* Use for padding */ }
-            <Col xs={ 1 } style={ result === 'AC' ? styles.pass : styles.noPass }>
-              { result }
+            <Col xs={ 1 }>
+              <span style={ [result === 'AC' ? styles.pass : styles.noPass, styles.bold] }>
+                { result }
+              </span>
             </Col>
             <Col style={ styles.upperCase } xs={ 1 }>
               { language }
@@ -40,9 +45,11 @@ class Submission extends Component {
               { memory } (KB)
             </Col>
             <Col xs={ 1 }>
-              <IconButton tooltip='View Code'>
-                <CodeIcon />
-              </IconButton>
+              <Link to={ `/submission/${id}/code` }>
+                <IconButton tooltip='View Code'>
+                  <CodeIcon />
+                </IconButton>
+              </Link>
             </Col>
           </Row>
         </CardText>
@@ -62,6 +69,9 @@ class Submission extends Component {
 }
 
 const styles = {
+  bold: {
+    fontWeight: 'bold'
+  },
   upperCase: {
     textTransform: 'uppercase'
   },
