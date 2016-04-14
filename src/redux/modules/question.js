@@ -1,33 +1,27 @@
 import { createAction, handleActions } from 'redux-actions';
 import { fromJS, Record, List, Map } from 'immutable';
+import omit from 'lodash/omit';
+
 import api from 'lib/api';
 import { RequestStatus } from 'lib/const';
-import omit from 'lodash/omit';
+import { setStatus, setError } from './app';
 
 const QuestionState = new Record({
   uuids: new List(),
   entities: new Map(),
-  status: RequestStatus.NONE,
   page: 1,
-  total: 0,
-  error: null
+  total: 0
 });
 
 const initialState = new QuestionState();
 
 const SET_QUESTION = 'SET_QUESTION';
 const SET_QUESTION_DETAIL = 'SET_QUESTION_DETAIL';
-const SET_STATUS = 'SET_STATUS';
-const SET_ERROR = 'SET_ERROR';
-const CLEAR_STATUS = 'CLEAR_STATUS';
 
 export const setQuestion = createAction(SET_QUESTION);
 export const setQuestionDetail = createAction(SET_QUESTION_DETAIL, (payload) => {
   return {detail: true, ...payload};
 });
-export const setStatus = createAction(SET_STATUS);
-export const setError = createAction(SET_ERROR);
-export const clearStatus = createAction(CLEAR_STATUS);
 
 const normalizeQuestion = (questions) => {
   let uuids = [];
@@ -53,10 +47,10 @@ const handleError = (dispatch, error) => {
 
 export const fetchQuestion = (query = { page: 1 }, opts = { force: false }) => {
   return (dispatch, getState) => {
-    const state = getState().question;
-    const page = state.get('page');
-    const uuids = state.get('uuids');
-    const status = state.get('status');
+    const { app, question } = getState();
+    const page = question.get('page');
+    const uuids = question.get('uuids');
+    const status = app.get('status');
 
     if (page === query.page && uuids.size && !opts.force) {
       return;
@@ -145,10 +139,7 @@ export const actions = {
   fetchQuestionDetail,
   addQuestion,
   setQuestion,
-  setQuestionDetail,
-  setStatus,
-  setError,
-  clearStatus
+  setQuestionDetail
 };
 
 export default handleActions({
@@ -160,8 +151,5 @@ export default handleActions({
     .merge(omit(payload, 'entities'));
   },
   [SET_QUESTION_DETAIL]: (state, { payload }) => state
-    .setIn(['entities', payload.uuid], fromJS(omit(payload, 'uuid'))),
-  [SET_STATUS]: (state, { payload }) => state.set('status', payload),
-  [SET_ERROR]: (state, { payload }) => state.set('error', payload),
-  [CLEAR_STATUS]: (state) => state.set('status', RequestStatus.NONE)
+    .setIn(['entities', payload.uuid], fromJS(omit(payload, 'uuid')))
 }, initialState);

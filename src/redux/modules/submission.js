@@ -1,22 +1,19 @@
 import { createAction, handleActions } from 'redux-actions';
-import { Record } from 'immutable';
+import { Record, fromJS } from 'immutable';
 import api from 'lib/api';
+
 import { RequestStatus } from 'lib/const';
+import { setStatus, setError } from './app';
 
 const SubmissionState = new Record({
-  status: RequestStatus.NONE,
-  error: null
+  submissions: []
 });
 
 const initialState = new SubmissionState();
 
-const SET_STATUS = 'SET_STATUS';
-const SET_ERROR = 'SET_ERROR';
-const CLEAR_STATUS = 'CLEAR_STATUS';
+const SET_SUBMISSIONS = 'SET_SUBMISSIONS';
 
-export const setStatus = createAction(SET_STATUS);
-export const setError = createAction(SET_ERROR);
-export const clearStatus = createAction(CLEAR_STATUS);
+export const setSubmissions = createAction(SET_SUBMISSIONS);
 
 const handleError = (dispatch, error) => {
   dispatch(setStatus(RequestStatus.FAIL));
@@ -46,15 +43,31 @@ export const submitCode = (uuid, data) => {
   };
 };
 
+export const fetchSubmissions = (opts = { force: false }) => {
+  return (dispatch, getState) => {
+    const { submission } = getState();
+    if (submission.get('submissions').size && !opts.force) {
+      return;
+    }
+
+    dispatch(setStatus(RequestStatus.PENDING));
+    api({
+      path: '/account/submissions'
+    })
+    .entity()
+    .then((entity) => {
+      dispatch(setSubmissions(entity));
+      dispatch(setStatus(RequestStatus.SUCCESS));
+    })
+    .catch(handleError.bind(null, dispatch));
+  };
+};
+
 export const actions = {
-  submitCode,
-  setStatus,
-  setError,
-  clearStatus
+  fetchSubmissions,
+  submitCode
 };
 
 export default handleActions({
-  [SET_STATUS]: (state, { payload }) => state.set('status', payload),
-  [SET_ERROR]: (state, { payload }) => state.set('error', payload),
-  [CLEAR_STATUS]: (state) => state.set('status', RequestStatus.NONE)
+  [SET_SUBMISSIONS]: (state, { payload }) => state.set('submissions', fromJS(payload))
 }, initialState);
