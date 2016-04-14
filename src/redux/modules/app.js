@@ -27,5 +27,5 @@ export const actions = {
 export default handleActions({
   [SET_STATUS]: (state, { payload }) => state.set('status', payload),
   [CLEAR_STATUS]: (state) => state.set('status', RequestStatus.NONE),
-  [SET_ERROR]: (state, { payload }) => state.set('error', payload)
+  [SET_ERROR]: (state, { payload }) => state.set('error', Immutable.fromJS(payload))
 }, initialState);
