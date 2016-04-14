@@ -23,7 +23,7 @@ export class HomeView extends React.Component {
   componentWillReceiveProps(newProps) {
     const { query } = newProps.location;
 
-    if (newProps.question.get('status') === RequestStatus.SUCCESS) {
+    if (newProps.app.get('status') === RequestStatus.SUCCESS) {
       this.props.clearStatus();
     }
 
