@@ -11,6 +11,7 @@ import Tab from 'material-ui/lib/tabs/tab';
 import { Row, Col } from 'react-flexbox-grid';
 
 import { actions as questionActions } from 'redux/modules/question';
+import { actions as appActions } from 'redux/modules/app';
 import { RequestStatus } from 'lib/const';
 import { createFormDataDeep } from 'lib/utils';
 import BasicInfoTab from './BasicInfoTab';
@@ -118,4 +119,4 @@ class QuestionNewView extends Component {
 
 export default connect((state) => {
   return { question: state.question };
-}, questionActions)(QuestionNewView);
+}, Object.assign({}, questionActions, appActions))(QuestionNewView);
