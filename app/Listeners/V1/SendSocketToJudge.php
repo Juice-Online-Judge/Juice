@@ -3,7 +3,6 @@
 namespace App\Listeners\V1;
 
 use App\Events\V1\CodeSubmitted;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendSocketToJudge implements ShouldQueue
