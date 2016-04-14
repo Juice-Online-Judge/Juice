@@ -43,10 +43,13 @@ export class Pagination extends Component {
     const { baseUrl, current, maxPage } = this.props;
     var min = current - 4;
     var max;
+    // Calculate min page
     min = Math.max(min, 1);
+    // Calculate max page
     max = Math.min(min + 9, maxPage);
 
-    if (max - min < 9) {
+    if (max - min < 9) { // If not enough for 10 page
+      // Modify min page
       min = Math.max(1, max - 9);
     }
 
