@@ -38,6 +38,7 @@ $factory->define(App\Submissions\Submission::class, function (Faker\Generator $f
     return [
         'user_id' => \App\Accounts\User::all(['id'])->random()->getAttribute('id'),
         'question_id' => \App\Questions\Question::all(['id'])->random()->getAttribute('id'),
+        'exam_id' => $faker->boolean() ? \App\Exams\Exam::all(['id'])->random()->getAttribute('id') : null,
         'language' => $faker->randomElement(['c', 'c++']),
         'code' => $faker->paragraph,
         'submitted_at' => $faker->dateTime,
