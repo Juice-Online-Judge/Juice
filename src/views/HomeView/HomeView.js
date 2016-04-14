@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import { actions as questionActions } from 'redux/modules/question';
+import { actions as appActions } from 'redux/modules/app';
 
 import FloatingActionButton from 'material-ui/lib/floating-action-button';
 import AddIcon from 'material-ui/lib/svg-icons/content/add';
@@ -39,12 +40,12 @@ export class HomeView extends React.Component {
   }
 
   render() {
-    const { question } = this.props;
+    const { question, app } = this.props;
     const { query } = this.props.location;
     const page = parseInt(query.page || 1);
 
     return (
-      <LoadingContainer loading={ question.get('status') === RequestStatus.PENDING } >
+      <LoadingContainer loading={ app.get('status') === RequestStatus.PENDING } >
         <Inset>
           { this.questionList }
         </Inset>
@@ -64,14 +65,15 @@ export class HomeView extends React.Component {
 
 HomeView.propTypes = {
   location: PropTypes.object.isRequired,
+  app: PropTypes.object.isRequired,
   question: PropTypes.object.isRequired,
   fetchQuestion: PropTypes.func.isRequired,
   clearStatus: PropTypes.func.isRequired
 };
 
 export default connect((state) => {
-  return { question: state.question };
-}, questionActions)(HomeView);
+  return { question: state.question, app: state.app };
+}, Object.assign({}, questionActions, appActions))(HomeView);
 
 const styles = {
   floatBtn: {
