@@ -30,6 +30,24 @@ class ExamPolicy
     }
 
     /**
+     * 檢查是否具有管理此測驗的權限，如無，則確認是否為該測驗之考生.
+     *
+     * @param User $user
+     * @param Exam $exam
+     * @return bool
+     */
+    public function questions(User $user, Exam $exam)
+    {
+        if ($this->auth($user, $exam)) {
+            return true;
+        }
+
+        return ! $exam->load(['users' => function ($query) use ($user) {
+            $query->where('user_id', $user->getAuthIdentifier());
+        }])->getRelation('users')->isEmpty();
+    }
+
+    /**
      * 確認使用者有權限查詢該測驗.
      *
      * @param User $user

@@ -7,6 +7,7 @@ use App\Exams\Exception\AccessDeniedException;
 use App\Exams\Exception\UnavailableException;
 use App\Exams\TokenRepository;
 use App\Http\Requests\Api\V1\ExamRequest;
+use App\Questions\Question;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Http\Request;
@@ -72,6 +73,38 @@ class ExamController extends ApiController
         $this->authorize($exam);
 
         return $this->setData($exam)->responseOk();
+    }
+
+    /**
+     * Get the exam questions.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function questions($id)
+    {
+        $exam = Exam::with(['questions' => function (BelongsToMany $query) {
+            $query->getBaseQuery()->select(['id', 'uuid', 'title', 'description', 'judge']);
+        }])->findOrFail($id);
+
+        $this->authorize($exam);
+
+        return $this->setData($exam->getRelation('questions'))->responseOk();
+    }
+
+    /**
+     * Get the exam submissions record.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function submissions($id)
+    {
+        $exam = Exam::with(['submissions'])->findOrFail($id);
+
+        $this->authorize($exam);
+
+        return $this->setData($exam->getRelation('submissions'))->responseOk();
     }
 
     /**
