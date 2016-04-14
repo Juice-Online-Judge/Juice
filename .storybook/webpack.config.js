@@ -8,11 +8,11 @@ const cssLoader = [
   ].join('&');
 
 module.exports = {
+  resolve: {
+    root: path.resolve(__dirname, '../src'),
+    extensions: ['', '.js', '.jsx']
+  },
   module: {
-    resolve: {
-      root: path.resolve(__dirname, '../src'),
-      extensions: ['', '.js', '.jsx']
-    },
     loaders: [{
       test: /\.scss$/,
       include: /(src|flexboxgrid)/,
