@@ -20,7 +20,7 @@ class Submission extends Entity
      *
      * @var array
      */
-    protected $hidden = ['user_id', 'question_id', 'code'];
+    protected $hidden = ['user_id', 'question_id', 'exam_id', 'code'];
 
     /**
      * The attributes that are mass assignable.

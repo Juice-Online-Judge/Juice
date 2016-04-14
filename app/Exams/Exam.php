@@ -15,7 +15,7 @@ class Exam extends Entity
      *
      * @var array
      */
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden = ['user_id', 'created_at', 'updated_at'];
 
     /**
      * The attributes that are mass assignable.
