@@ -14,6 +14,7 @@ class SubmissionRequest extends Request
     public function rules()
     {
         return [
+            'exam_id'  => 'bail|sometimes|required|integer|in_exam',
             'code'     => 'required',
             'language' => 'required',
         ];

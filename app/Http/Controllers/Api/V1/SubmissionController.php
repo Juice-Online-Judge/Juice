@@ -28,6 +28,7 @@ class SubmissionController extends ApiController
             $uuid,
             $request->user()->getAuthIdentifier(),
             [
+                'exam_id'  => $request->input('exam_id'),
                 'language' => $request->input('language'),
                 'code'     => $request->input('code', $request->file('code')),
             ]
@@ -55,6 +56,7 @@ class SubmissionController extends ApiController
             $uuid,
             $data['userId'],
             [
+                'exam_id'  => $data['examId'],
                 'language' => $request->input('language'),
                 'code'     => $request->file('code'),
             ]
@@ -75,6 +77,7 @@ class SubmissionController extends ApiController
 
         $submission = $question->submissions()->save(new Submission([
             'user_id'      => $userId,
+            'exam_id'      => isset($input['exam_id']) ? $input['exam_id'] : null,
             'language'     => $input['language'],
             'submitted_at' => Carbon::now(),
         ]));

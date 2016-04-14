@@ -67,6 +67,7 @@ class TokenRepository
         $this->token = $this->generateToken();
 
         Cache::add($this->token, [
+            'examId'    => $exam->getAttribute('id'),
             'userId'    => $this->userId,
             'questions' => $exam->getRelation('questions')->pluck('uuid')->toArray(),
         ], $exam->getAttribute('ended_at')->addMinutes(15));

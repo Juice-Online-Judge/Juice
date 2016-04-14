@@ -3,7 +3,7 @@
 use Illuminate\Routing\Router;
 
 /* @var Router $router */
-
+Auth::loginUsingId(1);
 $router->group(['prefix' => 'api', 'namespace' => 'Api'], function (Router $router) {
     $router->group(['prefix' => 'v1', 'namespace' => 'V1'], function (Router $router) {
         $router->group(['middleware' => ['web']], function (Router $router) {
