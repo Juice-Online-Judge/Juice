@@ -15,7 +15,7 @@ class QuestionsTableSeeder extends Seeder
     {
         $tags = Tag::all();
 
-        factory(Question::class, mt_rand(15, 25))->create()->each(function (Question $question) use ($tags) {
+        factory(Question::class, mt_rand(30, 50))->create()->each(function (Question $question) use ($tags) {
             $collection = $tags->random(mt_rand(1, 5));
 
             if ($collection instanceof \Illuminate\Database\Eloquent\Collection) {

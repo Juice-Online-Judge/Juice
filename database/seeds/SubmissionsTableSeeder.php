@@ -13,7 +13,7 @@ class SubmissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Submission::class, mt_rand(25, 35))->create()->each(function (Submission $submission) {
+        factory(Submission::class, mt_rand(70, 100))->create()->each(function (Submission $submission) {
             $submission->judge()->save(factory(Judge::class)->create([
                 'submission_id' => $submission->getAttribute('id'),
             ]));

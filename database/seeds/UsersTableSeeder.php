@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
             ])->roles()->sync($roles);
         }
 
-        factory(User::class, mt_rand(10, 15))->create()->each(function (User $user) use ($roles) {
+        factory(User::class, mt_rand(25, 35))->create()->each(function (User $user) use ($roles) {
             $collection = $roles->random(mt_rand(1, 3));
 
             if ($collection instanceof \Illuminate\Database\Eloquent\Collection) {
