@@ -13,6 +13,7 @@ import FontIcon from 'material-ui/lib/font-icon';
 import LeftNav from './LeftNav';
 
 import { actions as accountActions } from 'redux/modules/account';
+import styles from 'lib/styles';
 
 export class AppBar extends React.Component {
   componentDidMount() {
@@ -58,6 +59,9 @@ export class AppBar extends React.Component {
           }
           targetOrigin={ {horizontal: 'right', vertical: 'top'} }
           anchorOrigin={ {horizontal: 'right', vertical: 'top'} } >
+          <Link style={ styles.noUnderline } to='/submission'>
+            <MenuItem primaryText='Submission' />
+          </Link>
           <MenuItem primaryText='Logout' onTouchTap={ this.logout } />
         </IconMenu>
       );
