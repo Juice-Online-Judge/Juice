@@ -34,3 +34,49 @@ if (! function_exists('pluck_relation_field')) {
         }
     }
 }
+
+if (! function_exists('move_up_pivot_attributes')) {
+    /**
+     * Get pivot attributes to parent model.
+     *
+     * @param \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model $models
+     * @param array $attributes
+     * @param bool $removePivot
+     * @param callable $callable
+     * @return void
+     */
+    function move_up_pivot_attributes($models, array $attributes, $removePivot = true, callable $callable = null)
+    {
+        $models = ($models instanceof \Illuminate\Database\Eloquent\Collection) ? $models->all() : [$models];
+
+        foreach ($models as $model) {
+            $pivot = $model->getRelation('pivot');
+
+            foreach ($attributes as $pivotKey => $newKey) {
+                $pivotKey = is_int($pivotKey) ? $newKey : $pivotKey;
+
+                $model->setAttribute($newKey, $pivot->getAttribute($pivotKey));
+            }
+
+            if (! is_null($callable)) {
+                $callable($model);
+            }
+
+            if ($removePivot) {
+                remove_pivot($model);
+            }
+        }
+    }
+}
+
+if (! function_exists('remove_pivot')) {
+    /**
+     * Remove the pivot relation in many to many relationship.
+     *
+     * @param \Illuminate\Database\Eloquent\Model $model
+     */
+    function remove_pivot($model)
+    {
+        $model->offsetUnset('pivot');
+    }
+}
