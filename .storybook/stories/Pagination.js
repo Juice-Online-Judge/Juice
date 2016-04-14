@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
-import Pagination from '../../src/components/Pagination';
+import Pagination from 'components/Pagination';
 
 storiesOf('Pagination', module)
 .add('1 of 10', () => (
