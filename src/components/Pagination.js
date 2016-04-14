@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import times from 'lodash/times';
 
 import { Link } from 'react-router';
 import FlatButton from 'material-ui/lib/flat-button';
@@ -38,10 +39,32 @@ export class Pagination extends Component {
     }
   }
 
+  get pagination() {
+    const { baseUrl, current, maxPage } = this.props;
+    var min = current - 4;
+    var max;
+    min = Math.max(min, 1);
+    max = Math.min(min + 9, maxPage);
+
+    if (max - min < 9) {
+      min = Math.max(1, max - 9);
+    }
+
+    return times(max - min + 1, (i) => {
+      const page = min + i;
+      return (
+        <Link key={ i } to={ `${baseUrl}?page=${page}` }>
+          <FlatButton style={ styles.page } labelStyle={ styles.noPadding } label={ `${page}` } />
+        </Link>
+      );
+    });
+  }
+
   render() {
     return (
-      <CenterBlock>
+      <CenterBlock fullwidth>
         { this.prevButton }
+        { this.pagination }
         { this.nextButton }
       </CenterBlock>
     );
@@ -55,3 +78,13 @@ export class Pagination extends Component {
 }
 
 export default Pagination;
+
+const styles = {
+  page: {
+    maxWidth: '34px',
+    minWidth: '34px'
+  },
+  noPadding: {
+    padding: '0'
+  }
+};
