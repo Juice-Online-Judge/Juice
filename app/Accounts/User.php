@@ -21,13 +21,6 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
     protected $hidden = ['password', 'remember_token', 'created_at', 'updated_at'];
 
     /**
-     * The relations to eager load on every query.
-     *
-     * @var array
-     */
-    protected $with = ['roles'];
-
-    /**
      * 使用者所屬群組.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -60,7 +53,7 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
         static $roles = null;
 
         if (is_null($roles)) {
-            $roles = $this->getRelation('roles')->pluck('name');
+            $roles = $this->load(['roles'])->getRelation('roles')->pluck('name');
         }
 
         if ($roles->contains('admin')) {
