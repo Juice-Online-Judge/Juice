@@ -42,7 +42,7 @@ class AccountController extends ApiController
                 },
                 'submissions.question' => function (BelongsTo $query) {
                     $query->getBaseQuery()->select(['id', 'uuid', 'title']);
-                }
+                },
             ])
             ->getRelation('submissions');
 
