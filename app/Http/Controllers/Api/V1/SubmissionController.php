@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Events\V1\CodeSubmitted;
 use App\Exams\TokenRepository;
 use App\Http\Requests\Api\V1\SubmissionRequest;
 use App\Questions\Question;
@@ -81,6 +82,8 @@ class SubmissionController extends ApiController
         if (false === $submission || $this->storeCode($submission, $input['code'])) {
             return $this->responseUnknownError();
         }
+
+        event(new CodeSubmitted());
 
         return $this->setData($submission->fresh())->responseCreated();
     }
