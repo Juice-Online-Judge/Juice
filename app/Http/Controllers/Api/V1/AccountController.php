@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 
 class AccountController extends ApiController
@@ -20,7 +22,7 @@ class AccountController extends ApiController
             return $this->setMessages(['Unauthorized'])->responseUnauthorized();
         }
 
-        pluck_relation_field($user, 'roles', 'name');
+        pluck_relation_field($user->load(['roles']), 'roles', 'name');
 
         return $this->setData($user)->responseOk();
     }
@@ -34,7 +36,14 @@ class AccountController extends ApiController
     public function submissions(Request $request)
     {
         $submissions = $request->user()
-            ->load(['submissions', 'submissions.question'])
+            ->load([
+                'submissions' => function (HasMany $query) {
+                    $query->getBaseQuery()->whereNull('exam_id');
+                },
+                'submissions.question' => function (BelongsTo $query) {
+                    $query->getBaseQuery()->select(['id', 'uuid', 'title']);
+                }
+            ])
             ->getRelation('submissions');
 
         return $this->setData($submissions)->responseOk();
