@@ -61,15 +61,15 @@ export class QuestionListView extends Component {
       </LoadingContainer>
     );
   }
-}
 
-QuestionListView.propTypes = {
-  location: PropTypes.object.isRequired,
-  app: PropTypes.object.isRequired,
-  question: PropTypes.object.isRequired,
-  fetchQuestion: PropTypes.func.isRequired,
-  clearStatus: PropTypes.func.isRequired
-};
+  static propTypes = {
+    location: PropTypes.object.isRequired,
+    app: PropTypes.object.isRequired,
+    question: PropTypes.object.isRequired,
+    fetchQuestion: PropTypes.func.isRequired,
+    clearStatus: PropTypes.func.isRequired
+  };
+}
 
 export default connect((state) => {
   return { question: state.question, app: state.app };

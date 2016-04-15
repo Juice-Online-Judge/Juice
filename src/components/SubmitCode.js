@@ -51,15 +51,15 @@ export class SubmitCode extends Component {
     );
   }
 
+  state = {
+    language: 'c'
+  };
+
   static propTypes = {
     uuid: PropTypes.string.isRequired,
     submission: PropTypes.object.isRequired,
     submitCode: PropTypes.func.isRequired,
     expanded: PropTypes.bool
-  };
-
-  state = {
-    language: 'c'
   };
 }
 

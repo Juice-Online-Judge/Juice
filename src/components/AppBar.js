@@ -97,14 +97,14 @@ export class AppBar extends React.Component {
     );
   }
 
+  state = {
+    open: false
+  };
+
   static propTypes = {
     loginState: PropTypes.object.isRequired,
     fetchUserInfo: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired
-  };
-
-  state = {
-    open: false
   };
 }
 

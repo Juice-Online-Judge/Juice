@@ -62,14 +62,14 @@ export class Question extends Component {
   state = {
     fetched: false
   };
-}
 
-Question.propTypes = {
-  uuid: PropTypes.string.isRequired,
-  question: PropTypes.object,
-  fetchQuestionDetail: PropTypes.func.isRequired,
-  expanded: PropTypes.bool
-};
+  static propTypes = {
+    uuid: PropTypes.string.isRequired,
+    question: PropTypes.object,
+    fetchQuestionDetail: PropTypes.func.isRequired,
+    expanded: PropTypes.bool
+  };
+}
 
 export default connect((state, props) => {
   return { question: questionSelector(state, props) };

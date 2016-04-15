@@ -15,22 +15,6 @@ import FlatButton from 'material-ui/lib/flat-button';
 import CenterBlock from 'layouts/CenterBlock';
 
 export class SigninView extends React.Component {
-  static propTypes = {
-    push: PropTypes.func.isRequired,
-    loginState: PropTypes.object.isRequired,
-    login: PropTypes.func.isRequired,
-    fetchUserInfo: PropTypes.func.isRequired,
-    setLoginState: PropTypes.func.isRequired
-  };
-
-  constructor(...args) {
-    super(...args);
-    this.state = {
-      username: '',
-      password: ''
-    };
-  }
-
   componentDidMount() {
     this.props.fetchUserInfo();
     this.checkLoginState(this.props);
@@ -90,6 +74,19 @@ export class SigninView extends React.Component {
       </CenterBlock>
     );
   }
+
+  state = {
+    username: '',
+    password: ''
+  };
+
+  static propTypes = {
+    push: PropTypes.func.isRequired,
+    loginState: PropTypes.object.isRequired,
+    login: PropTypes.func.isRequired,
+    fetchUserInfo: PropTypes.func.isRequired,
+    setLoginState: PropTypes.func.isRequired
+  };
 }
 
 export default connect((state) => {

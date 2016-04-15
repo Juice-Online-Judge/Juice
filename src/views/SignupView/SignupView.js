@@ -20,27 +20,6 @@ import { silencePromise } from 'lib/utils';
 
 @Radium
 export class SignupView extends React.Component {
-  static propTypes = {
-    push: PropTypes.func.isRequired,
-    loginState: PropTypes.object.isRequired,
-    login: PropTypes.func.isRequired,
-    validation: PropTypes.object.isRequired,
-    fetchUserInfo: PropTypes.func.isRequired,
-    registerUser: PropTypes.func.isRequired,
-    validateForm: PropTypes.func.isRequired
-  };
-
-  constructor(...args) {
-    super(...args);
-    this.state = {
-      username: '',
-      nickname: '',
-      password: '',
-      email: '',
-      passwordConfirm: ''
-    };
-  }
-
   componentDidMount() {
     this.props.fetchUserInfo();
     this.checkLoginState(this.props);
@@ -150,6 +129,24 @@ export class SignupView extends React.Component {
       </CenterBlock>
     );
   }
+
+  state = {
+    username: '',
+    nickname: '',
+    password: '',
+    email: '',
+    passwordConfirm: ''
+  };
+
+  static propTypes = {
+    push: PropTypes.func.isRequired,
+    loginState: PropTypes.object.isRequired,
+    login: PropTypes.func.isRequired,
+    validation: PropTypes.object.isRequired,
+    fetchUserInfo: PropTypes.func.isRequired,
+    registerUser: PropTypes.func.isRequired,
+    validateForm: PropTypes.func.isRequired
+  };
 }
 
 export default validateConnect(rule, (state) => {

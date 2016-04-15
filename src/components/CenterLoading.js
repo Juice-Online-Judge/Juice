@@ -10,10 +10,10 @@ export const CenterLoading = (props) => {
       <RefreshIndicator status={ status } left={ window.innerWidth / 2 - 20 } top={ 10 } />
     </div>
   );
-};
 
-CenterLoading.propTypes = {
-  loading: PropTypes.bool
+  static propTypes = {
+    loading: PropTypes.bool
+  }
 };
 
 export default CenterLoading;
