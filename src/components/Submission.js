@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import Card from 'material-ui/Card/Card';
 import CardText from 'material-ui/Card/CardText';
 import IconButton from 'material-ui/IconButton';
-import CodeIcon from 'material-ui/lib/svg-icons/action/code';
+import CodeIcon from 'material-ui/svg-icons/action/code';
 
 @Radium
 class Submission extends Component {
