@@ -11,9 +11,10 @@ export const CenterLoading = (props) => {
     </div>
   );
 
-  static propTypes = {
-    loading: PropTypes.bool
-  }
+};
+
+CenterLoading.propTypes = {
+  loading: PropTypes.bool
 };
 
 export default CenterLoading;
