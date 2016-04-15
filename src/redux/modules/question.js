@@ -4,7 +4,8 @@ import omit from 'lodash/omit';
 
 import api from 'lib/api';
 import { RequestStatus } from 'lib/const';
-import { setStatus, setError } from './app';
+import { setStatus } from './app';
+import { handleRequestError } from '../utils/handleRequestError';
 
 const QuestionState = new Record({
   uuids: new List(),
@@ -37,22 +38,6 @@ const normalizeQuestion = (questions) => {
   };
 };
 
-const handleError = (dispatch, error) => {
-  if (error instanceof Error) {
-    throw error;
-  } else {
-    let { code, text } = error.status;
-    let { messages } = error.entity;
-
-    if (!messages.length) {
-      dispatch(setError({ code, messages: [text] }));
-    } else {
-      dispatch(setError({ code, messages }));
-    }
-  }
-  dispatch(setStatus(RequestStatus.FAIL));
-};
-
 export const fetchQuestion = (query = { page: 1 }, opts = { force: false }) => {
   return (dispatch, getState) => {
     const { app, question } = getState();
@@ -83,7 +68,7 @@ export const fetchQuestion = (query = { page: 1 }, opts = { force: false }) => {
       }));
       dispatch(setStatus(RequestStatus.SUCCESS));
     })
-    .catch(handleError.bind(null, dispatch));
+    .catch(handleRequestError.bind(null, dispatch));
   };
 };
 
@@ -106,7 +91,7 @@ export const fetchQuestionDetail = (uuid, opts = { force: false }) => {
       dispatch(setQuestionDetail(entity));
       dispatch(setStatus(RequestStatus.SUCCESS));
     })
-    .catch(handleError.bind(null, dispatch));
+    .catch(handleRequestError.bind(null, dispatch));
   };
 };
 
@@ -130,7 +115,7 @@ export const addQuestion = (data) => {
       dispatch(setQuestionDetail(entity));
       dispatch(setStatus(RequestStatus.SUCCESS));
     })
-    .catch(handleError.bind(null, dispatch));
+    .catch(handleRequestError.bind(null, dispatch));
   };
 };
 
