@@ -49,6 +49,7 @@
     "material-ui": "^0.15.0-beta.1",
     "radium": "^0.17.1",
     "react": "^15.0.1",
+    "react-addons-pure-render-mixin": "^15.0.1",
     "react-display-name": "^0.1.1",
     "react-dom": "^15.0.1",
     "react-flexbox-grid": "^0.9.5",
