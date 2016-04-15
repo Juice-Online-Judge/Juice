@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { autobind } from 'core-decorators';
 
-import { IndexLink } from 'react-router';
+import { Link, IndexLink } from 'react-router';
 import MuiLeftNav from 'material-ui/lib/left-nav';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 
@@ -21,6 +21,11 @@ export class LeftNav extends Component {
             Question
           </MenuItem>
         </IndexLink>
+        <Link to='/submission' style={ styles.noUnderline } >
+          <MenuItem onTouchTap={ this.handleChange }>
+            Submission
+          </MenuItem>
+        </Link>
       </MuiLeftNav>
     );
   }
