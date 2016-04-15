@@ -20,6 +20,10 @@ class SupportedLanguageValidator
     {
         $lang = Config::find('available-languages');
 
+        if (is_null($lang)) {
+            return false;
+        }
+
         return in_array($value, $lang->getAttribute('value'), true);
     }
 }

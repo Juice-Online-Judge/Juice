@@ -14,8 +14,20 @@ class ValidationProvider extends ServiceProvider
      */
     public function boot()
     {
-        Validator::extend('in_exam', 'App\Validators\InExamValidator@validate', 'Invalid exam.');
-        Validator::extend('supported_language', 'App\Validators\SupportedLanguageValidator@validate', 'The language is not support.');
+        Validator::extend('in_exam', $this->getExtension('InExamValidator'), 'Invalid exam.');
+        Validator::extend('supported_language', $this->getExtension('SupportedLanguageValidator'), 'The language is not support.');
+    }
+
+    /**
+     * Get the extension name.
+     *
+     * @param string $name
+     * @param string $method
+     * @return string
+     */
+    protected function getExtension($name, $method = 'validate')
+    {
+        return "App\\Validators\\{$name}@{$method}";
     }
 
     /**
