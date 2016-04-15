@@ -15,6 +15,7 @@ class ValidationProvider extends ServiceProvider
     public function boot()
     {
         Validator::extend('in_exam', 'App\Validators\InExamValidator@validate', 'Invalid exam.');
+        Validator::extend('supported_language', 'App\Validators\SupportedLanguageValidator@validate', 'The language is not support.');
     }
 
     /**
