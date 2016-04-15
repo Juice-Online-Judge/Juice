@@ -38,7 +38,6 @@ const normalizeQuestion = (questions) => {
 };
 
 const handleError = (dispatch, error) => {
-  dispatch(setStatus(RequestStatus.FAIL));
   if (error instanceof Error) {
     throw error;
   } else {
@@ -51,6 +50,7 @@ const handleError = (dispatch, error) => {
       dispatch(setError({ code, messages }));
     }
   }
+  dispatch(setStatus(RequestStatus.FAIL));
 };
 
 export const fetchQuestion = (query = { page: 1 }, opts = { force: false }) => {
