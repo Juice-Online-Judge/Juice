@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import times from 'lodash/times';
 
 import { Link } from 'react-router';
-import FlatButton from 'material-ui/lib/flat-button';
+import FlatButton from 'material-ui/FlatButton';
 
 import CenterBlock from 'layouts/CenterBlock';
 

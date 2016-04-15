@@ -6,9 +6,9 @@ import times from 'lodash/times';
 import clone from 'lodash/clone';
 import omit from 'lodash/omit';
 
-import TextField from 'material-ui/lib/text-field';
-import RadioButton from 'material-ui/lib/radio-button';
-import RadioButtonGroup from 'material-ui/lib/radio-button-group';
+import TextField from 'material-ui/TextField';
+import RadioButton from 'material-ui/RadioButton/RadioButton';
+import RadioButtonGroup from 'material-ui/RadioButton/RadioButtonGroup';
 
 import FileButton from './FileButton';
 import styles from 'lib/styles';

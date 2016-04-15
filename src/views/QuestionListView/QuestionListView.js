@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import { actions as questionActions } from 'redux/modules/question';
 import { actions as appActions } from 'redux/modules/app';
 
-import FloatingActionButton from 'material-ui/lib/floating-action-button';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/lib/svg-icons/content/add';
 
 import Inset from 'layouts/Inset';

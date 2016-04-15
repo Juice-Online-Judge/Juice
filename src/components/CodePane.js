@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { PrismCode } from 'react-prism';
-import escape from 'lodash/escape';
 
 class CodePane extends Component {
   render() {

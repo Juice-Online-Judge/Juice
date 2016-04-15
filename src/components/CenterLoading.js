@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import RefreshIndicator from 'material-ui/lib/refresh-indicator';
+import RefreshIndicator from 'material-ui/RefreshIndicator';
 
 export const CenterLoading = (props) => {
   const { loading } = props;
@@ -10,7 +10,6 @@ export const CenterLoading = (props) => {
       <RefreshIndicator status={ status } left={ window.innerWidth / 2 - 20 } top={ 10 } />
     </div>
   );
-
 };
 
 CenterLoading.propTypes = {

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { StyleRoot } from 'radium';
-import MuiThemeProvider from 'material-ui/lib/MuiThemeProvider';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import '../../styles/core.scss';
 import theme from '../../themes/light';

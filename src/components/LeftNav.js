@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { autobind } from 'core-decorators';
 
 import { Link, IndexLink } from 'react-router';
-import MuiLeftNav from 'material-ui/lib/left-nav';
-import MenuItem from 'material-ui/lib/menus/menu-item';
+import MuiLeftNav from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
 
 import styles from 'lib/styles';
 

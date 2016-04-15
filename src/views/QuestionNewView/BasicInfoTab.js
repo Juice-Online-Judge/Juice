@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { autobind } from 'core-decorators';
 
-import TextField from 'material-ui/lib/text-field';
-import Toggle from 'material-ui/lib/toggle';
+import TextField from 'material-ui/TextField';
+import Toggle from 'material-ui/Toggle';
 
 export class BasicInfoTab extends Component {
   componentDidMount() {

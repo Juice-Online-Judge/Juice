@@ -2,12 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
 
-import FlatButton from 'material-ui/lib/flat-button';
-import Card from 'material-ui/lib/card/card';
-import CardActions from 'material-ui/lib/card/card-actions';
-import SnackBar from 'material-ui/lib/snackbar';
-import Tabs from 'material-ui/lib/tabs/tabs';
-import Tab from 'material-ui/lib/tabs/tab';
+import FlatButton from 'material-ui/FlatButton';
+import Card from 'material-ui/Card/Card';
+import CardActions from 'material-ui/Card/CardActions';
+import SnackBar from 'material-ui/Snackbar';
+import Tabs from 'material-ui/Tabs/Tabs';
+import Tab from 'material-ui/Tabs/Tab';
 import { Row, Col } from 'react-flexbox-grid';
 
 import { actions as questionActions } from 'redux/modules/question';

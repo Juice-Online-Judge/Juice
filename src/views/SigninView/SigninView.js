@@ -5,12 +5,12 @@ import { connect } from 'react-redux';
 import { actions as accountActions } from '../../redux/modules/account';
 import { push } from 'react-router-redux';
 
-import Paper from 'material-ui/lib/paper';
-import Card from 'material-ui/lib/card/card';
-import CardTitle from 'material-ui/lib/card/card-title';
-import CardActions from 'material-ui/lib/card/card-actions';
-import TextField from 'material-ui/lib/text-field';
-import FlatButton from 'material-ui/lib/flat-button';
+import Paper from 'material-ui/Paper';
+import Card from 'material-ui/Card/Card';
+import CardTitle from 'material-ui/Card/CardTitle';
+import CardActions from 'material-ui/Card/CardActions';
+import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
 
 import CenterBlock from 'layouts/CenterBlock';
 

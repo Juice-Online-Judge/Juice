@@ -3,9 +3,9 @@ import Radium from 'radium';
 
 import { Row, Col } from 'react-flexbox-grid';
 import { Link } from 'react-router';
-import Card from 'material-ui/lib/card/card';
-import CardText from 'material-ui/lib/card/card-text';
-import IconButton from 'material-ui/lib/icon-button';
+import Card from 'material-ui/Card/Card';
+import CardText from 'material-ui/Card/CardText';
+import IconButton from 'material-ui/IconButton';
 import CodeIcon from 'material-ui/lib/svg-icons/action/code';
 
 @Radium

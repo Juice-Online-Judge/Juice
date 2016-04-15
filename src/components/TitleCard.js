@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
-import Card from 'material-ui/lib/card/card';
-import CardTitle from 'material-ui/lib/card/card-title';
+import Card from 'material-ui/Card/Card';
+import CardTitle from 'material-ui/Card/CardTitle';
 
 class TitleCard extends Component {
   render() {
