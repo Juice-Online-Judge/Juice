@@ -7,6 +7,7 @@ import CardTitle from 'material-ui/lib/card/card-title';
 import CardText from 'material-ui/lib/card/card-text';
 import CardActions from 'material-ui/lib/card/card-actions';
 
+import TitleCard from './TitleCard';
 import SubmitCode from './SubmitCode';
 
 import { actions as questionActions, questionSelector } from 'redux/modules/question';
@@ -44,17 +45,15 @@ export class Question extends Component {
             </div>
           </CardText>
           <CardActions>
-            <SubmitArea uuid={ uuid }/>
+            <SubmitArea uuid={ uuid } />
           </CardActions>
         </Card>
       );
     } else {
       return (
         <Link style={ commonStyles.noUnderline } to={ `/question/${uuid}` }>
-          <Card>
-            <CardTitle
-              title={ question.get('title') } />
-          </Card>
+          <TitleCard
+            title={ question.get('title') } />
         </Link>
       );
     }
