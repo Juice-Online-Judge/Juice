@@ -42,7 +42,7 @@ class SubmissionController extends ApiController
      * @param string $uuid
      * @return \Illuminate\Http\JsonResponse
      */
-    public function storeUsingCli(JwtSubmissionRequest $request, $uuid)
+    public function storeUsingJwt(JwtSubmissionRequest $request, $uuid)
     {
         $data = TokenRepository::getData($request->input('token'));
 

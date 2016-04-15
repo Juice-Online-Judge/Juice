@@ -43,7 +43,7 @@ $router->group(['prefix' => 'api', 'namespace' => 'Api'], function (Router $rout
 
         // JWT base api.
         $router->group(['prefix' => 'jwt'], function (Router $router) {
-            $router->post('submissions/{uuid}', 'SubmissionController@storeUsingCli');
+            $router->post('submissions/{uuid}', 'SubmissionController@storeUsingJwt');
         });
     });
 });
