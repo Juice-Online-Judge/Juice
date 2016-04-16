@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Policies\Api\v1;
+namespace App\Policies\Api\V1;
 
 use App\Accounts\User;
 use App\Exams\Exam;
