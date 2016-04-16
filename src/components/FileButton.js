@@ -41,7 +41,7 @@ export class FileButton extends Component {
   }
 
   state = {
-    filename: null
+    filename: ''
   };
 
   static propTypes = {
