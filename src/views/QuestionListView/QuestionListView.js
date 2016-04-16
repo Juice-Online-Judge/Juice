@@ -32,9 +32,9 @@ export class QuestionListView extends Component {
 
   get questionList() {
     const { question } = this.props;
-    return question.get('uuids').map((uuid, idx) => {
+    return question.get('result').map((uuid) => {
       return (
-        <Question uuid={ uuid } key={ idx } />
+        <Question uuid={ uuid } key={ uuid } />
       );
     });
   }
