@@ -30,11 +30,11 @@ class ExamListView extends Component {
       <div>
         <Inset>
           {
-            exam.get('result').map((id, idx) => {
+            exam.get('result').map((id) => {
               return (
                 <ExamCard
                   id={ id }
-                  key={ idx }
+                  key={ id }
                   name={ examData.getIn([`${id}`, 'name']) }
                   beganTime={ examData.getIn([`${id}`, 'began_at']) }
                   endedTime={ examData.getIn([`${id}`, 'ended_at']) }/>
