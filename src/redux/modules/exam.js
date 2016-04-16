@@ -1,6 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { Record, Map, List } from 'immutable';
 import { normalize, arrayOf } from 'normalizr';
+import omit from 'lodash/omit';
 
 import api from 'lib/api';
 import examSchema from 'schema/exam';
@@ -34,7 +35,7 @@ export const fetchExams = (query, opts = { force: false }) => {
     dispatch(setStatus(RequestStatus.PENDING));
     api({
       path: 'exams',
-      query
+      params: query
     })
     .then(({ entity }) => {
       const data = normalize(entity.data, arrayOf(examSchema));
@@ -51,5 +52,6 @@ export const actions = {
 };
 
 export default handleActions({
-  [SET_EXAM]: (state, { payload }) => state.merge(payload)
+  [SET_EXAM]: (state, { payload }) => state.merge(omit(payload, 'entities'))
+    .mergeDeep({ entities: payload.entities })
 }, initialState);
