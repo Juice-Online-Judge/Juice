@@ -46,7 +46,8 @@ export const addExam = (data) => {
 
 export const actions = {
   setExam,
-  fetchExams
+  fetchExams,
+  addExam
 };
 
 export default handleActions({
