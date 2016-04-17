@@ -1,10 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+import { Link } from 'react-router';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import AddIcon from 'material-ui/svg-icons/content/add';
 import Inset from 'layouts/Inset';
 import ExamCard from 'components/ExamCard';
 import Pagination from 'components/Pagination';
 
+import styles from 'lib/styles';
 import { actions as examActions } from 'redux/modules/exam';
 
 class ExamListView extends Component {
@@ -45,7 +49,12 @@ class ExamListView extends Component {
         <Pagination
           baseUrl='/exams'
           current={ exam.get('page') }
-          maxPage={ Math.ceil(exam.get('total') / 10) }/>
+          maxPage={ Math.ceil(exam.get('total') / 10) } />
+        <Link to='/exams/new'>
+          <FloatingActionButton style={ styles.floatBtn } >
+            <AddIcon />
+          </FloatingActionButton>
+        </Link>
       </div>
     );
   }
