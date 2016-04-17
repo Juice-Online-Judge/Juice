@@ -12,6 +12,7 @@ use App\Submissions\Submission;
 use Carbon\Carbon;
 use File;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SubmissionController extends ApiController
 {
@@ -124,6 +125,23 @@ class SubmissionController extends ApiController
         $this->authorize($submission);
 
         return $this->setData($submission)->responseOk();
+    }
+
+    /**
+     * Get the recent submit records.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function recent()
+    {
+        $submissions = Submission::with(['question' => function (BelongsTo $query) {
+            $query->getBaseQuery()->select(['id', 'uuid', 'title']);
+        }])
+            ->where('user_id', request_user(true))
+            ->limit(10)
+            ->get();
+
+        return $this->setData($submissions)->responseOk();
     }
 
     /**
