@@ -18,6 +18,7 @@ $router->group(['prefix' => 'api', 'namespace' => 'Api'], function (Router $rout
         });
 
         $router->get('users', 'UserController@index')->middleware(['role:admin']);
+        $router->get('roles', 'RoleController@index')->middleware(['role:admin']);
 
         $router->group(['prefix' => 'questions'], function (Router $router) {
             $router->get('/', 'QuestionController@index');
@@ -35,12 +36,15 @@ $router->group(['prefix' => 'api', 'namespace' => 'Api'], function (Router $rout
             $router->post('{uuid}/cli', 'SubmissionController@storeUsingCli');
         });
 
-        $router->get('exams/{id}/questions', 'ExamController@questions');
-        $router->get('exams/{id}/submissions', 'ExamController@submissions');
-        $router->get('exams/{id}/token', 'ExamController@token');
+        $router->group(['prefix' => 'exams/{exams}'], function (Router $router) {
+            $router->get('questions', 'ExamController@questions');
+            $router->get('submissions', 'ExamController@submissions');
+            $router->get('token', 'ExamController@token');
+        });
         $router->resource('exams', 'ExamController', ['except' => ['create', 'edit']]);
 
         $router->resource('configs', 'ConfigController', ['only' => ['index', 'show', 'update']]);
+
         $router->resource('tags', 'TagController', ['except' => ['create', 'edit']]);
     });
 });
