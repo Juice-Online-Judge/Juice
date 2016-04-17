@@ -1,11 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { replace } from 'react-router-redux';
+import getDisplayName from 'react-display-name';
 
 import { RequestStatus } from 'lib/const';
 import { actions as appActions } from 'redux/modules/app';
 
 export const redirectNotFound = (WrappedComponent) => {
+  const componentName = getDisplayName(WrappedComponent);
+
   class RedirectNotFound extends Component {
     componentWillReceiveProps(newProps) {
       if (newProps.app.get('status') === RequestStatus.FAIL &&
@@ -29,6 +32,8 @@ export const redirectNotFound = (WrappedComponent) => {
       replace: PropTypes.func.isRequired
     };
   }
+
+  RedirectNotFound.displayName = `RedirectNotFound(${componentName})`;
 
   return connect((state) => ({ app: state.app }),
     Object.assign({}, appActions, { replace }))(RedirectNotFound);

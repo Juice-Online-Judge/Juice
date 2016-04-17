@@ -7,18 +7,18 @@ import { createGetComponentMessage, actions as validateActions } from 'redux/mod
 
 const validateConnect = (validateRule, mapStatesToProps, actions) => {
   return (WrappedComponent) => {
-    const name = getDisplayName(WrappedComponent);
-    const getComponentMessage = createGetComponentMessage(name);
+    const componentName = getDisplayName(WrappedComponent);
+    const getComponentMessage = createGetComponentMessage(componentName);
     const mapStates = (state) => Object.assign({}, mapStatesToProps(state), getComponentMessage(state));
 
     class ValidateCommponent extends Component {
       componentWillMount() {
-        this.props.clearValidationMessage(name);
+        this.props.clearValidationMessage(componentName);
       }
 
       @autobind
       validateForm(fields) {
-        return this.props.validateForm(name, fields, validateRule);
+        return this.props.validateForm(componentName, fields, validateRule);
       }
 
       render() {
@@ -33,6 +33,8 @@ const validateConnect = (validateRule, mapStatesToProps, actions) => {
         clearValidationMessage: PropTypes.func.isRequired
       }
     }
+
+    ValidateCommponent.displayName = `Validate(${componentName})`;
 
     return connect(mapStates, { ...actions, ...validateActions })(ValidateCommponent);
   };
