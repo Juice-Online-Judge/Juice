@@ -1,5 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import Immutable from 'immutable';
+import store from 'store';
 import guardRequest from '../utils/guardRequest';
 
 let initialState = Immutable.fromJS({
@@ -22,7 +23,8 @@ export const login = (username, password) => {
     guardRequest(dispatch, {
       path: 'auth/sign-in',
       entity: body
-    }, () => {
+    }, (entity) => {
+      store.set('juice-token', entity);
       dispatch(fetchUserInfo({ force: true }));
     });
   };
@@ -33,6 +35,7 @@ export const logout = () => {
     guardRequest(dispatch, {
       path: 'auth/sign-out'
     }, () => {
+      store.remove('juice-token');
       dispatch(clearUser());
     });
   };
