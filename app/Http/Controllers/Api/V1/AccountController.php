@@ -4,19 +4,17 @@ namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Http\Request;
 
 class AccountController extends ApiController
 {
     /**
      * Get user profile.
      *
-     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function profile(Request $request)
+    public function profile()
     {
-        $user = $request->user();
+        $user = request_user();
 
         if (is_null($user)) {
             return $this->setMessages(['Unauthorized'])->responseUnauthorized();
@@ -30,12 +28,11 @@ class AccountController extends ApiController
     /**
      * Get user submission records.
      *
-     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function submissions(Request $request)
+    public function submissions()
     {
-        $submissions = $request->user()
+        $submissions = request_user()
             ->load([
                 'submissions' => function (HasMany $query) {
                     $query->getBaseQuery()->whereNull('exam_id');

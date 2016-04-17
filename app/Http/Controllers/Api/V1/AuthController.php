@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Accounts\User;
 use App\Http\Requests\Api\V1\SignUpRequest;
-use Auth;
 use Illuminate\Http\Request;
 use JWTAuth;
 
@@ -35,7 +34,7 @@ class AuthController extends ApiController
      */
     public function signOut()
     {
-        Auth::logout();
+        JWTAuth::invalidate(JWTAuth::getToken());
 
         return $this->responseOk();
     }
@@ -56,6 +55,6 @@ class AuthController extends ApiController
             return $this->responseUnknownError();
         }
 
-        return $this->setData($user->fresh())->responseCreated();
+        return $this->setData(JWTAuth::fromUser($user->fresh()))->responseCreated();
     }
 }
