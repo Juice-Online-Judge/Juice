@@ -8,12 +8,12 @@ import TitleCard from 'components/TitleCard';
 
 storiesOf('TitleCard', module)
 .add('Title', () => (
-  <MuiThemeProvider theme={ theme }>
+  <MuiThemeProvider muiTheme={ theme }>
     <TitleCard title='Title' />
   </MuiThemeProvider>
 ))
 .add('Title and subtitle', () => (
-  <MuiThemeProvider theme={ theme }>
+  <MuiThemeProvider muiTheme={ theme }>
     <TitleCard title='Title' subtitle='Subtitle' />
   </MuiThemeProvider>
 ));

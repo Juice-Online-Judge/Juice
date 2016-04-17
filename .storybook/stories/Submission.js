@@ -8,7 +8,7 @@ import Submission from 'components/Submission';
 
 storiesOf('Submission', module)
 .add('Basic (AC)', () => (
-  <MuiThemeProvider theme={ theme }>
+  <MuiThemeProvider muiTheme={ theme }>
     <Submission
       id={ 11 }
       quesUuid='5d45436f-59b5-384e-8418-2cb357951153'
@@ -20,7 +20,7 @@ storiesOf('Submission', module)
   </MuiThemeProvider>
 ))
 .add('Basic (WA)', () => (
-  <MuiThemeProvider theme={ theme }>
+  <MuiThemeProvider muiTheme={ theme }>
     <Submission
       id={ 11 }
       quesUuid='5d45436f-59b5-384e-8418-2cb357951153'

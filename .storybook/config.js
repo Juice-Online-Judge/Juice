@@ -6,7 +6,7 @@ function loadStories() {
   require('./stories/CodePane');
   require('./stories/TitleCard');
   require('./stories/ExamCard');
-  // require as many stories as you need.
+  require('./stories/ExamBasicInfoTab');
 }
 
 configure(loadStories, module);
