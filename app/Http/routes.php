@@ -25,10 +25,14 @@ $router->group(['prefix' => 'api', 'namespace' => 'Api'], function (Router $rout
             $router->get('{uuid}', 'QuestionController@show');
         });
     
-        $router->group(['prefix' => 'submissions', 'middleware' => ['auth']], function (Router $router) {
-            $router->post('{uuid}', 'SubmissionController@storeUsingWeb');
-            $router->get('{id}', 'SubmissionController@show');
-            $router->get('{id}/code', 'SubmissionController@code');
+        $router->group(['prefix' => 'submissions'], function (Router $router) {
+            $router->group(['middleware' => ['auth']], function (Router $router) {
+                $router->post('{uuid}', 'SubmissionController@storeUsingWeb');
+                $router->get('{id}', 'SubmissionController@show');
+                $router->get('{id}/code', 'SubmissionController@code');
+            });
+
+            $router->post('{uuid}/cli', 'SubmissionController@storeUsingCli');
         });
     
         $router->get('exams/{id}/questions', 'ExamController@questions');
@@ -38,11 +42,6 @@ $router->group(['prefix' => 'api', 'namespace' => 'Api'], function (Router $rout
     
         $router->resource('configs', 'ConfigController', ['only' => ['index', 'show', 'update']]);
         $router->resource('tags', 'TagController', ['except' => ['create', 'edit']]);
-
-        // JWT base api.
-        $router->group(['prefix' => 'jwt'], function (Router $router) {
-            $router->post('submissions/{uuid}', 'SubmissionController@storeUsingJwt');
-        });
     });
 });
 

@@ -80,3 +80,15 @@ if (! function_exists('remove_pivot')) {
         $model->offsetUnset('pivot');
     }
 }
+
+if (! function_exists('request_user')) {
+    /**
+     * Get the request user.
+     *
+     * @return \App\Accounts\User
+     */
+    function request_user()
+    {
+        return JWTAuth::toUser(JWTAuth::getToken());
+    }
+}

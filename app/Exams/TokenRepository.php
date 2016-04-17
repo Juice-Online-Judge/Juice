@@ -7,7 +7,9 @@ use App\Exams\Exception\UnavailableException;
 use Cache;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Str;
+use JWTAuth;
+use JWTFactory;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class TokenRepository
 {
@@ -29,12 +31,15 @@ class TokenRepository
     /**
      * Get the data according to the token.
      *
-     * @param string $token
      * @return array
      */
     public static function getData($token)
     {
-        return Cache::tags(['exam', 'token'])->get($token);
+        try {
+            return JWTAuth::decode(JWTAuth::setToken($token)->getToken())->toArray();
+        } catch (JWTException $e) {
+            return null;
+        }
     }
 
     /**
@@ -64,13 +69,14 @@ class TokenRepository
 
         $exam = $this->getExam();
 
-        $this->token = $this->generateToken();
+        $payload = JWTFactory::setTTL(Carbon::now()->diffInMinutes($exam->getAttribute('ended_at')->addMinutes(5), false))
+            ->make([
+                'examId'    => $exam->getAttribute('id'),
+                'userId'    => $this->userId,
+                'questions' => $exam->getRelation('questions')->pluck('uuid')->toArray(),
+            ]);
 
-        Cache::add($this->token, [
-            'examId'    => $exam->getAttribute('id'),
-            'userId'    => $this->userId,
-            'questions' => $exam->getRelation('questions')->pluck('uuid')->toArray(),
-        ], $exam->getAttribute('ended_at')->addMinutes(15));
+        $this->token = JWTAuth::encode($payload)->get();
 
         return $this;
     }
@@ -97,16 +103,6 @@ class TokenRepository
         }
 
         return $exam;
-    }
-
-    /**
-     * Generate the token.
-     *
-     * @return string
-     */
-    protected function generateToken()
-    {
-        return md5(microtime()).Str::quickRandom(16);
     }
 
     /**

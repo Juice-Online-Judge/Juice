@@ -27,7 +27,7 @@ class Submission extends Entity
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'language', 'submitted_at'];
+    protected $fillable = ['user_id', 'exam_id', 'language', 'submitted_at'];
 
     /**
      * The attributes that should be mutated to dates.

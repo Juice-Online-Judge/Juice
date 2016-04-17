@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api\V1\Jwt;
+namespace App\Http\Requests\Api\V1\Cli;
 
 use App\Http\Requests\Request;
 
@@ -14,7 +14,7 @@ class SubmissionRequest extends Request
     public function rules()
     {
         return [
-            'token'    => 'required|string|size:48',
+            'token'    => 'required|string',
             'language' => 'required|string|supported_language',
             'code'     => 'required|mimes:txt',
         ];

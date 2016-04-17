@@ -11,7 +11,6 @@ use App\Questions\Question;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Http\Request;
 
 class ExamController extends ApiController
 {
@@ -47,7 +46,7 @@ class ExamController extends ApiController
     {
         $exam = new Exam($request->only(['name', 'began_at', 'ended_at']));
 
-        $exam->setAttribute('user_id', $request->user()->getAuthIdentifier())
+        $exam->setAttribute('user_id', request_user()->getKey())
             ->setAttribute('role_id', $request->has('role_id') ? $request->input('role_id') : null);
 
         if (! $exam->save()) {
@@ -160,15 +159,14 @@ class ExamController extends ApiController
     /**
      * Get the exam auth token for JWT.
      *
-     * @param Request $request
      * @param int $id
      * @param TokenRepository $repository
      * @return \Illuminate\Http\JsonResponse
      */
-    public function token(Request $request, $id, TokenRepository $repository)
+    public function token($id, TokenRepository $repository)
     {
         try {
-            $token = $repository->getToken($id, $request->user()->getAuthIdentifier());
+            $token = $repository->getToken($id, request_user()->getKey());
         } catch (ModelNotFoundException $e) {
             return $this->setMessages(['The exam is not exists.'])->responseNotFound();
         } catch (AccessDeniedException $e) {
