@@ -6,6 +6,11 @@ export const styles = {
   },
   noUnderline: {
     textDecoration: 'none'
+  },
+  floatBtn: {
+    position: 'fixed',
+    right: '20px',
+    bottom: '10px'
   }
 };
 

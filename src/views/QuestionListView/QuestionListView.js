@@ -13,6 +13,7 @@ import LoadingContainer from 'components/LoadingContainer';
 import Question from 'components/Question';
 import Pagination from 'components/Pagination';
 import { RequestStatus } from 'lib/const';
+import styles from 'lib/styles';
 
 export class QuestionListView extends Component {
   componentDidMount() {
@@ -74,11 +75,3 @@ export class QuestionListView extends Component {
 export default connect((state) => {
   return { question: state.question, app: state.app };
 }, Object.assign({}, questionActions, appActions))(QuestionListView);
-
-const styles = {
-  floatBtn: {
-    position: 'fixed',
-    right: '20px',
-    bottom: '10px'
-  }
-};
