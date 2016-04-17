@@ -4,7 +4,6 @@ namespace App\Exams;
 
 use App\Exams\Exception\AccessDeniedException;
 use App\Exams\Exception\UnavailableException;
-use Cache;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use JWTAuth;
@@ -38,7 +37,7 @@ class TokenRepository
         try {
             return JWTAuth::decode(JWTAuth::setToken($token)->getToken())->toArray();
         } catch (JWTException $e) {
-            return null;
+            return;
         }
     }
 
