@@ -3,11 +3,9 @@ import { fromJS, Record, List, Map } from 'immutable';
 import { normalize, arrayOf } from 'normalizr';
 import omit from 'lodash/omit';
 
-import api from 'lib/api';
-import questionSchema from 'schema/question';
 import { RequestStatus } from 'lib/const';
-import { setStatus } from './app';
-import { handleRequestError } from '../utils/handleRequestError';
+import questionSchema from 'schema/question';
+import guardRequest from '../utils/guardRequest';
 
 const QuestionState = new Record({
   result: new List(),
@@ -41,13 +39,10 @@ export const fetchQuestion = (query = { page: 1 }, opts = { force: false }) => {
       return;
     }
 
-    dispatch(setStatus(RequestStatus.PENDING));
-
-    api({
+    guardRequest(dispatch, {
       path: 'questions',
       params: query
-    })
-    .then(({ entity }) => {
+    }, (entity) => {
       const questions = normalize(entity.data, arrayOf(questionSchema));
 
       dispatch(setQuestion({
@@ -55,10 +50,7 @@ export const fetchQuestion = (query = { page: 1 }, opts = { force: false }) => {
         page: query.page,
         total: entity.total
       }));
-
-      dispatch(setStatus(RequestStatus.SUCCESS));
-    })
-    .catch(handleRequestError.bind(null, dispatch));
+    });
   };
 };
 
@@ -70,42 +62,33 @@ export const fetchQuestionDetail = (uuid, opts = { force: false }) => {
       return;
     }
 
-    dispatch(setStatus(RequestStatus.PENDING));
-    api({
+    guardRequest(dispatch, {
       path: 'questions/{uuid}',
       params: {
         uuid
       }
-    })
-    .then(({ entity }) => {
+    }, (entity) => {
       dispatch(setQuestionDetail(entity));
-      dispatch(setStatus(RequestStatus.SUCCESS));
-    })
-    .catch(handleRequestError.bind(null, dispatch));
+    });
   };
 };
 
 export const addQuestion = (data) => {
   return (dispatch) => {
-    dispatch(setStatus(RequestStatus.PENDING));
-
     if (!data.uuid) {
       delete data.uuid;
     }
 
-    api({
+    guardRequest(dispatch, {
       path: 'questions',
       methods: 'POST',
       headers: {
         'Content-Type': 'multipart/form-data'
       },
       entity: data
-    })
-    .then(({ entity }) => {
+    }, (entity) => {
       dispatch(setQuestionDetail(entity));
-      dispatch(setStatus(RequestStatus.SUCCESS));
-    })
-    .catch(handleRequestError.bind(null, dispatch));
+    });
   };
 };
 

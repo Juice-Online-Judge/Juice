@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import Immutable from 'immutable';
-import api from 'lib/api';
+import guardRequest from '../utils/guardRequest';
 
 let initialState = Immutable.fromJS({
   valid: false,
@@ -19,36 +19,21 @@ export const clearUser = createAction(CLEAR_USER);
 export const login = (username, password) => {
   return (dispatch) => {
     let body = { username, password };
-    api({
+    guardRequest(dispatch, {
       path: 'auth/sign-in',
       entity: body
-    })
-    .then(() => {
+    }, () => {
       dispatch(fetchUserInfo({ force: true }));
-    })
-    .catch((error) => {
-      console.warn(error);
-      if (error instanceof Error) {
-        throw error;
-      }
     });
   };
 };
 
 export const logout = () => {
   return (dispatch) => {
-    api({
-      path: 'auth/sign-out',
-      method: 'get'
-    })
-    .then(() => {
+    guardRequest(dispatch, {
+      path: 'auth/sign-out'
+    }, () => {
       dispatch(clearUser());
-    })
-    .catch((error) => {
-      console.warn(error);
-      if (error instanceof Error) {
-        throw error;
-      }
     });
   };
 };
@@ -60,37 +45,24 @@ export const fetchUserInfo = (options = { force: false }) => {
     if (account.get('valid') && !force) {
       return;
     }
-    api({
+
+    guardRequest(dispatch, {
       path: 'account/profile'
-    })
-    .entity()
-    .then((response) => {
-      dispatch(setUserInfo(response));
-    })
-    .catch((error) => {
+    }, (entity) => {
+      dispatch(setUserInfo(entity));
+    }, () => {
       dispatch(setLoginState(false));
-      if (error instanceof Error) {
-        throw error;
-      }
     });
   };
 };
 
 export const registerUser = (info) => {
   return (dispatch) => {
-    api({
+    guardRequest(dispatch, {
       path: 'auth/sign-up',
       entity: info
-    })
-    .entity()
-    .then(() => {
+    }, () => {
       dispatch(setUserInfo(info));
-    })
-    .catch((error) => {
-      console.warn(error);
-      if (error instanceof Error) {
-        throw error;
-      }
     });
   };
 };

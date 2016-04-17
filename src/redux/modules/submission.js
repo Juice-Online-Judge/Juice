@@ -1,10 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { Record, fromJS } from 'immutable';
-import api from 'lib/api';
 
-import { RequestStatus } from 'lib/const';
-import { setStatus } from './app';
-import { handleRequestError } from '../utils/handleRequestError';
+import guardRequest from '../utils/guardRequest';
 
 const SubmissionState = new Record({
   submissions: []
@@ -18,7 +15,7 @@ export const setSubmissions = createAction(SET_SUBMISSIONS);
 
 export const submitCode = (uuid, data) => {
   return (dispatch) => {
-    api({
+    guardRequest(dispatch, {
       path: 'submissions/{uuid}',
       params: {
         uuid
@@ -27,12 +24,7 @@ export const submitCode = (uuid, data) => {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
-    })
-    .entity()
-    .then((entity) => {
-      dispatch(setStatus(RequestStatus.SUCCESS));
-    })
-    .catch(handleRequestError.bind(null, dispatch));
+    });
   };
 };
 
@@ -43,16 +35,11 @@ export const fetchSubmissions = (opts = { force: false }) => {
       return;
     }
 
-    dispatch(setStatus(RequestStatus.PENDING));
-    api({
+    guardRequest(dispatch, {
       path: '/account/submissions'
-    })
-    .entity()
-    .then((entity) => {
+    }, (entity) => {
       dispatch(setSubmissions(entity));
-      dispatch(setStatus(RequestStatus.SUCCESS));
-    })
-    .catch(handleRequestError.bind(null, dispatch));
+    });
   };
 };
 
