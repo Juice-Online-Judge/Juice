@@ -46,7 +46,7 @@ class ExamController extends ApiController
     {
         $exam = new Exam($request->only(['name', 'began_at', 'ended_at']));
 
-        $exam->setAttribute('user_id', request_user()->getKey())
+        $exam->setAttribute('user_id', request_user(true))
             ->setAttribute('role_id', $request->has('role_id') ? $request->input('role_id') : null);
 
         if (! $exam->save()) {
@@ -166,7 +166,7 @@ class ExamController extends ApiController
     public function token($id, TokenRepository $repository)
     {
         try {
-            $token = $repository->getToken($id, request_user()->getKey());
+            $token = $repository->getToken($id, request_user(true));
         } catch (ModelNotFoundException $e) {
             return $this->setMessages(['The exam is not exists.'])->responseNotFound();
         } catch (AccessDeniedException $e) {

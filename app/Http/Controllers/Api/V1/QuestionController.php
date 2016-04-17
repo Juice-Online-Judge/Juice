@@ -33,7 +33,7 @@ class QuestionController extends ApiController
     {
         $question = new Question($request->only(['title', 'description', 'public']));
 
-        $question->setAttribute('user_id', request_user()->getKey())
+        $question->setAttribute('user_id', request_user(true))
             ->setAttribute('uuid', $request->input('uuid', '') ?: Uuid::uuid4()->toString())
             ->setAttribute('judge', []);
 

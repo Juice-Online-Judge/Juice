@@ -26,7 +26,7 @@ class SubmissionController extends ApiController
     {
         return $this->store(
             $uuid,
-            request_user()->getKey(),
+            request_user(true),
             [
                 'exam_id'  => $request->input('exam_id'),
                 'language' => $request->input('language'),

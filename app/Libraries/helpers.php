@@ -85,10 +85,13 @@ if (! function_exists('request_user')) {
     /**
      * Get the request user.
      *
+     * @param bool $getKey
      * @return \App\Accounts\User
      */
-    function request_user()
+    function request_user($getKey = false)
     {
-        return JWTAuth::toUser(JWTAuth::getToken());
+        $user = JWTAuth::toUser(JWTAuth::getToken());
+
+        return $getKey ? $user->getKey() : $user;
     }
 }
