@@ -44,10 +44,9 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'        => \App\Http\Middleware\Authenticate::class,
-        'role'        => \App\Http\Middleware\VerifyRole::class,
-        'throttle'    => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'jwt.auth'    => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
-        'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class,
+        'auth'     => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
+        'refresh'  => \Tymon\JWTAuth\Middleware\RefreshToken::class,
+        'role'     => \App\Http\Middleware\VerifyRole::class,
+        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     ];
 }

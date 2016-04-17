@@ -3,8 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class VerifyRole
 {
@@ -17,21 +17,22 @@ class VerifyRole
      */
     public function handle($request, Closure $next)
     {
-        $user = $request->user();
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
 
-        if (is_null($user)) {
-            throw new UnauthorizedHttpException('Unauthorized');
+            $roles = array_reverse(func_get_args());
+
+            array_pop($roles);
+            array_pop($roles);
+
+
+            if (! $user->hasRole($roles)) {
+                return response()->json(['messages' => []], 403);
+            }
+
+            return $next($request);
+        } catch (JWTException $e) {
+            return response()->json(['messages' => []], 401);
         }
-
-        $roles = array_reverse(func_get_args());
-
-        array_pop($roles);
-        array_pop($roles);
-
-        if (! $user->hasRole($roles)) {
-            throw new AccessDeniedHttpException;
-        }
-
-        return $next($request);
     }
 }
