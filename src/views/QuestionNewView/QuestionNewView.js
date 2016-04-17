@@ -25,12 +25,12 @@ class QuestionNewView extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.question.get('status') === RequestStatus.SUCCESS) {
+    if (newProps.app.get('status') === RequestStatus.SUCCESS) {
       this.setState({
         open: true,
         message: 'Add success'
       });
-    } else if (newProps.question.get('status') === RequestStatus.FAIL) {
+    } else if (newProps.app.get('status') === RequestStatus.FAIL) {
       this.setState({
         open: true,
         message: 'Add fail'
@@ -111,12 +111,12 @@ class QuestionNewView extends Component {
   };
 
   static propTypes = {
-    question: PropTypes.object.isRequired,
+    app: PropTypes.object.isRequired,
     addQuestion: PropTypes.func.isRequired,
     clearStatus: PropTypes.func.isRequired
   };
 }
 
 export default connect((state) => {
-  return { question: state.question };
+  return { app: state.app };
 }, Object.assign({}, questionActions, appActions))(QuestionNewView);
