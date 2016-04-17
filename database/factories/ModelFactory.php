@@ -11,7 +11,7 @@ $factory->define(App\Accounts\User::class, function (Faker\Generator $faker) {
 
 $factory->define(\App\Accounts\Role::class, function (Faker\Generator $faker) {
     return [
-        'name'   => $faker->word,
+        'name'   => $faker->word.str_random(2),
         'remark' => $faker->boolean() ? $faker->sentence : null,
     ];
 });
@@ -58,7 +58,7 @@ $factory->define(App\Judges\Judge::class, function (Faker\Generator $faker) {
 
 $factory->define(\App\Tags\Tag::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->word,
+        'name' => $faker->word.str_random(2),
         'type' => $faker->word,
     ];
 });

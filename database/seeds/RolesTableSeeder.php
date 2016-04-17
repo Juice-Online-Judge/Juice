@@ -12,6 +12,8 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
+        Role::firstOrCreate(['name' => 'admin']);
+
         factory(Role::class, mt_rand(3, 5))->create();
     }
 }
