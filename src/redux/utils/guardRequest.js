@@ -7,7 +7,9 @@ const guardRequest = (dispatch, reqOpts, handleResult, handleError) => {
   dispatch(setStatus(RequestStatus.PENDING));
   api(reqOpts)
   .then(({ entity }) => {
-    handleResult(entity);
+    if (handleResult) {
+      handleResult(entity);
+    }
     dispatch(setStatus(RequestStatus.SUCCESS));
   })
   .catch((error) => {
