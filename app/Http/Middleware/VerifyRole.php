@@ -25,7 +25,6 @@ class VerifyRole
             array_pop($roles);
             array_pop($roles);
 
-
             if (! $user->hasRole($roles)) {
                 return response()->json(['messages' => []], 403);
             }
