@@ -3,11 +3,8 @@ import { Record, Map, List } from 'immutable';
 import { normalize, arrayOf } from 'normalizr';
 import omit from 'lodash/omit';
 
-import api from 'lib/api';
 import examSchema from 'schema/exam';
-import { RequestStatus } from 'lib/const';
-import { setStatus } from './app';
-import handleRequestError from '../utils/handleRequestError';
+import guardRequest from '../utils/guardRequest';
 
 const ExamStatus = new Record({
   result: new List(),
@@ -32,17 +29,18 @@ export const fetchExams = (query, opts = { force: false }) => {
       return;
     }
 
-    dispatch(setStatus(RequestStatus.PENDING));
-    api({
+    guardRequest(dispatch, {
       path: 'exams',
       params: query
-    })
-    .then(({ entity }) => {
+    }, (entity) => {
       const data = normalize(entity.data, arrayOf(examSchema));
       dispatch(setExam({ page: query.page, total: entity.total, ...data }));
-      dispatch(setStatus(RequestStatus.SUCCESS));
-    })
-    .catch(handleRequestError.bind(null, dispatch));
+    });
+  };
+};
+
+export const addExam = (data) => {
+  return (dispatch) => {
   };
 };
 
