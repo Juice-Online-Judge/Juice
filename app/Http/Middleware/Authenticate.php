@@ -17,6 +17,7 @@ class Authenticate
      */
     public function handle($request, Closure $next, $guard = null)
     {
+        dd($request->is('api/*/jwt/*'));
         if (Auth::guard($guard)->guest()) {
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
