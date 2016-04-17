@@ -6,6 +6,7 @@ use App\Accounts\User;
 use App\Http\Requests\Api\V1\SignUpRequest;
 use Auth;
 use Illuminate\Http\Request;
+use JWTAuth;
 
 class AuthController extends ApiController
 {
@@ -17,12 +18,14 @@ class AuthController extends ApiController
      */
     public function signIn(Request $request)
     {
-        if (! Auth::attempt($request->only(['username', 'password']))) {
+        $token = JWTAuth::attempt($request->only(['username', 'password']));
+
+        if (! $token) {
             return $this->setMessages(['These credentials do not match our records.'])
                 ->responseUnprocessableEntity();
         }
 
-        return $this->responseOk();
+        return $this->setData($token)->responseOk();
     }
 
     /**
