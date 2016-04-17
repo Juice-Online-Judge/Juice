@@ -18,6 +18,8 @@ $router->group(['prefix' => 'api', 'namespace' => 'Api'], function (Router $rout
                 $router->get('submissions', 'AccountController@submissions')->middleware(['auth']);
             });
 
+            $router->get('users', 'UserController@index')->middleware(['role:admin']);
+
             $router->group(['prefix' => 'questions'], function (Router $router) {
                 $router->get('/', 'QuestionController@index');
                 $router->post('/', 'QuestionController@store')->middleware(['auth']);
