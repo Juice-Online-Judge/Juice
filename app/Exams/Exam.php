@@ -49,7 +49,7 @@ class Exam extends Entity
     public function questions()
     {
         return $this->belongsToMany(Question::class)
-            ->withPivot(['score']);
+            ->withPivot(['info']);
     }
 
     /**

@@ -20,7 +20,7 @@ class ExamRequest extends Request
             'ended_at'         => 'required|date',
             'question'         => 'required|array',
             'question.*'       => 'required|array|exists:questions',
-            'question.*.score' => 'required|integer|min:0|max:100',
+            'question.*.info'  => 'bail|required|json|max:1000|exam_question_info',
             'user'             => 'required|array',
             'user.*'           => 'required|integer|exists:users',
         ];

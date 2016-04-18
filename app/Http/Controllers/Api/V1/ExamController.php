@@ -78,7 +78,7 @@ class ExamController extends ApiController
 
         move_up_pivot_attributes(
             $exam->getRelation('questions'),
-            ['question_id' => 'id', 'score'],
+            ['question_id' => 'id', 'info'],
             true,
             function (Question $question) {
                 $question->setHidden(['user_id', 'public']);
@@ -104,7 +104,7 @@ class ExamController extends ApiController
 
         $this->authorize($exam);
 
-        move_up_pivot_attributes($exam->getRelation('questions'), ['score']);
+        move_up_pivot_attributes($exam->getRelation('questions'), ['info']);
 
         return $this->setData($exam->getRelation('questions'))->responseOk();
     }
