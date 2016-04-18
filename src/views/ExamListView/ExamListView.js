@@ -7,6 +7,7 @@ import AddIcon from 'material-ui/svg-icons/content/add';
 import Inset from 'layouts/Inset';
 import ExamCard from 'components/ExamCard';
 import Pagination from 'components/Pagination';
+import redirectNotAuth from 'lib/redirectNotAuth';
 
 import styles from 'lib/styles';
 import { actions as examActions } from 'redux/modules/exam';
@@ -66,5 +67,5 @@ class ExamListView extends Component {
   };
 }
 
-export default connect((state) => ({ exam: state.exam }),
-  examActions)(ExamListView);
+export default redirectNotAuth(connect((state) => ({ exam: state.exam }),
+  examActions)(ExamListView));
