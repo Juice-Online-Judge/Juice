@@ -22,7 +22,12 @@ class ExamsTableSeeder extends Seeder
             $q = $questions->random(mt_rand(15, 20));
 
             foreach ($q->keys() as $key) {
-                $joins[$key] = ['score' => mt_rand(15, 20)];
+                $joins[$key] = [
+                    'info' => json_encode([
+                        'score' => mt_rand(15, 20),
+                        'type' => \Illuminate\Support\Str::quickRandom(4),
+                    ]),
+                ];
             }
 
             $exam->questions()->saveMany($q, $joins);
