@@ -5,6 +5,7 @@ import omit from 'lodash/omit';
 
 import examSchema from 'schema/exam';
 import guardRequest from '../utils/guardRequest';
+import isRequesting from 'lib/isRequesting';
 
 const ExamStatus = new Record({
   result: new List(),
@@ -21,9 +22,13 @@ export const setExam = createAction(SET_EXAM);
 
 export const fetchExams = (query, opts = { force: false }) => {
   return (dispatch, getState) => {
-    const { exam } = getState();
+    const { app, exam } = getState();
     const page = exam.get('page');
     query = query || { page };
+
+    if (isRequesting(app)) {
+      return;
+    }
 
     if (exam.get('result').size && query.page === page && !opts.force) {
       return;
