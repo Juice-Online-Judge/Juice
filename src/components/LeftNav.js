@@ -26,6 +26,11 @@ export class LeftNav extends Component {
             Submission
           </MenuItem>
         </Link>
+        <Link to='/exams' style={ styles.noUnderline } >
+          <MenuItem onTouchTap={ this.handleChange }>
+            Exams
+          </MenuItem>
+        </Link>
       </MuiLeftNav>
     );
   }
