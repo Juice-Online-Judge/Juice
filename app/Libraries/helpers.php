@@ -95,3 +95,22 @@ if (! function_exists('request_user')) {
         return $getKey ? $user->getKey() : $user;
     }
 }
+
+if (! function_exists('number_between')) {
+    /**
+     * Check a number is between the range.
+     *
+     * @param int|float $val
+     * @param int|float $min
+     * @param int|float $max
+     * @param bool $boundary
+     * @param bool $reverse
+     * @return bool
+     */
+    function number_between($val, $min, $max, $boundary = true, $reverse = false)
+    {
+        $result = $boundary ? ($val >= $min && $val <= $max) : ($val > $min && $val < $max);
+
+        return $reverse ? ! $result : $result;
+    }
+}
