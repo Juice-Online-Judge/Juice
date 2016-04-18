@@ -8,7 +8,7 @@ export const handleRequestError = (dispatch, error) => {
     let { code, text } = error.status;
     let { messages } = error.entity;
 
-    if (!messages.length) {
+    if (messages && !messages.length) {
       dispatch(setError({ code, messages: [text] }));
     } else {
       dispatch(setError({ code, messages }));
