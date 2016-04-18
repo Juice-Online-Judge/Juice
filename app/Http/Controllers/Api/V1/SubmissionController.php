@@ -138,8 +138,9 @@ class SubmissionController extends ApiController
             $query->getBaseQuery()->select(['id', 'uuid', 'title']);
         }])
             ->where('user_id', request_user(true))
+            ->orderBy('submitted_at', 'desc')
             ->limit(10)
-            ->get();
+            ->paginate();
 
         return $this->setData($submissions)->responseOk();
     }
