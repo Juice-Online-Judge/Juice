@@ -16,6 +16,7 @@ class ValidationProvider extends ServiceProvider
     {
         Validator::extend('in_exam', $this->getExtension('InExamValidator'), 'Invalid exam.');
         Validator::extend('supported_language', $this->getExtension('SupportedLanguageValidator'), 'The language is not support.');
+        Validator::extend('exam_question_info', $this->getExtension('ExamQuestionInfoValidator'), 'The info field is invalid.');
     }
 
     /**
