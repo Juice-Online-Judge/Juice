@@ -5,8 +5,12 @@ import concat from 'lodash/concat';
 import without from 'lodash/without';
 import has from 'lodash/has';
 
+import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import ChevronLeft from 'material-ui/svg-icons/navigation/chevron-left';
+import Card from 'material-ui/Card/Card';
+import CardTitle from 'material-ui/Card/CardTitle';
+import CardActions from 'material-ui/Card/CardActions';
 import { RequestStatus } from 'lib/const';
 import ToggleDisplay from 'components/ToggleDisplay';
 import ExamQuestion from 'components/ExamQuestion';
@@ -49,7 +53,7 @@ class QuestionTab extends Component {
 
   render() {
     const { app, question, fetchQuestion } = this.props;
-    const { selectedQuestion, detail } = this.state;
+    const { selectedQuestion, detail, detailUuid, questionDetail } = this.state;
     const total = question.get('total');
     return (
       <div>
@@ -69,7 +73,12 @@ class QuestionTab extends Component {
           </LoadingContainer>
         </ToggleDisplay>
         <ToggleDisplay show={ detail }>
-          <FlatButton label='Back' onTouchTap={ this.handleBack } icon={ <ChevronLeft /> } />
+          <QuestionSetting
+            detail={ detail }
+            question={ question }
+            handleBack={ this.handleBack }
+            setting={ detail ? JSON.parse(questionDetail[detailUuid]) : null }
+            uuid={ detailUuid } />
         </ToggleDisplay>
       </div>
     );
@@ -136,6 +145,65 @@ class ExamQuestionList extends Component {
     onChange: PropTypes.func.isRequired,
     onRequestDetail: PropTypes.func.isRequired,
     selectedQuestion: PropTypes.array.isRequired
+  };
+}
+
+class QuestionSetting extends Component {
+  componentDidMount() {
+    this.settingToState(this.props.setting);
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.settingToState(newProps.setting);
+  }
+
+  settingToState(setting) {
+    if (setting) {
+      this.setState({ setting });
+    }
+  }
+
+  @autobind
+  handleScoreChange(event) {
+    this.setState({ score: event.target.value });
+  }
+
+  render() {
+    const { detail, question, uuid } = this.props;
+    const { score } = this.state;
+
+    if (!detail) {
+      return null;
+    }
+
+    return (
+      <div>
+        <Card>
+          <CardTitle>
+            <FlatButton label='Back' onTouchTap={ this.props.handleBack } icon={ <ChevronLeft /> } />
+            <span> Setting "{ question.getIn(['entities', 'question', uuid, 'title']) }" </span>
+          </CardTitle>
+          <CardActions>
+            <TextField
+              floatingLabelText='Score'
+              onChange={ this.handleScoreChange }
+              value={ score } />
+          </CardActions>
+        </Card>
+      </div>
+    );
+  }
+
+  state = {
+    score: 100
+  };
+
+  static propTypes = {
+    question: PropTypes.object.isRequired,
+    handleBack: PropTypes.func.isRequired,
+    detail: PropTypes.bool.isRequired,
+    setting: PropTypes.object,
+    uuid: PropTypes.string
   };
 }
 
