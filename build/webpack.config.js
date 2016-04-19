@@ -101,6 +101,13 @@ webpackConfig.eslint = {
 // Loaders
 // ------------------------------------
 // JavaScript / JSON
+
+const presets = ['es2015', 'react', 'stage-0'];
+
+if (__PROD__) {
+  presets.push('react-optimize');
+}
+
 webpackConfig.module.loaders = [{
   test: /\.(js|jsx)$/,
   exclude: /node_modules/,
@@ -108,7 +115,7 @@ webpackConfig.module.loaders = [{
   query: {
     cacheDirectory: true,
     plugins: ['transform-runtime', 'transform-decorators-legacy'],
-    presets: ['es2015', 'react', 'stage-0']
+    presets
   }
 },
 {
