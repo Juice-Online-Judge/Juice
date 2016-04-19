@@ -7,6 +7,8 @@ import has from 'lodash/has';
 
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import ChevronLeft from 'material-ui/svg-icons/navigation/chevron-left';
 import Card from 'material-ui/Card/Card';
 import CardTitle from 'material-ui/Card/CardTitle';
@@ -159,7 +161,8 @@ class QuestionSetting extends Component {
 
   settingToState(setting) {
     if (setting) {
-      this.setState({ setting });
+      const type = setting.type || 'normal';
+      this.setState({ ...setting, type });
     }
   }
 
@@ -168,9 +171,14 @@ class QuestionSetting extends Component {
     this.setState({ score: event.target.value });
   }
 
+  @autobind
+  handleTypeChange(_event, _idx, value) {
+    this.setState({ type: value });
+  }
+
   render() {
     const { detail, question, uuid } = this.props;
-    const { score } = this.state;
+    const { score, type } = this.state;
 
     if (!detail) {
       return null;
@@ -185,9 +193,15 @@ class QuestionSetting extends Component {
           </CardTitle>
           <CardActions>
             <TextField
+              fullWidth
               floatingLabelText='Score'
               onChange={ this.handleScoreChange }
               value={ score } />
+            <SelectField value={ type } onChange={ this.handleTypeChange }>
+              <MenuItem value='normal' primaryText='Normal' />
+              <MenuItem value='proportion' primaryText='Proportion' />
+              <MenuItem value='portion' primaryText='Portion' />
+            </SelectField>
           </CardActions>
         </Card>
       </div>
@@ -195,7 +209,8 @@ class QuestionSetting extends Component {
   }
 
   state = {
-    score: 100
+    score: 100,
+    type: 'normal'
   };
 
   static propTypes = {
