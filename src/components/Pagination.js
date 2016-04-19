@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { autobind } from 'core-decorators';
 import times from 'lodash/times';
 
 import { Link } from 'react-router';
@@ -10,33 +11,27 @@ export class Pagination extends Component {
   get prevButton() {
     const { baseUrl, current } = this.props;
 
-    if (current !== 1) {
-      return (
-        <Link to={ `${baseUrl}?page=${current - 1}` }>
-          <FlatButton label='Prev' />
-        </Link>
-      );
-    } else {
-      return (
-        <FlatButton label='Prev' disabled />
-      );
-    }
+    return (
+      <PageButton
+        baseUrl={ baseUrl }
+        page={ current - 1 }
+        disabled={ current !== 1 }
+        label='Prev'
+        onTouchTap={ this.props.onChange } />
+    );
   }
 
   get nextButton() {
     const { baseUrl, current, maxPage } = this.props;
 
-    if (current !== maxPage) {
-      return (
-        <Link to={ `${baseUrl}?page=${current + 1}` }>
-          <FlatButton label='Next' />
-        </Link>
-      );
-    } else {
-      return (
-        <FlatButton label='Next' disabled />
-      );
-    }
+    return (
+      <PageButton
+        baseUrl={ baseUrl }
+        page={ current + 1 }
+        disabled={ current !== maxPage }
+        label='Next'
+        onTouchTap={ this.props.onChange } />
+    );
   }
 
   get pagination() {
@@ -56,35 +51,78 @@ export class Pagination extends Component {
     return times(max - min + 1, (i) => {
       const page = min + i;
       return (
-        <Link key={ i } to={ `${baseUrl}?page=${page}` }>
-          <FlatButton
-            primary={ page === current }
-            style={ styles.page }
-            labelStyle={ styles.noPadding }
-            label={ `${page}` } />
-        </Link>
+        <PageButton
+          key={ i }
+          baseUrl={ baseUrl }
+          primary={ page === current }
+          style={ styles.page }
+          labelStyle={ styles.noPadding }
+          page={ page }
+          onTouchTap={ this.props.onChange } />
       );
     });
   }
 
   render() {
+    const { prevButton, pagination, nextButton } = this;
     return (
       <CenterBlock fullwidth>
-        { this.prevButton }
-        { this.pagination }
-        { this.nextButton }
+        { prevButton }
+        { pagination }
+        { nextButton }
       </CenterBlock>
     );
   }
 
   static propTypes = {
-    baseUrl: PropTypes.string.isRequired,
+    baseUrl: PropTypes.string,
     current: PropTypes.number.isRequired,
+    onChange: PropTypes.func,
     maxPage: PropTypes.number.isRequired
   };
 }
 
 export default Pagination;
+
+class PageButton extends Component {
+  @autobind
+  handleTouchTap() {
+    const { disabled, onTouchTap } = this.props;
+    if (!disabled) {
+      onTouchTap(this.props.page);
+    }
+  }
+
+  render() {
+    const {
+      baseUrl,
+      page,
+      label,
+      disabled,
+      ...props
+    } = this.props;
+    const text = label || page;
+    if (baseUrl && !disabled) {
+      return (
+        <Link to={ `${baseUrl}?page=${page}` }>
+          <FlatButton { ...props } label={ text } onTouchTap={ this.handleTouchTap } />
+        </Link>
+      );
+    } else {
+      return (
+        <FlatButton { ...props } label={ text } onTouchTap={ this.handleTouchTap } />
+      );
+    }
+  }
+
+  static propTypes = {
+    baseUrl: PropTypes.string,
+    page: PropTypes.number.isRequired,
+    onTouchTap: PropTypes.func,
+    label: PropTypes.string,
+    disabled: PropTypes.bool
+  };
+}
 
 const styles = {
   page: {
