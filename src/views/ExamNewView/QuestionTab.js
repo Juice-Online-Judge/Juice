@@ -4,7 +4,11 @@ import { autobind } from 'core-decorators';
 import concat from 'lodash/concat';
 import without from 'lodash/without';
 
+import FlatButton from 'material-ui/FlatButton';
+import { RequestStatus } from 'lib/const';
 import ExamQuestion from 'components/ExamQuestion';
+import Pagination from 'components/Pagination';
+import LoadingContainer from 'components/LoadingContainer';
 
 import { actions as questionActions } from 'redux/modules/question';
 
@@ -16,6 +20,18 @@ class QuestionTab extends Component {
 
   @autobind
   handleRequestDetail(uuid) {
+    this.setState({ detail: true });
+  }
+
+  @autobind
+  handleBack() {
+    this.setState({ detail: false });
+  }
+
+  @autobind
+  handlePageChange(page) {
+    this.props.fetchQuestion({ page });
+    this.setState({ page });
   }
 
   @autobind
@@ -24,16 +40,29 @@ class QuestionTab extends Component {
   }
 
   render() {
-    const { question, fetchQuestion } = this.props;
-    const { selectedQuestion } = this.state;
+    const { app, question, fetchQuestion } = this.props;
+    const { selectedQuestion, detail } = this.state;
+    const total = question.get('total');
     return (
       <div>
-        <ExamQuestionList
-          question={ question }
-          fetchQuestion={ fetchQuestion }
-          selectedQuestion={ selectedQuestion }
-          onChange={ this.handleQuestionChange }
-          onRequestDetail={ this.handleRequestDetail } />
+        <div style={ detail ? styles.zeroHeight : null }>
+          <LoadingContainer loading={ app.get('status') === RequestStatus.PENDING }>
+            <ExamQuestionList
+              app={ app }
+              question={ question }
+              fetchQuestion={ fetchQuestion }
+              selectedQuestion={ selectedQuestion }
+              onChange={ this.handleQuestionChange }
+              onRequestDetail={ this.handleRequestDetail } />
+            <Pagination
+              current={ this.state.page }
+              maxPage={ Math.ceil(total / 10) }
+              onChange={ this.handlePageChange } />
+          </LoadingContainer>
+        </div>
+        <div style={ detail ? null : styles.zeroHeight }>
+          <FlatButton label='Back' onTouchTap={ this.handleBack } />
+        </div>
       </div>
     );
   }
@@ -41,16 +70,18 @@ class QuestionTab extends Component {
   state = {
     page: 1,
     selectedQuestion: [],
-    questionDetail: {}
+    questionDetail: {},
+    detail: false
   };
 
   static propTypes = {
+    app: PropTypes.object.isRequired,
     question: PropTypes.object.isRequired,
     fetchQuestion: PropTypes.func.isRequired
   };
 }
 
-export default connect((state) => ({ question: state.question }),
+export default connect((state) => ({ app: state.app, question: state.question }),
   questionActions)(QuestionTab);
 
 class ExamQuestionList extends Component {
@@ -90,6 +121,7 @@ class ExamQuestionList extends Component {
   }
 
   static propTypes = {
+    app: PropTypes.object.isRequired,
     question: PropTypes.object.isRequired,
     fetchQuestion: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
@@ -97,3 +129,10 @@ class ExamQuestionList extends Component {
     selectedQuestion: PropTypes.array.isRequired
   };
 }
+
+const styles = {
+  zeroHeight: {
+    height: '0px',
+    overflow: 'hidden'
+  }
+};
