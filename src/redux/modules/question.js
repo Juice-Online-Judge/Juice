@@ -36,8 +36,6 @@ export const fetchQuestion = (query = { page: 1 }, opts = { force: false }) => {
       }
     }
 
-    console.log('send request');
-
     guardRequest(dispatch, {
       path: 'questions',
       params: query
