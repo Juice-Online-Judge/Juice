@@ -8,14 +8,19 @@ class TitleCard extends Component {
     return (
       <Card>
         <CardTitle
+          style={ this.props.style }
           title={ this.props.title }
-          subtitle={ this.props.subtitle } />
+          subtitle={ this.props.subtitle }>
+          { this.props.children }
+        </CardTitle>
       </Card>
     );
   }
 
   static propTypes = {
-    title: PropTypes.string.isRequired,
+    style: PropTypes.object,
+    children: PropTypes.node,
+    title: PropTypes.string,
     subtitle: PropTypes.string
   };
 }
