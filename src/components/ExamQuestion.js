@@ -16,7 +16,9 @@ class ExamQuestion extends Component {
 
   @autobind
   handleRequestDetail() {
-    this.props.onRequestDetail(this.props.uuid);
+    if (this.props.checked) {
+      this.props.onRequestDetail(this.props.uuid);
+    }
   }
 
   render() {
@@ -32,7 +34,7 @@ class ExamQuestion extends Component {
             { questionDetail.get('title') }
           </Col>
           <Col>
-            <IconButton onTouchTap={ this.handleRequestDetail }>
+            <IconButton disabled={ !checked } onTouchTap={ this.handleRequestDetail }>
               <ForwardIcon />
             </IconButton>
           </Col>
