@@ -2,8 +2,8 @@ import { RequestStatus } from './const';
 
 export const isRequesting = (app) => {
   const status = app.get('status');
-  // Stop send request when pending or fail.
-  if (status === RequestStatus.PENDING || status === RequestStatus.FAIL) {
+  // Stop send request when pending.
+  if (status === RequestStatus.PENDING) {
     return true;
   }
 
