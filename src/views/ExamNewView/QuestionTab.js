@@ -3,9 +3,12 @@ import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
 import concat from 'lodash/concat';
 import without from 'lodash/without';
+import has from 'lodash/has';
 
 import FlatButton from 'material-ui/FlatButton';
+import ChevronLeft from 'material-ui/svg-icons/navigation/chevron-left';
 import { RequestStatus } from 'lib/const';
+import ToggleDisplay from 'components/ToggleDisplay';
 import ExamQuestion from 'components/ExamQuestion';
 import Pagination from 'components/Pagination';
 import LoadingContainer from 'components/LoadingContainer';
@@ -20,12 +23,12 @@ class QuestionTab extends Component {
 
   @autobind
   handleRequestDetail(uuid) {
-    this.setState({ detail: true });
+    this.setState({ detail: true, detailUuid: uuid });
   }
 
   @autobind
   handleBack() {
-    this.setState({ detail: false });
+    this.setState({ detail: false, detailUuid: null });
   }
 
   @autobind
@@ -35,8 +38,13 @@ class QuestionTab extends Component {
   }
 
   @autobind
-  handleQuestionChange(selectedQuestion) {
-    this.setState({ selectedQuestion });
+  handleQuestionChange(selectedQuestion, uuid) {
+    const { questionDetail } = this.state;
+    const newState = { selectedQuestion, questionDetail };
+    if (!has(questionDetail, uuid)) {
+      newState.questionDetail[uuid] = DEFAULT_DETAIL;
+    }
+    this.setState(newState);
   }
 
   render() {
@@ -45,7 +53,7 @@ class QuestionTab extends Component {
     const total = question.get('total');
     return (
       <div>
-        <div style={ detail ? styles.zeroHeight : null }>
+        <ToggleDisplay hide={ detail }>
           <LoadingContainer loading={ app.get('status') === RequestStatus.PENDING }>
             <ExamQuestionList
               app={ app }
@@ -59,10 +67,10 @@ class QuestionTab extends Component {
               maxPage={ Math.ceil(total / 10) }
               onChange={ this.handlePageChange } />
           </LoadingContainer>
-        </div>
-        <div style={ detail ? null : styles.zeroHeight }>
-          <FlatButton label='Back' onTouchTap={ this.handleBack } />
-        </div>
+        </ToggleDisplay>
+        <ToggleDisplay show={ detail }>
+          <FlatButton label='Back' onTouchTap={ this.handleBack } icon={ <ChevronLeft /> } />
+        </ToggleDisplay>
       </div>
     );
   }
@@ -71,6 +79,7 @@ class QuestionTab extends Component {
     page: 1,
     selectedQuestion: [],
     questionDetail: {},
+    detailUuid: null,
     detail: false
   };
 
@@ -89,9 +98,9 @@ class ExamQuestionList extends Component {
   handleQuestionCheck(selected, uuid) {
     const { selectedQuestion } = this.props;
     if (selected) {
-      this.props.onChange(concat(selectedQuestion, uuid));
+      this.props.onChange(concat(selectedQuestion, uuid), uuid);
     } else {
-      this.props.onChange(without(selectedQuestion, uuid));
+      this.props.onChange(without(selectedQuestion, uuid), uuid);
     }
   }
 
@@ -130,9 +139,4 @@ class ExamQuestionList extends Component {
   };
 }
 
-const styles = {
-  zeroHeight: {
-    height: '0px',
-    overflow: 'hidden'
-  }
-};
+const DEFAULT_DETAIL = '{"score":100,"type":null}';
