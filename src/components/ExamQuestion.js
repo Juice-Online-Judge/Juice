@@ -5,7 +5,7 @@ import { autobind } from 'core-decorators';
 import { Row, Col } from 'react-flexbox-grid';
 import Checkbox from 'material-ui/Checkbox';
 import IconButton from 'material-ui/IconButton';
-import ForwardIcon from 'material-ui/svg-icons/content/forward';
+import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
 import TitleCard from './TitleCard';
 
 class ExamQuestion extends Component {
@@ -35,7 +35,7 @@ class ExamQuestion extends Component {
           </Col>
           <Col>
             <IconButton disabled={ !checked } onTouchTap={ this.handleRequestDetail }>
-              <ForwardIcon />
+              <ChevronRight />
             </IconButton>
           </Col>
         </Row>
