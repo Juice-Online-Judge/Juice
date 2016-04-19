@@ -11,6 +11,7 @@ import Tab from 'material-ui/Tabs/Tab';
 import Snackbar from 'material-ui/Snackbar';
 import Inset from 'layouts/Inset';
 import BasicInfoTab from './BasicInfoTab';
+import QuestionTab from './QuestionTab';
 
 import { actions as examActions } from 'redux/modules/exam';
 
@@ -42,7 +43,7 @@ export class ExamNewView extends Component {
                   <BasicInfoTab onChange={ this.handleBasicInfoChange } />
                 </Tab>
                 <Tab label='Questions'>
-                  <h1> Questions </h1>
+                  <QuestionTab />
                 </Tab>
                 <Tab label='Users'>
                   <h1> Users </h1>
