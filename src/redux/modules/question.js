@@ -3,9 +3,9 @@ import { fromJS, Record, List, Map } from 'immutable';
 import { normalize, arrayOf } from 'normalizr';
 import omit from 'lodash/omit';
 
-import { RequestStatus } from 'lib/const';
 import questionSchema from 'schema/question';
 import guardRequest from '../utils/guardRequest';
+import isRequesting from 'lib/isRequesting';
 
 const QuestionState = new Record({
   result: new List(),
@@ -29,15 +29,14 @@ export const fetchQuestion = (query = { page: 1 }, opts = { force: false }) => {
     const { app, question } = getState();
     const page = question.get('page');
     const uuids = question.get('result');
-    const status = app.get('status');
 
-    if (page === query.page && uuids.size && !opts.force) {
-      return;
+    if (!opts.force) {
+      if ((page === query.page && uuids.size) || isRequesting(app)) {
+        return;
+      }
     }
 
-    if (status === RequestStatus.PENDING && !opts.force) {
-      return;
-    }
+    console.log('send request');
 
     guardRequest(dispatch, {
       path: 'questions',
