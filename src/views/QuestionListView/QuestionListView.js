@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 
 import { actions as questionActions } from 'redux/modules/question';
 import { actions as appActions } from 'redux/modules/app';
+import createMaxPageSelector from 'redux/selectors/maxPageSelector';
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
@@ -41,7 +42,7 @@ export class QuestionListView extends Component {
   }
 
   render() {
-    const { question, app } = this.props;
+    const { app, maxPage } = this.props;
     const { query } = this.props.location;
     const page = parseInt(query.page || 1);
 
@@ -52,7 +53,7 @@ export class QuestionListView extends Component {
         </Inset>
         <Pagination
           baseUrl='/'
-          maxPage={ Math.ceil(question.get('total') / 10) }
+          maxPage={ maxPage }
           current={ page } />
         <Link to='/question/new'>
           <FloatingActionButton style={ styles.floatBtn } >
@@ -67,11 +68,18 @@ export class QuestionListView extends Component {
     location: PropTypes.object.isRequired,
     app: PropTypes.object.isRequired,
     question: PropTypes.object.isRequired,
+    maxPage: PropTypes.number.isRequired,
     fetchQuestion: PropTypes.func.isRequired,
     clearStatus: PropTypes.func.isRequired
   };
 }
 
+const maxPageSelector = createMaxPageSelector();
+
 export default connect((state) => {
-  return { question: state.question, app: state.app };
+  return {
+    question: state.question,
+    app: state.app,
+    maxPage: maxPageSelector(state.question)
+  };
 }, Object.assign({}, questionActions, appActions))(QuestionListView);
