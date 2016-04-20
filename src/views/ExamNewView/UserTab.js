@@ -15,10 +15,18 @@ class UserTab extends Component {
   @autobind
   handleUserSelect(selectedRow) {
     this.setState({ selectedRow });
+    setImmediate(() => this.emitChange(selectedRow));
+  }
+
+  emitChange(selectedRow) {
+    const { users } = this.props;
+    const result = selectedRow.map((idx) => users.getIn(['result', idx]));
+    this.props.onChange(result);
   }
 
   render() {
     const { users } = this.props;
+    const { selectedRow } = this.state;
     return (
       <div>
         <Table
@@ -39,8 +47,8 @@ class UserTab extends Component {
           </TableHeader>
           <TableBody>
             {
-              users.get('result').map((id) => (
-                <TableRow key={ id } >
+              users.get('result').map((id, idx) => (
+                <TableRow key={ id } rowNumber={ id } selected={ selectedRow.indexOf(idx) !== -1 } >
                   <TableRowColumn>
                     { users.getIn(['entities', 'user', `${id}`, 'username']) }
                   </TableRowColumn>
@@ -56,9 +64,14 @@ class UserTab extends Component {
     );
   }
 
+  state = {
+    selectedRow: []
+  };
+
   static propTypes = {
     users: PropTypes.object.isRequired,
-    fetchUsers: PropTypes.func.isRequired
+    fetchUsers: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired
   };
 }
 

@@ -26,6 +26,11 @@ export class ExamNewView extends Component {
   handleAddExam() {
   }
 
+  @autobind
+  handleUsersChange(users) {
+    this.setState({ users });
+  }
+
   render() {
     return (
       <div>
@@ -47,7 +52,7 @@ export class ExamNewView extends Component {
                   <QuestionTab />
                 </Tab>
                 <Tab label='Users'>
-                  <UserTab />
+                  <UserTab onChange={ this.handleUsersChange } />
                 </Tab>
               </Tabs>
             </CardActions>
