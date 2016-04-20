@@ -8,5 +8,7 @@ Homestead.json
 resources/views/main.blade.php
 public/*.js
 public/*.map
+public/*.css
+public/favicon.ico
 public/humans.txt
 *.log
