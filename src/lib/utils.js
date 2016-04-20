@@ -4,6 +4,7 @@ import isObject from 'lodash/isObject';
 import isBoolean from 'lodash/isBoolean';
 import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
+import lodash from 'lodash';
 import { isPromiseLike } from 'when';
 
 export const prefixKeys = (object, prefix) => {
@@ -56,8 +57,13 @@ export const silencePromise = (promise) => {
   }
 };
 
+export const valuesAt = (array, indexes) => {
+  return lodash(array).pick(indexes).values().value();
+};
+
 export default {
   prefixKeys,
   createFormDataDeep,
-  silencePromise
+  silencePromise,
+  valuesAt
 };
