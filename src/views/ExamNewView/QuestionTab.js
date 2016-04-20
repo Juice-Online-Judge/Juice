@@ -4,6 +4,7 @@ import { autobind } from 'core-decorators';
 import concat from 'lodash/concat';
 import without from 'lodash/without';
 import has from 'lodash/has';
+import pick from 'lodash/pick';
 
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
@@ -30,6 +31,13 @@ class QuestionTab extends Component {
   @autobind
   handleRequestDetail(uuid) {
     this.setState({ detail: true, detailUuid: uuid });
+  }
+
+  @autobind
+  handleSettingChange(uuid, setting) {
+    const { questionDetail } = this.state;
+    questionDetail[uuid] = setting;
+    this.setState({ questionDetail });
   }
 
   @autobind
@@ -78,7 +86,8 @@ class QuestionTab extends Component {
           <QuestionSetting
             detail={ detail }
             question={ question }
-            handleBack={ this.handleBack }
+            onBack={ this.handleBack }
+            onChange={ this.handleSettingChange }
             setting={ detail ? JSON.parse(questionDetail[detailUuid]) : null }
             uuid={ detailUuid } />
         </ToggleDisplay>
@@ -161,24 +170,54 @@ class QuestionSetting extends Component {
 
   settingToState(setting) {
     if (setting) {
+      const score = setting.score || 100.0;
       const type = setting.type || 'normal';
-      this.setState({ ...setting, type });
+      const goal = setting.goal || '';
+      const reward = setting.reward || '';
+      this.setState({ score, type, goal, reward });
     }
   }
 
   @autobind
   handleScoreChange(event) {
-    this.setState({ score: event.target.value });
+    this.emitChange({ score: parseFloat(event.target.value) });
+  }
+
+  @autobind
+  handleGoalChange(event) {
+    this.emitChange({ goal: parseInt(event.target.value) });
+  }
+
+  @autobind
+  handleRewardChange(event) {
+    this.emitChange({ reward: parseInt(event.target.value) });
   }
 
   @autobind
   handleTypeChange(_event, _idx, value) {
-    this.setState({ type: value });
+    this.emitChange({ type: value });
+  }
+
+  emitChange(data) {
+    const mergeData = Object.assign({}, pick(this.state, [
+      'score',
+      'type',
+      'goal',
+      'reward'
+    ]), data);
+    const { uuid } = this.props;
+    this.setState(data);
+    if (mergeData.type === 'normal') {
+      mergeData.type = null;
+    }
+
+    const json = JSON.stringify(mergeData);
+    this.props.onChange(uuid, json);
   }
 
   render() {
     const { detail, question, uuid } = this.props;
-    const { score, type } = this.state;
+    const { score, type, goal, reward } = this.state;
 
     if (!detail) {
       return null;
@@ -188,7 +227,7 @@ class QuestionSetting extends Component {
       <div>
         <Card>
           <CardTitle>
-            <FlatButton label='Back' onTouchTap={ this.props.handleBack } icon={ <ChevronLeft /> } />
+            <FlatButton label='Back' onTouchTap={ this.props.onBack } icon={ <ChevronLeft /> } />
             <span> Setting "{ question.getIn(['entities', 'question', uuid, 'title']) }" </span>
           </CardTitle>
           <CardActions>
@@ -202,6 +241,18 @@ class QuestionSetting extends Component {
               <MenuItem value='proportion' primaryText='Proportion' />
               <MenuItem value='portion' primaryText='Portion' />
             </SelectField>
+            <TextField
+              fullWidth
+              disabled={ type !== 'portion' }
+              floatingLabelText='Goal'
+              onChange={ this.handleGoalChange }
+              value={ goal } />
+            <TextField
+              fullWidth
+              disabled={ type !== 'portion' }
+              floatingLabelText='Reward'
+              onChange={ this.handleRewardChange }
+              value={ reward } />
           </CardActions>
         </Card>
       </div>
@@ -210,16 +261,19 @@ class QuestionSetting extends Component {
 
   state = {
     score: 100,
-    type: 'normal'
+    type: 'normal',
+    goal: '',
+    reward: ''
   };
 
   static propTypes = {
     question: PropTypes.object.isRequired,
-    handleBack: PropTypes.func.isRequired,
+    onBack: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
     detail: PropTypes.bool.isRequired,
     setting: PropTypes.object,
     uuid: PropTypes.string
   };
 }
 
-const DEFAULT_DETAIL = '{"score":100,"type":null}';
+const DEFAULT_DETAIL = '{"score":100.0,"type":null,"goal":null,"reward":null}';
