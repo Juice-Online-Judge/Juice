@@ -88,7 +88,7 @@ class PageButton extends Component {
   @autobind
   handleTouchTap() {
     const { disabled, onTouchTap } = this.props;
-    if (!disabled) {
+    if (!disabled && onTouchTap) {
       onTouchTap(this.props.page);
     }
   }
