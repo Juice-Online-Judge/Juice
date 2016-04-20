@@ -16,6 +16,7 @@ import QuestionNewView from 'views/QuestionNewView/QuestionNewView';
 import SubmissionView from 'views/SubmissionView/SubmissionView';
 import ExamListView from 'views/ExamListView/ExamListView';
 import ExamNewView from 'views/ExamNewView/ExamNewView';
+import ExamQuestionListView from 'views/ExamQuestionListView/ExamQuestionListView';
 
 export default (
   <Route path='/' component={ CoreLayout }>
@@ -27,6 +28,7 @@ export default (
     <Route path='submission' component={ SubmissionView } />
     <Route path='exams/new' component={ ExamNewView } />
     <Route path='exams' component={ ExamListView } />
+    <Route path='exams/:id' component={ ExamQuestionListView } />
     <Route path='/page-not-found' component={ NotFoundView } />
     <Redirect from='*' to='/page-not-found' />
   </Route>
