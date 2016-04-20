@@ -25,6 +25,7 @@ const config = {
   // ----------------------------------
   // Compiler Configuration
   // ----------------------------------
+  compiler_output_name     : '[name].js',
   compiler_css_modules     : true,
   compiler_devtool         : 'source-map',
   compiler_hash_type       : 'hash',
@@ -37,6 +38,7 @@ const config = {
     colors : true
   },
   compiler_vendor : [
+    'core-decorators',
     'history',
     'immutable',
     'js-cookie',
@@ -53,6 +55,7 @@ const config = {
     'reselect',
     'radium',
     'rest',
+    'scroll-behavior',
     'store',
     'validate.js',
     'when'
