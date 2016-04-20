@@ -6,6 +6,7 @@ import omit from 'lodash/omit';
 import examSchema from 'schema/exam';
 import guardRequest from '../utils/guardRequest';
 import isRequesting from 'lib/isRequesting';
+import { setQuestion } from './question';
 
 const ExamStatus = new Record({
   result: new List(),
@@ -49,9 +50,28 @@ export const addExam = (data) => {
   };
 };
 
+export const fetchExamQuestion = (examId) => {
+  return (dispatch) => {
+    guardRequest(dispatch, {
+      path: 'exams/{id}/questions',
+      params: {
+        id: examId
+      }
+    }, (entity) => {
+      dispatch(setQuestion({
+        total: entity.length,
+        page: 1,
+        data: entity,
+        detail: true
+      }));
+    });
+  };
+};
+
 export const actions = {
   setExam,
   fetchExams,
+  fetchExamQuestion,
   addExam
 };
 
