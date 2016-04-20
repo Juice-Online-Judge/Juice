@@ -19,7 +19,11 @@ const initialState = new ExamStatus();
 
 export const SET_EXAM = 'SET_EXAM';
 
-export const setExam = createAction(SET_EXAM);
+export const setExam = createAction(SET_EXAM, ({ page, total, data }) => ({
+  page,
+  total,
+  ...normalize(data, arrayOf(examSchema))
+}));
 
 export const fetchExams = (query, opts = { force: false }) => {
   return (dispatch, getState) => {
@@ -39,8 +43,7 @@ export const fetchExams = (query, opts = { force: false }) => {
       path: 'exams',
       params: query
     }, (entity) => {
-      const data = normalize(entity.data, arrayOf(examSchema));
-      dispatch(setExam({ page: query.page, total: entity.total, ...data }));
+      dispatch(setExam({ page: query.page, total: entity.total, data: entity.data }));
     });
   };
 };

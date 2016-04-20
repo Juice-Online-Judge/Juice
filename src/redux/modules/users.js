@@ -14,15 +14,14 @@ const initialState = new UsersState();
 
 const SET_USERS = 'SET_USERS';
 
-export const setUsers = createAction(SET_USERS);
+export const setUsers = createAction(SET_USERS, (data) => normalize(data, arrayOf(userSchema)));
 
 export const fetchUsers = () => {
   return (dispatch) => {
     guardRequest(dispatch, {
       path: 'users'
     }, (entity) => {
-      const users = normalize(entity, arrayOf(userSchema));
-      dispatch(setUsers(users));
+      dispatch(setUsers(entity));
     });
   };
 };
