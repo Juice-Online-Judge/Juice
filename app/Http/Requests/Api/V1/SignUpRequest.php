@@ -14,7 +14,7 @@ class SignUpRequest extends Request
     public function rules()
     {
         return [
-            'username' => 'required|string|max:5|max:24|unique:users',
+            'username' => 'required|string|min:5|max:24|unique:users',
             'password' => 'required|string|min:6',
             'nickname' => 'required|string|min:5|max:16|unique:users',
             'email'    => 'required|string|email|max:48|unique:users',

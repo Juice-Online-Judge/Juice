@@ -21,6 +21,13 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
     protected $hidden = ['password', 'remember_token', 'created_at', 'updated_at'];
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['username', 'nickname', 'email'];
+
+    /**
      * 使用者所屬群組.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
