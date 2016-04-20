@@ -6,6 +6,7 @@ import question from './modules/question';
 import submission from './modules/submission';
 import validate from './modules/validate';
 import exam from './modules/exam';
+import users from './modules/users';
 
 export default combineReducers({
   app,
@@ -13,6 +14,7 @@ export default combineReducers({
   question,
   submission,
   exam,
+  users,
   validate,
   routing
 });
