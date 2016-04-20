@@ -4,6 +4,7 @@ import { autobind } from 'core-decorators';
 
 import { Table, TableHeader, TableRow, TableBody, TableRowColumn, TableHeaderColumn }
   from 'material-ui/Table';
+import Pagination from 'components/Pagination';
 
 import { actions as userActions } from 'redux/modules/users';
 
@@ -13,20 +14,27 @@ class UserTab extends Component {
   }
 
   @autobind
+  handlePageChange(page) {
+    this.setState({ page });
+  }
+
+  @autobind
   handleUserSelect(selectedRow) {
-    this.setState({ selectedRow });
     setImmediate(() => this.emitChange(selectedRow));
   }
 
   emitChange(selectedRow) {
     const { users } = this.props;
-    const result = selectedRow.map((idx) => users.getIn(['result', idx]));
+    const { page } = this.state;
+    const baseIdx = (page - 1) * 6;
+    const result = selectedRow.map((idx) => users.getIn(['result', idx + baseIdx]));
     this.props.onChange(result);
   }
 
   render() {
     const { users } = this.props;
-    const { selectedRow } = this.state;
+    const { page } = this.state;
+    const maxPage = Math.ceil(users.get('result').size / 6);
     return (
       <div>
         <Table
@@ -45,10 +53,11 @@ class UserTab extends Component {
               </TableHeaderColumn>
             </TableRow>
           </TableHeader>
-          <TableBody>
+          <TableBody
+            deselectOnClickaway={ false } >
             {
-              users.get('result').map((id, idx) => (
-                <TableRow key={ id } rowNumber={ id } selected={ selectedRow.indexOf(idx) !== -1 } >
+              users.get('result').skip((page - 1) * 6).take(6).map((id, idx) => (
+                <TableRow key={ id } >
                   <TableRowColumn>
                     { users.getIn(['entities', 'user', `${id}`, 'username']) }
                   </TableRowColumn>
@@ -60,12 +69,13 @@ class UserTab extends Component {
             }
           </TableBody>
         </Table>
+        <Pagination onChange={ this.handlePageChange } current={ page } maxPage={ maxPage } />
       </div>
     );
   }
 
   state = {
-    selectedRow: []
+    page: 1
   };
 
   static propTypes = {
