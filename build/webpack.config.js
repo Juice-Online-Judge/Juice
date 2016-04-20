@@ -56,12 +56,7 @@ webpackConfig.plugins = [
   })
 ];
 
-if (__DEV__) {
-  debug('Enable plugins for live development (NoErrors).');
-  webpackConfig.plugins.push(
-    new webpack.NoErrorsPlugin()
-  );
-} else if (__PROD__) {
+if (__PROD__) {
   debug('Enable plugins for production (OccurenceOrder, Dedupe & UglifyJS).');
   webpackConfig.plugins.push(
     new webpack.optimize.OccurrenceOrderPlugin(),
