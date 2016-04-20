@@ -6,8 +6,9 @@
   },
   "scripts": {
     "storybook": "start-storybook -p 9001",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf public/*.js public/*.map public/*.css",
     "compile": "node -r dotenv/config --harmony bin/compile",
+    "deploy": "better-npm-run deploy",
     "watch": "nodemon -x 'node -r dotenv/config --harmony' bin/watch.js",
     "lint": "eslint . ./",
     "lint:fix": "npm run lint -- --fix",
@@ -17,7 +18,7 @@
   },
   "betterScripts": {
     "deploy": {
-      "command": "npm run clean && npm run compile && npm run keygen",
+      "command": "npm run clean && npm run compile",
       "env": {
         "NODE_ENV": "production"
       }
