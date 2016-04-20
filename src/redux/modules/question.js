@@ -2,6 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { fromJS, Record, List, Map } from 'immutable';
 import { normalize, arrayOf } from 'normalizr';
 import omit from 'lodash/omit';
+import mapValues from 'lodash/mapValues';
 
 import questionSchema from 'schema/question';
 import guardRequest from '../utils/guardRequest';
@@ -19,7 +20,24 @@ const initialState = new QuestionState();
 const SET_QUESTION = 'SET_QUESTION';
 const SET_QUESTION_DETAIL = 'SET_QUESTION_DETAIL';
 
-export const setQuestion = createAction(SET_QUESTION);
+const markDetail = (question) => ({
+  detail: true,
+  ...question
+});
+
+export const setQuestion = createAction(SET_QUESTION, ({ data, page, total, detail }) => {
+  const payload = {
+    page,
+    total,
+    ...normalize(data, arrayOf(questionSchema))
+  };
+  const questions = payload.entities.question;
+  if (detail) {
+    payload.entities.question = mapValues(questions, markDetail);
+  }
+
+  return payload;
+});
 export const setQuestionDetail = createAction(SET_QUESTION_DETAIL, (payload) => {
   return {detail: true, ...payload};
 });
@@ -40,10 +58,8 @@ export const fetchQuestion = (query = { page: 1 }, opts = { force: false }) => {
       path: 'questions',
       params: query
     }, (entity) => {
-      const questions = normalize(entity.data, arrayOf(questionSchema));
-
       dispatch(setQuestion({
-        ...questions,
+        data: entity.data,
         page: query.page,
         total: entity.total
       }));
