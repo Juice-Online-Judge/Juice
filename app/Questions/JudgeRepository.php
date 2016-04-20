@@ -119,7 +119,7 @@ class JudgeRepository extends Repository
                 $file->move($this->getBasePath(), "{$type}_{$index}");
             }
 
-            return $file->isValid();
+            return "{$type}_{$index}";
         });
     }
 
