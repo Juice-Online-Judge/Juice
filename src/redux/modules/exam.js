@@ -12,18 +12,22 @@ const ExamStatus = new Record({
   result: new List(),
   entities: new Map(),
   page: 1,
-  total: 0
+  total: 0,
+  tokens: new Map()
 });
 
 const initialState = new ExamStatus();
 
 export const SET_EXAM = 'SET_EXAM';
+export const SET_EXAM_TOKEN = 'SET_EXAM_TOKEN';
 
 export const setExam = createAction(SET_EXAM, ({ page, total, data }) => ({
   page,
   total,
   ...normalize(data, arrayOf(examSchema))
 }));
+
+export const setExamToken = createAction(SET_EXAM_TOKEN);
 
 export const fetchExams = (query, opts = { force: false }) => {
   return (dispatch, getState) => {
@@ -71,14 +75,32 @@ export const fetchExamQuestion = (examId) => {
   };
 };
 
+export const fetchExamToken = (examId) => {
+  return (dispatch) => {
+    guardRequest(dispatch, {
+      path: 'exams/{id}/token',
+      params: {
+        id: examId
+      }
+    }, (entity) => {
+      dispatch(setExamToken({
+        id: examId,
+        token: entity
+      }));
+    });
+  };
+};
+
 export const actions = {
   setExam,
   fetchExams,
   fetchExamQuestion,
+  fetchExamToken,
   addExam
 };
 
 export default handleActions({
   [SET_EXAM]: (state, { payload }) => state.merge(omit(payload, 'entities'))
-    .mergeDeep({ entities: payload.entities })
+    .mergeDeep({ entities: payload.entities }),
+  [SET_EXAM_TOKEN]: (state, { payload }) => state.setIn(['tokens', `${payload.id}`], payload.token)
 }, initialState);
