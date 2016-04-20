@@ -12,6 +12,7 @@ import Snackbar from 'material-ui/Snackbar';
 import Inset from 'layouts/Inset';
 import BasicInfoTab from './BasicInfoTab';
 import QuestionTab from './QuestionTab';
+import UserTab from './UserTab';
 
 import { actions as examActions } from 'redux/modules/exam';
 
@@ -46,7 +47,7 @@ export class ExamNewView extends Component {
                   <QuestionTab />
                 </Tab>
                 <Tab label='Users'>
-                  <h1> Users </h1>
+                  <UserTab />
                 </Tab>
               </Tabs>
             </CardActions>
