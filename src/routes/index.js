@@ -30,7 +30,7 @@ export default (
     <Route path='exams/new' component={ ExamNewView } />
     <Route path='exams' component={ ExamListView } />
     <Route path='exams/:id' component={ ExamQuestionListView } />
-    <Route path='exams/:examId/question/:uuid' component={ ExamQuestionView } />
+    <Route path='exams/:examId/questions/:uuid' component={ ExamQuestionView } />
     <Route path='/page-not-found' component={ NotFoundView } />
     <Redirect from='*' to='/page-not-found' />
   </Route>
