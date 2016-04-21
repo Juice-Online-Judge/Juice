@@ -15,8 +15,13 @@ import QuestionTab from './QuestionTab';
 import UserTab from './UserTab';
 
 import { actions as examActions } from 'redux/modules/exam';
+import { clearCache } from 'redux/modules/app';
 
 export class ExamNewView extends Component {
+  componentWillMount() {
+    this.props.clearCache();
+  }
+
   @autobind
   handleBasicInfoChange(data) {
     this.setState({ ...data });
@@ -73,8 +78,9 @@ export class ExamNewView extends Component {
   };
 
   static propTypes = {
-    addExam: PropTypes.func.isRequired
+    addExam: PropTypes.func.isRequired,
+    clearCache: PropTypes.func.isRequired
   };
 }
 
-export default connect(null, examActions)(ExamNewView);
+export default connect(null, Object.assign({}, examActions, { clearCache }))(ExamNewView);
