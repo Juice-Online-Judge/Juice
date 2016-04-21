@@ -58,7 +58,7 @@ class QuestionTab extends Component {
     if (!has(questionDetail, uuid)) {
       newState.questionDetail[uuid] = DEFAULT_DETAIL;
     }
-    this.props.onChange(newState);
+    this.props.onChange({ questions: pick(newState, selectedQuestion) });
     this.setState(newState);
   }
 
