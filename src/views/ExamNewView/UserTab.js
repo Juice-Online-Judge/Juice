@@ -4,7 +4,6 @@ import { autobind } from 'core-decorators';
 
 import { Table, TableHeader, TableRow, TableBody, TableRowColumn, TableHeaderColumn }
   from 'material-ui/Table';
-import Pagination from 'components/Pagination';
 
 import { actions as userActions } from 'redux/modules/users';
 
@@ -33,8 +32,6 @@ class UserTab extends Component {
 
   render() {
     const { users } = this.props;
-    const { page } = this.state;
-    const maxPage = Math.ceil(users.get('result').size / 6);
     return (
       <div>
         <Table
@@ -56,7 +53,7 @@ class UserTab extends Component {
           <TableBody
             deselectOnClickaway={ false } >
             {
-              users.get('result').skip((page - 1) * 6).take(6).map((id, idx) => (
+              users.get('result').map((id, idx) => (
                 <TableRow key={ id } >
                   <TableRowColumn>
                     { users.getIn(['entities', 'user', `${id}`, 'username']) }
@@ -69,7 +66,6 @@ class UserTab extends Component {
             }
           </TableBody>
         </Table>
-        <Pagination onChange={ this.handlePageChange } current={ page } maxPage={ maxPage } />
       </div>
     );
   }
