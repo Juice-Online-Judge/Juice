@@ -20,6 +20,10 @@ class QuestionController extends ApiController
 
         pluck_relation_field($questions->items(), 'tags', 'name', 'id');
 
+        $questions->each(function (Question $question) {
+            $question->setHidden(['user_id', 'public']);
+        });
+
         return $this->setData($questions)->responseOk();
     }
 
