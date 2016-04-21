@@ -3,9 +3,9 @@
 namespace App\Listeners\V1;
 
 use App\Events\V1\CodeSubmitted;
-use Illuminate\Contracts\Queue\ShouldQueue;
+//use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendSocketToJudge implements ShouldQueue
+class SendSocketToJudge// implements ShouldQueue
 {
     /**
      * Create the event listener.
