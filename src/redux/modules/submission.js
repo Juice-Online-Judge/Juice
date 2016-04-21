@@ -1,5 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { Record, fromJS } from 'immutable';
+import omitBy from 'lodash/omitBy';
+import isNil from 'lodash/isNil';
 
 import guardRequest from '../utils/guardRequest';
 
@@ -13,14 +15,15 @@ const SET_SUBMISSIONS = 'SET_SUBMISSIONS';
 
 export const setSubmissions = createAction(SET_SUBMISSIONS);
 
-export const submitCode = (uuid, data) => {
+export const submitCode = (submitData) => {
   return (dispatch) => {
+    const { uuid, examId, ...data } = submitData;
     guardRequest(dispatch, {
       path: 'submissions/{uuid}',
       params: {
         uuid
       },
-      entity: data,
+      entity: omitBy({ ...data, exam_id: examId }, isNil),
       headers: {
         'Content-Type': 'multipart/form-data'
       }

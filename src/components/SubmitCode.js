@@ -24,8 +24,12 @@ export class SubmitCode extends Component {
 
   @autobind
   handleSubmit() {
-    const { uuid } = this.props;
-    this.props.submitCode(uuid, this.state);
+    const { uuid, examId } = this.props;
+    this.props.submitCode({
+      uuid,
+      examId,
+      ...this.state
+    });
   }
 
   render() {
@@ -57,6 +61,7 @@ export class SubmitCode extends Component {
 
   static propTypes = {
     uuid: PropTypes.string.isRequired,
+    examId: PropTypes.number,
     submission: PropTypes.object.isRequired,
     submitCode: PropTypes.func.isRequired,
     expanded: PropTypes.bool

@@ -32,7 +32,7 @@ export class Question extends Component {
   }
 
   render() {
-    const { uuid, question, expanded } = this.props;
+    const { uuid, question, expanded, examId } = this.props;
 
     if (expanded) {
       return (
@@ -45,13 +45,15 @@ export class Question extends Component {
             </div>
           </CardText>
           <CardActions>
-            <SubmitArea uuid={ uuid } />
+            <SubmitArea examId uuid={ uuid } />
           </CardActions>
         </Card>
       );
     } else {
+      const quesUrl = '/question/${uuid}';
+      const url = examId ? `/exams/${examId}${quesUrl}` : quesUrl;
       return (
-        <Link style={ commonStyles.noUnderline } to={ `/question/${uuid}` }>
+        <Link style={ commonStyles.noUnderline } to={ url }>
           <TitleCard
             title={ question.get('title') } />
         </Link>
@@ -65,6 +67,7 @@ export class Question extends Component {
 
   static propTypes = {
     uuid: PropTypes.string.isRequired,
+    examId: PropTypes.number,
     question: PropTypes.object,
     fetchQuestionDetail: PropTypes.func.isRequired,
     expanded: PropTypes.bool
@@ -79,6 +82,7 @@ class SubmitArea extends Component {
   get submitArea() {
     return (
       <SubmitCode
+        examId={ this.props.examId }
         uuid={ this.props.uuid } />
     );
   }
@@ -92,7 +96,8 @@ class SubmitArea extends Component {
   }
 
   static propTypes = {
-    uuid: PropTypes.string.isRequired
+    uuid: PropTypes.string.isRequired,
+    examId: PropTypes.number
   };
 }
 
