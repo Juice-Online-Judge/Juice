@@ -13,8 +13,10 @@ const UsersState = new Record({
 const initialState = new UsersState();
 
 const SET_USERS = 'SET_USERS';
+const CLEAR_USERS = 'CLEAR_USERS';
 
 export const setUsers = createAction(SET_USERS, (data) => normalize(data, arrayOf(userSchema)));
+export const clearUsers = createAction(CLEAR_USERS);
 
 export const fetchUsers = () => {
   return (dispatch) => {
@@ -32,5 +34,6 @@ export const actions = {
 };
 
 export default handleActions({
-  [SET_USERS]: (state, { payload }) => state.merge(payload)
+  [SET_USERS]: (state, { payload }) => state.merge(payload),
+  [CLEAR_USERS]: () => new UsersState()
 }, initialState);

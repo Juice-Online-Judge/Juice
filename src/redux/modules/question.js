@@ -19,6 +19,7 @@ const initialState = new QuestionState();
 
 const SET_QUESTION = 'SET_QUESTION';
 const SET_QUESTION_DETAIL = 'SET_QUESTION_DETAIL';
+const CLEAR_QUESTION = 'CLEAR_QUESTION';
 
 const markDetail = (question) => ({
   detail: true,
@@ -38,9 +39,12 @@ export const setQuestion = createAction(SET_QUESTION, ({ data, page, total, deta
 
   return payload;
 });
+
 export const setQuestionDetail = createAction(SET_QUESTION_DETAIL, (payload) => {
   return {detail: true, ...payload};
 });
+
+export const clearQuestion = createAction(CLEAR_QUESTION);
 
 export const fetchQuestion = (query = { page: 1 }, opts = { force: false }) => {
   return (dispatch, getState) => {
@@ -130,5 +134,6 @@ const mergeQuestion = (state, payload) => {
 export default handleActions({
   [SET_QUESTION]: (state, { payload }) => mergeQuestion(state, payload).merge(omit(payload, 'entities')),
   [SET_QUESTION_DETAIL]: (state, { payload }) => state
-    .setIn(['entities', 'question', payload.uuid], fromJS(payload))
+    .setIn(['entities', 'question', payload.uuid], fromJS(payload)),
+  [CLEAR_QUESTION]: () => new QuestionState()
 }, initialState);

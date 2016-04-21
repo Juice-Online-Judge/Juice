@@ -12,8 +12,10 @@ const SubmissionState = new Record({
 const initialState = new SubmissionState();
 
 const SET_SUBMISSIONS = 'SET_SUBMISSIONS';
+const CLEAR_SUBMISSIONS = 'CLEAR_SUBMISSIONS';
 
 export const setSubmissions = createAction(SET_SUBMISSIONS);
+export const clearSubmissions = createAction(CLEAR_SUBMISSIONS);
 
 export const submitCode = (submitData) => {
   return (dispatch) => {
@@ -52,5 +54,6 @@ export const actions = {
 };
 
 export default handleActions({
-  [SET_SUBMISSIONS]: (state, { payload }) => state.set('submissions', fromJS(payload))
+  [SET_SUBMISSIONS]: (state, { payload }) => state.set('submissions', fromJS(payload)),
+  [CLEAR_SUBMISSIONS]: () => new SubmissionState()
 }, initialState);

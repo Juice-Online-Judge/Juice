@@ -20,6 +20,7 @@ const initialState = new ExamStatus();
 
 export const SET_EXAM = 'SET_EXAM';
 export const SET_EXAM_TOKEN = 'SET_EXAM_TOKEN';
+export const CLEAR_EXAM = 'CLEAR_EXAM';
 
 export const setExam = createAction(SET_EXAM, ({ page, total, data }) => ({
   page,
@@ -28,6 +29,7 @@ export const setExam = createAction(SET_EXAM, ({ page, total, data }) => ({
 }));
 
 export const setExamToken = createAction(SET_EXAM_TOKEN);
+export const clearExam = createAction(CLEAR_EXAM);
 
 export const fetchExams = (query, opts = { force: false }) => {
   return (dispatch, getState) => {
@@ -102,5 +104,6 @@ export const actions = {
 export default handleActions({
   [SET_EXAM]: (state, { payload }) => state.merge(omit(payload, 'entities'))
     .mergeDeep({ entities: payload.entities }),
-  [SET_EXAM_TOKEN]: (state, { payload }) => state.setIn(['tokens', `${payload.id}`], payload.token)
+  [SET_EXAM_TOKEN]: (state, { payload }) => state.setIn(['tokens', `${payload.id}`], payload.token),
+  [CLEAR_EXAM]: () => new ExamStatus()
 }, initialState);
