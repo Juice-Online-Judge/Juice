@@ -25,7 +25,7 @@ class Submission extends Component {
         <CardText style={ styles.padding }>
           <Row middle='xs'>
             <Col xs={ 6 }>
-              <Link to={ `/question/${quesUuid}` }>
+              <Link to={ `/questions/${quesUuid}` }>
                 { title }
               </Link>
             </Col>
