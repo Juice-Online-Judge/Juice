@@ -1,16 +1,31 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
 
 import { Row, Col } from 'react-flexbox-grid';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
+import { Table, TableHeader, TableRow, TableBody, TableRowColumn, TableHeaderColumn }
+  from 'material-ui/Table';
 import Label from 'components/Label';
+import { fetchRole } from 'redux/modules/role';
 
 export class BasicInfoTab extends Component {
+  componentDidMount() {
+    this.props.fetchRole();
+  }
+
   @autobind
   handleNameChange(event) {
     this.handleChange({ name: event.target.value });
+  }
+
+  @autobind
+  handleRoleSelect(selectedRow) {
+    const { role } = this.props;
+    const selectedRole = selectedRow.map((idx) => role.getIn(['result', idx]));
+    setImmediate(() => this.handleChange({ role: selectedRole }));
   }
 
   handleChange(data = {}) {
@@ -20,6 +35,8 @@ export class BasicInfoTab extends Component {
   }
 
   render() {
+    const { role } = this.props;
+
     return (
       <div>
         <div>
@@ -54,6 +71,32 @@ export class BasicInfoTab extends Component {
             <TimePicker hintText='End Time' />
           </Col>
         </Row>
+        <Table
+          height='200px'
+          fixedHeader
+          selectable
+          multiSelectable
+          onRowSelection={ this.handleRoleSelect } >
+          <TableHeader enableSelectAll={ false } >
+            <TableRow>
+              <TableHeaderColumn>
+                Role
+              </TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody
+            deselectOnClickaway={ false } >
+            {
+              role.get('result').map((id) => (
+                <TableRow key={ id }>
+                  <TableRowColumn>
+                    { role.getIn(['entities', 'role', `${id}`, 'name']) }
+                  </TableRowColumn>
+                </TableRow>
+              ))
+            }
+          </TableBody>
+        </Table>
       </div>
     );
   }
@@ -63,8 +106,10 @@ export class BasicInfoTab extends Component {
   };
 
   static propTypes = {
-    onChange: PropTypes.func.isRequired
+    role: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired,
+    fetchRole: PropTypes.func.isRequired
   };
 }
 
-export default BasicInfoTab;
+export default connect((state) => ({ role: state.role }), { fetchRole })(BasicInfoTab);
