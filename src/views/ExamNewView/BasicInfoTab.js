@@ -38,24 +38,23 @@ export class BasicInfoTab extends Component {
   @autobind
   handleBeganDateChange(_event, date) {
     const newDate = copyDate(this.state.beganTime, date);
-    this.setState({ beganTime: newDate });
+    this.handleChange({ beganTime: newDate });
   }
 
   @autobind
-  handleBeganTimeChange(_event, data) {
-    this.setState({ beganTime: data });
+  handleBeganTimeChange(_event, date) {
+    this.handleChange({ beganTime: date });
   }
 
   @autobind
   handleEndedDateChange(_event, date) {
     const newDate = copyDate(this.state.endedTime, date);
-    this.setState({ endedTime: newDate });
+    this.handleChange({ endedTime: newDate });
   }
 
   @autobind
-  handleEndedTimeChange(_event, data) {
-    console.log(data);
-    this.setState({ endedTime: data });
+  handleEndedTimeChange(_event, date) {
+    this.handleChange({ endedTime: date });
   }
 
   handleChange(data = {}) {
@@ -144,7 +143,7 @@ export class BasicInfoTab extends Component {
   }
 
   state = {
-    name: null,
+    name: '',
     beganTime: new Date(),
     endedTime: new Date()
   };
