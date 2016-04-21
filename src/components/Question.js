@@ -45,7 +45,7 @@ export class Question extends Component {
             </div>
           </CardText>
           <CardActions>
-            <SubmitArea examId uuid={ uuid } />
+            <SubmitArea examId={ examId } uuid={ uuid } />
           </CardActions>
         </Card>
       );
