@@ -63,7 +63,7 @@ export class ExamNewView extends Component {
                   <BasicInfoTab onChange={ this.handleBasicInfoChange } />
                 </Tab>
                 <Tab label='Questions'>
-                  <QuestionTab onChange={ this.handleUsersChange } />
+                  <QuestionTab onChange={ this.handleQuestionChange } />
                 </Tab>
                 <Tab label='Users'>
                   <UserTab onChange={ this.handleUsersChange } />
