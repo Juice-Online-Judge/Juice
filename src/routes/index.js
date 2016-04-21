@@ -24,8 +24,8 @@ export default (
     <IndexRoute component={ QuestionListView } />
     <Route path='sign-in' component={ SigninView } />
     <Route path='sign-up' component={ SignupView } />
-    <Route path='question/new' component={ QuestionNewView } />
-    <Route path='question/:uuid' component={ QuestionView } />
+    <Route path='questions/new' component={ QuestionNewView } />
+    <Route path='questions/:uuid' component={ QuestionView } />
     <Route path='submission' component={ SubmissionView } />
     <Route path='exams/new' component={ ExamNewView } />
     <Route path='exams' component={ ExamListView } />

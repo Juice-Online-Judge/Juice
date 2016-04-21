@@ -50,7 +50,7 @@ export class Question extends Component {
         </Card>
       );
     } else {
-      const quesUrl = `/question/${uuid}`;
+      const quesUrl = `/questions/${uuid}`;
       const url = examId ? `/exams/${examId}${quesUrl}` : quesUrl;
       return (
         <Link style={ commonStyles.noUnderline } to={ url }>
