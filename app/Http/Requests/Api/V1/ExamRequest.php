@@ -22,7 +22,7 @@ class ExamRequest extends Request
             'question.*'       => 'required|array|exists:questions',
             'question.*.info'  => 'bail|required|json|max:1000|exam_question_info',
             'user'             => 'required|array',
-            'user.*'           => 'required|integer|exists:users',
+            'user.*'           => 'required|integer|exists:users,id',
         ];
     }
 }
