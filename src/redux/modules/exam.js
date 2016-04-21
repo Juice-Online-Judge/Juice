@@ -54,9 +54,20 @@ export const fetchExams = (query, opts = { force: false }) => {
   };
 };
 
-export const addExam = (data) => {
-  return (dispatch) => {
+export const addExam = (data) => (dispatch) => {
+  const examData = {
+    role_id: data.roleId,
+    began_at: data.beganTime,
+    ended_at: data.endedTime,
+    user: data.users,
+    question: data.questions,
+    ...data
   };
+
+  guardRequest(dispatch, {
+    path: 'exams',
+    entity: examData
+  });
 };
 
 export const fetchExamQuestion = (examId) => {
