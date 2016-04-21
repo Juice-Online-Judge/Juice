@@ -32,12 +32,17 @@ export class ExamNewView extends Component {
   }
 
   @autobind
-  handleAddExam() {
+  handleQuestionChange(questions) {
+    this.setState({ questions });
   }
 
   @autobind
   handleUsersChange(users) {
     this.setState({ users });
+  }
+
+  @autobind
+  handleAddExam() {
   }
 
   render() {
@@ -58,7 +63,7 @@ export class ExamNewView extends Component {
                   <BasicInfoTab onChange={ this.handleBasicInfoChange } />
                 </Tab>
                 <Tab label='Questions'>
-                  <QuestionTab />
+                  <QuestionTab onChange={ this.handleUsersChange } />
                 </Tab>
                 <Tab label='Users'>
                   <UserTab onChange={ this.handleUsersChange } />

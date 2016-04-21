@@ -11,6 +11,13 @@ import { Table, TableHeader, TableRow, TableBody, TableRowColumn, TableHeaderCol
 import Label from 'components/Label';
 import { fetchRole } from 'redux/modules/role';
 
+const now = new Date();
+const copyDate = (origDate, date) => {
+  const newDate = new Date(origDate);
+  newDate.setFullYear(date.getFullYear(), date.getMonth(), date.getDate());
+  return newDate;
+};
+
 export class BasicInfoTab extends Component {
   componentDidMount() {
     this.props.fetchRole();
@@ -26,6 +33,29 @@ export class BasicInfoTab extends Component {
     const { role } = this.props;
     const selectedRole = selectedRow.map((idx) => role.getIn(['result', idx]));
     setImmediate(() => this.handleChange({ role: selectedRole }));
+  }
+
+  @autobind
+  handleBeganDateChange(_event, date) {
+    const newDate = copyDate(this.state.beganTime, date);
+    this.setState({ beganTime: newDate });
+  }
+
+  @autobind
+  handleBeganTimeChange(_event, data) {
+    this.setState({ beganTime: data });
+  }
+
+  @autobind
+  handleEndedDateChange(_event, date) {
+    const newDate = copyDate(this.state.endedTime, date);
+    this.setState({ endedTime: newDate });
+  }
+
+  @autobind
+  handleEndedTimeChange(_event, data) {
+    console.log(data);
+    this.setState({ endedTime: data });
   }
 
   handleChange(data = {}) {
@@ -52,10 +82,16 @@ export class BasicInfoTab extends Component {
             </Label>
           </Col>
           <Col md={ 4 } xs={ 12 }>
-            <DatePicker hintText='Begin Date' />
+            <DatePicker
+              hintText='Begin Date'
+              defaultDate={ now }
+              onChange={ this.handleBeganDateChange } />
           </Col>
           <Col md={ 4 } xs={ 12 }>
-            <TimePicker hintText='Begin Time' />
+            <TimePicker
+              hintText='Begin Time'
+              onChange={ this.handleBeganTimeChange }
+              value={ this.state.beganTime } />
           </Col>
         </Row>
         <Row>
@@ -65,10 +101,16 @@ export class BasicInfoTab extends Component {
             </Label>
           </Col>
           <Col md={ 4 } xs={ 12 }>
-            <DatePicker hintText='End Date' />
+            <DatePicker
+              hintText='End Date'
+              defaultDate={ now }
+              onChange={ this.handleEndedDateChange } />
           </Col>
           <Col md={ 4 } xs={ 12 }>
-            <TimePicker hintText='End Time' />
+            <TimePicker
+              hintText='End Time'
+              onChange={ this.handleEndedTimeChange }
+              value={ this.state.endedTime } />
           </Col>
         </Row>
         <Table
@@ -102,7 +144,9 @@ export class BasicInfoTab extends Component {
   }
 
   state = {
-    name: null
+    name: null,
+    beganTime: new Date(),
+    endedTime: new Date()
   };
 
   static propTypes = {

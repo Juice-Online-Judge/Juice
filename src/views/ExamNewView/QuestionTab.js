@@ -58,6 +58,7 @@ class QuestionTab extends Component {
     if (!has(questionDetail, uuid)) {
       newState.questionDetail[uuid] = DEFAULT_DETAIL;
     }
+    this.props.onChange(newState);
     this.setState(newState);
   }
 
@@ -106,6 +107,7 @@ class QuestionTab extends Component {
   static propTypes = {
     app: PropTypes.object.isRequired,
     question: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired,
     fetchQuestion: PropTypes.func.isRequired
   };
 }
