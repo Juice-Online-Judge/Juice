@@ -22,6 +22,10 @@ export class ExamNewView extends Component {
     this.props.clearCache();
   }
 
+  componentWillUnmount() {
+    this.props.clearCache();
+  }
+
   @autobind
   handleBasicInfoChange(data) {
     this.setState({ ...data });
