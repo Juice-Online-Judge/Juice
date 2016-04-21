@@ -43,6 +43,7 @@ export class ExamNewView extends Component {
 
   @autobind
   handleAddExam() {
+    this.props.addExam(this.state);
   }
 
   render() {
