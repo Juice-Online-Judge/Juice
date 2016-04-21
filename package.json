@@ -72,8 +72,8 @@
     "when": "^3.7.7"
   },
   "devDependencies": {
-    "@kadira/storybook": "^1.16.0",
-    "babel-core": "^6.7.6",
+    "@kadira/storybook": "^1.16.1",
+    "babel-core": "^6.7.7",
     "babel-eslint": "^6.0.3",
     "babel-loader": "^6.2.3",
     "babel-plugin-add-module-exports": "^0.1.2",
@@ -116,7 +116,7 @@
     "karma-spec-reporter": "0.0.26",
     "karma-webpack": "^1.7.0",
     "mocha": "^2.4.5",
-    "node-sass": "^3.4.2",
+    "node-sass": "^3.5.2",
     "nodemon": "^1.9.0",
     "phantomjs-polyfill": "0.0.2",
     "phantomjs-prebuilt": "^2.1.4",
