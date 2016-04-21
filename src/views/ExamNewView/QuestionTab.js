@@ -172,7 +172,7 @@ class QuestionSetting extends Component {
 
   settingToState(setting) {
     if (setting) {
-      const score = setting.score || 100.0;
+      const score = setting.score || '';
       const type = setting.type || 'normal';
       const goal = setting.goal || '';
       const reward = setting.reward || '';
@@ -186,13 +186,11 @@ class QuestionSetting extends Component {
   }
 
   @autobind
-  handleGoalChange(event) {
-    this.emitChange({ goal: parseInt(event.target.value) });
-  }
-
-  @autobind
-  handleRewardChange(event) {
-    this.emitChange({ reward: parseInt(event.target.value) });
+  handleIntValChange(event) {
+    const { name, value } = event.target;
+    const newState = {};
+    newState[name] = parseInt(value);
+    this.emitChange(newState);
   }
 
   @autobind
@@ -245,15 +243,17 @@ class QuestionSetting extends Component {
             </SelectField>
             <TextField
               fullWidth
+              name='goal'
               disabled={ type !== 'portion' }
               floatingLabelText='Goal'
-              onChange={ this.handleGoalChange }
+              onChange={ this.handleIntValChange }
               value={ goal } />
             <TextField
               fullWidth
+              name='reward'
               disabled={ type !== 'portion' }
               floatingLabelText='Reward'
-              onChange={ this.handleRewardChange }
+              onChange={ this.handleIntValChange }
               value={ reward } />
           </CardActions>
         </Card>
