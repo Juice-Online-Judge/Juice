@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
-import getDisplayName from 'react-display-name';
-
+import { connect } from 'react-redux';
+import { setDisplayName, wrapDisplayName, getDisplayName } from 'recompose';
 import { createGetComponentMessage, actions as validateActions } from 'redux/modules/validate';
 
 const validateConnect = (validateRule, mapStatesToProps, actions) => {
@@ -34,9 +33,9 @@ const validateConnect = (validateRule, mapStatesToProps, actions) => {
       }
     }
 
-    ValidateCommponent.displayName = `Validate(${componentName})`;
-
-    return connect(mapStates, { ...actions, ...validateActions })(ValidateCommponent);
+    return connect(mapStates, { ...actions, ...validateActions })(
+      setDisplayName(wrapDisplayName(WrappedComponent, 'Validate'))(ValidateCommponent)
+    );
   };
 };
 
