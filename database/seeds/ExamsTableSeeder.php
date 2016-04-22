@@ -25,7 +25,7 @@ class ExamsTableSeeder extends Seeder
                 $joins[$key] = [
                     'info' => json_encode([
                         'score' => mt_rand(15, 20),
-                        'type' => \Illuminate\Support\Str::quickRandom(4),
+                        'type' => null,
                     ]),
                 ];
             }
