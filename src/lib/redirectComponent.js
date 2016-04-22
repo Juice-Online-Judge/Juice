@@ -15,10 +15,8 @@ import { actions as appActions } from 'redux/modules/app';
 
 const omitProps = compose(mapProps, omit);
 
-export const redirectConnect = (UnconnectRedirectComponent) => {
-  return connect((state) => ({ app: state.app }),
-    Object.assign({}, appActions, { replace }))(UnconnectRedirectComponent);
-};
+export const redirectConnect = connect((state) => ({ app: state.app }),
+  Object.assign({}, appActions, { replace }));
 
 export const redirectComponent = (name, shouldRedirectPath, WrappedComponent) => {
   return compose(
