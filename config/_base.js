@@ -41,7 +41,6 @@ const config = {
     'core-decorators',
     'history',
     'immutable',
-    'js-cookie',
     'lodash',
     'normalizr',
     'react',
