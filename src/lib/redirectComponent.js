@@ -21,7 +21,8 @@ export const redirectConnect = (UnconnectRedirectComponent) => {
 };
 
 export const redirectComponent = (name, shouldRedirectPath, WrappedComponent) => {
-  return redirectConnect(compose(
+  return compose(
+    redirectConnect,
     setDisplayName(wrapDisplayName(WrappedComponent, name)),
     lifecycle((component) => component.props.clearError()),
     doOnReceiveProps((props) => {
@@ -41,7 +42,7 @@ export const redirectComponent = (name, shouldRedirectPath, WrappedComponent) =>
       'setError',
       'clearError'
     ])
-  )(WrappedComponent));
+  )(WrappedComponent);
 };
 
 export default redirectComponent;

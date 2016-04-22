@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
-import { setDisplayName, wrapDisplayName, getDisplayName } from 'recompose';
+import { compose, setDisplayName, wrapDisplayName, getDisplayName } from 'recompose';
 import { createGetComponentMessage, actions as validateActions } from 'redux/modules/validate';
 
 const validateConnect = (validateRule, mapStatesToProps, actions) => {
@@ -33,9 +33,10 @@ const validateConnect = (validateRule, mapStatesToProps, actions) => {
       }
     }
 
-    return connect(mapStates, { ...actions, ...validateActions })(
-      setDisplayName(wrapDisplayName(WrappedComponent, 'Validate'))(ValidateCommponent)
-    );
+    return compose(
+      connect(mapStates, { ...actions, ...validateActions }),
+      setDisplayName(wrapDisplayName(WrappedComponent, 'Validate'))
+    )(ValidateCommponent);
   };
 };
 
