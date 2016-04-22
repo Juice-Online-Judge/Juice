@@ -11,6 +11,8 @@ use App\Questions\Question;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class ExamController extends ApiController
 {
@@ -53,11 +55,34 @@ class ExamController extends ApiController
             return $this->responseUnknownError();
         }
 
-        $exam->questions()->sync($request->input('question', []));
+        $exam->questions()->sync($this->getQuestionFromRequest($request));
 
         $exam->users()->sync($request->input('user', []));
 
         return $this->setData($exam->fresh())->responseCreated();
+    }
+
+    /**
+     * Get the question input from request.
+     *
+     * @param Request $request
+     * @return array
+     */
+    protected function getQuestionFromRequest(Request $request)
+    {
+        $questions = [];
+
+        $indexes = (new Collection($request->input('question', [])))->keyBy('uuid')->toArray();
+
+        Question::whereIn('uuid', $request->input('question.*.uuid', []))
+            ->get(['id', 'uuid'])
+            ->each(function (Question $question) use (&$questions, $indexes) {
+                $questions[$question->getAttribute('id')] = [
+                    'info' => $indexes[$question->getAttribute('uuid')]['info'],
+                ];
+            });
+
+        return $questions;
     }
 
     /**

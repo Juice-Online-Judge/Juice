@@ -19,7 +19,7 @@ class ExamRequest extends Request
             'began_at'         => 'required|date',
             'ended_at'         => 'required|date',
             'question'         => 'required|array',
-            'question.*'       => 'required|array|exists:questions,id',
+            'question.*.uuid'  => 'required|string|exists:questions,uuid',
             'question.*.info'  => 'bail|required|json|max:1000|exam_question_info',
             'user'             => 'required|array',
             'user.*'           => 'required|integer|exists:users,id',
