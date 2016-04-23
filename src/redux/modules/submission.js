@@ -2,19 +2,23 @@ import { createAction, handleActions } from 'redux-actions';
 import { Record, fromJS } from 'immutable';
 import omitBy from 'lodash/omitBy';
 import isNil from 'lodash/isNil';
+import { createFormDataDeep } from 'lib/utils';
 
 import guardRequest from '../utils/guardRequest';
 
 const SubmissionState = new Record({
-  submissions: []
+  submissions: [],
+  code: ''
 });
 
 const initialState = new SubmissionState();
 
 const SET_SUBMISSIONS = 'SET_SUBMISSIONS';
+const SET_SUBMISSION_CODE = 'SET_SUCMISSION_CODE';
 const CLEAR_SUBMISSIONS = 'CLEAR_SUBMISSIONS';
 
 export const setSubmissions = createAction(SET_SUBMISSIONS);
+export const setSubmissionCode = createAction(SET_SUBMISSION_CODE);
 export const clearSubmissions = createAction(CLEAR_SUBMISSIONS);
 
 export const submitCode = (submitData) => (dispatch) => {
@@ -24,7 +28,7 @@ export const submitCode = (submitData) => (dispatch) => {
     params: {
       uuid
     },
-    entity: omitBy({ ...data, exam_id: examId }, isNil),
+    entity: createFormDataDeep(omitBy({ ...data, exam_id: examId }, isNil)),
     headers: {
       'Content-Type': 'multipart/form-data'
     }
@@ -41,6 +45,17 @@ export const fetchSubmissions = (opts = { force: false }) => (dispatch, getState
     path: '/account/submissions'
   }, (entity) => {
     dispatch(setSubmissions(entity));
+  });
+};
+
+export const fetchCode = (id) => (dispatch) => {
+  guardRequest(dispatch, {
+    path: 'submissions/{id}/code',
+    params: {
+      id
+    }
+  }, (entity) => {
+    dispatch(setSubmissionCode(entity));
   });
 };
 
