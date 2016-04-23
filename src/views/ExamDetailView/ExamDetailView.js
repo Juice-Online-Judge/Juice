@@ -26,6 +26,7 @@ class ExamDetailView extends Component {
   }
 
   isManager() {
+    // For testing TODO: replace this with permission check
     return true;
   }
 
