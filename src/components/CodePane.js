@@ -15,9 +15,13 @@ class CodePane extends Component {
   }
 
   static propTypes = {
-    lang: PropTypes.oneOf(['c', 'cpp']).isRequired,
+    lang: PropTypes.oneOf(['c', 'cpp']),
     code: PropTypes.string,
     children: PropTypes.node
+  };
+
+  static defaultProps = {
+    lang: 'c'
   };
 }
 
