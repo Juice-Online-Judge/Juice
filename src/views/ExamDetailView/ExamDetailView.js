@@ -8,7 +8,7 @@ import TextField from 'material-ui/TextField';
 import { Row, Col } from 'react-flexbox-grid';
 import { actions as examActions } from 'redux/modules/exam';
 
-class ExamQuestionListView extends Component {
+class ExamDetailView extends Component {
   componentDidMount() {
     const { id } = this.props.params;
     this.props.fetchExamQuestion(id);
@@ -58,4 +58,4 @@ class ExamQuestionListView extends Component {
 }
 
 export default connect((state) => ({ question: state.question, exam: state.exam }),
-  examActions)(ExamQuestionListView);
+  examActions)(ExamDetailView);
