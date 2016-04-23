@@ -15,17 +15,19 @@ class SubmissionView extends Component {
 
   get submissions() {
     const { submission } = this.props;
-    return submission.get('submissions').map((data) => {
+    const entities = submission.getIn(['entities', 'submission']);
+    return submission.get('result').map((idNum) => {
+      const id = `${idNum}`;
       return (
         <Submission
-          key={ data.get('id') }
-          id={ data.get('id') }
-          quesUuid={ data.getIn(['question', 'uuid']) }
-          title={ data.getIn(['question', 'title']) }
-          language={ data.get('language') }
-          result={ data.getIn(['judge', 'result']) }
-          time={ data.getIn(['judge', 'time']) }
-          memory={ data.getIn(['judge', 'memory']) } />
+          key={ entities.getIn([id, 'id']) }
+          id={ entities.getIn([id, 'id']) }
+          quesUuid={ entities.getIn([id, 'question', 'uuid']) }
+          title={ entities.getIn([id, 'question', 'title']) }
+          language={ entities.getIn([id, 'language']) }
+          result={ entities.getIn([id, 'judge', 'result']) }
+          time={ entities.getIn([id, 'judge', 'time']) }
+          memory={ entities.getIn([id, 'judge', 'memory']) } />
       );
     });
   }

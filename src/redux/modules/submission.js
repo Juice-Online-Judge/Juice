@@ -1,13 +1,16 @@
 import { createAction, handleActions } from 'redux-actions';
-import { Record, fromJS } from 'immutable';
+import { Record } from 'immutable';
 import omitBy from 'lodash/omitBy';
 import isNil from 'lodash/isNil';
+import { normalize, arrayOf } from 'normalizr';
 import { createFormDataDeep } from 'lib/utils';
 
 import guardRequest from '../utils/guardRequest';
+import submissionSchema from 'schema/submission';
 
 const SubmissionState = new Record({
-  submissions: [],
+  result: [],
+  entities: {},
   code: ''
 });
 
@@ -17,7 +20,7 @@ const SET_SUBMISSIONS = 'SET_SUBMISSIONS';
 const SET_SUBMISSION_CODE = 'SET_SUCMISSION_CODE';
 const CLEAR_SUBMISSIONS = 'CLEAR_SUBMISSIONS';
 
-export const setSubmissions = createAction(SET_SUBMISSIONS);
+export const setSubmissions = createAction(SET_SUBMISSIONS, (data) => normalize(data, arrayOf(submissionSchema)));
 export const setSubmissionCode = createAction(SET_SUBMISSION_CODE);
 export const clearSubmissions = createAction(CLEAR_SUBMISSIONS);
 
@@ -37,7 +40,7 @@ export const submitCode = (submitData) => (dispatch) => {
 
 export const fetchSubmissions = (opts = { force: false }) => (dispatch, getState) => {
   const { submission } = getState();
-  if (submission.get('submissions').size && !opts.force) {
+  if (submission.get('result').size && !opts.force) {
     return;
   }
 
@@ -65,6 +68,6 @@ export const actions = {
 };
 
 export default handleActions({
-  [SET_SUBMISSIONS]: (state, { payload }) => state.set('submissions', fromJS(payload)),
+  [SET_SUBMISSIONS]: (state, { payload }) => state.merge(payload),
   [CLEAR_SUBMISSIONS]: () => new SubmissionState()
 }, initialState);
