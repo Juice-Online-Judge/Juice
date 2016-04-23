@@ -2,6 +2,7 @@
 
 namespace App\Submissions;
 
+use App\Accounts\User;
 use App\Core\Entity;
 use App\Judges\Judge;
 use App\Questions\Question;
@@ -42,6 +43,16 @@ class Submission extends Entity
      * @var array
      */
     protected $with = ['judge'];
+
+    /**
+     * 取得使用者.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /**
      * Submission 的題目.

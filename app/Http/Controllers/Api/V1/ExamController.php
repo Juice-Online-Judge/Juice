@@ -10,6 +10,7 @@ use App\Http\Requests\Api\V1\ExamRequest;
 use App\Questions\Question;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -142,7 +143,10 @@ class ExamController extends ApiController
      */
     public function submissions($id)
     {
-        $exam = Exam::with(['submissions'])->findOrFail($id);
+        $exam = Exam::with([
+            'submissions',
+            'submissions.user' => function (BelongsTo $query) { $query->getBaseQuery()->select(['id', 'username', 'nickname']); },
+        ])->findOrFail($id);
 
         $this->authorize($exam);
 
