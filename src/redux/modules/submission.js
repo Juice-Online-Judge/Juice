@@ -17,10 +17,12 @@ const SubmissionState = new Record({
 const initialState = new SubmissionState();
 
 const SET_SUBMISSIONS = 'SET_SUBMISSIONS';
+const SET_SUBMISSION = 'SET_SUBMISSION';
 const SET_SUBMISSION_CODE = 'SET_SUCMISSION_CODE';
 const CLEAR_SUBMISSIONS = 'CLEAR_SUBMISSIONS';
 
 export const setSubmissions = createAction(SET_SUBMISSIONS, (data) => normalize(data, arrayOf(submissionSchema)));
+export const setSubmission = createAction(SET_SUBMISSION, (data) => normalize(data, submissionSchema));
 export const setSubmissionCode = createAction(SET_SUBMISSION_CODE);
 export const clearSubmissions = createAction(CLEAR_SUBMISSIONS);
 
@@ -51,7 +53,25 @@ export const fetchSubmissions = (opts = { force: false }) => (dispatch, getState
   });
 };
 
+export const fetchSubmission = (id, opts = { force: false }) => (dispatch, getState) => {
+  const { submission } = getState();
+  id = `${id}`;
+  if (submission.hasIn(['entities', 'submission', id]) && !opts.force) {
+    return;
+  }
+
+  guardRequest(dispatch, {
+    path: '/submissions/{id}',
+    params: {
+      id
+    }
+  }, (entity) => {
+    dispatch(setSubmission(entity));
+  });
+};
+
 export const fetchCode = (id) => (dispatch) => {
+  id = parseInt(id);
   guardRequest(dispatch, {
     path: 'submissions/{id}/code',
     params: {
@@ -69,5 +89,7 @@ export const actions = {
 
 export default handleActions({
   [SET_SUBMISSIONS]: (state, { payload }) => state.merge(payload),
-  [CLEAR_SUBMISSIONS]: () => new SubmissionState()
+  [SET_SUBMISSION]: (state, { payload }) => state.merge(payload),
+  [CLEAR_SUBMISSIONS]: () => new SubmissionState(),
+  [SET_SUBMISSION_CODE]: (state, { payload }) => state.set('code', payload)
 }, initialState);
