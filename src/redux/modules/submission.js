@@ -53,6 +53,17 @@ export const fetchSubmissions = (opts = { force: false }) => (dispatch, getState
   });
 };
 
+export const fetchExamSubmissions = (id, opts = { force: false }) => (dispatch) => {
+  guardRequest(dispatch, {
+    path: '/exams/{id}/submissions',
+    params: {
+      id
+    }
+  }, (entity) => {
+    dispatch(setSubmissions(entity));
+  });
+};
+
 export const fetchSubmission = (id, opts = { force: false }) => (dispatch, getState) => {
   const { submission } = getState();
   id = `${id}`;
@@ -84,6 +95,9 @@ export const fetchCode = (id) => (dispatch) => {
 
 export const actions = {
   fetchSubmissions,
+  fetchSubmission,
+  fetchExamSubmissions,
+  fetchCode,
   submitCode
 };
 
