@@ -13,9 +13,6 @@ class SubmissionView extends Component {
     this.props.fetchSubmissions();
   }
 
-  get submissions() {
-  }
-
   render() {
     const { app, submission } = this.props;
     const loading = app.get('status') === RequestStatus.PENDING;
