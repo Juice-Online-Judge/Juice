@@ -18,6 +18,7 @@ import ExamListView from 'views/ExamListView/ExamListView';
 import ExamNewView from 'views/ExamNewView/ExamNewView';
 import ExamQuestionListView from 'views/ExamQuestionListView/ExamQuestionListView';
 import ExamQuestionView from 'views/ExamQuestionView/ExamQuestionView';
+import CodeView from 'views/CodeView/CodeView';
 
 export default (
   <Route path='/' component={ CoreLayout }>
@@ -27,6 +28,7 @@ export default (
     <Route path='questions/new' component={ QuestionNewView } />
     <Route path='questions/:uuid' component={ QuestionView } />
     <Route path='submission' component={ SubmissionView } />
+    <Route path='submission/:id/code' component={ CodeView } />
     <Route path='exams/new' component={ ExamNewView } />
     <Route path='exams' component={ ExamListView } />
     <Route path='exams/:id' component={ ExamQuestionListView } />
