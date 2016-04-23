@@ -32,17 +32,17 @@ class Submission extends Component {
             <Col xs={ 1 } /> { /* Use for padding */ }
             <Col xs={ 1 }>
               <span style={ [result === 'AC' ? styles.pass : styles.noPass, styles.bold] }>
-                { result }
+                { result || 'PENDING' }
               </span>
             </Col>
             <Col style={ styles.upperCase } xs={ 1 }>
               { language }
             </Col>
             <Col xs={ 1 }>
-              { time } (s)
+              { time || 'N/A' } (s)
             </Col>
             <Col xs={ 1 }>
-              { memory } (KB)
+              { memory || 'N/A' } (KB)
             </Col>
             <Col xs={ 1 }>
               <Link to={ `/submission/${id}/code` }>
@@ -62,9 +62,9 @@ class Submission extends Component {
     quesUuid: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
-    time: PropTypes.string.isRequired,
-    memory: PropTypes.string.isRequired,
-    result: PropTypes.string.isRequired
+    time: PropTypes.string,
+    memory: PropTypes.string,
+    result: PropTypes.string
   };
 }
 
