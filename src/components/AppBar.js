@@ -8,7 +8,8 @@ import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import FontIcon from 'material-ui/FontIcon';
+import MenuIcon from 'material-ui/svg-icons/navigation/menu';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 import LeftNav from './LeftNav';
 
@@ -39,9 +40,7 @@ export class AppBar extends React.Component {
   get leftMenu() {
     return (
       <IconButton onTouchTap={ this.handleToggle }>
-        <FontIcon className='material-icons'>
-          menu
-        </FontIcon>
+        <MenuIcon />
       </IconButton>
     );
   }
@@ -52,9 +51,7 @@ export class AppBar extends React.Component {
         <IconMenu
           iconButtonElement={
             <IconButton>
-              <FontIcon className='material-icons'>
-                more_vert
-              </FontIcon>
+              <MoreVertIcon />
             </IconButton>
           }
           targetOrigin={ {horizontal: 'right', vertical: 'top'} }
