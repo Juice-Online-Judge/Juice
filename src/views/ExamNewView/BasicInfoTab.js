@@ -116,7 +116,6 @@ export class BasicInfoTab extends Component {
           height='200px'
           fixedHeader
           selectable
-          multiSelectable
           onRowSelection={ this.handleRoleSelect } >
           <TableHeader enableSelectAll={ false } >
             <TableRow>
