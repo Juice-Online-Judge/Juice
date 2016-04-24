@@ -51,7 +51,7 @@ class UserTab extends Component {
           <TableBody
             deselectOnClickaway={ false } >
             {
-              users.get('result').map((id, idx) => (
+              users.get('result').map((id) => (
                 <TableRow key={ id } >
                   <TableRowColumn>
                     { users.getIn(['entities', 'user', `${id}`, 'username']) }
