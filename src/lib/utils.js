@@ -46,6 +46,7 @@ export const createFormDataDeep = (object) => {
   forEach(object, (value, key) => {
     appendFormData(key, value);
   });
+
   return formData;
 };
 
