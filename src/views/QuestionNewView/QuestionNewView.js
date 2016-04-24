@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
+import compose from 'recompose/compose';
 
 import FlatButton from 'material-ui/FlatButton';
 import Card from 'material-ui/Card/Card';
@@ -10,6 +11,7 @@ import Tabs from 'material-ui/Tabs/Tabs';
 import Tab from 'material-ui/Tabs/Tab';
 import { Row, Col } from 'react-flexbox-grid';
 
+import redirectNotAdmin from 'lib/redirectNotAdmin';
 import { actions as questionActions } from 'redux/modules/question';
 import { actions as appActions } from 'redux/modules/app';
 import { RequestStatus } from 'lib/const';
@@ -117,6 +119,7 @@ class QuestionNewView extends Component {
   };
 }
 
-export default connect((state) => {
-  return { app: state.app };
-}, Object.assign({}, questionActions, appActions))(QuestionNewView);
+export default compose(
+  redirectNotAdmin,
+  connect((state) => ({ app: state.app }), { ...questionActions, ...appActions })
+)(QuestionNewView);
