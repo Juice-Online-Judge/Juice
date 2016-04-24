@@ -28,22 +28,26 @@ export class ExamNewView extends Component {
 
   @autobind
   handleBasicInfoChange(data) {
-    this.setState({ ...data });
+    this.setData({ ...data });
   }
 
   @autobind
   handleQuestionChange(questions) {
-    this.setState({ questions });
+    this.setData({ questions });
   }
 
   @autobind
   handleUsersChange(users) {
-    this.setState({ users });
+    this.setData({ users });
   }
 
   @autobind
   handleAddExam() {
-    this.props.addExam(this.state);
+    this.props.addExam(this.data);
+  }
+
+  setData(newData) {
+    this.data = { ...this.data, ...newData };
   }
 
   render() {
@@ -86,6 +90,8 @@ export class ExamNewView extends Component {
     open: false,
     message: 'Add success'
   };
+
+  data = {};
 
   static propTypes = {
     addExam: PropTypes.func.isRequired,
