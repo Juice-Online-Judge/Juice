@@ -31,13 +31,10 @@ export class SignInView extends React.Component {
   }
 
   @autobind
-  setUsername(event) {
-    this.setState({username: event.target.value});
-  }
-
-  @autobind
-  setPassword(event) {
-    this.setState({password: event.target.value});
+  handleChange(event) {
+    const newState = {};
+    newState[event.target.name] = event.target.value;
+    this.setState(newState);
   }
 
   @autobind
@@ -55,15 +52,17 @@ export class SignInView extends React.Component {
             <CardTitle title='Juice' />
             <CardActions>
               <TextField
+                name='username'
                 style={ styles.action }
-                onChange={ this.setUsername }
+                onChange={ this.handleChange }
                 floatingLabelText='Username' />
             </CardActions>
             <CardActions>
               <TextField
+                name='password'
                 style={ styles.action }
                 type='password'
-                onChange={ this.setPassword }
+                onChange={ this.handleChange }
                 floatingLabelText='Password' />
             </CardActions>
             <CardActions>

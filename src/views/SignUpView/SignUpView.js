@@ -36,28 +36,10 @@ export class SignUpView extends React.Component {
   }
 
   @autobind
-  setUsername(event) {
-    this.setState({username: event.target.value});
-  }
-
-  @autobind
-  setNickname(event) {
-    this.setState({nickname: event.target.value});
-  }
-
-  @autobind
-  setPassword(event) {
-    this.setState({password: event.target.value});
-  }
-
-  @autobind
-  setPasswordConfirm(event) {
-    this.setState({passwordConfirm: event.target.value});
-  }
-
-  @autobind
-  setEmail(event) {
-    this.setState({email: event.target.value});
+  handleChange(event) {
+    const newState = {};
+    newState[event.target.name] = event.target.value;
+    this.setState(newState);
   }
 
   @autobind
@@ -83,41 +65,46 @@ export class SignUpView extends React.Component {
       <CenterBlock>
         <Paper zDepth={ 3 } style={ Object.assign({}, styles.paper, styles.marginTop) }>
           <Card>
-            <CardTitle title='Signup' />
+            <CardTitle title='SignUp' />
             <CardActions>
               <TextField
+                name='username'
                 style={ styles.action }
-                onChange={ this.setUsername }
+                onChange={ this.handleChange }
                 errorText={ message.get('username') }
                 floatingLabelText='Username' />
             </CardActions>
             <CardActions>
               <TextField
+                name='email'
                 style={ styles.action }
-                onChange={ this.setEmail }
+                onChange={ this.handleChange }
                 errorText={ message.get('email') }
                 floatingLabelText='Email' />
             </CardActions>
             <CardActions>
               <TextField
+                name='nickname'
                 style={ styles.action }
-                onChange={ this.setNickname }
+                onChange={ this.handleChange }
                 errorText={ message.get('nickname') }
                 floatingLabelText='Nickname' />
             </CardActions>
             <CardActions>
               <TextField
+                name='password'
                 style={ styles.action }
                 type='password'
-                onChange={ this.setPassword }
+                onChange={ this.handleChange }
                 errorText={ message.get('password') }
                 floatingLabelText='Password' />
             </CardActions>
             <CardActions>
               <TextField
+                name='passwordConfirm'
                 style={ styles.action }
                 type='password'
-                onChange={ this.setPasswordConfirm }
+                onChange={ this.handleChange }
                 errorText={ message.get('passwordConfirm') }
                 floatingLabelText='PasswordConfirm' />
             </CardActions>
