@@ -16,17 +16,19 @@ import createMaxPageSelector from 'redux/selectors/maxPageSelector';
 class ExamListView extends Component {
   componentDidMount() {
     const { query } = this.props.location;
-    this.fetchExams(query);
+    this.fetchExams(query, { force: true });
   }
 
   componentWillReceiveProps(newProps) {
     const { query } = newProps.location;
-    this.fetchExams(query);
+    if (query.page !== this.props.location.query.page) {
+      this.fetchExams(query);
+    }
   }
 
-  fetchExams(query) {
+  fetchExams(query, opts) {
     const page = parseInt(query.page) || 1;
-    this.props.fetchExams({ page });
+    this.props.fetchExams({ page }, opts);
   }
 
   render() {

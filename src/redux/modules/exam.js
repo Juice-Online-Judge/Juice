@@ -37,7 +37,7 @@ export const fetchExams = (query, opts = { force: false }) => (dispatch, getStat
   const page = exam.get('page');
   query = query || { page };
 
-  if (isRequesting(app)) {
+  if (isRequesting(app) && !opts.force) {
     return;
   }
 
