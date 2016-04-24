@@ -22,6 +22,8 @@ import LoadingContainer from 'components/LoadingContainer';
 
 import { actions as questionActions } from 'redux/modules/question';
 
+const isNotPortion = (type) => type !== 'portion_num' && type !== 'portion_str';
+
 class QuestionTab extends Component {
   componentDidMount() {
     const { page } = this.state;
@@ -56,9 +58,9 @@ class QuestionTab extends Component {
     const { questionDetail } = this.state;
     const newState = { selectedQuestion, questionDetail };
     if (!has(questionDetail, uuid)) {
-      newState.questionDetail[uuid] = DEFAULT_DETAIL;
+      newState.questionDetail[uuid] = Object.assign({}, DEFAULT_DETAIL);
     }
-    this.props.onChange({ questions: pick(newState.questionDetail, selectedQuestion) });
+    this.props.onChange(pick(newState.questionDetail, selectedQuestion));
     this.setState(newState);
   }
 
@@ -89,7 +91,7 @@ class QuestionTab extends Component {
             question={ question }
             onBack={ this.handleBack }
             onChange={ this.handleSettingChange }
-            setting={ detail ? JSON.parse(questionDetail[detailUuid]) : null }
+            setting={ detail ? questionDetail[detailUuid] : null }
             uuid={ detailUuid } />
         </ToggleDisplay>
       </div>
@@ -211,8 +213,7 @@ class QuestionSetting extends Component {
       mergeData.type = null;
     }
 
-    const json = JSON.stringify(mergeData);
-    this.props.onChange(uuid, json);
+    this.props.onChange(uuid, mergeData);
   }
 
   render() {
@@ -239,19 +240,20 @@ class QuestionSetting extends Component {
             <SelectField value={ type } onChange={ this.handleTypeChange }>
               <MenuItem value='normal' primaryText='Normal' />
               <MenuItem value='proportion' primaryText='Proportion' />
-              <MenuItem value='portion' primaryText='Portion' />
+              <MenuItem value='portion_num' primaryText='Portion (Number)' />
+              <MenuItem value='portion_str' primaryText='Portion (String)' />
             </SelectField>
             <TextField
               fullWidth
               name='goal'
-              disabled={ type !== 'portion' }
+              disabled={ isNotPortion(type) }
               floatingLabelText='Goal'
               onChange={ this.handleIntValChange }
               value={ goal } />
             <TextField
               fullWidth
               name='reward'
-              disabled={ type !== 'portion' }
+              disabled={ isNotPortion(type) }
               floatingLabelText='Reward'
               onChange={ this.handleIntValChange }
               value={ reward } />
@@ -278,4 +280,9 @@ class QuestionSetting extends Component {
   };
 }
 
-const DEFAULT_DETAIL = '{"score":100.0,"type":null,"goal":null,"reward":null}';
+const DEFAULT_DETAIL = {
+  score: 100.0,
+  type: null,
+  goal: null,
+  reward: null
+};

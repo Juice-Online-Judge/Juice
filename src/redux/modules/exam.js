@@ -2,6 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { Record, Map, List } from 'immutable';
 import { normalize, arrayOf } from 'normalizr';
 import omit from 'lodash/omit';
+import map from 'lodash/map';
 
 import examSchema from 'schema/exam';
 import guardRequest from '../utils/guardRequest';
@@ -56,12 +57,15 @@ export const fetchExams = (query, opts = { force: false }) => {
 
 export const addExam = (data) => (dispatch) => {
   const examData = {
+    name: data.name,
     role_id: data.roleId,
     began_at: data.beganTime,
     ended_at: data.endedTime,
     user: data.users,
-    question: data.questions,
-    ...data
+    question: map(data.questions, (val, key) => ({
+      uuid: key,
+      info: JSON.stringify(val)
+    }))
   };
 
   guardRequest(dispatch, {
