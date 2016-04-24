@@ -24,9 +24,7 @@ class UserTab extends Component {
 
   emitChange(selectedRow) {
     const { users } = this.props;
-    const { page } = this.state;
-    const baseIdx = (page - 1) * 6;
-    const result = selectedRow.map((idx) => users.getIn(['result', idx + baseIdx]));
+    const result = selectedRow.map((idx) => users.getIn(['result', idx]));
     this.props.onChange(result);
   }
 
@@ -69,10 +67,6 @@ class UserTab extends Component {
       </div>
     );
   }
-
-  state = {
-    page: 1
-  };
 
   static propTypes = {
     users: PropTypes.object.isRequired,
