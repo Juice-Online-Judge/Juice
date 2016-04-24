@@ -1,6 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
-import { Record, Map } from 'immutable';
+import { Record, Map, List } from 'immutable';
 import store from 'store';
+import { createSelector } from 'reselect';
 import guardRequest from '../utils/guardRequest';
 
 const AccountState = new Record({
@@ -63,6 +64,12 @@ export const registerUser = (info) => (dispatch) => {
     dispatch(setUserInfo(info));
   });
 };
+
+const accountRoleSelector = (state) => state.account.getIn(['user', 'roles'], new List());
+export const createIsAdminSelector = () => createSelector(
+  [accountRoleSelector],
+  (roles) => roles.includes('admin')
+);
 
 export let actions = {
   login,
