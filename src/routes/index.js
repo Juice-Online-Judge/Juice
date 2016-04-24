@@ -9,8 +9,8 @@ import { Route, IndexRoute, Redirect } from 'react-router';
 import CoreLayout from 'layouts/CoreLayout/CoreLayout';
 import QuestionListView from 'views/QuestionListView/QuestionListView';
 import NotFoundView from 'views/NotFoundView/NotFoundView';
-import SigninView from 'views/SigninView/SigninView';
-import SignupView from 'views/SignupView/SignupView';
+import SignInView from 'views/SignInView/SignInView';
+import SignUpView from 'views/SignUpView/SignUpView';
 import QuestionView from 'views/QuestionView/QuestionView';
 import QuestionNewView from 'views/QuestionNewView/QuestionNewView';
 import SubmissionView from 'views/SubmissionView/SubmissionView';
@@ -22,8 +22,8 @@ import ExamQuestionView from 'views/ExamQuestionView/ExamQuestionView';
 export default (
   <Route path='/' component={ CoreLayout }>
     <IndexRoute component={ QuestionListView } />
-    <Route path='sign-in' component={ SigninView } />
-    <Route path='sign-up' component={ SignupView } />
+    <Route path='sign-in' component={ SignInView } />
+    <Route path='sign-up' component={ SignUpView } />
     <Route path='questions/new' component={ QuestionNewView } />
     <Route path='questions/:uuid' component={ QuestionView } />
     <Route path='submission' component={ SubmissionView } />

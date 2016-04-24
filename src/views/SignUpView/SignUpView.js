@@ -19,7 +19,7 @@ import validateConnect from 'lib/validateConnect';
 import { silencePromise } from 'lib/utils';
 
 @Radium
-export class SignupView extends React.Component {
+export class SignUpView extends React.Component {
   componentDidMount() {
     this.props.fetchUserInfo();
     this.checkLoginState(this.props);
@@ -151,7 +151,7 @@ export class SignupView extends React.Component {
 
 export default validateConnect(rule, (state) => {
   return {loginState: state.account};
-}, Object.assign({}, accountActions, { push }))(SignupView);
+}, Object.assign({}, accountActions, { push }))(SignUpView);
 
 let styles = {
   paper: {

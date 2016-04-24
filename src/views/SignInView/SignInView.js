@@ -14,7 +14,7 @@ import FlatButton from 'material-ui/FlatButton';
 
 import CenterBlock from 'layouts/CenterBlock';
 
-export class SigninView extends React.Component {
+export class SignInView extends React.Component {
   componentDidMount() {
     this.props.fetchUserInfo();
     this.checkLoginState(this.props);
@@ -91,7 +91,7 @@ export class SigninView extends React.Component {
 
 export default connect((state) => {
   return {loginState: state.account};
-}, Object.assign({}, accountActions, { push }))(SigninView);
+}, Object.assign({}, accountActions, { push }))(SignInView);
 
 let styles = {
   paper: {
