@@ -32,27 +32,25 @@ export const setExam = createAction(SET_EXAM, ({ page, total, data }) => ({
 export const setExamToken = createAction(SET_EXAM_TOKEN);
 export const clearExam = createAction(CLEAR_EXAM);
 
-export const fetchExams = (query, opts = { force: false }) => {
-  return (dispatch, getState) => {
-    const { app, exam } = getState();
-    const page = exam.get('page');
-    query = query || { page };
+export const fetchExams = (query, opts = { force: false }) => (dispatch, getState) => {
+  const { app, exam } = getState();
+  const page = exam.get('page');
+  query = query || { page };
 
-    if (isRequesting(app)) {
-      return;
-    }
+  if (isRequesting(app)) {
+    return;
+  }
 
-    if (exam.get('result').size && query.page === page && !opts.force) {
-      return;
-    }
+  if (exam.get('result').size && query.page === page && !opts.force) {
+    return;
+  }
 
-    guardRequest(dispatch, {
-      path: 'exams',
-      params: query
-    }, (entity) => {
-      dispatch(setExam({ page: query.page, total: entity.total, data: entity.data }));
-    });
-  };
+  guardRequest(dispatch, {
+    path: 'exams',
+    params: query
+  }, (entity) => {
+    dispatch(setExam({ page: query.page, total: entity.total, data: entity.data }));
+  });
 };
 
 export const addExam = (data) => (dispatch) => {
@@ -74,38 +72,34 @@ export const addExam = (data) => (dispatch) => {
   });
 };
 
-export const fetchExamQuestion = (examId) => {
-  return (dispatch) => {
-    guardRequest(dispatch, {
-      path: 'exams/{id}/questions',
-      params: {
-        id: examId
-      }
-    }, (entity) => {
-      dispatch(setQuestion({
-        total: entity.length,
-        page: 1,
-        data: entity,
-        detail: true
-      }));
-    });
-  };
+export const fetchExamQuestion = (examId) => (dispatch) => {
+  guardRequest(dispatch, {
+    path: 'exams/{id}/questions',
+    params: {
+      id: examId
+    }
+  }, (entity) => {
+    dispatch(setQuestion({
+      total: entity.length,
+      page: 1,
+      data: entity,
+      detail: true
+    }));
+  });
 };
 
-export const fetchExamToken = (examId) => {
-  return (dispatch) => {
-    guardRequest(dispatch, {
-      path: 'exams/{id}/token',
-      params: {
-        id: examId
-      }
-    }, (entity) => {
-      dispatch(setExamToken({
-        id: examId,
-        token: entity
-      }));
-    });
-  };
+export const fetchExamToken = (examId) => (dispatch) => {
+  guardRequest(dispatch, {
+    path: 'exams/{id}/token',
+    params: {
+      id: examId
+    }
+  }, (entity) => {
+    dispatch(setExamToken({
+      id: examId,
+      token: entity
+    }));
+  });
 };
 
 export const actions = {

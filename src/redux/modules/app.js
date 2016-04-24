@@ -1,5 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
-import Immutable from 'immutable';
+import { fromJS, Record } from 'immutable';
 
 import { RequestStatus } from 'lib/const';
 import { clearExam } from './exam';
@@ -7,7 +7,7 @@ import { clearQuestion } from './question';
 import { clearSubmissions } from './submission';
 import { clearUsers } from './users';
 
-const AppStatus = new Immutable.Record({
+const AppStatus = new Record({
   status: RequestStatus.NONE,
   error: null
 });
@@ -23,6 +23,7 @@ export const setStatus = createAction(SET_STATUS);
 export const setError = createAction(SET_ERROR);
 export const clearStatus = createAction(CLEAR_STATUS);
 export const clearError = createAction(CLEAR_ERROR);
+
 export const clearCache = () => (dispatch) => {
   dispatch(clearExam());
   dispatch(clearQuestion());
@@ -40,6 +41,6 @@ export const actions = {
 export default handleActions({
   [SET_STATUS]: (state, { payload }) => state.set('status', payload),
   [CLEAR_STATUS]: (state) => state.set('status', RequestStatus.NONE),
-  [SET_ERROR]: (state, { payload }) => state.set('error', Immutable.fromJS(payload)),
+  [SET_ERROR]: (state, { payload }) => state.set('error', fromJS(payload)),
   [CLEAR_ERROR]: (state, { payload }) => state.set('error', null).set('status', RequestStatus.NONE)
 }, initialState);

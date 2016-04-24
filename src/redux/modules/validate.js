@@ -17,30 +17,24 @@ export const setValidationMessage = createAction(SET_VALIDATION_MESSAGE, (name, 
 });
 export const clearValidationMessage = createAction(CLEAR_VALIDATION_MESSAGE);
 
-export const validateForm = (name, fields, rule) => {
-  return (dispatch) => {
-    return validate
-    .async(fields, rule)
-    .then(() => {
-      dispatch(clearValidationMessage(name));
-    })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.warn(error);
-        throw error;
-      } else {
-        dispatch(setValidationMessage(name, error));
-      }
-      return when.reject();
-    });
-  };
-};
+export const validateForm = (name, fields, rule) => (dispatch) => validate
+  .async(fields, rule)
+  .then(() => {
+    dispatch(clearValidationMessage(name));
+  })
+  .catch((error) => {
+    if (error instanceof Error) {
+      console.warn(error);
+      throw error;
+    } else {
+      dispatch(setValidationMessage(name, error));
+    }
+    return when.reject();
+  });
 
-export const createGetComponentMessage = (name) => {
-  return (state) => {
-    return { validation: state.validate.getIn(['message', name], new Map()) };
-  };
-};
+export const createGetComponentMessage = (name) => (state) => ({
+  validation: state.validate.getIn(['message', name], new Map())
+});
 
 export const actions = {
   setValidationMessage,

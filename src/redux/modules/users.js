@@ -18,14 +18,12 @@ const CLEAR_USERS = 'CLEAR_USERS';
 export const setUsers = createAction(SET_USERS, (data) => normalize(data, arrayOf(userSchema)));
 export const clearUsers = createAction(CLEAR_USERS);
 
-export const fetchUsers = () => {
-  return (dispatch) => {
-    guardRequest(dispatch, {
-      path: 'users'
-    }, (entity) => {
-      dispatch(setUsers(entity));
-    });
-  };
+export const fetchUsers = () => (dispatch) => {
+  guardRequest(dispatch, {
+    path: 'users'
+  }, (entity) => {
+    dispatch(setUsers(entity));
+  });
 };
 
 export const actions = {

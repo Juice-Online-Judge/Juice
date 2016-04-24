@@ -17,35 +17,31 @@ const CLEAR_SUBMISSIONS = 'CLEAR_SUBMISSIONS';
 export const setSubmissions = createAction(SET_SUBMISSIONS);
 export const clearSubmissions = createAction(CLEAR_SUBMISSIONS);
 
-export const submitCode = (submitData) => {
-  return (dispatch) => {
-    const { uuid, examId, ...data } = submitData;
-    guardRequest(dispatch, {
-      path: 'submissions/{uuid}',
-      params: {
-        uuid
-      },
-      entity: omitBy({ ...data, exam_id: examId }, isNil),
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
-  };
+export const submitCode = (submitData) => (dispatch) => {
+  const { uuid, examId, ...data } = submitData;
+  guardRequest(dispatch, {
+    path: 'submissions/{uuid}',
+    params: {
+      uuid
+    },
+    entity: omitBy({ ...data, exam_id: examId }, isNil),
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  });
 };
 
-export const fetchSubmissions = (opts = { force: false }) => {
-  return (dispatch, getState) => {
-    const { submission } = getState();
-    if (submission.get('submissions').size && !opts.force) {
-      return;
-    }
+export const fetchSubmissions = (opts = { force: false }) => (dispatch, getState) => {
+  const { submission } = getState();
+  if (submission.get('submissions').size && !opts.force) {
+    return;
+  }
 
-    guardRequest(dispatch, {
-      path: '/account/submissions'
-    }, (entity) => {
-      dispatch(setSubmissions(entity));
-    });
-  };
+  guardRequest(dispatch, {
+    path: '/account/submissions'
+  }, (entity) => {
+    dispatch(setSubmissions(entity));
+  });
 };
 
 export const actions = {
