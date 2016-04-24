@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import { actions as questionActions } from 'redux/modules/question';
 import { actions as appActions } from 'redux/modules/app';
 import createMaxPageSelector from 'redux/selectors/maxPageSelector';
+import { createIsAdminSelector } from 'redux/modules/account';
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
@@ -42,7 +43,7 @@ export class QuestionListView extends Component {
   }
 
   render() {
-    const { app, maxPage } = this.props;
+    const { app, maxPage, admin } = this.props;
     const { query } = this.props.location;
     const page = parseInt(query.page || 1);
 
@@ -55,11 +56,15 @@ export class QuestionListView extends Component {
           baseUrl='/'
           maxPage={ maxPage }
           current={ page } />
-        <Link to='/questions/new'>
-          <FloatingActionButton style={ styles.floatBtn } >
-            <AddIcon />
-          </FloatingActionButton>
-        </Link>
+          {
+            admin ? (
+              <Link to='/questions/new'>
+                <FloatingActionButton style={ styles.floatBtn } >
+                  <AddIcon />
+                </FloatingActionButton>
+              </Link>
+            ) : null
+          }
       </LoadingContainer>
     );
   }
@@ -68,6 +73,7 @@ export class QuestionListView extends Component {
     location: PropTypes.object.isRequired,
     app: PropTypes.object.isRequired,
     question: PropTypes.object.isRequired,
+    admin: PropTypes.bool.isRequired,
     maxPage: PropTypes.number.isRequired,
     fetchQuestion: PropTypes.func.isRequired,
     clearStatus: PropTypes.func.isRequired
@@ -75,11 +81,13 @@ export class QuestionListView extends Component {
 }
 
 const maxPageSelector = createMaxPageSelector();
+const isAdminSelector = createIsAdminSelector();
 
 export default connect((state) => {
   return {
     question: state.question,
     app: state.app,
-    maxPage: maxPageSelector(state.question)
+    maxPage: maxPageSelector(state.question),
+    admin: isAdminSelector(state)
   };
 }, Object.assign({}, questionActions, appActions))(QuestionListView);
