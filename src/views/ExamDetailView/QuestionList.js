@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
-import { setDisplayName, setPropTypes, compose } from 'recompose';
+import setDisplayName from 'recompose/setDisplayName';
+import setPropTypes from 'recompose/setPropTypes';
+import compose from 'recompose/compose';
 import Question from 'components/Question';
 
 const QuestionList = compose(
