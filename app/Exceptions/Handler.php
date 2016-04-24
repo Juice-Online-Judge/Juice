@@ -3,11 +3,12 @@
 namespace App\Exceptions;
 
 use Exception;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class Handler extends ExceptionHandler
 {
@@ -19,6 +20,7 @@ class Handler extends ExceptionHandler
     protected $dontReport = [
         AuthorizationException::class,
         HttpException::class,
+        JWTException::class,
         ModelNotFoundException::class,
         ValidationException::class,
     ];
@@ -45,12 +47,8 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
-            return response()->json(['messages' => 'Token expired.'], $e->getStatusCode());
-        } elseif ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
-            return response()->json(['messages' => 'Token invalid.'], $e->getStatusCode());
-        } elseif ($e instanceof \Tymon\JWTAuth\Exceptions\JWTException) {
-            return response()->json(['messages' => 'Token absent.'], $e->getStatusCode());
+        if ($e instanceof \Tymon\JWTAuth\Exceptions\JWTException) {
+            return response()->json(['messages' => $e->getMessage()], $e->getStatusCode());
         }
 
         if ($request->is('api/*') || $request->wantsJson()) {
@@ -60,7 +58,7 @@ class Handler extends ExceptionHandler
             }
 
             if (isset($status)) {
-                return response()->json(['messages' => []], $status);
+                return response()->json([], $status);
             }
         }
 

@@ -50,4 +50,4 @@ $router->group(['prefix' => 'api', 'namespace' => 'Api'], function (Router $rout
     });
 });
 
-$router->get('{redirect}', ['as' => 'home', 'uses' => 'HomeController@home'])->where('redirect', '.*')->middleware(['web']);
+$router->get('{redirect}', ['as' => 'home', 'uses' => 'HomeController@home'])->where('redirect', '.*');
