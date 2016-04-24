@@ -17,9 +17,11 @@ export class FileArea extends Component {
   @autobind
   handleFileChange(fileList) {
     const content = {};
+    const { multiple } = this.props;
+    const files = toArray(fileList);
 
     content[this.props.textKey] = null;
-    content[this.props.fileKey] = toArray(fileList);
+    content[this.props.fileKey] = multiple ? files : files[0];
 
     this.handleChange(content);
   }
