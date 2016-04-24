@@ -1,19 +1,14 @@
 import { connect } from 'react-redux';
 import { replace } from 'react-router-redux';
-import {
-  mapProps,
-  lifecycle,
-  setDisplayName,
-  wrapDisplayName,
-  doOnReceiveProps,
-  compose
- } from 'recompose';
-import omit from 'lodash/fp/omit';
+import lifecycle from 'recompose/lifecycle';
+import setDisplayName from 'recompose/setDisplayName';
+import wrapDisplayName from 'recompose/wrapDisplayName';
+import doOnReceiveProps from 'recompose/doOnReceiveProps';
+import compose from 'recompose/compose';
+import omitProps from './omitProps';
 
 import { RequestStatus } from 'lib/const';
 import { actions as appActions } from 'redux/modules/app';
-
-const omitProps = compose(mapProps, omit);
 
 export const redirectConnect = connect((state) => ({ app: state.app }),
   Object.assign({}, appActions, { replace }));
