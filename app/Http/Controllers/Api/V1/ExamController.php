@@ -9,6 +9,7 @@ use App\Exams\TokenRepository;
 use App\Http\Requests\Api\V1\ExamRequest;
 use App\Questions\Question;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -34,7 +35,15 @@ class ExamController extends ApiController
      */
     public function index()
     {
-        $exams = Exam::paginate();
+        $exams = Exam::with(['role']);
+
+        if (! request_user()->hasRole(['admin'])) {
+            $exams = $exams->whereHas('users', function (Builder $query) {
+                $query->where('user_id', request_user(true));
+            });
+        }
+
+        $exams = $exams->paginate();
 
         return $this->setData($exams)->responseOk();
     }
