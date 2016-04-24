@@ -32,7 +32,7 @@ export class BasicInfoTab extends Component {
   handleRoleSelect(selectedRow) {
     const { role } = this.props;
     const selectedRole = selectedRow.map((idx) => role.getIn(['result', idx]));
-    setImmediate(() => this.handleChange({ role: selectedRole }));
+    setImmediate(() => this.props.onChange({ ...this.state, role: selectedRole }));
   }
 
   @autobind
