@@ -9,6 +9,7 @@ import { Route, IndexRoute, Redirect } from 'react-router';
 import CoreLayout from 'layouts/CoreLayout/CoreLayout';
 import QuestionListView from 'views/QuestionListView/QuestionListView';
 import NotFoundView from 'views/NotFoundView/NotFoundView';
+import PermissionDeniedView from 'views/PermissionDeniedView/PermissionDeniedView';
 import SignInView from 'views/SignInView/SignInView';
 import SignUpView from 'views/SignUpView/SignUpView';
 import QuestionView from 'views/QuestionView/QuestionView';
@@ -34,6 +35,7 @@ export default (
     <Route path='exams/:id' component={ ExamDetailView } />
     <Route path='exams/:examId/questions/:uuid' component={ ExamQuestionView } />
     <Route path='/page-not-found' component={ NotFoundView } />
+    <Route path='/permission-denied' component={ PermissionDeniedView } />
     <Redirect from='*' to='/page-not-found' />
   </Route>
 );
