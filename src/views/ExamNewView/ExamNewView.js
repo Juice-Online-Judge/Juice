@@ -13,6 +13,8 @@ import Inset from 'layouts/Inset';
 import BasicInfoTab from './BasicInfoTab';
 import QuestionTab from './QuestionTab';
 import UserTab from './UserTab';
+import redirectNotAdmin from 'lib/redirectNotAdmin';
+import compose from 'recompose/compose';
 
 import { actions as examActions } from 'redux/modules/exam';
 import { clearCache } from 'redux/modules/app';
@@ -99,4 +101,7 @@ export class ExamNewView extends Component {
   };
 }
 
-export default connect(null, Object.assign({}, examActions, { clearCache }))(ExamNewView);
+export default compose(
+  redirectNotAdmin,
+  connect(null, { ...examActions, clearCache })
+)(ExamNewView);
