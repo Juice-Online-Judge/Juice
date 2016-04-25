@@ -41,7 +41,7 @@ class ExamDetailView extends Component {
             <QuestionList question={ question } examId={ id } />
           </Tab>
           <Tab label='Submission'>
-            <SubmissionList submission={ submission } />
+            <SubmissionList submission={ submission } examId={ id } />
           </Tab>
         </Tabs>
       );
