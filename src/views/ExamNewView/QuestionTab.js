@@ -40,6 +40,7 @@ class QuestionTab extends Component {
     const { questionDetail } = this.state;
     questionDetail[uuid] = setting;
     this.setState({ questionDetail });
+    this.emitChange(questionDetail, this.state.selectedQuestion);
   }
 
   @autobind
@@ -60,8 +61,12 @@ class QuestionTab extends Component {
     if (!has(questionDetail, uuid)) {
       newState.questionDetail[uuid] = Object.assign({}, DEFAULT_DETAIL);
     }
-    this.props.onChange(pick(newState.questionDetail, selectedQuestion));
+    this.emitChange(newState.questionDetail, selectedQuestion);
     this.setState(newState);
+  }
+
+  emitChange(questionDetail, selectedQuestion) {
+    this.props.onChange(pick(questionDetail, selectedQuestion));
   }
 
   render() {
@@ -201,16 +206,18 @@ class QuestionSetting extends Component {
   }
 
   emitChange(data) {
-    const mergeData = Object.assign({}, pick(this.state, [
+    const mergeData = { ...pick(this.state, [
       'score',
       'type',
       'goal',
       'reward'
-    ]), data);
+    ]), ...data };
     const { uuid } = this.props;
     this.setState(data);
     if (mergeData.type === 'normal') {
       mergeData.type = null;
+      mergeData.goal = null;
+      mergeData.reward = null;
     }
 
     this.props.onChange(uuid, mergeData);
