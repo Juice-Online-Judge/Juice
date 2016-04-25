@@ -6,6 +6,8 @@ import Inset from 'layouts/Inset';
 import TextField from 'material-ui/TextField';
 import Tabs from 'material-ui/Tabs/Tabs';
 import Tab from 'material-ui/Tabs/Tab';
+import FlatButton from 'material-ui/FlatButton';
+import ClipboardButton from 'react-clipboard.js';
 import QuestionList from './QuestionList';
 import SubmissionList from 'components/SubmissionList';
 import { Row, Col } from 'react-flexbox-grid';
@@ -54,18 +56,24 @@ class ExamDetailView extends Component {
   render() {
     const { id } = this.props.params;
     const { exam } = this.props;
+    const token = exam.getIn(['tokens', `${id}`]);
     return (
       <Inset>
         <Row middle='md'>
-          <Col md={ 1 } mdOffset={ 8 } >
+          <Col md={ 1 } mdOffset={ 7 } >
             <span>Token: </span>
           </Col>
-          <Col md={ 3 } >
+          <Col md={ 2 } >
             <TextField
               ref='textField'
               name='token'
               onFocus={ this.handleFocus }
-              value={ exam.getIn(['tokens', `${id}`], 'Unavailable') } />
+              value={ token || 'Unavailable' } />
+          </Col>
+          <Col md={ 2 }>
+            <ClipboardButton component='a' data-clipboard-text={ token } >
+              <FlatButton label='Copy' disabled={ !token } />
+            </ClipboardButton>
           </Col>
         </Row>
         { this.detailContent }
