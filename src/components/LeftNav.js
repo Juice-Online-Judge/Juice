@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { autobind } from 'core-decorators';
 
 import { Link, IndexLink } from 'react-router';
-import MuiLeftNav from 'material-ui/Drawer';
+import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 
 import styles from 'lib/styles';
@@ -15,7 +15,7 @@ export class LeftNav extends Component {
 
   render() {
     return (
-      <MuiLeftNav { ...this.props } docked={ false } onRequestChange={ this.handleChange }>
+      <Drawer { ...this.props } docked={ false } onRequestChange={ this.handleChange }>
         <IndexLink to='/' style={ styles.noUnderline } >
           <MenuItem onTouchTap={ this.handleChange }>
             Question
@@ -31,7 +31,7 @@ export class LeftNav extends Component {
             Exams
           </MenuItem>
         </Link>
-      </MuiLeftNav>
+      </Drawer>
     );
   }
 
