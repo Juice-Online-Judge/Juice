@@ -11,6 +11,7 @@ import redirectNotAuth from 'lib/redirectNotAuth';
 
 import styles from 'lib/styles';
 import { actions as examActions } from 'redux/modules/exam';
+import { createIsAdminSelector } from 'redux/modules/account';
 import createMaxPageSelector from 'redux/selectors/maxPageSelector';
 
 class ExamListView extends Component {
@@ -32,7 +33,7 @@ class ExamListView extends Component {
   }
 
   render() {
-    const { exam, maxPage } = this.props;
+    const { exam, maxPage, admin } = this.props;
     const examData = exam.getIn(['entities', 'exam']);
     return (
       <div>
@@ -54,11 +55,15 @@ class ExamListView extends Component {
           baseUrl='/exams'
           current={ exam.get('page') }
           maxPage={ maxPage } />
-        <Link to='/exams/new'>
-          <FloatingActionButton style={ styles.floatBtn } >
-            <AddIcon />
-          </FloatingActionButton>
-        </Link>
+        {
+          admin ? (
+            <Link to='/exams/new'>
+              <FloatingActionButton style={ styles.floatBtn } >
+                <AddIcon />
+              </FloatingActionButton>
+            </Link>
+          ) : null
+        }
       </div>
     );
   }
@@ -67,13 +72,16 @@ class ExamListView extends Component {
     maxPage: PropTypes.number.isRequired,
     location: PropTypes.object.isRequired,
     exam: PropTypes.object.isRequired,
+    admin: PropTypes.bool.isRequired,
     fetchExams: PropTypes.func.isRequired
   };
 }
 
 const maxPageSelector = createMaxPageSelector();
+const isAdminSelector = createIsAdminSelector();
 
 export default redirectNotAuth(connect((state) => ({
   exam: state.exam,
-  maxPage: maxPageSelector(state.exam)
+  maxPage: maxPageSelector(state.exam),
+  admin: isAdminSelector(state)
 }), examActions)(ExamListView));
