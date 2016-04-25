@@ -6,7 +6,6 @@ import LoadingContainer from 'components/LoadingContainer';
 import SubmissionList from 'components/SubmissionList';
 
 import { actions as submissionActions } from 'redux/modules/submission';
-import { RequestStatus } from 'lib/const';
 
 class SubmissionView extends Component {
   componentDidMount() {
@@ -14,10 +13,9 @@ class SubmissionView extends Component {
   }
 
   render() {
-    const { app, submission } = this.props;
-    const loading = app.get('status') === RequestStatus.PENDING;
+    const { submission } = this.props;
     return (
-      <LoadingContainer loading={ loading }>
+      <LoadingContainer>
         <Inset>
           <SubmissionList submission={ submission } />
         </Inset>
@@ -26,11 +24,10 @@ class SubmissionView extends Component {
   }
 
   static propTypes = {
-    app: PropTypes.object.isRequired,
     submission: PropTypes.object.isRequired,
     fetchSubmissions: PropTypes.func.isRequired
   };
 }
 
-export default connect((state) => ({ submission: state.submission, app: state.app }),
+export default connect((state) => ({ submission: state.submission }),
   submissionActions)(SubmissionView);

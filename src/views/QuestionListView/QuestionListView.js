@@ -14,7 +14,6 @@ import Inset from 'layouts/Inset';
 import LoadingContainer from 'components/LoadingContainer';
 import Question from 'components/Question';
 import Pagination from 'components/Pagination';
-import { RequestStatus } from 'lib/const';
 import styles from 'lib/styles';
 
 export class QuestionListView extends Component {
@@ -26,11 +25,9 @@ export class QuestionListView extends Component {
   componentWillReceiveProps(newProps) {
     const { query } = newProps.location;
 
-    if (newProps.app.get('status') === RequestStatus.SUCCESS) {
-      this.props.clearStatus();
+    if (query.page !== this.props.location.query.page) {
+      this.props.fetchQuestion(query);
     }
-
-    this.props.fetchQuestion(query);
   }
 
   get questionList() {
@@ -43,12 +40,12 @@ export class QuestionListView extends Component {
   }
 
   render() {
-    const { app, maxPage, admin } = this.props;
+    const { maxPage, admin } = this.props;
     const { query } = this.props.location;
     const page = parseInt(query.page || 1);
 
     return (
-      <LoadingContainer loading={ app.get('status') === RequestStatus.PENDING } >
+      <LoadingContainer>
         <Inset>
           { this.questionList }
         </Inset>
@@ -71,7 +68,6 @@ export class QuestionListView extends Component {
 
   static propTypes = {
     location: PropTypes.object.isRequired,
-    app: PropTypes.object.isRequired,
     question: PropTypes.object.isRequired,
     admin: PropTypes.bool.isRequired,
     maxPage: PropTypes.number.isRequired,
@@ -86,7 +82,6 @@ const isAdminSelector = createIsAdminSelector();
 export default connect((state) => {
   return {
     question: state.question,
-    app: state.app,
     maxPage: maxPageSelector(state.question),
     admin: isAdminSelector(state)
   };
