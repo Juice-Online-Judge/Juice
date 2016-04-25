@@ -70,6 +70,7 @@ export const createIsAdminSelector = () => createSelector(
   [accountRoleSelector],
   (roles) => roles.includes('admin')
 );
+export const isValidSelector = (state) => state.account.get('valid');
 
 export let actions = {
   login,
