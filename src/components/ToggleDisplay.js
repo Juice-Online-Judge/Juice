@@ -1,22 +1,23 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes } from 'react';
+import setDisplayName from 'recompose/setDisplayName';
+import setPropTypes from 'recompose/setPropTypes';
+import compose from 'recompose/compose';
 
-class ToggleDisplay extends Component {
-  render() {
-    const { show, hide, children } = this.props;
-    const style = show || !hide ? null : styles.zeroHeight;
-    return (
-      <div style={ style }>
-        { children }
-      </div>
-    );
-  }
-
-  static propTypes = {
+const ToggleDisplay = compose(
+  setPropTypes({
     show: PropTypes.bool,
     hide: PropTypes.bool,
     children: PropTypes.node
-  };
-}
+  }),
+  setDisplayName('ToggleDisplay')
+)(({ show, hide, children }) => {
+  const style = show || !hide ? null : styles.zeroHeight;
+  return (
+    <div style={ style }>
+      { children }
+    </div>
+  );
+});
 
 export default ToggleDisplay;
 
