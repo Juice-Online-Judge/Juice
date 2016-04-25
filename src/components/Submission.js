@@ -14,22 +14,28 @@ class Submission extends Component {
     const {
       id,
       quesUuid,
+      examId,
       title,
       language,
+      username,
       time,
       memory,
       result
     } = this.props;
+    const quesUrl = `/questions/${quesUuid}`;
+    const url = examId ? `/exams/${examId}${quesUrl}` : quesUrl;
     return (
       <Card>
         <CardText style={ styles.padding }>
           <Row middle='xs'>
             <Col xs={ 6 }>
-              <Link to={ `/questions/${quesUuid}` }>
+              <Link to={ url }>
                 { title }
               </Link>
             </Col>
-            <Col xs={ 1 } /> { /* Use for padding */ }
+            <Col xs={ 1 }>
+              { examId ? username : null }
+            </Col>
             <Col xs={ 1 }>
               <span style={ [result === 'AC' ? styles.pass : styles.noPass, styles.bold] }>
                 { result || 'PENDING' }
@@ -60,7 +66,9 @@ class Submission extends Component {
   static propTypes = {
     id: PropTypes.number.isRequired,
     quesUuid: PropTypes.string.isRequired,
+    examId: PropTypes.string,
     title: PropTypes.string.isRequired,
+    username: PropTypes.string,
     language: PropTypes.string.isRequired,
     time: PropTypes.string,
     memory: PropTypes.string,

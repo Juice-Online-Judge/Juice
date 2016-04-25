@@ -6,8 +6,11 @@ import Submission from './Submission';
 const SubmissionList = compose(
   pure,
   setDisplayName('SubmissionList'),
-  setPropTypes({ submission: PropTypes.object.isRequired })
-)(({ submission }) => {
+  setPropTypes({
+    submission: PropTypes.object.isRequired,
+    examId: PropTypes.string
+  })
+)(({ submission, examId }) => {
   const entities = submission.getIn(['entities', 'submission']);
   return (
     <div>
@@ -18,6 +21,8 @@ const SubmissionList = compose(
             <Submission
               key={ entities.getIn([id, 'id']) }
               id={ entities.getIn([id, 'id']) }
+              examId={ examId }
+              username={ entities.getIn([id, 'user', 'username']) }
               quesUuid={ entities.getIn([id, 'question', 'uuid']) }
               title={ entities.getIn([id, 'question', 'title']) }
               language={ entities.getIn([id, 'language']) }
