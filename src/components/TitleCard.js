@@ -17,10 +17,10 @@ const TitleCard = compose(
 )(({ style, title, subtitle, children }) => (
   <Card>
     <CardTitle
-      style={ this.props.style }
-      title={ this.props.title }
-      subtitle={ this.props.subtitle }>
-      { this.props.children }
+      style={ style }
+      title={ title }
+      subtitle={ subtitle }>
+      { children }
     </CardTitle>
   </Card>
 ));
