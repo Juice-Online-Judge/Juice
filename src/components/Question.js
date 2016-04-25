@@ -24,7 +24,6 @@ export class Question extends Component {
   fetchQuestionDetail() {
     const { question, uuid } = this.props;
     if (question && question.get('detail')) {
-      this.setState({ fetched: true });
       return;
     }
 
@@ -61,10 +60,6 @@ export class Question extends Component {
     }
   }
 
-  state = {
-    fetched: false
-  };
-
   static propTypes = {
     uuid: PropTypes.string.isRequired,
     examId: PropTypes.number,
@@ -74,24 +69,16 @@ export class Question extends Component {
   };
 }
 
-export default connect((state, props) => {
-  return { question: questionSelector(state, props) };
-}, questionActions)(Question);
+export default connect((state, props) => ({
+  question: questionSelector(state, props)
+}), questionActions)(Question);
 
 class SubmitArea extends Component {
-  get submitArea() {
+  render() {
     return (
       <SubmitCode
         examId={ this.props.examId }
         uuid={ this.props.uuid } />
-    );
-  }
-
-  render() {
-    return (
-      <div>
-        { this.submitArea }
-      </div>
     );
   }
 
