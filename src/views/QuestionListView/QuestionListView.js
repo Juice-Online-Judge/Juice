@@ -19,7 +19,7 @@ import styles from 'lib/styles';
 export class QuestionListView extends Component {
   componentDidMount() {
     const { query } = this.props.location;
-    this.props.fetchQuestion(query);
+    this.props.fetchQuestion(query, { force: true });
   }
 
   componentWillReceiveProps(newProps) {
