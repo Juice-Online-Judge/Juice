@@ -53,7 +53,7 @@ export const fetchUserInfo = (options = { force: false }) => (dispatch, getState
     dispatch(setUserInfo(entity));
   }, () => {
     dispatch(setLoginState(false));
-  });
+  }, { noError: true });
 };
 
 export const registerUser = (info) => (dispatch) => {
