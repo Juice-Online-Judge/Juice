@@ -9,7 +9,7 @@ import { actions as submissionActions } from 'redux/modules/submission';
 
 class SubmissionView extends Component {
   componentDidMount() {
-    this.props.fetchSubmissions();
+    this.props.fetchSubmissions({ force: true });
   }
 
   render() {
