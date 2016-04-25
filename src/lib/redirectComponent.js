@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { replace } from 'react-router-redux';
-import lifecycle from 'recompose/lifecycle';
 import setDisplayName from 'recompose/setDisplayName';
 import wrapDisplayName from 'recompose/wrapDisplayName';
 import doOnReceiveProps from 'recompose/doOnReceiveProps';
@@ -17,8 +16,8 @@ export const redirectComponent = (name, shouldRedirectPath, WrappedComponent) =>
   return compose(
     redirectConnect,
     setDisplayName(wrapDisplayName(WrappedComponent, name)),
-    lifecycle((component) => component.props.clearError()),
     doOnReceiveProps((props) => {
+      props.clearError();
       if (props.app.get('status') === RequestStatus.FAIL) {
         const errorCode = props.app.getIn(['error', 'code']);
         const redirectPath = shouldRedirectPath(errorCode);
