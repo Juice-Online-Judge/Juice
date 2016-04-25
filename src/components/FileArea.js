@@ -2,9 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { autobind } from 'core-decorators';
 import uniqueId from 'lodash/uniqueId';
 import toArray from 'lodash/toArray';
-import times from 'lodash/times';
-import clone from 'lodash/clone';
-import omit from 'lodash/omit';
 
 import TextField from 'material-ui/TextField';
 import RadioButton from 'material-ui/RadioButton/RadioButton';
@@ -27,18 +24,16 @@ export class FileArea extends Component {
   }
 
   @autobind
-  handleTextChange(event, idx) {
+  handleTextChange(event) {
     const { value } = event.target;
     const { multiple } = this.props;
     const content = {};
-    const textarea = clone(this.state.textarea);
 
     content[this.props.fileKey] = null;
     content[this.props.textKey] = null;
     if (value) {
       if (multiple) {
-        textarea[idx] = value;
-        content[this.props.textKey] = textarea;
+        content[this.props.textKey] = [value];
       } else {
         content[this.props.textKey] = value;
       }
@@ -60,29 +55,15 @@ export class FileArea extends Component {
   }
 
   get textareas() {
-    const { rows, multiple } = this.props;
+    const { rows } = this.props;
 
-    if (multiple) {
-      return times(this.state.count, (idx) => {
-        return (
-          <IndexableTextField
-            onChange={ this.handleTextChange }
-            index={ idx }
-            floatingLabelText='Input in here'
-            multiLine
-            key={ idx }
-            rows={ rows } />
-        );
-      });
-    } else {
-      return (
-        <TextField
-          onChange={ this.handleTextChange }
-          floatingLabelText='Input in here'
-          multiLine
-          rows={ rows } />
-      );
-    }
+    return (
+      <TextField
+        onChange={ this.handleTextChange }
+        floatingLabelText='Input in here'
+        multiLine
+        rows={ rows } />
+    );
   }
 
   areaContent(type) {
@@ -90,19 +71,13 @@ export class FileArea extends Component {
 
     if (type === 'file') {
       return (
-        <div>
-          <FileButton
-            onChange={ this.handleFileChange }
-            multiple={ this.props.multiple }
-            label={ label } />
-        </div>
+        <FileButton
+          onChange={ this.handleFileChange }
+          multiple={ this.props.multiple }
+          label={ label } />
       );
     } else {
-      return (
-        <div>
-          { this.textareas }
-        </div>
-      );
+      return this.textareas;
     }
   }
 
@@ -153,26 +128,3 @@ export class FileArea extends Component {
 }
 
 export default FileArea;
-
-class IndexableTextField extends Component {
-  @autobind
-  handleChange(event) {
-    const { onChange, index } = this.props;
-    if (onChange) {
-      onChange(event, index);
-    }
-  }
-
-  render() {
-    const props = omit(this.props, ['index', 'onChange']);
-
-    return (
-      <TextField onChange={ this.handleChange } { ...props } />
-    );
-  }
-
-  static propTypes = {
-    index: PropTypes.number.isRequired,
-    onChange: PropTypes.func
-  };
-}
