@@ -56,10 +56,12 @@ class ExamController extends ApiController
      */
     public function store(ExamRequest $request)
     {
-        $exam = new Exam($request->only(['name', 'began_at', 'ended_at']));
+        $exam = new Exam($request->only(['name']));
 
         $exam->setAttribute('user_id', request_user(true))
-            ->setAttribute('role_id', $request->has('role_id') ? $request->input('role_id') : null);
+            ->setAttribute('role_id', $request->has('role_id') ? $request->input('role_id') : null)
+            ->setAttribute('began_at', Carbon::parse($request->input('began_at')))
+            ->setAttribute('ended_at', Carbon::parse($request->input('ended_at')));
 
         if (! $exam->save()) {
             return $this->responseUnknownError();

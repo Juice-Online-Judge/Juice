@@ -82,7 +82,7 @@ class ExamQuestionInfoValidator
     {
         $types = [null, 'proportion', 'portion_num', 'portion_str'];
 
-        return ! in_array($this->input['type'], $types);
+        return in_array($this->input['type'], $types);
     }
 
     /**
