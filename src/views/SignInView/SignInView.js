@@ -2,7 +2,8 @@ import React, { PropTypes } from 'react';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
 
-import { actions as accountActions } from '../../redux/modules/account';
+import { fetchUserInfo, login } from 'redux/modules/account';
+import { clearError, createIsErrorSelector, createErrorSelector } from 'redux/modules/app';
 import { push } from 'react-router-redux';
 
 import Paper from 'material-ui/Paper';
@@ -11,21 +12,23 @@ import CardTitle from 'material-ui/Card/CardTitle';
 import CardActions from 'material-ui/Card/CardActions';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import Snackbar from 'material-ui/Snackbar';
 
 import CenterBlock from 'layouts/CenterBlock';
 
 export class SignInView extends React.Component {
   componentDidMount() {
-    this.props.fetchUserInfo();
+    this.props.clearError();
     this.checkLoginState(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
+    this.setState({ open: nextProps.error });
     this.checkLoginState(nextProps);
   }
 
   checkLoginState(props) {
-    if (props.loginState.get('state')) {
+    if (props.account.get('state')) {
       props.push('/');
     }
   }
@@ -38,6 +41,11 @@ export class SignInView extends React.Component {
   }
 
   @autobind
+  handleRequestClose() {
+    this.setState({ open: false });
+  }
+
+  @autobind
   login(event) {
     let { username, password } = this.state;
     event.preventDefault();
@@ -45,9 +53,11 @@ export class SignInView extends React.Component {
   }
 
   render() {
+    const { errorMessages } = this.props;
+    const message = errorMessages ? errorMessages.get(0) : '';
     return (
       <CenterBlock>
-        <Paper zDepth={ 3 } style={ Object.assign({}, styles.paper, styles.marginTop) }>
+        <Paper zDepth={ 3 } style={ { ...styles.paper, ...styles.marginTop } }>
           <Card>
             <CardTitle title='Juice' />
             <CardActions>
@@ -70,27 +80,40 @@ export class SignInView extends React.Component {
             </CardActions>
           </Card>
         </Paper>
+        <Snackbar
+          message={ message }
+          open={ this.state.open }
+          autoHideDuration={ 2000 }
+          onRequestClose={ this.handleRequestClose } />
       </CenterBlock>
     );
   }
 
   state = {
+    open: false,
     username: '',
     password: ''
   };
 
   static propTypes = {
     push: PropTypes.func.isRequired,
-    loginState: PropTypes.object.isRequired,
+    account: PropTypes.object.isRequired,
     login: PropTypes.func.isRequired,
-    fetchUserInfo: PropTypes.func.isRequired,
-    setLoginState: PropTypes.func.isRequired
+    error: PropTypes.bool.isRequired,
+    errorMessages: PropTypes.object,
+    clearError: PropTypes.func.isRequired,
+    fetchUserInfo: PropTypes.func.isRequired
   };
 }
 
-export default connect((state) => {
-  return {loginState: state.account};
-}, Object.assign({}, accountActions, { push }))(SignInView);
+const isErrorSelector = createIsErrorSelector();
+const errorSelector = createErrorSelector();
+
+export default connect((state) => ({
+  account: state.account,
+  error: isErrorSelector(state),
+  errorMessages: errorSelector(state)
+}), { fetchUserInfo, login, clearError, push })(SignInView);
 
 let styles = {
   paper: {
