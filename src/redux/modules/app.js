@@ -33,10 +33,21 @@ export const clearCache = () => (dispatch) => {
 };
 
 const appStatusSelector = (state) => state.app.get('status');
+const appErrorSelector = (state) => state.app.getIn(['error', 'messages']);
 
 export const isPendingSelector = createSelector(
   [appStatusSelector],
   (status) => status === RequestStatus.PENDING
+);
+
+export const createIsErrorSelector = () => createSelector(
+  [appStatusSelector],
+  (status) => status === RequestStatus.FAIL
+);
+
+export const createErrorSelector = () => createSelector(
+  [createIsErrorSelector(), appErrorSelector],
+  (error, message) => error ? message : null
 );
 
 export const actions = {
