@@ -6,10 +6,9 @@ import Inset from 'layouts/Inset';
 import TextField from 'material-ui/TextField';
 import Tabs from 'material-ui/Tabs/Tabs';
 import Tab from 'material-ui/Tabs/Tab';
-import FlatButton from 'material-ui/FlatButton';
-import ClipboardButton from 'react-clipboard.js';
 import QuestionList from './QuestionList';
 import SubmissionList from 'components/SubmissionList';
+import CopyButton from 'components/CopyButton';
 import { Row, Col } from 'react-flexbox-grid';
 import { actions as examActions } from 'redux/modules/exam';
 import { fetchExamSubmissions } from 'redux/modules/submission';
@@ -63,17 +62,15 @@ class ExamDetailView extends Component {
           <Col md={ 1 } mdOffset={ 7 } >
             <span>Token: </span>
           </Col>
-          <Col md={ 2 } >
+          <Col md={ 3 } >
             <TextField
               ref='textField'
               name='token'
               onFocus={ this.handleFocus }
               value={ token || 'Unavailable' } />
           </Col>
-          <Col md={ 2 }>
-            <ClipboardButton component='a' data-clipboard-text={ token } >
-              <FlatButton label='Copy' disabled={ !token } />
-            </ClipboardButton>
+          <Col md={ 1 }>
+            <CopyButton text={ token } />
           </Col>
         </Row>
         { this.detailContent }
