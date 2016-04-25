@@ -10,9 +10,7 @@ export class FileButton extends Component {
   handleChange(event) {
     const files = event.target.files;
     if (files.length) {
-      const filename = map(files, (file) => {
-        return file.name;
-      }).join(', ');
+      const filename = map(files, 'name').join(', ');
       this.setState({ filename });
     } else {
       this.setState({ filename: null });
