@@ -75,6 +75,6 @@ const styles = {
   }
 };
 
-export default connect((state) => {
-  return { submission: state.submission };
-}, submissionActions)(SubmitCode);
+export default connect((state) => ({
+  submission: state.submission
+}), submissionActions)(SubmitCode);
