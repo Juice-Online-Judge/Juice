@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { replace } from 'react-router-redux';
 import setDisplayName from 'recompose/setDisplayName';
 import wrapDisplayName from 'recompose/wrapDisplayName';
-import liftcycle from 'recompose/lifecycle';
+import doOnReceiveProps from 'recompose/doOnReceiveProps';
 import omitProps from './omitProps';
 import compose from 'recompose/compose';
 import { createIsAdminSelector } from 'redux/modules/account';
@@ -11,9 +11,8 @@ const redirectNotAdmin = (WrappedComponent) => {
   const isAdminSelector = createIsAdminSelector();
   const EnhancedComponent = compose(
     connect((state) => ({ admin: isAdminSelector(state) }), { replace }),
-    setDisplayName(wrapDisplayName('redirectNotAdmin', WrappedComponent)),
-    liftcycle((component) => {
-      const { admin, replace } = component.props;
+    setDisplayName(wrapDisplayName(WrappedComponent, 'redirectNotAdmin')),
+    doOnReceiveProps(({ admin, replace }) => {
       if (!admin) {
         replace('/permission-denied');
       }
