@@ -1,22 +1,25 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import setDisplayName from 'recompose/setDisplayName';
+import setPropTypes from 'recompose/setPropTypes';
+import compose from 'recompose/compose';
 
 import CenterLoading from './CenterLoading';
+import { isPendingSelector } from 'redux/modules/app';
 
-class LoadingContainer extends Component {
-  render() {
-    return (
-      <div style={ styles.container }>
-        <CenterLoading loading={ this.props.loading } />
-        { this.props.children }
-      </div>
-    );
-  }
-
-  static propTypes = {
+const LoadingContainer = compose(
+  connect((state) => ({ pending: isPendingSelector(state) })),
+  setPropTypes({
     children: PropTypes.node,
-    loading: PropTypes.bool
-  }
-}
+    pending: PropTypes.bool.isRequired
+  }),
+  setDisplayName('LoadingContainer')
+)(({ pending, children }) => (
+  <div style={ styles.container }>
+    <CenterLoading loading={ pending } />
+    { children }
+  </div>
+));
 
 export default LoadingContainer;
 
