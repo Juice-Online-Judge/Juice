@@ -62,7 +62,7 @@ export class Question extends Component {
 
   static propTypes = {
     uuid: PropTypes.string.isRequired,
-    examId: PropTypes.number,
+    examId: PropTypes.string,
     question: PropTypes.object,
     fetchQuestionDetail: PropTypes.func.isRequired,
     expanded: PropTypes.bool

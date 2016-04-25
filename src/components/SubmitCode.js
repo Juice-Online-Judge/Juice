@@ -61,7 +61,7 @@ export class SubmitCode extends Component {
 
   static propTypes = {
     uuid: PropTypes.string.isRequired,
-    examId: PropTypes.number,
+    examId: PropTypes.string,
     submission: PropTypes.object.isRequired,
     submitCode: PropTypes.func.isRequired,
     expanded: PropTypes.bool
