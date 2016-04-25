@@ -155,6 +155,7 @@ class ExamController extends ApiController
         $exam = Exam::with([
             'submissions',
             'submissions.user' => function (BelongsTo $query) { $query->getBaseQuery()->select(['id', 'username', 'nickname']); },
+            'submissions.question' => function (BelongsTo $query) { $query->getBaseQuery()->select(['id', 'uuid', 'title']); },
         ])->findOrFail($id);
 
         $this->authorize($exam);
