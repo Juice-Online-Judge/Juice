@@ -1,4 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
+import { createSelector } from 'reselect';
 import { fromJS, Record } from 'immutable';
 
 import { RequestStatus } from 'lib/const';
@@ -30,6 +31,14 @@ export const clearCache = () => (dispatch) => {
   dispatch(clearSubmissions());
   dispatch(clearUsers());
 };
+
+const appStatusSelector = (state) => state.app.get('status');
+
+export const isPendingSelector = createSelector(
+  [appStatusSelector],
+  (status) => status === RequestStatus.PENDING
+);
+
 export const actions = {
   setStatus,
   setError,
