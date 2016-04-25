@@ -13,8 +13,8 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 import LeftNav from './LeftNav';
 
-import { actions as accountActions } from 'redux/modules/account';
-import styles from 'lib/styles';
+import { fetchUserInfo, logout } from 'redux/modules/account';
+import commonStyles from 'lib/styles';
 
 export class AppBar extends React.Component {
   componentDidMount() {
@@ -46,7 +46,11 @@ export class AppBar extends React.Component {
   }
 
   get rightMenu() {
-    if (this.props.loginState.get('state')) {
+    const origin = {
+      horizontal: 'right',
+      vertical: 'top'
+    };
+    if (this.props.account.get('state')) {
       return (
         <IconMenu
           iconButtonElement={
@@ -54,9 +58,9 @@ export class AppBar extends React.Component {
               <MoreVertIcon />
             </IconButton>
           }
-          targetOrigin={ {horizontal: 'right', vertical: 'top'} }
-          anchorOrigin={ {horizontal: 'right', vertical: 'top'} } >
-          <Link style={ styles.noUnderline } to='/submission'>
+          targetOrigin={ origin }
+          anchorOrigin={ origin } >
+          <Link style={ commonStyles.noUnderline } to='/submission'>
             <MenuItem primaryText='Submission' />
           </Link>
           <MenuItem primaryText='Logout' onTouchTap={ this.logout } />
@@ -80,10 +84,7 @@ export class AppBar extends React.Component {
     return (
       <MuiAppBar
         title={
-          <IndexLink style={ {
-            color: 'white',
-            textDecoration: 'inherit'
-          } } to='/'>
+          <IndexLink style={ styles.link } to='/'>
             Juice
           </IndexLink>
         }
@@ -99,12 +100,19 @@ export class AppBar extends React.Component {
   };
 
   static propTypes = {
-    loginState: PropTypes.object.isRequired,
+    account: PropTypes.object.isRequired,
     fetchUserInfo: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired
   };
 }
 
-export default connect((state) => {
-  return {loginState: state.account};
-}, accountActions)(AppBar);
+export default connect((state) => ({
+  account: state.account
+}), { fetchUserInfo, logout })(AppBar);
+
+const styles = {
+  link: {
+    color: 'white',
+    textDecoration: 'none'
+  }
+};
