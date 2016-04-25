@@ -15,7 +15,7 @@ export class Pagination extends Component {
       <PageButton
         baseUrl={ baseUrl }
         page={ current - 1 }
-        disabled={ current !== 1 }
+        disabled={ current === 1 }
         label='Prev'
         onTouchTap={ this.props.onChange } />
     );
@@ -28,7 +28,7 @@ export class Pagination extends Component {
       <PageButton
         baseUrl={ baseUrl }
         page={ current + 1 }
-        disabled={ current !== maxPage }
+        disabled={ current === maxPage }
         label='Next'
         onTouchTap={ this.props.onChange } />
     );
