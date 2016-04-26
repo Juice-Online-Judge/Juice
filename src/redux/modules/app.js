@@ -32,7 +32,7 @@ export const clearCache = () => (dispatch) => {
   dispatch(clearUsers());
 };
 
-const appStatusSelector = (state) => state.app.get('status');
+export const appStatusSelector = (state) => state.app.get('status');
 const appErrorSelector = (state) => state.app.getIn(['error', 'messages']);
 
 export const isPendingSelector = createSelector(
