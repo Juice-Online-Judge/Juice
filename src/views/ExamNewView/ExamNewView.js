@@ -8,24 +8,35 @@ import CardActions from 'material-ui/Card/CardActions';
 import FlatButton from 'material-ui/FlatButton';
 import Tabs from 'material-ui/Tabs/Tabs';
 import Tab from 'material-ui/Tabs/Tab';
-import Snackbar from 'material-ui/Snackbar';
 import Inset from 'layouts/Inset';
 import BasicInfoTab from './BasicInfoTab';
 import QuestionTab from './QuestionTab';
 import UserTab from './UserTab';
 import redirectNotAdmin from 'lib/redirectNotAdmin';
 import compose from 'recompose/compose';
+import Message from 'components/Message';
+import { RequestStatus } from 'lib/const';
 
 import { actions as examActions } from 'redux/modules/exam';
-import { clearCache } from 'redux/modules/app';
+import { clearCache, clearStatus } from 'redux/modules/app';
 
 export class ExamNewView extends Component {
   componentWillMount() {
     this.props.clearCache();
+    this.props.clearStatus();
   }
 
   componentWillUnmount() {
     this.props.clearCache();
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.status === RequestStatus.SUCCESS) {
+      this.setState({ open: true, message: 'Add success' });
+    } else if (newProps.status === RequestStatus.FAIL) {
+      this.setState({ open: true, message: 'Add fail' });
+    }
+    this.props.clearStatus();
   }
 
   @autobind
@@ -79,11 +90,10 @@ export class ExamNewView extends Component {
             </CardActions>
           </Card>
         </Inset>
-        <Snackbar
+        <Message
           open={ this.state.open }
           message={ this.state.message }
-          autoHideDuration={ 2000 }
-          onRequestClose={ this.handleClose }/>
+          onRequestClose={ this.handleClose } />
       </div>
     );
   }
@@ -97,11 +107,12 @@ export class ExamNewView extends Component {
 
   static propTypes = {
     addExam: PropTypes.func.isRequired,
-    clearCache: PropTypes.func.isRequired
+    clearCache: PropTypes.func.isRequired,
+    clearStatus: PropTypes.func.isRequired
   };
 }
 
 export default compose(
   redirectNotAdmin,
-  connect(null, { ...examActions, clearCache })
+  connect(null, { ...examActions, clearCache, clearStatus })
 )(ExamNewView);
