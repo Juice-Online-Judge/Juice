@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import QuestionList from './QuestionList';
+import QuestionList from 'components/QuestionList';
 import { fetchExamQuestion } from 'redux/modules/exam';
 
 class QuestionContainer extends Component {
