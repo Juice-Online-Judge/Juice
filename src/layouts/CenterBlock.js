@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 
-export class Inset extends Component {
+export class CenterBlock extends Component {
   render() {
     return (
       <Grid>
@@ -28,4 +28,4 @@ const styles = {
   }
 };
 
-export default Inset;
+export default CenterBlock;
