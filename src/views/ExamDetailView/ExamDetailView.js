@@ -2,13 +2,17 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
 
+import { Link } from 'react-router';
 import Inset from 'layouts/Inset';
 import TextField from 'material-ui/TextField';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import FlipToFrontIcon from 'material-ui/svg-icons/action/flip-to-front';
 import QuestionContainer from './QuestionContainer';
 import SubmissionContainer from './SubmissionContainer';
 import CopyButton from 'components/CopyButton';
 import { Row, Col } from 'react-flexbox-grid';
 import { fetchExamToken } from 'redux/modules/exam';
+import styles from 'lib/styles';
 
 class ExamDetailView extends Component {
   componentDidMount() {
@@ -27,6 +31,18 @@ class ExamDetailView extends Component {
       <QuestionContainer examId={ id } />
     ) : (
       <SubmissionContainer examId={ id } />
+    );
+  }
+
+  get switchButton() {
+    const { id, func } = this.props.params;
+    const othFunc = func === 'questions' ? 'submissions' : 'questions';
+    return (
+      <Link to={ `/exams/${id}/${othFunc}` }>
+        <FloatingActionButton style={ styles.floatBtn } >
+          <FlipToFrontIcon />
+        </FloatingActionButton>
+      </Link>
     );
   }
 
@@ -52,6 +68,7 @@ class ExamDetailView extends Component {
           </Col>
         </Row>
         { this.detailContent }
+        { this.switchButton }
       </Inset>
     );
   }
