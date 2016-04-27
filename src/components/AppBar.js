@@ -50,21 +50,25 @@ export class AppBar extends React.Component {
       horizontal: 'right',
       vertical: 'top'
     };
-    if (this.props.account.get('state')) {
+    const { account } = this.props;
+    if (account.get('state')) {
       return (
-        <IconMenu
-          iconButtonElement={
-            <IconButton>
-              <MoreVertIcon />
-            </IconButton>
-          }
-          targetOrigin={ origin }
-          anchorOrigin={ origin } >
-          <Link style={ commonStyles.noUnderline } to='/submission'>
-            <MenuItem primaryText='Submission' />
-          </Link>
-          <MenuItem primaryText='Logout' onTouchTap={ this.logout } />
-        </IconMenu>
+        <div style={ styles.rightMenu }>
+          <span>{ account.getIn(['user', 'username']) }</span>
+          <IconMenu
+            iconButtonElement={
+              <IconButton iconStyle={ styles.icon }>
+                <MoreVertIcon />
+              </IconButton>
+            }
+            targetOrigin={ origin }
+            anchorOrigin={ origin } >
+            <Link style={ commonStyles.noUnderline } to='/submission'>
+              <MenuItem primaryText='Submission' />
+            </Link>
+            <MenuItem primaryText='Logout' onTouchTap={ this.logout } />
+          </IconMenu>
+        </div>
       );
     } else {
       return (
@@ -114,5 +118,13 @@ const styles = {
   link: {
     color: 'white',
     textDecoration: 'none'
+  },
+  icon: {
+    color: 'white',
+    fill: 'white'
+  },
+  rightMenu: {
+    color: 'white',
+    verticalAlign: 'middle'
   }
 };
