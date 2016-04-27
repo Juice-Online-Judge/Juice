@@ -10,18 +10,14 @@ const QuestionList = compose(
     examId: PropTypes.string.isRequired
   }),
   setDisplayName('QuestionList')
-)(({ question, examId }) => {
-  examId = parseInt(examId);
-
-  return (
-    <div>
-      {
-        question.get('result').map((uuid) => (
-          <Question key={ uuid } examId={ examId } uuid={ uuid } />
-        ))
-      }
-    </div>
-  );
-});
+)(({ question, examId }) => (
+  <div>
+    {
+      question.get('result').map((uuid) => (
+        <Question key={ uuid } examId={ examId } uuid={ uuid } />
+      ))
+    }
+  </div>
+));
 
 export default QuestionList;
