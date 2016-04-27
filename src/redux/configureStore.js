@@ -19,12 +19,5 @@ export default function configureStore({ initialState = {}, browserHistory }) {
   const store = middleware(createStore)(rootReducer, initialState);
   const history = syncHistoryWithStore(browserHistory, store);
 
-  if (module.hot) {
-    module.hot.accept('./rootReducer', () => {
-      const nextRootReducer = require('./rootReducer').default;
-
-      store.replaceReducer(nextRootReducer);
-    });
-  }
   return { store, history };
 }
