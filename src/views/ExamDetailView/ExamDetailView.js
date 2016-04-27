@@ -4,20 +4,15 @@ import { autobind } from 'core-decorators';
 
 import Inset from 'layouts/Inset';
 import TextField from 'material-ui/TextField';
-import Tabs from 'material-ui/Tabs/Tabs';
-import Tab from 'material-ui/Tabs/Tab';
-import QuestionList from './QuestionList';
-import SubmissionList from 'components/SubmissionList';
+import QuestionContainer from './QuestionContainer';
+import SubmissionContainer from './SubmissionContainer';
 import CopyButton from 'components/CopyButton';
 import { Row, Col } from 'react-flexbox-grid';
-import { actions as examActions } from 'redux/modules/exam';
-import { fetchExamSubmissions } from 'redux/modules/submission';
+import { fetchExamToken } from 'redux/modules/exam';
 
 class ExamDetailView extends Component {
   componentDidMount() {
     const { id } = this.props.params;
-    this.props.fetchExamQuestion(id);
-    this.props.fetchExamSubmissions(id);
     this.props.fetchExamToken(id);
   }
 
@@ -27,17 +22,11 @@ class ExamDetailView extends Component {
   }
 
   get detailContent() {
-    const { id } = this.props.params;
-    const { question, submission } = this.props;
-    return (
-      <Tabs>
-        <Tab label='Question'>
-          <QuestionList question={ question } examId={ id } />
-        </Tab>
-        <Tab label='Submission'>
-          <SubmissionList submission={ submission } examId={ id } />
-        </Tab>
-      </Tabs>
+    const { id, func } = this.props.params;
+    return func === 'questions' ? (
+      <QuestionContainer examId={ id } />
+    ) : (
+      <SubmissionContainer examId={ id } />
     );
   }
 
@@ -68,18 +57,15 @@ class ExamDetailView extends Component {
   }
 
   static propTypes = {
-    question: PropTypes.object.isRequired,
-    submission: PropTypes.object.isRequired,
     exam: PropTypes.object.isRequired,
-    params: PropTypes.object.isRequired,
-    fetchExamToken: PropTypes.func.isRequired,
-    fetchExamQuestion: PropTypes.func.isRequired,
-    fetchExamSubmissions: PropTypes.func.isRequired
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      func: PropTypes.oneOf(['questions', 'submissions']).isRequired
+    }).isRequired,
+    fetchExamToken: PropTypes.func.isRequired
   }
 }
 
 export default connect((state) => ({
-  question: state.question,
-  exam: state.exam,
-  submission: state.submission
-}), { ...examActions, fetchExamSubmissions })(ExamDetailView);
+  exam: state.exam
+}), { fetchExamToken })(ExamDetailView);
