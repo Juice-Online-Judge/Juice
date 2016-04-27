@@ -4,6 +4,7 @@ import app from './modules/app';
 import account from './modules/account';
 import question from './modules/question';
 import submission from './modules/submission';
+import submissionFilter from './modules/submissionFilter';
 import validate from './modules/validate';
 import exam from './modules/exam';
 import users from './modules/users';
@@ -14,6 +15,7 @@ export default combineReducers({
   account,
   question,
   submission,
+  submissionFilter,
   exam,
   users,
   role,
