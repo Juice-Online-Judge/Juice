@@ -3,6 +3,7 @@ import { fromJS, Record, List, Map } from 'immutable';
 import { normalize, arrayOf } from 'normalizr';
 import omit from 'lodash/omit';
 import mapValues from 'lodash/mapValues';
+import { createSelector } from 'reselect';
 
 import questionSchema from 'schema/question';
 import guardRequest from '../utils/guardRequest';
@@ -106,8 +107,12 @@ export const addQuestion = (data) => (dispatch) => {
 
 // Selector
 
-export const questionSelector = (state, props) => state.question
+const questionUuidSelector = (state, props) => state.question
   .getIn(['entities', 'question', props.uuid], new Map());
+export const questionSelector = createSelector(
+  [questionUuidSelector],
+  (ques) => ques
+);
 
 export const actions = {
   fetchQuestion,
