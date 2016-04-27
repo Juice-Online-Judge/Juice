@@ -7,7 +7,7 @@ import Question from 'components/Question';
 const QuestionList = compose(
   setPropTypes({
     question: PropTypes.object.isRequired,
-    examId: PropTypes.string.isRequired
+    examId: PropTypes.string
   }),
   setDisplayName('QuestionList')
 )(({ question, examId }) => (
