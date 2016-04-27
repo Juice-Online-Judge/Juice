@@ -5,11 +5,13 @@ import { autobind } from 'core-decorators';
 import { Link } from 'react-router';
 import Inset from 'layouts/Inset';
 import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import FlipToFrontIcon from 'material-ui/svg-icons/action/flip-to-front';
 import CopyButton from 'components/CopyButton';
 import { Row, Col } from 'react-flexbox-grid';
 import { fetchExamToken } from 'redux/modules/exam';
+import { clearFilter } from 'redux/modules/submissionFilter';
 import styles from 'lib/styles';
 
 class ExamDetailView extends Component {
@@ -21,6 +23,11 @@ class ExamDetailView extends Component {
   @autobind
   handleFocus() {
     this.refs.textField.select();
+  }
+
+  @autobind
+  handleClearFilter() {
+    this.props.clearFilter();
   }
 
   get switchButton() {
@@ -38,12 +45,34 @@ class ExamDetailView extends Component {
 
   render() {
     const { id } = this.props.params;
-    const { exam, children } = this.props;
+    const { exam, submissionFilter, children } = this.props;
     const token = exam.getIn(['tokens', `${id}`]);
+    const { path } = this.props.routes[2];
+    const isSubmission = path === 'submissions';
     return (
       <Inset>
         <Row middle='md'>
-          <Col md={ 1 } mdOffset={ 7 } >
+          {
+            isSubmission ? (
+              <Col md={ 7 }>
+                <Row>
+                  <Col md={ 8 }>
+                    <TextField
+                      name='filter'
+                      fullWidth
+                      value={ filterStringify(submissionFilter) } />
+                  </Col>
+                  <Col md={ 4 }>
+                    <FlatButton
+                      onTouchTap={ this.handleClearFilter }
+                      secondary
+                      label='Clear filter' />
+                  </Col>
+                </Row>
+              </Col>
+            ) : null
+          }
+          <Col md={ 1 } mdOffset={ isSubmission ? 0 : 7 } >
             <span>Token: </span>
           </Col>
           <Col md={ 3 } >
@@ -66,14 +95,31 @@ class ExamDetailView extends Component {
   static propTypes = {
     children: PropTypes.element.isRequired,
     exam: PropTypes.object.isRequired,
+    submissionFilter: PropTypes.object.isRequired,
     routes: PropTypes.array.isRequired,
     params: PropTypes.shape({
       id: PropTypes.string.isRequired
     }).isRequired,
+    clearFilter: PropTypes.func.isRequired,
     fetchExamToken: PropTypes.func.isRequired
   }
 }
 
 export default connect((state) => ({
-  exam: state.exam
-}), { fetchExamToken })(ExamDetailView);
+  exam: state.exam,
+  submissionFilter: state.submissionFilter
+}), { fetchExamToken, clearFilter })(ExamDetailView);
+
+const filterStringify = (filter) => {
+  const user = filter.get('user');
+  const question = filter.get('question');
+  const result = [];
+  if (user) {
+    result.push(`user:${user}`);
+  }
+
+  if (question) {
+    result.push(`question:${question}`);
+  }
+  return result.join(' ');
+};
