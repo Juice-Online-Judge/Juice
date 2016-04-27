@@ -40,6 +40,7 @@ $router->group(['prefix' => 'api', 'namespace' => 'Api'], function (Router $rout
         $router->group(['prefix' => 'exams/{exams}'], function (Router $router) {
             $router->get('questions', 'ExamController@questions');
             $router->get('submissions', 'ExamController@submissions');
+            $router->get('scores', 'ExamController@scores');
             $router->get('token', 'ExamController@token');
         });
         $router->resource('exams', 'ExamController', ['except' => ['create', 'edit']]);

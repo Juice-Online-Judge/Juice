@@ -26,7 +26,7 @@ class ExamPolicy
      */
     public function show(User $user, Exam $exam)
     {
-        return $this->auth($user, $exam);
+        return $this->isManager($user, $exam);
     }
 
     /**
@@ -38,10 +38,61 @@ class ExamPolicy
      */
     public function questions(User $user, Exam $exam)
     {
-        if ($this->auth($user, $exam)) {
+        return $this->fullCheck($user, $exam);
+    }
+
+    /**
+     * 確認使用者有權限查詢該測驗.
+     *
+     * @param User $user
+     * @param Exam $exam
+     * @return bool
+     */
+    public function submissions(User $user, Exam $exam)
+    {
+        return $this->fullCheck($user, $exam);
+    }
+
+    /**
+     * 檢查是否具有查詢成績的權限，如無，則確認是否為該測驗之考生.
+     *
+     * @param User $user
+     * @param Exam $exam
+     *
+     * @return bool
+     */
+    public function scores(User $user, Exam $exam)
+    {
+        return $this->fullCheck($user, $exam);
+    }
+
+    /**
+     * 檢查使用者身份.
+     *
+     * @param User $user
+     * @param Exam $exam
+     *
+     * @return bool
+     */
+    protected function fullCheck(User $user, Exam $exam)
+    {
+        if ($this->isManager($user, $exam)) {
             return true;
         }
 
+        return $this->inExam($user, $exam);
+    }
+
+    /**
+     * Check the user is in the exam or not.
+     *
+     * @param User $user
+     * @param Exam $exam
+     *
+     * @return bool
+     */
+    protected function inExam(User $user, Exam $exam)
+    {
         return ! $exam->load(['users' => function ($query) use ($user) {
             $query->where('user_id', $user->getAuthIdentifier());
         }])->getRelation('users')->isEmpty();
@@ -54,19 +105,7 @@ class ExamPolicy
      * @param Exam $exam
      * @return bool
      */
-    public function submissions(User $user, Exam $exam)
-    {
-        return $this->auth($user, $exam);
-    }
-
-    /**
-     * 確認使用者有權限查詢該測驗.
-     *
-     * @param User $user
-     * @param Exam $exam
-     * @return bool
-     */
-    protected function auth(User $user, Exam $exam)
+    protected function isManager(User $user, Exam $exam)
     {
         $allow = $exam->getAttribute('user_id') === $user->getAuthIdentifier();
 

@@ -9,10 +9,12 @@ use App\Exams\TokenRepository;
 use App\Http\Requests\Api\V1\ExamRequest;
 use App\Questions\Question;
 use Carbon\Carbon;
+use Gate;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
@@ -154,15 +156,47 @@ class ExamController extends ApiController
      */
     public function submissions($id)
     {
-        $exam = Exam::with([
-            'submissions',
-            'submissions.user' => function (BelongsTo $query) { $query->getBaseQuery()->select(['id', 'username', 'nickname']); },
-            'submissions.question' => function (BelongsTo $query) { $query->getBaseQuery()->select(['id', 'uuid', 'title']); },
-        ])->findOrFail($id);
+        $exam = Exam::findOrFail($id);
 
         $this->authorize($exam);
 
+        $exam->load([
+            'submissions' => function (HasMany $query) use ($exam) {
+                if (! Gate::allows('isManager', $exam)) {
+                    $query->getBaseQuery()->where('user_id', request_user(true));
+                }
+            },
+            'submissions.user' => function (BelongsTo $query) { $query->getBaseQuery()->select(['id', 'username', 'nickname']); },
+            'submissions.question' => function (BelongsTo $query) { $query->getBaseQuery()->select(['id', 'uuid', 'title']); },
+        ]);
+
         return $this->setData($exam->getRelation('submissions'))->responseOk();
+    }
+
+    /**
+     * Get the exam scores record.
+     *
+     * @param $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function scores($id)
+    {
+        $exam = Exam::findOrFail($id);
+
+        $this->authorize($exam);
+
+        $exam->load(['users' => function (BelongsToMany $query) use ($exam) {
+            if (! Gate::allows('isManager', $exam)) {
+                $query->wherePivot('user_id', request_user(true));
+            }
+
+            $query->getBaseQuery()->select(['id', 'username', 'nickname']);
+        }]);
+
+        move_up_pivot_attributes($exam->getRelation('users'), ['score']);
+
+        return $this->setData($exam->getRelation('users'))->responseOk();
     }
 
     /**

@@ -59,7 +59,8 @@ class Exam extends Entity
      */
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)
+            ->withPivot(['score']);
     }
 
     /**
