@@ -26,30 +26,19 @@ class ExamDetailView extends Component {
     this.refs.textField.select();
   }
 
-  isManager() {
-    // For testing TODO: replace this with permission check
-    return true;
-  }
-
   get detailContent() {
     const { id } = this.props.params;
     const { question, submission } = this.props;
-    if (this.isManager()) {
-      return (
-        <Tabs>
-          <Tab label='Question'>
-            <QuestionList question={ question } examId={ id } />
-          </Tab>
-          <Tab label='Submission'>
-            <SubmissionList submission={ submission } examId={ id } />
-          </Tab>
-        </Tabs>
-      );
-    } else {
-      return (
-        <QuestionList question={ question } examId={ id } />
-      );
-    }
+    return (
+      <Tabs>
+        <Tab label='Question'>
+          <QuestionList question={ question } examId={ id } />
+        </Tab>
+        <Tab label='Submission'>
+          <SubmissionList submission={ submission } examId={ id } />
+        </Tab>
+      </Tabs>
+    );
   }
 
   render() {
