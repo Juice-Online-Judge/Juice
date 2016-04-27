@@ -17,7 +17,7 @@ class QuestionContainer extends Component {
   }
 
   static propTypes = {
-    examId: PropTypes.func.isRequired,
+    examId: PropTypes.string.isRequired,
     question: PropTypes.object.isRequired,
     fetchExamQuestion: PropTypes.func.isRequired
   };
