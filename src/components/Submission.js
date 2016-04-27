@@ -1,18 +1,42 @@
 import React, { Component, PropTypes } from 'react';
 import Radium from 'radium';
+import { autobind } from 'core-decorators';
 
 import { Row, Col } from 'react-flexbox-grid';
 import { Link } from 'react-router';
 import Card from 'material-ui/Card/Card';
 import CardText from 'material-ui/Card/CardText';
 import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import CodeIcon from 'material-ui/svg-icons/action/code';
 
 @Radium
 class Submission extends Component {
+  @autobind
+  handleFilterQuestion() {
+    const { quesUuid } = this.props;
+    this.addFilter({ question: quesUuid });
+  }
+
+  @autobind
+  handleFilterUser() {
+    const { userId } = this.props;
+    this.addFilter({ user: userId });
+  }
+
+  addFilter(filter) {
+    const { addFilter } = this.props;
+    if (addFilter) {
+      addFilter(filter);
+    }
+  }
+
   render() {
     const {
       id,
+      addFilter,
       quesUuid,
       examId,
       title,
@@ -28,7 +52,7 @@ class Submission extends Component {
       <Card>
         <CardText style={ styles.padding }>
           <Row middle='xs'>
-            <Col xs={ 6 }>
+            <Col xs={ addFilter ? 5 : 6 }>
               <Link to={ url }>
                 { title }
               </Link>
@@ -57,6 +81,25 @@ class Submission extends Component {
                 </IconButton>
               </Link>
             </Col>
+            {
+              addFilter ? (
+                <Col xs={ 1 }>
+                  <IconMenu
+                    iconButtonElement={
+                      <IconButton> <MoreVertIcon /> </IconButton>
+                    }
+                    anchorOrigin={ { horizontal: 'left', vertical: 'top' } }
+                    targetOrigin={ { horizontal: 'left', vertical: 'top' } } >
+                    <MenuItem
+                      primaryText='Filter by this question'
+                      onTouchTap={ this.handleFilterQuestion } />
+                    <MenuItem
+                      primaryText='Filter by this user'
+                      onTouchTap={ this.handleFilterUser } />
+                  </IconMenu>
+                </Col>
+              ) : null
+            }
           </Row>
         </CardText>
       </Card>
@@ -64,8 +107,10 @@ class Submission extends Component {
   }
 
   static propTypes = {
+    addFilter: PropTypes.func,
     id: PropTypes.number.isRequired,
     quesUuid: PropTypes.string.isRequired,
+    userId: PropTypes.number,
     examId: PropTypes.string,
     title: PropTypes.string.isRequired,
     username: PropTypes.string,
