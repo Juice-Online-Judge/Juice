@@ -18,7 +18,7 @@ class Judge extends Entity
      *
      * @var array
      */
-    protected $hidden = ['id', 'submission_id'];
+    protected $hidden = ['id', 'submission_id', 'correctness'];
 
     /**
      * The attributes that should be mutated to dates.

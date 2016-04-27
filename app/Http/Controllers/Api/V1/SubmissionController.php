@@ -120,7 +120,9 @@ class SubmissionController extends ApiController
      */
     public function show($submissionId)
     {
-        $submission = Submission::findOrFail($submissionId);
+        $submission = Submission::with(['question' => function (BelongsTo $query) {
+            $query->getBaseQuery()->select(['id', 'uuid', 'title']);
+        }])->findOrFail($submissionId);
 
         $this->authorize($submission);
 
