@@ -1,18 +1,20 @@
 import React, { Component, PropTypes } from 'react';
-import { Row, Col } from 'react-flexbox-grid';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 
 export class Inset extends Component {
   render() {
     return (
-      <Row center='md'>
-        <Col md={ 11 } sm={ 12 }>
-          <Row start='md'>
-            <Col md={ 12 } sm={ 12 }>
-              { this.props.children }
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+      <Grid>
+        <Row center='sm'>
+          <Col sm={ 12 }>
+            <Row start='sm'>
+              <Col sm={ 12 }>
+                { this.props.children }
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 
