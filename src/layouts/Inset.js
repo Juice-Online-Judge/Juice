@@ -5,13 +5,9 @@ export class Inset extends Component {
   render() {
     return (
       <Grid>
-        <Row center='sm'>
+        <Row>
           <Col sm={ 12 }>
-            <Row start='sm'>
-              <Col sm={ 12 }>
-                { this.props.children }
-              </Col>
-            </Row>
+            { this.props.children }
           </Col>
         </Row>
       </Grid>
