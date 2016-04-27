@@ -10,7 +10,7 @@ export class QuestionView extends Component {
     const { uuid } = this.props.params;
     return (
       <Inset>
-        <Question uuid={ uuid } expanded />
+        <Question uuid={ uuid } />
       </Inset>
     );
   }

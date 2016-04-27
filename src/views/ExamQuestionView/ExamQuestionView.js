@@ -9,7 +9,6 @@ class ExamQuestionView extends Component {
     return (
       <Inset>
         <Question
-          expanded
           examId={ examId }
           uuid={ uuid } />
       </Inset>
