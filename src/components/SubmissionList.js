@@ -8,9 +8,10 @@ const SubmissionList = compose(
   setDisplayName('SubmissionList'),
   setPropTypes({
     submission: PropTypes.object.isRequired,
+    addFilter: PropTypes.func,
     examId: PropTypes.string
   })
-)(({ submission, examId }) => {
+)(({ submission, examId, addFilter }) => {
   const entities = submission.getIn(['entities', 'submission']);
   return (
     <div>
@@ -19,9 +20,11 @@ const SubmissionList = compose(
           const id = `${idNum}`;
           return (
             <Submission
+              addFilter={ addFilter }
               key={ entities.getIn([id, 'id']) }
               id={ entities.getIn([id, 'id']) }
               examId={ examId }
+              userId={ entities.getIn([id, 'user', 'id']) }
               username={ entities.getIn([id, 'user', 'username']) }
               quesUuid={ entities.getIn([id, 'question', 'uuid']) }
               title={ entities.getIn([id, 'question', 'title']) }
