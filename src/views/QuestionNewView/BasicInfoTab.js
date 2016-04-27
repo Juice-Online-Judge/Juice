@@ -57,7 +57,7 @@ export class BasicInfoTab extends Component {
             fullWidth
             multiLine
             onChange={ this.handleDescChange }
-            rows={ 10 }/>
+            rows={ 10 } />
         </div>
         <div>
           <Toggle

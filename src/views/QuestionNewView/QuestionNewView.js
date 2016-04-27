@@ -102,7 +102,7 @@ class QuestionNewView extends Component {
           open={ this.state.open }
           message={ this.state.message }
           autoHideDuration={ 2000 }
-          onRequestClose={ this.handleClose }/>
+          onRequestClose={ this.handleClose } />
       </div>
     );
   }

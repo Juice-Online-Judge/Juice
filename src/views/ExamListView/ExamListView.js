@@ -46,7 +46,7 @@ class ExamListView extends Component {
                   key={ id }
                   name={ examData.getIn([`${id}`, 'name']) }
                   beganTime={ examData.getIn([`${id}`, 'began_at']) }
-                  endedTime={ examData.getIn([`${id}`, 'ended_at']) }/>
+                  endedTime={ examData.getIn([`${id}`, 'ended_at']) } />
               );
             })
           }
