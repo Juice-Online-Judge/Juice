@@ -13,15 +13,10 @@ import SubmissionView from 'views/SubmissionView/SubmissionView';
 import ExamListView from 'views/ExamListView/ExamListView';
 import ExamNewView from 'views/ExamNewView/ExamNewView';
 import ExamDetailView from 'views/ExamDetailView/ExamDetailView';
+import ExamQuestionDetail from 'views/ExamDetailView/ExamQuestionDetail';
+import ExamSubmissionDetail from 'views/ExamDetailView/ExamSubmissionDetail';
 import ExamQuestionView from 'views/ExamQuestionView/ExamQuestionView';
 import CodeView from 'views/CodeView/CodeView';
-
-const funcs = ['questions', 'submissions'];
-const validateFunc = ({ params }, replace) => {
-  if (funcs.indexOf(params.func) === -1) {
-    replace('/page-not-found');
-  }
-};
 
 export default (
   <Route path='/' component={ CoreLayout }>
@@ -35,7 +30,10 @@ export default (
     <Route path='exams/new' component={ ExamNewView } />
     <Route path='exams' component={ ExamListView } />
     <Redirect from='exams/:id' to='exams/:id/questions' />
-    <Route path='exams/:id/:func' component={ ExamDetailView } onEnter={ validateFunc } />
+    <Route path='exams/:id' component={ ExamDetailView } >
+      <Route path='questions' component={ ExamQuestionDetail } />
+      <Route path='submissions' component={ ExamSubmissionDetail } />
+    </Route>
     <Route path='exams/:examId/questions/:uuid' component={ ExamQuestionView } />
     <Route path='/page-not-found' component={ NotFoundView } />
     <Route path='/permission-denied' component={ PermissionDeniedView } />

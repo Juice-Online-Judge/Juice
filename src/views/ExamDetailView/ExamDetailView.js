@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Children, Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
 
@@ -7,8 +7,6 @@ import Inset from 'layouts/Inset';
 import TextField from 'material-ui/TextField';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import FlipToFrontIcon from 'material-ui/svg-icons/action/flip-to-front';
-import QuestionContainer from './QuestionContainer';
-import SubmissionContainer from './SubmissionContainer';
 import CopyButton from 'components/CopyButton';
 import { Row, Col } from 'react-flexbox-grid';
 import { fetchExamToken } from 'redux/modules/exam';
@@ -25,18 +23,10 @@ class ExamDetailView extends Component {
     this.refs.textField.select();
   }
 
-  get detailContent() {
-    const { id, func } = this.props.params;
-    return func === 'questions' ? (
-      <QuestionContainer examId={ id } />
-    ) : (
-      <SubmissionContainer examId={ id } />
-    );
-  }
-
   get switchButton() {
-    const { id, func } = this.props.params;
-    const othFunc = func === 'questions' ? 'submissions' : 'questions';
+    const { id } = this.props.params;
+    const { path } = this.props.routes[2];
+    const othFunc = path === 'questions' ? 'submissions' : 'questions';
     return (
       <Link to={ `/exams/${id}/${othFunc}` }>
         <FloatingActionButton style={ styles.floatBtn } >
@@ -48,7 +38,7 @@ class ExamDetailView extends Component {
 
   render() {
     const { id } = this.props.params;
-    const { exam } = this.props;
+    const { exam, children } = this.props;
     const token = exam.getIn(['tokens', `${id}`]);
     return (
       <Inset>
@@ -67,17 +57,18 @@ class ExamDetailView extends Component {
             <CopyButton text={ token } />
           </Col>
         </Row>
-        { this.detailContent }
+        { Children.only(children) }
         { this.switchButton }
       </Inset>
     );
   }
 
   static propTypes = {
+    children: PropTypes.element.isRequired,
     exam: PropTypes.object.isRequired,
+    routes: PropTypes.array.isRequired,
     params: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      func: PropTypes.oneOf(['questions', 'submissions']).isRequired
+      id: PropTypes.string.isRequired
     }).isRequired,
     fetchExamToken: PropTypes.func.isRequired
   }

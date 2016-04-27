@@ -3,21 +3,23 @@ import { connect } from 'react-redux';
 import QuestionList from 'components/QuestionList';
 import { fetchExamQuestion } from 'redux/modules/exam';
 
-class QuestionContainer extends Component {
+class ExamQuestionDetail extends Component {
   componentDidMount() {
-    const { examId, fetchExamQuestion } = this.props;
-    fetchExamQuestion(examId);
+    const { id } = this.props.params;
+    const { fetchExamQuestion } = this.props;
+    fetchExamQuestion(id);
   }
 
   render() {
-    const { examId, question } = this.props;
+    const { id } = this.props.params;
+    const { question } = this.props;
     return (
-      <QuestionList question={ question } examId={ examId } />
+      <QuestionList question={ question } examId={ id } />
     );
   }
 
   static propTypes = {
-    examId: PropTypes.string.isRequired,
+    params: PropTypes.object.isRequired,
     question: PropTypes.object.isRequired,
     fetchExamQuestion: PropTypes.func.isRequired
   };
@@ -25,4 +27,4 @@ class QuestionContainer extends Component {
 
 export default connect((state) => ({
   question: state.question
-}), { fetchExamQuestion })(QuestionContainer);
+}), { fetchExamQuestion })(ExamQuestionDetail);

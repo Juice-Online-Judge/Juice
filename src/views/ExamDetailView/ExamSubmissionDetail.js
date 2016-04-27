@@ -3,21 +3,23 @@ import { connect } from 'react-redux';
 import SubmissionList from 'components/SubmissionList';
 import { fetchExamSubmissions } from 'redux/modules/submission';
 
-class SubmissionContainer extends Component {
+class ExamSubmissionDetail extends Component {
   componentDidMount() {
-    const { examId, fetchExamSubmissions } = this.props;
-    fetchExamSubmissions(examId);
+    const { id } = this.props.params;
+    const { fetchExamSubmissions } = this.props;
+    fetchExamSubmissions(id);
   }
 
   render() {
-    const { examId, submission } = this.props;
+    const { id } = this.props.params;
+    const { submission } = this.props;
     return (
-      <SubmissionList submission={ submission } examId={ examId } />
+      <SubmissionList submission={ submission } examId={ id } />
     );
   }
 
   static propTypes = {
-    examId: PropTypes.func.isRequired,
+    params: PropTypes.object.isRequired,
     submission: PropTypes.object.isRequired,
     fetchExamSubmissions: PropTypes.func.isRequired
   };
@@ -25,4 +27,4 @@ class SubmissionContainer extends Component {
 
 export default connect((state) => ({
   submission: state.submission
-}), { fetchExamSubmissions })(SubmissionContainer);
+}), { fetchExamSubmissions })(ExamSubmissionDetail);
