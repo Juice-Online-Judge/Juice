@@ -16,7 +16,7 @@ class SubmissionRequest extends Request
         return [
             'token'    => 'required|string',
             'language' => 'required|string|supported_language',
-            'code'     => 'required|mimes:txt',
+            'code'     => 'required|mimes:c',
         ];
     }
 }
