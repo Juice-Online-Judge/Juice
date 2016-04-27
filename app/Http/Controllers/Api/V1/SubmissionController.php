@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Events\V1\CodeSubmitted;
+use App\Exams\Exam;
 use App\Exams\TokenRepository;
 use App\Http\Requests\Api\V1\Cli\SubmissionRequest as CliSubmissionRequest;
 use App\Http\Requests\Api\V1\SubmissionRequest;
@@ -74,6 +75,16 @@ class SubmissionController extends ApiController
      */
     protected function store($uuid, $userId, array $input)
     {
+        if (! is_null($input['exam_id'])) {
+            $exam = Exam::where('began_at', '<=', Carbon::now())
+                ->where('ended_at', '>=', Carbon::now())
+                ->where('id', $input['exam_id'])
+                ->exists();
+
+            if (! $exam) {
+                return $this->responseForbidden();
+            }
+        }
         $question = Question::where('uuid', $uuid)->firstOrFail(['id']);
 
         $submission = $question->submissions()->save(new Submission([
