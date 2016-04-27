@@ -12,7 +12,7 @@ import AddIcon from 'material-ui/svg-icons/content/add';
 
 import Inset from 'layouts/Inset';
 import LoadingContainer from 'components/LoadingContainer';
-import Question from 'components/Question';
+import QuestionList from 'components/QuestionList';
 import Pagination from 'components/Pagination';
 import styles from 'lib/styles';
 
@@ -30,24 +30,15 @@ export class QuestionListView extends Component {
     }
   }
 
-  get questionList() {
-    const { question } = this.props;
-    return question.get('result').map((uuid) => {
-      return (
-        <Question uuid={ uuid } key={ uuid } />
-      );
-    });
-  }
-
   render() {
-    const { maxPage, admin } = this.props;
+    const { maxPage, admin, question } = this.props;
     const { query } = this.props.location;
     const page = parseInt(query.page || 1);
 
     return (
       <LoadingContainer>
         <Inset>
-          { this.questionList }
+          <QuestionList question={ question } />
         </Inset>
         <Pagination
           baseUrl='/'
