@@ -325,7 +325,7 @@ class QuestionSetting extends Component {
 
 const DEFAULT_DETAIL = {
   score: 100.0,
-  readFrom: 'file',
+  readFrom: 'stdin',
   codeReview: false,
   type: null,
   goal: null,
