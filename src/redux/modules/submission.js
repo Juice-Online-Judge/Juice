@@ -1,5 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
-import { Record } from 'immutable';
+import { createSelector } from 'reselect';
+import { Record, Map } from 'immutable';
 import omitBy from 'lodash/omitBy';
 import isNil from 'lodash/isNil';
 import { normalize, arrayOf } from 'normalizr';
@@ -108,6 +109,28 @@ export const patchSubmissionCorrectness = (id, correctness) => (dispatch) => {
     }
   });
 };
+
+export const isNeedReviewScore = (score) => score === null || score === -1;
+
+const getSubmission = ({ submission }) => submission;
+const getSubmissionWithId = ({ submission }, { params: { id } }) => {
+  console.log(submission);
+  return submission.getIn(['entities', 'submission', id], new Map());
+};
+
+export const codeSelector = createSelector(
+  [getSubmission],
+  (submission) => submission.get('code')
+);
+export const submissionSelector = createSelector(
+  [getSubmissionWithId],
+  (submission) => submission
+);
+
+export const needReviewSelector = createSelector(
+  [submissionSelector],
+  (submission) => isNeedReviewScore(submission.getIn(['judge', 'score']))
+);
 
 export const actions = {
   fetchSubmissions,
