@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { goBack } from 'react-router-redux';
 import { autobind } from 'core-decorators';
 
 import SelectField from 'material-ui/SelectField';
@@ -8,8 +9,9 @@ import FlatButton from 'material-ui/FlatButton';
 
 import FileArea from './FileArea';
 import Label from './Label';
+import Message from './Message';
 
-import { actions as submissionActions } from 'redux/modules/submission';
+import { submitCode } from 'redux/modules/submission';
 
 export class SubmitCode extends Component {
   @autobind
@@ -29,10 +31,23 @@ export class SubmitCode extends Component {
       uuid,
       examId,
       ...this.state
+    }).then((result) => {
+      if (result) {
+        this.setState({ open: true, message: 'Submit success' });
+      } else {
+        this.setState({ open: true, message: 'Submit fail. Please retry later.' });
+      }
     });
   }
 
+  @autobind
+  handleClose() {
+    this.setState({ open: false });
+    this.props.goBack();
+  }
+
   render() {
+    const { open, message } = this.state;
     return (
       <div>
         <Label label='Language: ' />
@@ -51,12 +66,18 @@ export class SubmitCode extends Component {
           label='Submit'
           primary
           onTouchTap={ this.handleSubmit } />
+        <Message
+          open={ open }
+          message={ message }
+          onRequestClose={ this.handleClose } />
       </div>
     );
   }
 
   state = {
-    language: 'c'
+    language: 'c',
+    open: false,
+    message: 'Submission success'
   };
 
   static propTypes = {
@@ -64,6 +85,7 @@ export class SubmitCode extends Component {
     examId: PropTypes.string,
     submission: PropTypes.object.isRequired,
     submitCode: PropTypes.func.isRequired,
+    goBack: PropTypes.func.isRequired,
     expanded: PropTypes.bool
   };
 }
@@ -77,4 +99,4 @@ const styles = {
 
 export default connect((state) => ({
   submission: state.submission
-}), submissionActions)(SubmitCode);
+}), { submitCode, goBack })(SubmitCode);
