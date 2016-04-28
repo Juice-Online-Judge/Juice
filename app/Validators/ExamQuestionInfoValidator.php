@@ -26,7 +26,14 @@ class ExamQuestionInfoValidator
     {
         $this->input = $input = json_decode($value, true);
 
-        $validators = ['keysExist', 'validateCodeReview', 'validateScore', 'validateType', 'validateTypeIsPortion'];
+        $validators = [
+            'keysExist',
+            'validateCodeReview',
+            'validateScore',
+            'validateType',
+            'validateTypeIsPortion',
+            'validateReadFrom',
+        ];
 
         if (! $this->input) {
             return false;
@@ -48,7 +55,7 @@ class ExamQuestionInfoValidator
      */
     protected function keysExist()
     {
-        $keys = ['score', 'code_review', 'type', 'goal', 'reward'];
+        $keys = ['score', 'code_review', 'type', 'goal', 'reward', 'read_from'];
 
         foreach ($keys as $key) {
             if (! array_key_exists($key, $this->input)) {
@@ -92,7 +99,7 @@ class ExamQuestionInfoValidator
     {
         $types = [null, 'proportion', 'portion_num', 'portion_str'];
 
-        return in_array($this->input['type'], $types);
+        return in_array($this->input['type'], $types, true);
     }
 
     /**
@@ -111,5 +118,15 @@ class ExamQuestionInfoValidator
         }
 
         return true;
+    }
+
+    /**
+     * Check the input source field.
+     *
+     * @return bool
+     */
+    protected function validateReadFrom()
+    {
+        return in_array($this->input['read_from'], ['stdin', 'file'], true);
     }
 }
