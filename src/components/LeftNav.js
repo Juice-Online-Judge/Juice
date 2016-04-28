@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { autobind } from 'core-decorators';
 
-import { Link, IndexLink } from 'react-router';
+import { Link } from 'react-router';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 
@@ -16,19 +16,19 @@ export class LeftNav extends Component {
   render() {
     return (
       <Drawer { ...this.props } docked={ false } onRequestChange={ this.handleChange }>
-        <IndexLink to='/' style={ styles.noUnderline } >
-          <MenuItem onTouchTap={ this.handleChange }>
-            Question
-          </MenuItem>
-        </IndexLink>
-        <Link to='/submission' style={ styles.noUnderline } >
-          <MenuItem onTouchTap={ this.handleChange }>
-            Submission
-          </MenuItem>
-        </Link>
         <Link to='/exams' style={ styles.noUnderline } >
           <MenuItem onTouchTap={ this.handleChange }>
             Exams
+          </MenuItem>
+        </Link>
+        <Link to='/questions' style={ styles.noUnderline } >
+          <MenuItem onTouchTap={ this.handleChange }>
+            Question
+          </MenuItem>
+        </Link>
+        <Link to='/submission' style={ styles.noUnderline } >
+          <MenuItem onTouchTap={ this.handleChange }>
+            Submission
           </MenuItem>
         </Link>
       </Drawer>
