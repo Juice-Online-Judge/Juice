@@ -311,7 +311,7 @@ class QuestionSetting extends Component {
 
 const DEFAULT_DETAIL = {
   score: 100.0,
-  readFrem: 'file',
+  readFrom: 'file',
   type: null,
   goal: null,
   reward: null
