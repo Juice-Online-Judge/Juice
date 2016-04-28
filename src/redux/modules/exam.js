@@ -70,7 +70,7 @@ export const addExam = (data) => (dispatch) => {
     }))
   };
 
-  guardRequest(dispatch, {
+  return guardRequest(dispatch, {
     path: 'exams',
     entity: examData
   });
