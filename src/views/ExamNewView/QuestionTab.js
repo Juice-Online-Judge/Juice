@@ -9,6 +9,7 @@ import pick from 'lodash/pick';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField';
+import Toggle from 'material-ui/Toggle';
 import MenuItem from 'material-ui/MenuItem';
 import ChevronLeft from 'material-ui/svg-icons/navigation/chevron-left';
 import Card from 'material-ui/Card/Card';
@@ -183,9 +184,10 @@ class QuestionSetting extends Component {
       const score = setting.score || '';
       const type = setting.type || 'normal';
       const readFrom = setting.readFrom || 'stdin';
+      const codeReview = setting.codeReview;
       const goal = setting.goal || '';
       const reward = setting.reward || '';
-      this.setState({ score, type, goal, reward, readFrom });
+      this.setState({ score, type, goal, reward, codeReview, readFrom });
     }
   }
 
@@ -212,6 +214,11 @@ class QuestionSetting extends Component {
     this.emitChange({ readFrom: value });
   }
 
+  @autobind
+  handleCodeReviewChange({ target: { checked } }) {
+    this.emitChange({ codeReview: checked });
+  }
+
   emitChange(data) {
     const mergeData = { ...pick(this.state, [
       'score',
@@ -233,7 +240,7 @@ class QuestionSetting extends Component {
 
   render() {
     const { detail, question, uuid } = this.props;
-    const { score, type, readFrom, goal, reward } = this.state;
+    const { score, type, readFrom, codeReview, goal, reward } = this.state;
 
     if (!detail) {
       return null;
@@ -268,6 +275,13 @@ class QuestionSetting extends Component {
               <MenuItem value='stdin' primaryText='stdin' />
               <MenuItem value='file' primaryText='file' />
             </SelectField>
+          </CardActions>
+          <CardActions>
+            <Toggle
+              label='Code review'
+              labelPosition='right'
+              toggle={ codeReview }
+              onToggle={ this.handleCodeReviewChange } />
           </CardActions>
           <CardActions>
             <TextField
@@ -312,6 +326,7 @@ class QuestionSetting extends Component {
 const DEFAULT_DETAIL = {
   score: 100.0,
   readFrom: 'file',
+  codeReview: false,
   type: null,
   goal: null,
   reward: null
