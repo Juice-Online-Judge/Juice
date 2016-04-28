@@ -93,7 +93,7 @@ export const addQuestion = (data) => (dispatch) => {
     delete data.uuid;
   }
 
-  guardRequest(dispatch, {
+  return guardRequest(dispatch, {
     path: 'questions',
     methods: 'POST',
     headers: {
