@@ -162,6 +162,8 @@ class ExamController extends ApiController
 
         $exam->load([
             'submissions' => function (HasMany $query) use ($exam) {
+                $query->getBaseQuery()->latest();
+
                 if (! Gate::allows('isManager', $exam)) {
                     $query->getBaseQuery()->where('user_id', request_user(true));
                 }
