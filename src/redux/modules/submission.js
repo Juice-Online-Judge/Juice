@@ -28,7 +28,7 @@ export const clearSubmissions = createAction(CLEAR_SUBMISSIONS);
 
 export const submitCode = (submitData) => (dispatch) => {
   const { uuid, examId, ...data } = submitData;
-  guardRequest(dispatch, {
+  return guardRequest(dispatch, {
     path: 'submissions/{uuid}',
     params: {
       uuid
