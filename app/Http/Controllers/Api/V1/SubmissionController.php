@@ -140,7 +140,7 @@ class SubmissionController extends ApiController
 
         return $this->setData($submission)->responseOk();
     }
-    
+
     /**
      * Update submission correctness.
      *

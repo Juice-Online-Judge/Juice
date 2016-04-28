@@ -28,7 +28,7 @@ class SubmissionPolicy
     {
         return $submission->getAttribute('user_id') === $user->getAuthIdentifier();
     }
-    
+
     /**
      * 確認是否有更新成績的權限.
      *
