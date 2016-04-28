@@ -56,7 +56,19 @@ export class ExamNewView extends Component {
 
   @autobind
   handleAddExam() {
-    this.props.addExam(this.data);
+    this.props.addExam(this.data)
+      .then((result) => {
+        if (result) {
+          this.setState({ open: true, message: 'Add success' });
+        } else {
+          this.setState({ open: true, message: 'Add fail' });
+        }
+      });
+  }
+
+  @autobind
+  handleClose() {
+    this.setState({ open: false });
   }
 
   setData(newData) {
