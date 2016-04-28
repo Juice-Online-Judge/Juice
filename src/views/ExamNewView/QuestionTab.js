@@ -16,6 +16,7 @@ import CardTitle from 'material-ui/Card/CardTitle';
 import CardActions from 'material-ui/Card/CardActions';
 import { RequestStatus } from 'lib/const';
 import ToggleDisplay from 'components/ToggleDisplay';
+import Label from 'components/Label';
 import ExamQuestion from 'components/ExamQuestion';
 import Pagination from 'components/Pagination';
 import LoadingContainer from 'components/LoadingContainer';
@@ -181,9 +182,10 @@ class QuestionSetting extends Component {
     if (setting) {
       const score = setting.score || '';
       const type = setting.type || 'normal';
+      const readFrom = setting.readFrom || 'stdin';
       const goal = setting.goal || '';
       const reward = setting.reward || '';
-      this.setState({ score, type, goal, reward });
+      this.setState({ score, type, goal, reward, readFrom });
     }
   }
 
@@ -205,10 +207,16 @@ class QuestionSetting extends Component {
     this.emitChange({ type: value });
   }
 
+  @autobind
+  handleReadFromChange(_event, _idx, value) {
+    this.emitChange({ readFrom: value });
+  }
+
   emitChange(data) {
     const mergeData = { ...pick(this.state, [
       'score',
       'type',
+      'readFrom',
       'goal',
       'reward'
     ]), ...data };
@@ -225,7 +233,7 @@ class QuestionSetting extends Component {
 
   render() {
     const { detail, question, uuid } = this.props;
-    const { score, type, goal, reward } = this.state;
+    const { score, type, readFrom, goal, reward } = this.state;
 
     if (!detail) {
       return null;
@@ -244,12 +252,24 @@ class QuestionSetting extends Component {
               floatingLabelText='Score'
               onChange={ this.handleScoreChange }
               value={ score } />
+          </CardActions>
+          <CardActions>
+            <Label> Type </Label>
             <SelectField value={ type } onChange={ this.handleTypeChange }>
               <MenuItem value='normal' primaryText='Normal' />
               <MenuItem value='proportion' primaryText='Proportion' />
               <MenuItem value='portion_num' primaryText='Portion (Number)' />
               <MenuItem value='portion_str' primaryText='Portion (String)' />
             </SelectField>
+          </CardActions>
+          <CardActions>
+            <Label> Read from </Label>
+            <SelectField value={ readFrom } onChange={ this.handleReadFromChange }>
+              <MenuItem value='stdin' primaryText='stdin' />
+              <MenuItem value='file' primaryText='file' />
+            </SelectField>
+          </CardActions>
+          <CardActions>
             <TextField
               fullWidth
               name='goal'
@@ -257,6 +277,8 @@ class QuestionSetting extends Component {
               floatingLabelText='Goal'
               onChange={ this.handleIntValChange }
               value={ goal } />
+          </CardActions>
+          <CardActions>
             <TextField
               fullWidth
               name='reward'
@@ -289,6 +311,7 @@ class QuestionSetting extends Component {
 
 const DEFAULT_DETAIL = {
   score: 100.0,
+  readFrem: 'file',
   type: null,
   goal: null,
   reward: null
