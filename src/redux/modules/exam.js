@@ -7,7 +7,7 @@ import map from 'lodash/map';
 import examSchema from 'schema/exam';
 import guardRequest from '../utils/guardRequest';
 import isRequesting from 'lib/isRequesting';
-import { renameKey } from 'lib/utils';
+import { renameKeys } from 'lib/utils';
 import { setQuestion } from './question';
 
 const ExamStatus = new Record({
@@ -63,7 +63,10 @@ export const addExam = (data) => (dispatch) => {
     user: data.users,
     question: map(data.questions, (val, key) => ({
       uuid: key,
-      info: JSON.stringify(renameKey(val, 'readFrom', 'read_from'))
+      info: JSON.stringify(renameKeys(val, {
+        readFrom: 'read_from',
+        codeReview: 'code_review'
+      }))
     }))
   };
 
