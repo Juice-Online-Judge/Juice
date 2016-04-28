@@ -21,6 +21,13 @@ class Judge extends Entity
     protected $hidden = ['id', 'submission_id', 'correctness'];
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['score'];
+
+    /**
      * The attributes that should be mutated to dates.
      *
      * @var array
