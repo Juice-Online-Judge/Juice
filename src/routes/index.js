@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, IndexRoute, Redirect } from 'react-router';
+import { Route, Redirect } from 'react-router';
 
 import CoreLayout from 'layouts/CoreLayout/CoreLayout';
 import QuestionListView from 'views/QuestionListView/QuestionListView';
@@ -20,13 +20,14 @@ import CodeView from 'views/CodeView/CodeView';
 
 export default (
   <Route path='/' component={ CoreLayout }>
-    <IndexRoute component={ QuestionListView } />
+    <Redirect from='/' to='exams' />
     <Route path='sign-in' component={ SignInView } />
     <Route path='sign-up' component={ SignUpView } />
+    <Route path='questions' component={ QuestionListView } />
     <Route path='questions/new' component={ QuestionNewView } />
     <Route path='questions/:uuid' component={ QuestionView } />
-    <Route path='submission' component={ SubmissionView } />
-    <Route path='submission/:id/code' component={ CodeView } />
+    <Route path='submissions' component={ SubmissionView } />
+    <Route path='submissions/:id/code' component={ CodeView } />
     <Route path='exams/new' component={ ExamNewView } />
     <Route path='exams' component={ ExamListView } />
     <Redirect from='exams/:id' to='exams/:id/questions' />
