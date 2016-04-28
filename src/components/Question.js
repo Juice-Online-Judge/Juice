@@ -31,7 +31,8 @@ export class Question extends Component {
     return (
       <Card>
         <CardTitle
-          title={ question.get('title') } />
+          title={ question.get('title') }
+          subtitle={ `uuid: ${question.get('uuid')}` } />
         <CardText>
           <Row>
             <Col mdOffset={ 9 } md={ 2 } xs={ 12 }>
