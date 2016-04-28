@@ -12,9 +12,8 @@ import Tab from 'material-ui/Tabs/Tab';
 import { Row, Col } from 'react-flexbox-grid';
 
 import redirectNotAdmin from 'lib/redirectNotAdmin';
-import { actions as questionActions } from 'redux/modules/question';
-import { actions as appActions } from 'redux/modules/app';
-import { RequestStatus } from 'lib/const';
+import { addQuestion } from 'redux/modules/question';
+import { clearStatus } from 'redux/modules/app';
 import { createFormDataDeep } from 'lib/utils';
 import BasicInfoTab from './BasicInfoTab';
 import AnswerTab from './AnswerTab';
@@ -24,20 +23,6 @@ import Inset from 'layouts/Inset';
 class QuestionNewView extends Component {
   componentWillMount() {
     this.props.clearStatus();
-  }
-
-  componentWillReceiveProps(newProps) {
-    if (newProps.app.get('status') === RequestStatus.SUCCESS) {
-      this.setState({
-        open: true,
-        message: 'Add success'
-      });
-    } else if (newProps.app.get('status') === RequestStatus.FAIL) {
-      this.setState({
-        open: true,
-        message: 'Add fail'
-      });
-    }
   }
 
   @autobind
@@ -63,7 +48,20 @@ class QuestionNewView extends Component {
       this.state.answer,
       this.state.restriction
     );
-    this.props.addQuestion(createFormDataDeep(data));
+    this.props.addQuestion(createFormDataDeep(data))
+      .then((result) => {
+        if (result) {
+          this.setState({
+            open: true,
+            message: 'Add success'
+          });
+        } else {
+          this.setState({
+            open: true,
+            message: 'Add fail'
+          });
+        }
+      });
   }
 
   @autobind
@@ -113,7 +111,6 @@ class QuestionNewView extends Component {
   };
 
   static propTypes = {
-    app: PropTypes.object.isRequired,
     addQuestion: PropTypes.func.isRequired,
     clearStatus: PropTypes.func.isRequired
   };
@@ -121,5 +118,5 @@ class QuestionNewView extends Component {
 
 export default compose(
   redirectNotAdmin,
-  connect((state) => ({ app: state.app }), { ...questionActions, ...appActions })
+  connect(null, { addQuestion, clearStatus })
 )(QuestionNewView);
