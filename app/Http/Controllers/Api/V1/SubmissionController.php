@@ -176,7 +176,7 @@ class SubmissionController extends ApiController
         }])
             ->where('user_id', request_user(true))
             ->orderBy('submitted_at', 'desc')
-            ->paginate();
+            ->paginate(5);
 
         return $this->setData($submissions)->responseOk();
     }
