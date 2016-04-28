@@ -105,12 +105,20 @@ class PageButton extends Component {
     if (baseUrl && !disabled) {
       return (
         <Link to={ `${baseUrl}?page=${page}` }>
-          <FlatButton { ...props } label={ text } onTouchTap={ this.handleTouchTap } />
+          <FlatButton
+            { ...props }
+            label={ text }
+            disabled={ disabled }
+            onTouchTap={ this.handleTouchTap } />
         </Link>
       );
     } else {
       return (
-        <FlatButton { ...props } label={ text } onTouchTap={ this.handleTouchTap } />
+        <FlatButton
+          { ...props }
+          label={ text }
+          disabled={ disabled }
+          onTouchTap={ this.handleTouchTap } />
       );
     }
   }
