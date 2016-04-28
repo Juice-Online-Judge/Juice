@@ -66,6 +66,10 @@ export const renameKey = (object, oldKey, newKey) => {
   return mapKeys(object, (_value, key) => (key === oldKey ? newKey : key));
 };
 
+export const renameKeys = (object, keysMap) => {
+  return mapKeys(object, (_value, key) => (keysMap[key] ? keysMap[key] : key));
+};
+
 export default {
   prefixKeys,
   createFormDataDeep,
