@@ -150,7 +150,7 @@ class SubmissionController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        $submission = Submission::findOrFail($id);
+        $submission = Submission::with(['judge'])->findOrFail($id);
 
         $this->authorize($submission);
 
