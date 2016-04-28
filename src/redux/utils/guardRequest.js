@@ -5,12 +5,13 @@ import handleRequestError from './handleRequestError';
 
 const guardRequest = (dispatch, reqOpts, handleResult, handleError, opts) => {
   dispatch(setStatus(RequestStatus.PENDING));
-  api(reqOpts)
+  return api(reqOpts)
   .then(({ entity }) => {
     if (handleResult) {
       handleResult(entity);
     }
     dispatch(setStatus(RequestStatus.SUCCESS));
+    return true;
   })
   .catch((error) => {
     if (handleError) {
@@ -19,6 +20,7 @@ const guardRequest = (dispatch, reqOpts, handleResult, handleError, opts) => {
     if (!opts || !opts.noError) {
       handleRequestError(dispatch, error);
     }
+    return false;
   });
 };
 
