@@ -62,6 +62,10 @@ export const valuesAt = (array, indexes) => {
   return lodash(array).pick(indexes).values().value();
 };
 
+export const renameKey = (object, oldKey, newKey) => {
+  return mapKeys(object, (key) => (key === oldKey ? newKey : oldKey));
+};
+
 export default {
   prefixKeys,
   createFormDataDeep,
