@@ -16,7 +16,19 @@ class QuestionController extends ApiController
      */
     public function index()
     {
-        $questions = Question::with(['tags'])->isPublic()->paginate(null, ['id', 'uuid', 'title', 'created_at']);
+        $questions = Question::with(['tags'])->latest();
+
+        try {
+            $user = \JWTAuth::parseToken()->authenticate();
+
+            if (! $user || ! $user->hasRole(['admin'])) {
+                $questions = $questions->isPublic();
+            }
+        } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
+            $questions = $questions->isPublic();
+        }
+
+        $questions = $questions->paginate(null, ['id', 'uuid', 'title', 'created_at']);
 
         pluck_relation_field($questions->items(), 'tags', 'name', 'id');
 
