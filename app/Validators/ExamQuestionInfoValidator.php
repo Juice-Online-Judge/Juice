@@ -26,16 +26,16 @@ class ExamQuestionInfoValidator
     {
         $this->input = $input = json_decode($value, true);
 
+        $validators = ['keysExist', 'validateCodeReview', 'validateScore', 'validateType', 'validateTypeIsPortion'];
+
         if (! $this->input) {
             return false;
-        } elseif (! $this->keysExist()) {
-            return false;
-        } elseif (! $this->validateScore()) {
-            return false;
-        } elseif (! $this->validateType()) {
-            return false;
-        } elseif (! $this->validateTypeIsPortion()) {
-            return false;
+        }
+
+        foreach ($validators as $v) {
+            if (! $this->$v()) {
+                return false;
+            }
         }
 
         return true;
@@ -48,7 +48,7 @@ class ExamQuestionInfoValidator
      */
     protected function keysExist()
     {
-        $keys = ['score', 'type', 'goal', 'reward'];
+        $keys = ['score', 'code_review', 'type', 'goal', 'reward'];
 
         foreach ($keys as $key) {
             if (! array_key_exists($key, $this->input)) {
@@ -71,6 +71,16 @@ class ExamQuestionInfoValidator
         }
 
         return true;
+    }
+
+    /**
+     * Check the code_review field is a boolean value.
+     *
+     * @return bool
+     */
+    protected function validateCodeReview()
+    {
+        return is_bool($this->input['code_review']);
     }
 
     /**
