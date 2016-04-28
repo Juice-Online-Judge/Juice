@@ -3,7 +3,14 @@ import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
 
 import { Row, Col } from 'react-flexbox-grid';
-import { fetchCode, fetchSubmission, patchSubmissionCorrectness } from 'redux/modules/submission';
+import {
+    fetchCode,
+    fetchSubmission,
+    codeSelector,
+    submissionSelector,
+    needReviewSelector,
+    patchSubmissionCorrectness
+ } from 'redux/modules/submission';
 import { createIsAdminSelector } from 'redux/modules/account';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
@@ -14,12 +21,8 @@ import DownloadButton from 'components/DownloadButton';
 class CodeView extends Component {
   componentWillMount() {
     const { id } = this.props.params;
-    const { submission } = this.props;
     this.props.fetchSubmission(id);
     this.props.fetchCode(id);
-    this.setState({
-      correctness: submission.getIn(['entities', 'submission', `${id}`, 'judge', 'correctness'], 0)
-    });
   }
 
   @autobind
@@ -35,15 +38,14 @@ class CodeView extends Component {
 
   render() {
     const { id, examId } = this.props.params;
-    const { admin, submission } = this.props;
-    const code = submission.get('code');
-    const lang = submission.getIn(['entities', 'submission', `${id}`, 'language']);
+    const { admin, submission, code, needReview } = this.props;
+    const lang = submission.get('language');
     const ext = lang === 'c++' ? 'cpp' : lang;
     return (
       <Inset>
         <Row middle='md' end='md'>
           {
-            examId && admin ? (
+            examId && admin && needReview ? (
               <Col md={ 4 }>
                 <Row middle='md'>
                   <Col md={ 6 }>
@@ -71,13 +73,15 @@ class CodeView extends Component {
   }
 
   state = {
-    correctness: null
+    correctness: ''
   };
 
   static propTypes = {
     params: PropTypes.object.isRequired,
     admin: PropTypes.bool.isRequired,
+    code: PropTypes.string.isRequired,
     submission: PropTypes.object.isRequired,
+    needReview: PropTypes.bool.isRequired,
     patchSubmissionCorrectness: PropTypes.func.isRequired,
     fetchSubmission: PropTypes.func.isRequired,
     fetchCode: PropTypes.func.isRequired
@@ -85,5 +89,9 @@ class CodeView extends Component {
 }
 
 const isAdminSelector = createIsAdminSelector();
-export default connect((state) => ({ submission: state.submission, admin: isAdminSelector(state) }),
+export default connect((state, props) => ({
+  code: codeSelector(state),
+  submission: submissionSelector(state, props),
+  admin: isAdminSelector(state),
+  needReview: needReviewSelector(state, props) }),
   { fetchCode, fetchSubmission, patchSubmissionCorrectness })(CodeView);
