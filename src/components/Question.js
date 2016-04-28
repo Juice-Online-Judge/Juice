@@ -5,6 +5,7 @@ import Card from 'material-ui/Card/Card';
 import CardTitle from 'material-ui/Card/CardTitle';
 import CardText from 'material-ui/Card/CardText';
 import CardActions from 'material-ui/Card/CardActions';
+import { Row, Col } from 'react-flexbox-grid';
 
 import SubmitCode from './SubmitCode';
 
@@ -32,6 +33,24 @@ export class Question extends Component {
         <CardTitle
           title={ question.get('title') } />
         <CardText>
+          <Row end='md'>
+            <Col md={ 2 } xs={ 12 }>
+              Limit:
+            </Col>
+            <Col md={ 2 } xs={ 0 } />
+          </Row>
+          <Row end='md'>
+            <Col md={ 4 } xs={ 12 }>
+              Time: { question.getIn(['judge', 'restrictions', 'time']) }(s)
+              Memory: { question.getIn(['judge', 'restrictions', 'memory']) }(MB)
+              File: { question.getIn(['judge', 'restrictions', 'file']) }
+            </Col>
+          </Row>
+        </CardText>
+        <CardText>
+          <div>
+            Description:
+          </div>
           <div>
             { question.get('description') }
           </div>
