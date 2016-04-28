@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use File;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Http\Request;
 
 class SubmissionController extends ApiController
 {
@@ -138,6 +139,29 @@ class SubmissionController extends ApiController
         $this->authorize($submission);
 
         return $this->setData($submission)->responseOk();
+    }
+    
+    /**
+     * Update submission correctness.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(Request $request, $id)
+    {
+        $submission = Submission::findOrFail($id);
+
+        $this->authorize($submission);
+
+        if ($request->has('correctness') && number_between($request->input('correctness'), 0, 100)) {
+            $submission->getRelation('judge')->update([
+                'correctness' => $request->input('correctness'),
+                'score'       => -1,
+            ]);
+        }
+
+        return $this->setData($submission->fresh())->responseOk();
     }
 
     /**

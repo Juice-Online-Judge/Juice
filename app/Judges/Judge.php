@@ -25,7 +25,7 @@ class Judge extends Entity
      *
      * @var array
      */
-    protected $fillable = ['score'];
+    protected $fillable = ['correctness', 'score'];
 
     /**
      * The attributes that should be mutated to dates.

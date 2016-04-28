@@ -47,7 +47,7 @@ $factory->define(App\Submissions\Submission::class, function (Faker\Generator $f
 
 $factory->define(App\Judges\Judge::class, function (Faker\Generator $faker) {
     return [
-        'result' => $faker->randomElement(['AC', 'WA', 'SE', 'CE', 'RE', 'TLE', 'MLE', 'OLE', 'RF']),
+        'result' => $faker->randomElement(['AC', 'WA', 'SE', 'CE', 'RE', 'TLE', 'MLE', 'OLE', 'RF', 'PC']),
         'correctness' => $faker->numberBetween(0, 100),
         'judge_message' => $faker->boolean() ? $faker->sentence : null,
         'time' => $faker->randomFloat(null, 1.0, 10.0),

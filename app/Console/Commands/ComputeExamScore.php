@@ -34,7 +34,7 @@ class ComputeExamScore extends Command
         $submissions = Submission::with(['judge'])
             ->whereNotNull('submissions.exam_id')
             ->whereHas('judge', function (Builder $query) {
-                $query->whereNull('judges.score');
+                $query->whereNull('judges.score')->orWhere('judges.score', -1);
             })
             ->leftJoin('exam_question', function (JoinClause $join) {
                 $join->on('submissions.exam_id', '=', 'exam_question.exam_id')
@@ -47,9 +47,11 @@ class ComputeExamScore extends Command
         foreach ($submissions as $submission) {
             $info = json_decode($submission->getAttribute('info'), true);
 
-            if (! isset($info['code_review']) || ! $info['code_review']) {
-                $judge = $submission->getRelation('judge');
+            /* @var Submission $judge */
 
+            $judge = $submission->getRelation('judge');
+
+            if (! isset($info['code_review']) || ! $info['code_review'] || -1 == $judge->getAttribute('score')) {
                 $judge->update([
                     'score' => $info['score'] * $judge->getAttribute('correctness') / 100,
                 ]);
@@ -63,9 +65,11 @@ class ComputeExamScore extends Command
                 $scores = Submission::where('submissions.user_id', $userId)
                     ->where('submissions.exam_id', $examId)
                     ->leftJoin('judges', function (JoinClause $join) {
-                        $join->on('submissions.id', '=', 'judges.submission_id')
-                            ->whereNotNull('judges.score');
+                        $join->on('submissions.id', '=', 'judges.submission_id');
                     })
+                    ->whereNotNull('judges.score')
+                    ->where('judges.score', '<>', -1)
+                    ->whereIn('result', ['AC', 'PC'])
                     ->groupBy(['submissions.question_id'])
                     ->get([
                         'submissions.id',

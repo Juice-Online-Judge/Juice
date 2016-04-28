@@ -4,6 +4,7 @@ namespace App\Submissions;
 
 use App\Accounts\User;
 use App\Core\Entity;
+use App\Exams\Exam;
 use App\Judges\Judge;
 use App\Questions\Question;
 
@@ -62,6 +63,16 @@ class Submission extends Entity
     public function question()
     {
         return $this->belongsTo(Question::class);
+    }
+
+    /**
+     * Submission 所屬測驗.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function exam()
+    {
+        return $this->belongsTo(Exam::class);
     }
 
     /**

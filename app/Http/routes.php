@@ -31,6 +31,7 @@ $router->group(['prefix' => 'api', 'namespace' => 'Api'], function (Router $rout
                 $router->get('recent', 'SubmissionController@recent');
                 $router->post('{uuid}', 'SubmissionController@storeUsingWeb');
                 $router->get('{id}', 'SubmissionController@show');
+                $router->patch('{id}', 'SubmissionController@update');
                 $router->get('{id}/code', 'SubmissionController@code');
             });
 
