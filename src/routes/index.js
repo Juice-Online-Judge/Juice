@@ -35,6 +35,7 @@ export default (
       <Route path='submissions' component={ ExamSubmissionDetail } />
     </Route>
     <Route path='exams/:examId/questions/:uuid' component={ ExamQuestionView } />
+    <Route path='exams/:examId/submissions/:id/code' component={ CodeView } />
     <Route path='/page-not-found' component={ NotFoundView } />
     <Route path='/permission-denied' component={ PermissionDeniedView } />
     <Redirect from='*' to='/page-not-found' />

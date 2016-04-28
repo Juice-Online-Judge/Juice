@@ -46,14 +46,16 @@ class Submission extends Component {
       memory,
       result
     } = this.props;
-    const quesUrl = `/questions/${quesUuid}`;
-    const url = examId ? `/exams/${examId}${quesUrl}` : quesUrl;
+    const origQuesUrl = `/questions/${quesUuid}`;
+    const quesUrl = examId ? `/exams/${examId}${origQuesUrl}` : origQuesUrl;
+    const origSubUrl = `/submissions/${id}/code`;
+    const subUrl = examId ? `/exams/${examId}${origSubUrl}` : origSubUrl;
     return (
       <Card>
         <CardText style={ styles.padding }>
           <Row middle='xs'>
             <Col xs={ addFilter ? 5 : 6 }>
-              <Link to={ url }>
+              <Link to={ quesUrl }>
                 { title }
               </Link>
             </Col>
@@ -75,7 +77,7 @@ class Submission extends Component {
               { memory || 'N/A' } (KB)
             </Col>
             <Col xs={ 1 }>
-              <Link to={ `/submission/${id}/code` }>
+              <Link to={ subUrl }>
                 <IconButton tooltip='View Code'>
                   <CodeIcon />
                 </IconButton>
