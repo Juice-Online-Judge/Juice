@@ -22,7 +22,7 @@ export class Question extends Component {
       return;
     }
 
-    this.props.fetchQuestionDetail(uuid);
+    this.props.fetchQuestionDetail(uuid, { force: true });
   }
 
   render() {
