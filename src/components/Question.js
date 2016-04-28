@@ -33,11 +33,10 @@ export class Question extends Component {
         <CardTitle
           title={ question.get('title') } />
         <CardText>
-          <Row end='md'>
-            <Col md={ 2 } xs={ 12 }>
+          <Row>
+            <Col mdOffset={ 9 } md={ 2 } xs={ 12 }>
               Limit:
             </Col>
-            <Col md={ 2 } xs={ 0 } />
           </Row>
           <Row end='md'>
             <Col md={ 4 } xs={ 12 }>
