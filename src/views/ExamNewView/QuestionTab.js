@@ -224,6 +224,7 @@ class QuestionSetting extends Component {
       'score',
       'type',
       'readFrom',
+      'codeReview',
       'goal',
       'reward'
     ]), ...data };
