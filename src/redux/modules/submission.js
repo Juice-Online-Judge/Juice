@@ -20,11 +20,13 @@ const SET_SUBMISSIONS = 'SET_SUBMISSIONS';
 const SET_SUBMISSION = 'SET_SUBMISSION';
 const SET_SUBMISSION_CODE = 'SET_SUCMISSION_CODE';
 const CLEAR_SUBMISSIONS = 'CLEAR_SUBMISSIONS';
+const CLEAR_SUBMISSION_CODE = 'CLEAR_SUBMISSION_CODE';
 
 export const setSubmissions = createAction(SET_SUBMISSIONS, (data) => normalize(data, arrayOf(submissionSchema)));
 export const setSubmission = createAction(SET_SUBMISSION, (data) => normalize(data, submissionSchema));
 export const setSubmissionCode = createAction(SET_SUBMISSION_CODE);
 export const clearSubmissions = createAction(CLEAR_SUBMISSIONS);
+export const clearSubmissionCode = createAction(CLEAR_SUBMISSION_CODE);
 
 export const submitCode = (submitData) => (dispatch) => {
   const { uuid, examId, ...data } = submitData;
@@ -82,7 +84,7 @@ export const fetchSubmission = (id, opts = { force: false }) => (dispatch, getSt
 };
 
 export const fetchCode = (id) => (dispatch) => {
-  id = parseInt(id);
+  dispatch(clearSubmissionCode());
   guardRequest(dispatch, {
     path: 'submissions/{id}/code',
     params: {
@@ -93,10 +95,27 @@ export const fetchCode = (id) => (dispatch) => {
   });
 };
 
+export const patchSubmissionCorrectness = (id, correctness) => (dispatch) => {
+  correctness = parseInt(correctness || 0);
+  guardRequest(dispatch, {
+    method: 'PATCH',
+    path: 'submissions/{id}',
+    params: {
+      id
+    },
+    entity: {
+      correctness
+    }
+  });
+};
+
 export const actions = {
   fetchSubmissions,
   fetchSubmission,
   fetchExamSubmissions,
+  patchSubmissionCorrectness,
+  setSubmissionCode,
+  clearSubmissionCode,
   fetchCode,
   submitCode
 };
@@ -105,5 +124,6 @@ export default handleActions({
   [SET_SUBMISSIONS]: (state, { payload }) => state.merge(payload),
   [SET_SUBMISSION]: (state, { payload }) => state.merge(payload),
   [CLEAR_SUBMISSIONS]: () => new SubmissionState(),
-  [SET_SUBMISSION_CODE]: (state, { payload }) => state.set('code', payload)
+  [SET_SUBMISSION_CODE]: (state, { payload }) => state.set('code', payload),
+  [CLEAR_SUBMISSION_CODE]: (state) => state.set('code', '')
 }, initialState);
