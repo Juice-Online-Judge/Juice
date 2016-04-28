@@ -37,6 +37,7 @@ class Submission extends Component {
     const {
       id,
       addFilter,
+      needReview,
       quesUuid,
       examId,
       title,
@@ -54,7 +55,10 @@ class Submission extends Component {
       <Card>
         <CardText style={ styles.padding }>
           <Row middle='xs'>
-            <Col xs={ addFilter ? 5 : 6 }>
+            <Col xs={ 1 }>
+              { id }
+            </Col>
+            <Col xs={ addFilter ? 4 : 5 }>
               <Link to={ quesUrl }>
                 { title }
               </Link>
@@ -64,7 +68,7 @@ class Submission extends Component {
             </Col>
             <Col xs={ 1 }>
               <span style={ [result === 'AC' ? styles.pass : styles.noPass, styles.bold] }>
-                { result || 'PENDING' }
+                { result === 'AC' && needReview ? 'AC (need review)' : result || 'PENDING' }
               </span>
             </Col>
             <Col style={ styles.upperCase } xs={ 1 }>
@@ -111,6 +115,7 @@ class Submission extends Component {
   static propTypes = {
     addFilter: PropTypes.func,
     id: PropTypes.number.isRequired,
+    needReview: PropTypes.bool.isRequired,
     quesUuid: PropTypes.string.isRequired,
     userId: PropTypes.number,
     examId: PropTypes.string,

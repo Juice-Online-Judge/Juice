@@ -26,7 +26,7 @@ export class LeftNav extends Component {
             Question
           </MenuItem>
         </Link>
-        <Link to='/submission' style={ styles.noUnderline } >
+        <Link to='/submissions' style={ styles.noUnderline } >
           <MenuItem onTouchTap={ this.handleChange }>
             Submission
           </MenuItem>
