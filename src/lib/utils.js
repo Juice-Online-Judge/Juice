@@ -63,7 +63,7 @@ export const valuesAt = (array, indexes) => {
 };
 
 export const renameKey = (object, oldKey, newKey) => {
-  return mapKeys(object, (key) => (key === oldKey ? newKey : oldKey));
+  return mapKeys(object, (_value, key) => (key === oldKey ? newKey : key));
 };
 
 export default {
