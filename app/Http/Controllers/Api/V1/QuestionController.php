@@ -72,7 +72,19 @@ class QuestionController extends ApiController
      */
     public function show($uuid)
     {
-        $question = Question::with(['tags'])->isPublic()->where('uuid', $uuid)->firstOrFail();
+        $question = Question::with(['tags'])->where('uuid', $uuid);
+
+        try {
+            $user = \JWTAuth::parseToken()->authenticate();
+
+            if (! $user || ! $user->hasRole(['admin'])) {
+                $question = $question->isPublic();
+            }
+        } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
+            $question = $question->isPublic();
+        }
+
+        $question = $question->firstOrFail();
 
         pluck_relation_field($question, 'tags', 'name', 'id');
 
