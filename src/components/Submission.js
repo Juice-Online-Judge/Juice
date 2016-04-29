@@ -75,10 +75,10 @@ class Submission extends Component {
               { language }
             </Col>
             <Col xs={ 1 }>
-              { time || 'N/A' } (s)
+              { time || 'N/A' } s
             </Col>
             <Col xs={ 1 }>
-              { memory || 'N/A' } (KB)
+              { memory || 'N/A' } MB
             </Col>
             <Col xs={ 1 }>
               <Link to={ subUrl }>
