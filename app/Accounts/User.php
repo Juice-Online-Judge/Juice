@@ -69,6 +69,6 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
 
         $role = is_array($role) ? $role : func_get_args();
 
-        return $roles->diff($role)->isEmpty();
+        return collect($role)->diff($roles)->isEmpty();
     }
 }
