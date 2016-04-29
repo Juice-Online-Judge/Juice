@@ -54,7 +54,7 @@ export class AppBar extends React.Component {
     if (account.get('state')) {
       return (
         <div style={ styles.rightMenu }>
-          <span>{ account.getIn(['user', 'username']) }</span>
+          <span>{ account.getIn(['user', 'nickname']) }</span>
           <IconMenu
             iconButtonElement={
               <IconButton iconStyle={ styles.icon }>
@@ -63,7 +63,7 @@ export class AppBar extends React.Component {
             }
             targetOrigin={ origin }
             anchorOrigin={ origin } >
-            <Link style={ commonStyles.noUnderline } to='/submission'>
+            <Link style={ commonStyles.noUnderline } to='/submissions'>
               <MenuItem primaryText='Submission' />
             </Link>
             <MenuItem primaryText='Logout' onTouchTap={ this.logout } />
