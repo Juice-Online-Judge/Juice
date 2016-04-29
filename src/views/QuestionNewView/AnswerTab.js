@@ -20,8 +20,12 @@ export class AnswerTab extends Component {
 
   handleChange(data = {}) {
     // Fire change event
-    this.props.onChange({ ...this.state, ...data });
-    this.setState(data);
+    this.setData(data);
+    this.props.onChange(this.data);
+  }
+
+  setData(data) {
+    this.data = { ...this.data, ...data };
   }
 
   render() {
@@ -37,7 +41,7 @@ export class AnswerTab extends Component {
     );
   }
 
-  state = {
+  data = {
     input: null,
     output: null
   };

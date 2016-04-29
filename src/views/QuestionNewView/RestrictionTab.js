@@ -4,6 +4,10 @@ import { autobind } from 'core-decorators';
 import TextField from 'material-ui/TextField';
 
 export class RestrictionTab extends Component {
+  componentDidMount() {
+    this.handleChange();
+  }
+
   @autobind
   handleFileChange(event) {
     this.handleChange({ file: event.target.value });
@@ -21,8 +25,12 @@ export class RestrictionTab extends Component {
 
   handleChange(data = {}) {
     // Fire change event
-    this.props.onChange({ restriction: { ...this.state, ...data } });
-    this.setState(data);
+    this.setData(data);
+    this.props.onChange({ restriction: this.data });
+  }
+
+  setData(data) {
+    this.data = { ...this.data, ...data };
   }
 
   render() {
@@ -41,7 +49,7 @@ export class RestrictionTab extends Component {
     );
   }
 
-  state = {
+  data = {
     time: null,
     file: null,
     memory: null

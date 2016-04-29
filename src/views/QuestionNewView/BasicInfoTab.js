@@ -32,8 +32,12 @@ export class BasicInfoTab extends Component {
 
   handleChange(data = {}) {
     // Fire change event
-    this.props.onChange({ ...this.state, ...data });
-    this.setState(data);
+    this.setData(data);
+    this.props.onChange(this.data);
+  }
+
+  setData(data) {
+    this.data = { ...this.data, ...data };
   }
 
   render() {
@@ -70,7 +74,7 @@ export class BasicInfoTab extends Component {
     );
   }
 
-  state = {
+  data = {
     uuid: null,
     title: null,
     description: null,

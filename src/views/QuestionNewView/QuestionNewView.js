@@ -27,28 +27,26 @@ class QuestionNewView extends Component {
 
   @autobind
   handleBasicInfoChange(data) {
-    this.setState({ basicInfo: data });
+    this.setData(data);
   }
 
   @autobind
   handleAnswerChange(data) {
-    this.setState({ answer: data });
+    this.setData(data);
   }
 
   @autobind
   handleRestrictionChange(data) {
-    this.setState({ restriction: data });
+    this.setData(data);
+  }
+
+  setData(data) {
+    this.data = { ...this.data, ...data };
   }
 
   @autobind
   handleAddQuestion() {
-    const data = Object.assign(
-      {},
-      this.state.basicInfo,
-      this.state.answer,
-      this.state.restriction
-    );
-    this.props.addQuestion(createFormDataDeep(data))
+    this.props.addQuestion(createFormDataDeep(this.data))
       .then((result) => {
         if (result) {
           this.setState({
@@ -109,6 +107,8 @@ class QuestionNewView extends Component {
     message: 'Add success',
     open: false
   };
+
+  data = {};
 
   static propTypes = {
     addQuestion: PropTypes.func.isRequired,
