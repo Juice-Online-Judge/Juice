@@ -62,8 +62,8 @@ class ExamController extends ApiController
 
         $exam->setAttribute('user_id', request_user(true))
             ->setAttribute('role_id', $request->has('role_id') ? $request->input('role_id') : null)
-            ->setAttribute('began_at', Carbon::parse($request->input('began_at')))
-            ->setAttribute('ended_at', Carbon::parse($request->input('ended_at')));
+            ->setAttribute('began_at', Carbon::parse($request->input('began_at'))->timezone('Asia/Taipei'))
+            ->setAttribute('ended_at', Carbon::parse($request->input('ended_at'))->timezone('Asia/Taipei'));
 
         if (! $exam->save()) {
             return $this->responseUnknownError();
