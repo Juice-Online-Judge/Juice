@@ -41,9 +41,9 @@ export class Question extends Component {
           </Row>
           <Row end='md'>
             <Col md={ 4 } xs={ 12 }>
-              Time: { question.getIn(['judge', 'restrictions', 'time']) }(s)
-              Memory: { question.getIn(['judge', 'restrictions', 'memory']) }(MB)
-              File: { question.getIn(['judge', 'restrictions', 'file']) }
+              Time: { question.getIn(['judge', 'restriction', 'time']) }(s)
+              Memory: { question.getIn(['judge', 'restriction', 'memory']) }(MB)
+              File: { question.getIn(['judge', 'restriction', 'file']) }
             </Col>
           </Row>
         </CardText>
