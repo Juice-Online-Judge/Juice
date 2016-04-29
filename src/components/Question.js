@@ -48,7 +48,9 @@ export class Question extends Component {
             Description:
           </div>
           <div>
-            { question.get('description') }
+            <pre>
+              { question.get('description') }
+            </pre>
           </div>
         </CardText>
         <CardActions>
