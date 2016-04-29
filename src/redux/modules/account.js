@@ -47,6 +47,11 @@ export const fetchUserInfo = (options = { force: false }) => (dispatch, getState
     return;
   }
 
+  if (!store.has('juice-token')) {
+    dispatch(setLoginState(false));
+    return;
+  }
+
   guardRequest(dispatch, {
     path: 'account/profile'
   }, (entity) => {
