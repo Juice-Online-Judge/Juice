@@ -52,6 +52,13 @@ export class SignInView extends React.Component {
     this.props.login(username, password);
   }
 
+  @autobind
+  handleKeyDown(event) {
+    if (event.keyCode === 13) {
+      this.login(event);
+    }
+  }
+
   render() {
     const { errorMessages } = this.props;
     const message = errorMessages ? errorMessages.get(0) : '';
@@ -72,6 +79,7 @@ export class SignInView extends React.Component {
                 name='password'
                 style={ styles.action }
                 type='password'
+                onKeyDown={ this.handleKeyDown }
                 onChange={ this.handleChange }
                 floatingLabelText='Password' />
             </CardActions>
