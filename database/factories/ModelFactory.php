@@ -23,7 +23,7 @@ $factory->define(App\Questions\Question::class, function (Faker\Generator $faker
         'title' => $faker->sentence,
         'description' => $faker->paragraph,
         'judge' => [
-            'restrictions' => [
+            'restriction' => [
                 'time' => $faker->randomFloat(null, 1.0, 10.0),
                 'memory' => $faker->randomFloat(null, 1.0, 100.0),
                 'file' => $faker->numberBetween(0, 10),
