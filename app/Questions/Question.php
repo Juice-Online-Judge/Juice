@@ -33,6 +33,21 @@ class Question extends Entity
     ];
 
     /**
+     * Get the judge info.
+     *
+     * @param  string  $value
+     * @return array
+     */
+    public function getJudgeAttribute($value)
+    {
+        $judge = json_decode($value, true);
+
+        unset($judge['input'], $judge['output']);
+
+        return $judge;
+    }
+
+    /**
      * Scope a query to only include questions of a given type.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
