@@ -10,16 +10,26 @@ class ExamSubmissionDetail extends Component {
     const { id } = this.props.params;
     const { fetchExamSubmissions } = this.props;
     fetchExamSubmissions(id);
+    this.interval = setInterval(() => {
+      fetchExamSubmissions(id);
+    }, 3000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   render() {
     const { id } = this.props.params;
     const { submission, admin, addFilter } = this.props;
     return (
-      <SubmissionList
-        submission={ submission }
-        examId={ id }
-        addFilter={ admin ? addFilter : null } />
+      <div>
+        <div>This page will update every few seconds</div>
+        <SubmissionList
+          submission={ submission }
+          examId={ id }
+          addFilter={ admin ? addFilter : null } />
+      </div>
     );
   }
 
