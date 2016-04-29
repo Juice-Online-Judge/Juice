@@ -60,7 +60,8 @@ export const registerUser = (info) => (dispatch) => {
   guardRequest(dispatch, {
     path: 'auth/sign-up',
     entity: info
-  }, () => {
+  }, (entity) => {
+    store.set('juice-token', entity);
     dispatch(setUserInfo(info));
   });
 };
