@@ -40,6 +40,8 @@ class CodeView extends Component {
     const { id, examId } = this.props.params;
     const { admin, submission, code, needReview } = this.props;
     const lang = submission.get('language');
+    const isFail = submission.getIn(['judge', 'result'], 'AC') !== 'AC';
+    const judgeMessage = submission.getIn(['judge', 'judge_message']);
     const ext = lang === 'c++' ? 'cpp' : lang;
     return (
       <Inset>
@@ -67,6 +69,15 @@ class CodeView extends Component {
             <DownloadButton label='Download Code' text={ code } filename={ `submission${id}.${ext}` } />
           </Col>
         </Row>
+        {
+          isFail ? (
+            <div>
+              <div>Error message:</div>
+              <CodePane code={ judgeMessage } lang='txt' />
+            </div>
+          ) : null
+        }
+        <div>Code:</div>
         <CodePane code={ code } lang={ lang } />
       </Inset>
     );

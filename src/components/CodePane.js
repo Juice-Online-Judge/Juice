@@ -15,7 +15,7 @@ class CodePane extends Component {
   }
 
   static propTypes = {
-    lang: PropTypes.oneOf(['c', 'cpp']),
+    lang: PropTypes.oneOf(['c', 'cpp', 'txt']),
     code: PropTypes.string,
     children: PropTypes.node
   };
