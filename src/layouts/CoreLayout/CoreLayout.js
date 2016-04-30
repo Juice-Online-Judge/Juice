@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { StyleRoot } from 'radium';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+import 'codemirror/lib/codemirror.css';
 import '../../styles/core.scss';
 import theme from '../../themes/light';
 
