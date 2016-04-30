@@ -61,6 +61,7 @@ export class SubmitCode extends Component {
         <FileArea
           fileKey='code'
           textKey='code'
+          mode='code'
           onChange={ this.handleCodeChange } />
         <FlatButton
           label='Submit'
