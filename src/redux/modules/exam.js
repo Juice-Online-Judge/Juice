@@ -9,6 +9,7 @@ import guardRequest from '../utils/guardRequest';
 import isRequesting from 'lib/isRequesting';
 import { renameKeys } from 'lib/utils';
 import { setQuestion } from './question';
+import { isLogin } from './account';
 
 const ExamStatus = new Record({
   result: new List(),
@@ -34,7 +35,7 @@ export const setExamToken = createAction(SET_EXAM_TOKEN);
 export const clearExam = createAction(CLEAR_EXAM);
 
 export const fetchExams = (query, opts = { force: false }) => (dispatch, getState) => {
-  const { app, exam } = getState();
+  const { app, account, exam } = getState();
   const page = exam.get('page');
   query = query || { page };
 
@@ -43,6 +44,10 @@ export const fetchExams = (query, opts = { force: false }) => (dispatch, getStat
   }
 
   if (exam.get('result').size && query.page === page && !opts.force) {
+    return;
+  }
+
+  if (!isLogin(account)) {
     return;
   }
 
@@ -70,13 +75,22 @@ export const addExam = (data) => (dispatch) => {
     }))
   };
 
+  // No need to check login state here
+  // Because of we check it when access add exam page
+
   return guardRequest(dispatch, {
     path: 'exams',
     entity: examData
   });
 };
 
-export const fetchExamQuestion = (examId) => (dispatch) => {
+export const fetchExamQuestion = (examId) => (dispatch, getState) => {
+  const { account } = getState();
+
+  if (!isLogin(account)) {
+    return;
+  }
+
   guardRequest(dispatch, {
     path: 'exams/{id}/questions',
     params: {
@@ -92,7 +106,13 @@ export const fetchExamQuestion = (examId) => (dispatch) => {
   });
 };
 
-export const fetchExamToken = (examId) => (dispatch) => {
+export const fetchExamToken = (examId) => (dispatch, getState) => {
+  const { account } = getState();
+
+  if (!isLogin(account)) {
+    return;
+  }
+
   guardRequest(dispatch, {
     path: 'exams/{id}/token',
     params: {
