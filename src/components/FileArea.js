@@ -6,6 +6,8 @@ import toArray from 'lodash/toArray';
 import TextField from 'material-ui/TextField';
 import RadioButton from 'material-ui/RadioButton/RadioButton';
 import RadioButtonGroup from 'material-ui/RadioButton/RadioButtonGroup';
+import Codemirror from 'react-codemirror';
+import 'codemirror/mode/clike/clike';
 
 import FileButton from './FileButton';
 import styles from 'lib/styles';
@@ -24,10 +26,16 @@ export class FileArea extends Component {
   }
 
   @autobind
-  handleTextChange(event) {
+  handleTextAreaChange(event) {
     const { value } = event.target;
+    this.handleTextChange(value);
+  }
+
+  @autobind
+  handleTextChange(value) {
     const { multiple } = this.props;
     const content = {};
+    console.log('Change: ', value);
 
     content[this.props.fileKey] = null;
     content[this.props.textKey] = null;
@@ -55,15 +63,28 @@ export class FileArea extends Component {
   }
 
   get textareas() {
-    const { rows } = this.props;
+    const { rows, mode } = this.props;
+    const options = {
+      mode: 'clike',
+      theme: 'monokai-bright'
+    };
 
-    return (
-      <TextField
-        onChange={ this.handleTextChange }
-        floatingLabelText='Input in here'
-        multiLine
-        rows={ rows } />
-    );
+    if (mode === 'text') {
+      return (
+        <TextField
+          onChange={ this.handleTextAreaChange }
+          floatingLabelText='Input in here'
+          multiLine
+          rows={ rows } />
+      );
+    } else {
+      return (
+        <Codemirror
+          autoSave
+          onChange={ this.handleTextChange }
+          options={ options } />
+      );
+    }
   }
 
   areaContent(type) {
@@ -105,9 +126,7 @@ export class FileArea extends Component {
   }
 
   state = {
-    type: 'file',
-    count: 1,
-    textarea: []
+    type: 'file'
   };
 
   static propTypes = {
@@ -116,6 +135,7 @@ export class FileArea extends Component {
     fileKey: PropTypes.string,
     textKey: PropTypes.string,
     multiple: PropTypes.bool,
+    mode: PropTypes.oneOf(['text', 'ace']),
     onChange: PropTypes.func
   };
 
@@ -123,7 +143,8 @@ export class FileArea extends Component {
     label: 'Select a file...',
     rows: 5,
     fileKey: 'file',
-    textKey: 'textarea'
+    textKey: 'textarea',
+    mode: 'text'
   };
 }
 
