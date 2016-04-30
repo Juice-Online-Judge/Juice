@@ -57,6 +57,8 @@ export const fetchUserInfo = (options = { force: false }) => (dispatch, getState
   }, (entity) => {
     dispatch(setUserInfo(entity));
   }, () => {
+    // Token maybe expired here, remove it
+    store.remove('juice-token');
     dispatch(setLoginState(false));
   }, { noError: true });
 };
@@ -83,7 +85,7 @@ export const isValidSelector = (state) => state.account.get('valid');
 // Helper function
 
 export const isLogin = (account) => {
-  return account.get('valid') && account.get('state');
+  return account.get('state') || store.has('juice-token');
 };
 
 export let actions = {
