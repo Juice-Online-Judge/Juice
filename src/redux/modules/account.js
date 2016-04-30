@@ -71,12 +71,20 @@ export const registerUser = (info) => (dispatch) => {
   });
 };
 
+// Selectors
+
 const accountRoleSelector = (state) => state.account.getIn(['user', 'roles'], new List());
 export const createIsAdminSelector = () => createSelector(
   [accountRoleSelector],
   (roles) => roles.includes('admin')
 );
 export const isValidSelector = (state) => state.account.get('valid');
+
+// Helper function
+
+export const isLogin = (account) => {
+  return account.get('valid') && account.get('state');
+};
 
 export let actions = {
   login,
