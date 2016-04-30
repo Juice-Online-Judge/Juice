@@ -135,7 +135,7 @@ export class FileArea extends Component {
     fileKey: PropTypes.string,
     textKey: PropTypes.string,
     multiple: PropTypes.bool,
-    mode: PropTypes.oneOf(['text', 'ace']),
+    mode: PropTypes.oneOf(['text', 'code']),
     onChange: PropTypes.func
   };
 
