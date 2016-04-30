@@ -9,6 +9,7 @@ import CardActions from 'material-ui/Card/CardActions';
 import SubmitCode from './SubmitCode';
 
 import { fetchQuestionDetail, questionSelector } from 'redux/modules/question';
+import { fetchExamQuestion } from 'redux/modules/exam';
 
 export class Question extends Component {
   componentDidMount() {
@@ -16,12 +17,17 @@ export class Question extends Component {
   }
 
   fetchQuestionDetail() {
-    const { question, uuid } = this.props;
+    const { question, uuid, examId } = this.props;
     if (question && question.get('detail')) {
       return;
     }
 
-    this.props.fetchQuestionDetail(uuid, { force: true });
+    if (examId) {
+      // It an exam's question.
+      this.props.fetchExamQuestion(examId);
+    } else {
+      this.props.fetchQuestionDetail(uuid, { force: true });
+    }
   }
 
   render() {
@@ -66,10 +72,11 @@ export class Question extends Component {
     uuid: PropTypes.string.isRequired,
     examId: PropTypes.string,
     question: PropTypes.object,
-    fetchQuestionDetail: PropTypes.func.isRequired
+    fetchQuestionDetail: PropTypes.func.isRequired,
+    fetchExamQuestion: PropTypes.func.isRequired
   };
 }
 
 export default connect((state, props) => ({
   question: questionSelector(state, props)
-}), { fetchQuestionDetail })(Question);
+}), { fetchQuestionDetail, fetchExamQuestion })(Question);
