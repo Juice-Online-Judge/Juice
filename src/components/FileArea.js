@@ -35,7 +35,6 @@ export class FileArea extends Component {
   handleTextChange(value) {
     const { multiple } = this.props;
     const content = {};
-    console.log('Change: ', value);
 
     content[this.props.fileKey] = null;
     content[this.props.textKey] = null;
