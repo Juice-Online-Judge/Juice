@@ -51,7 +51,7 @@ export class Question extends Component {
           </div>
         </CardText>
         <CardText>
-          <Markdown escapeHtml source={ question.get('description') } />
+          <Markdown escapeHtml source={ question.get('description', '') } />
         </CardText>
         <CardActions>
           <SubmitCode
