@@ -41,6 +41,40 @@ export const filterSubmissionSelector = createSelector(
   }
 );
 
+// Helper function
+
+export const filterStringify = (filter) => {
+  const user = filter.get('user');
+  const question = filter.get('question');
+  const result = [];
+  if (user) {
+    result.push(`user:${user}`);
+  }
+
+  if (question) {
+    result.push(`question:${question}`);
+  }
+  return result.join(' ');
+};
+
+export const parseFilter = (filterString) => {
+  const filters = filterString.split(/\s+/);
+  const parsedFilter = { user: null, question: null };
+  if (filters.length > 2) {
+    return null;
+  }
+
+  for (let i = 0; i < filters.length; i += 1) {
+    let filter = filters[i].split(':');
+    if (parsedFilter[filter[0]] !== null) {
+      return null;
+    }
+    parsedFilter[filter[0]] = filter[0] === 'user' ? parseInt(filter[1]) : filter[1];
+  }
+
+  return parsedFilter;
+};
+
 export default handleActions({
   [ADD_FILTER]: (state, { payload }) => state.merge(payload),
   [CLEAR_FILTER]: () => initialState

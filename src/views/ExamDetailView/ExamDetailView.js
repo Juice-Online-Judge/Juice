@@ -11,18 +11,45 @@ import FlipToFrontIcon from 'material-ui/svg-icons/action/flip-to-front';
 import CopyButton from 'components/CopyButton';
 import { Row, Col } from 'react-flexbox-grid';
 import { fetchExamToken } from 'redux/modules/exam';
-import { clearFilter } from 'redux/modules/submissionFilter';
+import { filterStringify, parseFilter, addFilter, clearFilter } from 'redux/modules/submissionFilter';
 import styles from 'lib/styles';
 
 class ExamDetailView extends Component {
   componentDidMount() {
     const { id } = this.props.params;
+    const { submissionFilter } = this.props;
     this.props.fetchExamToken(id);
+    this.setState({ filter: filterStringify(submissionFilter) });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const nextFilter = nextProps.submissionFilter;
+    if (nextFilter !== this.props.submissionFilter) {
+      this.setState({ filter: filterStringify(nextFilter) });
+    }
   }
 
   @autobind
   handleFocus() {
     this.refs.textField.select();
+  }
+
+  @autobind
+  handleChange(event) {
+    this.setState({ filter: event.target.value });
+  }
+
+  @autobind
+  handleKeyDown(event) {
+    if (event.keyCode === 13) {
+      const newFilter = parseFilter(this.state.filter);
+      if (newFilter === null) {
+        this.setState({ errorText: 'Syntax error' });
+      } else {
+        this.setState({ errorText: null });
+        this.props.addFilter(newFilter);
+      }
+    }
   }
 
   @autobind
@@ -45,7 +72,7 @@ class ExamDetailView extends Component {
 
   render() {
     const { id } = this.props.params;
-    const { exam, submissionFilter, children } = this.props;
+    const { exam, children } = this.props;
     const token = exam.getIn(['tokens', `${id}`]);
     const { path } = this.props.routes[2];
     const isSubmission = path === 'submissions';
@@ -60,7 +87,10 @@ class ExamDetailView extends Component {
                     <TextField
                       name='filter'
                       fullWidth
-                      value={ filterStringify(submissionFilter) } />
+                      errorText={ this.state.errorText }
+                      onKeyDown={ this.handleKeyDown }
+                      onChange={ this.handleChange }
+                      value={ this.state.filter } />
                   </Col>
                   <Col md={ 4 }>
                     <FlatButton
@@ -92,6 +122,11 @@ class ExamDetailView extends Component {
     );
   }
 
+  state = {
+    filter: '',
+    errorText: null
+  };
+
   static propTypes = {
     children: PropTypes.element.isRequired,
     exam: PropTypes.object.isRequired,
@@ -100,6 +135,7 @@ class ExamDetailView extends Component {
     params: PropTypes.shape({
       id: PropTypes.string.isRequired
     }).isRequired,
+    addFilter: PropTypes.func.isRequired,
     clearFilter: PropTypes.func.isRequired,
     fetchExamToken: PropTypes.func.isRequired
   }
@@ -108,18 +144,4 @@ class ExamDetailView extends Component {
 export default connect((state) => ({
   exam: state.exam,
   submissionFilter: state.submissionFilter
-}), { fetchExamToken, clearFilter })(ExamDetailView);
-
-const filterStringify = (filter) => {
-  const user = filter.get('user');
-  const question = filter.get('question');
-  const result = [];
-  if (user) {
-    result.push(`user:${user}`);
-  }
-
-  if (question) {
-    result.push(`question:${question}`);
-  }
-  return result.join(' ');
-};
+}), { fetchExamToken, addFilter, clearFilter })(ExamDetailView);
