@@ -64,6 +64,10 @@ export const parseFilter = (filterString) => {
     return null;
   }
 
+  if (!filterString) {
+    return parsedFilter;
+  }
+
   for (let i = 0; i < filters.length; i += 1) {
     let filter = filters[i].split(':');
     if (parsedFilter[filter[0]] !== null) {
