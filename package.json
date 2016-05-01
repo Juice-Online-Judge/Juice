@@ -107,7 +107,7 @@
     "json-loader": "^0.5.4",
     "node-sass": "^3.6.0",
     "nodemon": "^1.9.2",
-    "postcss-loader": "^0.8.1",
+    "postcss-loader": "^0.9.1",
     "redux-devtools": "^3.1.1",
     "redux-devtools-dock-monitor": "^1.1.0",
     "redux-devtools-log-monitor": "^1.0.11",
