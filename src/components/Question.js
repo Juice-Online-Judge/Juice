@@ -5,6 +5,7 @@ import Card from 'material-ui/Card/Card';
 import CardTitle from 'material-ui/Card/CardTitle';
 import CardText from 'material-ui/Card/CardText';
 import CardActions from 'material-ui/Card/CardActions';
+import Markdown from 'react-markdown';
 
 import SubmitCode from './SubmitCode';
 
@@ -50,14 +51,7 @@ export class Question extends Component {
           </div>
         </CardText>
         <CardText>
-          <div>
-            Description:
-          </div>
-          <div>
-            <pre>
-              { question.get('description') }
-            </pre>
-          </div>
+          <Markdown escapeHtml source={ question.get('description') } />
         </CardText>
         <CardActions>
           <SubmitCode
