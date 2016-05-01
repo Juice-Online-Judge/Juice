@@ -8,7 +8,10 @@ const validateConnect = (validateRule, mapStatesToProps, actions) => {
   return (WrappedComponent) => {
     const componentName = getDisplayName(WrappedComponent);
     const getComponentMessage = createGetComponentMessage(componentName);
-    const mapStates = (state) => Object.assign({}, mapStatesToProps(state), getComponentMessage(state));
+    const mapStates = (state) => ({
+      ...mapStatesToProps(state),
+      ...getComponentMessage(state)
+    });
 
     class ValidateCommponent extends Component {
       componentWillMount() {
