@@ -34,7 +34,11 @@ class MarkdownEditor extends Component {
       <div>
         <Toolbar>
           <ToolbarGroup firstChild>
-            <FlatButton label='Preview' icon={ <PreviewIcon /> } onTouchTap={ this.handlePreviewToggle } />
+            <FlatButton
+              label='Preview'
+              secondary={ preview }
+              icon={ <PreviewIcon /> }
+              onTouchTap={ this.handlePreviewToggle } />
           </ToolbarGroup>
           <ToolbarGroup>
             <ToolbarTitle>
