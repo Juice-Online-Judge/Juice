@@ -7,6 +7,7 @@ function loadStories() {
   require('./stories/TitleCard');
   require('./stories/ExamCard');
   require('./stories/ExamBasicInfoTab');
+  require('./stories/MarkdownEditor');
 }
 
 configure(loadStories, module);

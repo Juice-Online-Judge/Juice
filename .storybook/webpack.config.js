@@ -30,6 +30,9 @@ module.exports = {
         cssLoader,
         'postcss'
       ]
+    }, {
+      test: /\.json$/,
+      loader: 'json'
     }]
   }
 };
