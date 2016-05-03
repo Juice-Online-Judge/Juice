@@ -1,20 +1,19 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
+import setDisplayName from 'recompose/setDisplayName';
+import setPropTypes from 'recompose/setPropTypes';
+import compose from 'recompose/compose';
 
-export class Label extends Component {
-  render() {
-    const label = this.props.label || this.props.children;
-    return (
-      <label style={ styles.label }>
-        { label }
-      </label>
-    );
-  }
-
-  static propTypes = {
+export const Label = compose(
+  setDisplayName('Label'),
+  setPropTypes({
     label: PropTypes.string,
     children: PropTypes.node
-  };
-}
+  })
+)(({ label, children }) => (
+  <label style={ styles.label }>
+    { label || children }
+  </label>
+));
 
 export default Label;
 

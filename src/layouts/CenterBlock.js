@@ -1,31 +1,23 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
+import setPropTypes from 'recompose/setPropTypes';
+import setDisplayName from 'recompose/setDisplayName';
+import compose from 'recompose/compose';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 
-export class CenterBlock extends Component {
-  render() {
-    return (
-      <Grid>
-        <Row center='md' middle='md'>
-          <Col md={ this.props.fullwidth ? 12 : 6 } sm={ 12 }>
-            <div style={ styles.fullWidth }>
-              { this.props.children }
-            </div>
-          </Col>
-        </Row>
-      </Grid>
-    );
-  }
-
-  static propTypes = {
-    children: PropTypes.node,
-    fullwidth: PropTypes.bool
-  };
-}
-
-const styles = {
-  fullWidth: {
-    width: '100%'
-  }
-};
+export const CenterBlock = compose(
+  setDisplayName('CenterBlock'),
+  setPropTypes({
+    fullwidth: PropTypes.bool,
+    children: PropTypes.node
+  })
+)(({ fullwidth, children }) => (
+  <Grid>
+    <Row center='md' middle='md'>
+      <Col md={ fullwidth ? 12 : 6 } sm={ 12 }>
+        { children }
+      </Col>
+    </Row>
+  </Grid>
+));
 
 export default CenterBlock;
