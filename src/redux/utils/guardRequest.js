@@ -17,9 +17,7 @@ const guardRequest = (dispatch, reqOpts, handleResult, handleError, opts) => {
     if (handleError) {
       handleError(error);
     }
-    if (!opts || !opts.noError) {
-      handleRequestError(dispatch, error);
-    }
+    handleRequestError(dispatch, error);
     return false;
   });
 };

@@ -60,7 +60,7 @@ export const fetchUserInfo = (options = { force: false }) => (dispatch, getState
     // Token maybe expired here, remove it
     store.remove('juice-token');
     dispatch(setLoginState(false));
-  }, { noError: true });
+  });
 };
 
 export const registerUser = (info) => (dispatch) => {
