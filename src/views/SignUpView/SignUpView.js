@@ -2,8 +2,9 @@ import React, { PropTypes } from 'react';
 import Radium from 'radium';
 import { autobind } from 'core-decorators';
 import pick from 'lodash/pick';
+import compose from 'recompose/compose';
 
-import { actions as accountActions } from '../../redux/modules/account';
+import { registerUser } from '../../redux/modules/account';
 import { push } from 'react-router-redux';
 
 import Paper from 'material-ui/Paper';
@@ -18,7 +19,6 @@ import rule from 'validation/register';
 import validateConnect from 'lib/validateConnect';
 import { silencePromise } from 'lib/utils';
 
-@Radium
 export class SignUpView extends React.Component {
   componentDidMount() {
     this.props.fetchUserInfo();
@@ -136,9 +136,14 @@ export class SignUpView extends React.Component {
   };
 }
 
-export default validateConnect(rule, (state) => {
-  return {loginState: state.account};
-}, Object.assign({}, accountActions, { push }))(SignUpView);
+export default compose(
+  validateConnect(
+    rule,
+    (state) => ({ loginState: state.account }),
+    { registerUser, push }
+  ),
+  Radium
+)(SignUpView);
 
 let styles = {
   paper: {
