@@ -3,6 +3,7 @@ import { autobind } from 'core-decorators';
 
 import TextField from 'material-ui/TextField';
 import Toggle from 'material-ui/Toggle';
+import MarkdownEditor from 'components/MarkdownEditor';
 
 export class BasicInfoTab extends Component {
   componentDidMount() {
@@ -21,8 +22,8 @@ export class BasicInfoTab extends Component {
   }
 
   @autobind
-  handleDescChange(event) {
-    this.handleChange({ description: event.target.value });
+  handleDescChange(text) {
+    this.handleChange({ description: text });
   }
 
   @autobind
@@ -56,12 +57,8 @@ export class BasicInfoTab extends Component {
             onChange={ this.handleTitleChange } />
         </div>
         <div>
-          <TextField
-            floatingLabelText='Description'
-            fullWidth
-            multiLine
-            onChange={ this.handleDescChange }
-            rows={ 10 } />
+          <MarkdownEditor
+            onChange={ this.handleDescChange } />
         </div>
         <div>
           <Toggle
