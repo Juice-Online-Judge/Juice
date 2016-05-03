@@ -2,8 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
-import { actions as questionActions } from 'redux/modules/question';
-import { actions as appActions } from 'redux/modules/app';
+import { fetchQuestion } from 'redux/modules/question';
 import createMaxPageSelector from 'redux/selectors/maxPageSelector';
 import { createIsAdminSelector } from 'redux/modules/account';
 
@@ -62,8 +61,7 @@ export class QuestionListView extends Component {
     question: PropTypes.object.isRequired,
     admin: PropTypes.bool.isRequired,
     maxPage: PropTypes.number.isRequired,
-    fetchQuestion: PropTypes.func.isRequired,
-    clearStatus: PropTypes.func.isRequired
+    fetchQuestion: PropTypes.func.isRequired
   };
 }
 
@@ -76,4 +74,4 @@ export default connect((state) => {
     maxPage: maxPageSelector(state.question),
     admin: isAdminSelector(state)
   };
-}, Object.assign({}, questionActions, appActions))(QuestionListView);
+}, { fetchQuestion })(QuestionListView);
