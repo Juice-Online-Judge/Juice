@@ -48,17 +48,10 @@ class QuestionNewView extends Component {
   handleAddQuestion() {
     this.props.addQuestion(createFormDataDeep(this.data))
       .then((result) => {
-        if (result) {
-          this.setState({
-            open: true,
-            message: 'Add success'
-          });
-        } else {
-          this.setState({
-            open: true,
-            message: 'Add fail'
-          });
-        }
+        this.setState({
+          open: true,
+          message: result ? 'Add success' : 'Add fail'
+        });
       });
   }
 
