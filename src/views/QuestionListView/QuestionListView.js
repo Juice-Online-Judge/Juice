@@ -41,7 +41,7 @@ export class QuestionListView extends Component {
           <QuestionList question={ question } />
         </Inset>
         <Pagination
-          baseUrl='/'
+          baseUrl='/questions'
           maxPage={ maxPage }
           current={ page } />
           {
