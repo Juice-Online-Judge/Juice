@@ -12,8 +12,7 @@ import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import CodeIcon from 'material-ui/svg-icons/action/code';
 
-@Radium
-class Submission extends Component {
+export class Submission extends Component {
   @autobind
   handleFilterQuestion() {
     const { quesUuid } = this.props;
@@ -146,4 +145,4 @@ const styles = {
   }
 };
 
-export default Submission;
+export default Radium(Submission);
