@@ -5,9 +5,9 @@ import Inset from 'layouts/Inset';
 import LoadingContainer from 'components/LoadingContainer';
 import SubmissionList from 'components/SubmissionList';
 
-import { actions as submissionActions } from 'redux/modules/submission';
+import { fetchSubmissions } from 'redux/modules/submission';
 
-class SubmissionView extends Component {
+export class SubmissionView extends Component {
   componentDidMount() {
     this.props.fetchSubmissions({ force: true });
   }
@@ -30,4 +30,4 @@ class SubmissionView extends Component {
 }
 
 export default connect((state) => ({ submission: state.submission }),
-  submissionActions)(SubmissionView);
+  { fetchSubmissions })(SubmissionView);
