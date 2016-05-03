@@ -15,7 +15,7 @@ const Message = compose(
   <Snackbar
     open={ open }
     message={ message }
-    autoHideDuration={ 1000 }
+    autoHideDuration={ 2000 }
     onRequestClose={ onRequestClose } />
 ));
 
