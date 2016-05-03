@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
+import range from 'lodash/range';
 
 import { Table, TableHeader, TableRow, TableBody, TableRowColumn, TableHeaderColumn }
   from 'material-ui/Table';
@@ -24,12 +25,17 @@ class UserTab extends Component {
 
   emitChange(selectedRow) {
     const { users } = this.props;
+    if (selectedRow === 'all') {
+      selectedRow = range(0, users.get('result').size);
+    }
     const result = selectedRow.map((idx) => users.getIn(['result', idx]));
+    this.setState({ selectedRow });
     this.props.onChange(result);
   }
 
   render() {
     const { users } = this.props;
+    const { selectedRow } = this.state;
     return (
       <div>
         <Table
@@ -38,7 +44,7 @@ class UserTab extends Component {
           selectable
           multiSelectable
           onRowSelection={ this.handleUserSelect } >
-          <TableHeader enableSelectAll={ false } >
+          <TableHeader>
             <TableRow>
               <TableHeaderColumn>
                 Username
@@ -51,8 +57,8 @@ class UserTab extends Component {
           <TableBody
             deselectOnClickaway={ false } >
             {
-              users.get('result').map((id) => (
-                <TableRow key={ id } >
+              users.get('result').map((id, idx) => (
+                <TableRow selected={ selectedRow.indexOf(idx) !== -1 } key={ id } >
                   <TableRowColumn>
                     { users.getIn(['entities', 'user', `${id}`, 'username']) }
                   </TableRowColumn>
@@ -67,6 +73,10 @@ class UserTab extends Component {
       </div>
     );
   }
+
+  state = {
+    selectedRow: []
+  };
 
   static propTypes = {
     users: PropTypes.object.isRequired,
