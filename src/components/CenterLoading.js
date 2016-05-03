@@ -1,27 +1,25 @@
 import React, { PropTypes } from 'react';
+import { Row, Col } from 'react-flexbox-grid';
+import setPropTypes from 'recompose/setPropTypes';
+import setDisplayName from 'recompose/setDisplayName';
+import compose from 'recompose/compose';
 
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 
-export const CenterLoading = (props) => {
-  const { loading } = props;
+export const CenterLoading = compose(
+  setDisplayName('CenterLoading'),
+  setPropTypes({
+    loading: PropTypes.bool
+  })
+)(({ loading }) => {
   const status = loading ? 'loading' : 'hide';
   return (
-    <div style={ styles.flexContainer }>
-      <RefreshIndicator status={ status } left={ window.innerWidth / 2 - 20 } top={ 10 } />
-    </div>
+    <Row center='xs'>
+      <Col>
+        <RefreshIndicator status={ status } left={ window.innerWidth / 2 - 20 } top={ 10 } />
+      </Col>
+    </Row>
   );
-};
-
-CenterLoading.propTypes = {
-  loading: PropTypes.bool
-};
+});
 
 export default CenterLoading;
-
-const styles = {
-  flexContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-};
