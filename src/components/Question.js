@@ -1,4 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import setDisplayName from 'recompose/setDisplayName';
+import setPropTypes from 'recompose/setPropTypes';
+import compose from 'recompose/compose';
 import { connect } from 'react-redux';
 
 import Card from 'material-ui/Card/Card';
@@ -32,40 +35,20 @@ export class Question extends Component {
   }
 
   render() {
-    const { question } = this.props;
+    const { uuid, examId, question } = this.props;
 
     return (
-      <Card>
-        <CardTitle
-          title={ question.get('title') }
-          subtitle={ `uuid: ${question.get('uuid')}` } />
-        <CardText>
-          <div>
-            Time limit: { question.getIn(['judge', 'restriction', 'time']) } s
-          </div>
-          <div>
-            Memory limit: { question.getIn(['judge', 'restriction', 'memory']) } MB
-          </div>
-          <div>
-            File limit: { question.getIn(['judge', 'restriction', 'file']) }
-          </div>
-        </CardText>
-        <CardText>
-          <Markdown escapeHtml source={ question.get('description', '') } />
-        </CardText>
-        <CardActions>
-          <SubmitCode
-            examId={ this.props.examId }
-            uuid={ this.props.uuid } />
-        </CardActions>
-      </Card>
+      <QuestionCard
+        uuid={ uuid }
+        examId={ examId }
+        question={ question } />
     );
   }
 
   static propTypes = {
     uuid: PropTypes.string.isRequired,
     examId: PropTypes.string,
-    question: PropTypes.object,
+    question: PropTypes.object.isRequired,
     fetchQuestionDetail: PropTypes.func.isRequired,
     fetchExamQuestion: PropTypes.func.isRequired
   };
@@ -74,3 +57,37 @@ export class Question extends Component {
 export default connect((state, props) => ({
   question: questionSelector(state, props)
 }), { fetchQuestionDetail, fetchExamQuestion })(Question);
+
+export const QuestionCard = compose(
+  setDisplayName('QuestionCard'),
+  setPropTypes({
+    uuid: PropTypes.string.isRequired,
+    examId: PropTypes.string,
+    question: PropTypes.object.isRequired
+  })
+)(({ uuid, examId, question }) => (
+  <Card>
+    <CardTitle
+      title={ question.get('title') }
+      subtitle={ `uuid: ${uuid}` } />
+    <CardText>
+      <div>
+        Time limit: { question.getIn(['judge', 'restriction', 'time']) } s
+      </div>
+      <div>
+        Memory limit: { question.getIn(['judge', 'restriction', 'memory']) } MB
+      </div>
+      <div>
+        File limit: { question.getIn(['judge', 'restriction', 'file']) }
+      </div>
+    </CardText>
+    <CardText>
+      <Markdown escapeHtml source={ question.get('description', '') } />
+    </CardText>
+    <CardActions>
+      <SubmitCode
+        examId={ examId }
+        uuid={ uuid } />
+    </CardActions>
+  </Card>
+));
