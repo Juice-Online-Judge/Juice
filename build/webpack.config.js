@@ -2,6 +2,7 @@ import webpack from 'webpack';
 import cssnano from 'cssnano';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import OfflinePlugin from 'offline-plugin';
 import config from '../config';
 import _debug from 'debug';
 
@@ -66,6 +67,18 @@ if (__PROD__) {
         unused: true,
         dead_code: true,
         warnings: false
+      }
+    }),
+    new OfflinePlugin({
+      caches: 'all',
+      scope: '/',
+      updateStrategy: 'all',
+      version: 'v1',
+      ServiceWorker: {
+        output: 'sw.js'
+      },
+      AppCache: {
+        directory: 'appcache/'
       }
     })
   );

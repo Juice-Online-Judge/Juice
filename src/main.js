@@ -3,18 +3,22 @@ import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { useRouterHistory } from 'react-router';
 import { createHistory } from 'history';
-import useScroll from 'scroll-behavior/lib/useStandardScroll';
+import withScroll from 'scroll-behavior';
 import routes from './routes';
 import Root from './containers/Root';
 import configureStore from './redux/configureStore';
 
 const historyConfig = { basename: __BASENAME__ };
-const browserHistory = useScroll(useRouterHistory(createHistory))(historyConfig);
+const browserHistory = withScroll(useRouterHistory(createHistory)(historyConfig));
 
 const initialState = window.__INITIAL_STATE__;
 const { store, history } = configureStore({ initialState, browserHistory });
 
 injectTapEventPlugin();
+
+if (__PROD__) {
+  require('offline-plugin/runtime').install();
+}
 
 // Render the React application to the DOM
 ReactDOM.render(
