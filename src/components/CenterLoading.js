@@ -9,14 +9,15 @@ import RefreshIndicator from 'material-ui/RefreshIndicator';
 export const CenterLoading = compose(
   setDisplayName('CenterLoading'),
   setPropTypes({
+    left: PropTypes.number.isRequired,
     loading: PropTypes.bool
   })
-)(({ loading }) => {
+)(({ left, loading }) => {
   const status = loading ? 'loading' : 'hide';
   return (
     <Row center='xs'>
       <Col>
-        <RefreshIndicator status={ status } left={ window.innerWidth / 2 - 20 } top={ 10 } />
+        <RefreshIndicator status={ status } left={ left } top={ 10 } />
       </Col>
     </Row>
   );
