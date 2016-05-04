@@ -7,11 +7,10 @@ import isUndefined from 'lodash/isUndefined';
 import Toolbar from 'material-ui/Toolbar/Toolbar';
 import ToolbarGroup from 'material-ui/Toolbar/ToolbarGroup';
 import ToolbarTitle from 'material-ui/Toolbar/ToolbarTitle';
-import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 import Markdown from 'react-markdown';
-import PreviewIcon from 'material-ui/svg-icons/action/toc';
+import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 import BoldIcon from 'material-ui/svg-icons/editor/format-bold';
 import ItalicIcon from 'material-ui/svg-icons/editor/format-italic';
 import BulletedIcon from 'material-ui/svg-icons/editor/format-list-bulleted';
@@ -135,11 +134,14 @@ class MarkdownEditor extends Component {
       <div>
         <Toolbar>
           <ToolbarGroup firstChild>
-            <FlatButton
-              label='Preview'
-              secondary={ preview }
-              icon={ <PreviewIcon /> }
-              onTouchTap={ this.handlePreviewToggle } />
+            <IconButton
+              iconStyle={ preview ? {} : {
+                fill: '#ff4081',
+                color: '#ff4081'
+              } }
+              onTouchTap={ this.handlePreviewToggle }>
+              <EditIcon />
+            </IconButton>
           </ToolbarGroup>
           <ToolbarGroup>
             <ToolbarTitle>
