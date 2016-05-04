@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import { autobind } from 'core-decorators';
 import qwery from 'qwery';
+import isUndefined from 'lodash/isUndefined';
 
 import Toolbar from 'material-ui/Toolbar/Toolbar';
 import ToolbarGroup from 'material-ui/Toolbar/ToolbarGroup';
@@ -26,16 +27,43 @@ class MarkdownEditor extends Component {
       return;
     }
     this.textarea = qwery('textarea:nth-child(2)', findDOMNode(textField))[0];
+    this.textarea.addEventListener('select', (event) => {
+      this.selectionStart = event.target.selectionStart;
+      this.selectionEnd = event.target.selectionEnd;
+    });
   }
 
   @autobind
   handleBold() {
-    this.appendTextAndMoveCursor('****');
+    this.appendOrWrapText('****');
   }
 
   @autobind
   handleItalic() {
-    this.appendTextAndMoveCursor('__');
+    this.appendOrWrapText('__');
+  }
+
+  appendOrWrapText(addText) {
+    if (this.isSelection()) {
+      this.wrapText(addText);
+    } else {
+      this.appendTextAndMoveCursor(addText);
+    }
+  }
+
+  wrapText(wrappedText) {
+    wrappedText = wrappedText.substr(0, wrappedText.length / 2);
+    const start = this.selectionStart;
+    const end = this.selectionEnd;
+    const { text } = this.state;
+    const selectedText = text.substr(start, end);
+    const selectedBefore = text.substr(0, start);
+    const selectedEnd = text.substr(end);
+    this.setState({
+      text: `${selectedBefore}${wrappedText}${selectedText}${wrappedText}${selectedEnd}`
+    }, () => {
+      this.moveCursor(end + wrappedText.length);
+    });
   }
 
   appendTextAndMoveCursor(appendText) {
@@ -46,14 +74,25 @@ class MarkdownEditor extends Component {
   }
 
   moveCursorBack(count) {
-    const { preview, text } = this.state;
-    const pos = text.length - count;
+    const { text } = this.state;
+    this.moveCursor(text.length - count);
+  }
+
+  moveCursor(pos) {
+    const { preview } = this.state;
     if (preview) {
       return;
     }
 
     this.textarea.setSelectionRange(pos, pos);
     this.textarea.focus();
+  }
+
+  isSelection() {
+    if (isUndefined(this.selectionStart)) {
+      return false;
+    }
+    return this.selectionStart !== this.selectedEnd;
   }
 
   @autobind
