@@ -14,6 +14,8 @@ import Markdown from 'react-markdown';
 import PreviewIcon from 'material-ui/svg-icons/action/toc';
 import BoldIcon from 'material-ui/svg-icons/editor/format-bold';
 import ItalicIcon from 'material-ui/svg-icons/editor/format-italic';
+import BulletedIcon from 'material-ui/svg-icons/editor/format-list-bulleted';
+import NumberedIcon from 'material-ui/svg-icons/editor/format-list-numbered';
 
 class MarkdownEditor extends Component {
   @autobind
@@ -43,6 +45,18 @@ class MarkdownEditor extends Component {
     this.appendOrWrapText('__');
   }
 
+  @autobind
+  handleBulleted() {
+    const { text } = this.state;
+    this.appendText(text ? '\n- ' : '- ');
+  }
+
+  @autobind
+  handleNumbered() {
+    const { text } = this.state;
+    this.appendText(text ? '\n1. ' : '1. ');
+  }
+
   appendOrWrapText(addText) {
     if (this.isSelection()) {
       this.wrapText(addText);
@@ -70,6 +84,13 @@ class MarkdownEditor extends Component {
     const { text } = this.state;
     this.setState({ text: `${text}${appendText}` }, () => {
       this.moveCursorBack(appendText.length / 2);
+    });
+  }
+
+  appendText(appendText) {
+    const { text } = this.state;
+    this.setState({ text: `${text}${appendText}` }, () => {
+      this.moveCursorBack(0);
     });
   }
 
@@ -133,6 +154,16 @@ class MarkdownEditor extends Component {
               disabled={ preview }
               onTouchTap={ this.handleItalic }>
               <ItalicIcon />
+            </IconButton>
+            <IconButton
+              disabled={ preview }
+              onTouchTap={ this.handleBulleted }>
+              <BulletedIcon />
+            </IconButton>
+            <IconButton
+              disabled={ preview }
+              onTouchTap={ this.handleNumbered }>
+              <NumberedIcon />
             </IconButton>
           </ToolbarGroup>
         </Toolbar>
