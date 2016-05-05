@@ -4,7 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Snackbar from 'material-ui/Snackbar';
 import ClipboardButton from 'react-clipboard.js';
 
-class CopyButton extends Component {
+export class CopyButton extends Component {
   @autobind
   handleCopySuccess() {
     this.setState({ open: true });
