@@ -4,18 +4,27 @@ import Inset from 'layouts/Inset';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 
 describe('<Inset />', () => {
-  it('render <Grid /> component', () => {
+  it('render a <Grid /> component', () => {
     const wrapper = shallow(<Inset />);
-    expect(wrapper.find(Grid)).to.have.lengthOf(1);
+    expect(wrapper).to.have.exactly(1).descendants(Grid);
   });
 
-  it('render <Row /> component', () => {
+  it('render a <Row /> component', () => {
     const wrapper = shallow(<Inset />);
-    expect(wrapper.find(Row)).to.have.lengthOf(1);
+    expect(wrapper).to.have.exactly(1).descendants(Row);
   });
 
-  it('render <Col /> component', () => {
+  it('render a <Col /> component', () => {
     const wrapper = shallow(<Inset />);
-    expect(wrapper.find(Col)).to.have.lengthOf(1);
+    expect(wrapper).to.have.exactly(1).descendants(Col);
   });
+
+  it('render children when passed in', () => {
+    const wrapper = shallow(
+      <Inset>
+        <div className='child' />
+      </Inset>
+    );
+    expect(wrapper).to.contain(<div className='child' />);
+  })
 });
