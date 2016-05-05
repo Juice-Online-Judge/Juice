@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import pure from 'recompose/pure';
 import setPropTypes from 'recompose/setPropTypes';
 import setDisplayName from 'recompose/setDisplayName';
 import compose from 'recompose/compose';
@@ -27,4 +28,4 @@ const DownloadButton = compose(
   );
 });
 
-export default DownloadButton;
+export default pure(DownloadButton);
