@@ -1,9 +1,10 @@
-import { argv } from 'yargs';
-import config from '../config';
-import webpackConfig from './webpack.config';
+import { argv } from 'yargs'
+import config from '../config'
+import webpackConfig from './webpack.config'
+import _debug from 'debug'
 
-const debug = require('debug')('app:karma');
-debug('Create configuration.');
+const debug = _debug('app:karma')
+debug('Create configuration.')
 
 const karmaConfig = {
   basePath: '../', // project root in relation to bin/karma.js
@@ -17,18 +18,40 @@ const karmaConfig = {
     }
   ],
   singleRun: !argv.watch,
-  frameworks: ['mocha', 'chai-sinon', 'chai-as-promised', 'chai'],
+  frameworks: ['mocha'],
+  reporters: ['mocha'],
   preprocessors: {
-    [`${config.dir_test}/test-bundler.js`]: ['webpack', 'sourcemap']
+    [`${config.dir_test}/test-bundler.js`]: ['webpack']
   },
-  reporters: ['spec'],
   browsers: ['PhantomJS'],
   webpack: {
-    devtool: 'inline-source-map',
-    resolve: webpackConfig.resolve,
+    devtool: 'cheap-module-source-map',
+    resolve: {
+      ...webpackConfig.resolve,
+      alias: {
+        ...webpackConfig.resolve.alias,
+        sinon: 'sinon/pkg/sinon.js'
+      }
+    },
     plugins: webpackConfig.plugins,
     module: {
-      loaders: webpackConfig.module.loaders
+      noParse: [
+        /\/sinon\.js/
+      ],
+      loaders: webpackConfig.module.loaders.concat([
+        {
+          test: /sinon(\\|\/)pkg(\\|\/)sinon\.js/,
+          loader: 'imports?define=>false,require=>false'
+        }
+      ])
+    },
+    // Enzyme fix, see:
+    // https://github.com/airbnb/enzyme/issues/47
+    externals: {
+      ...webpackConfig.externals,
+      'react/addons': true,
+      'react/lib/ExecutionEnvironment': true,
+      'react/lib/ReactContext': 'window'
     },
     sassLoader: webpackConfig.sassLoader
   },
@@ -38,16 +61,17 @@ const karmaConfig = {
   coverageReporter: {
     reporters: config.coverage_reporters
   }
-};
+}
 
-if (config.coverage_enabled) {
-  karmaConfig.reporters.push('coverage');
+if (config.globals.__COVERAGE__) {
+  karmaConfig.reporters.push('coverage')
   karmaConfig.webpack.module.preLoaders = [{
     test: /\.(js|jsx)$/,
     include: new RegExp(config.dir_client),
     loader: 'isparta',
     exclude: /node_modules/
-  }];
+  }]
 }
 
-export default (cfg) => cfg.set(karmaConfig);
+// cannot use `export default` because of Karma.
+module.exports = (cfg) => cfg.set(karmaConfig)
