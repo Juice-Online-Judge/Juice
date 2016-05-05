@@ -135,10 +135,7 @@ class MarkdownEditor extends Component {
         <Toolbar>
           <ToolbarGroup firstChild>
             <IconButton
-              iconStyle={ preview ? {} : {
-                fill: '#ff4081',
-                color: '#ff4081'
-              } }
+              iconStyle={ preview ? styles.none : styles.active }
               onTouchTap={ this.handlePreviewToggle }>
               <EditIcon />
             </IconButton>
@@ -200,3 +197,11 @@ class MarkdownEditor extends Component {
 }
 
 export default MarkdownEditor;
+
+const styles = {
+  active: {
+    fill: '#ff4081',
+    color: '#ff4081'
+  },
+  none: {}
+};
