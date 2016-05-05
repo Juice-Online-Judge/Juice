@@ -22,7 +22,7 @@ export const clearUser = createAction(CLEAR_USER);
 
 export const login = (username, password) => (dispatch) => {
   let body = { username, password };
-  guardRequest(dispatch, {
+  return guardRequest(dispatch, {
     path: 'auth/sign-in',
     entity: body
   }, (entity) => {
@@ -64,7 +64,7 @@ export const fetchUserInfo = (options = { force: false }) => (dispatch, getState
 };
 
 export const registerUser = (info) => (dispatch) => {
-  guardRequest(dispatch, {
+  return guardRequest(dispatch, {
     path: 'auth/sign-up',
     entity: info
   }, (entity) => {
