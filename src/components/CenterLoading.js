@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
+import pure from 'recompose/pure';
 import setPropTypes from 'recompose/setPropTypes';
 import setDisplayName from 'recompose/setDisplayName';
 import compose from 'recompose/compose';
@@ -7,6 +8,7 @@ import compose from 'recompose/compose';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 
 export const CenterLoading = compose(
+  pure,
   setDisplayName('CenterLoading'),
   setPropTypes({
     left: PropTypes.number.isRequired,

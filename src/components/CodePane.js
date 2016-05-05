@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { PrismCode } from 'react-prism';
+import pure from 'recompose/pure';
 
-class CodePane extends Component {
+export class CodePane extends Component {
   render() {
     const code = this.props.code || this.props.children || '';
     const { lang } = this.props;
@@ -25,4 +26,4 @@ class CodePane extends Component {
   };
 }
 
-export default CodePane;
+export default pure(CodePane);
