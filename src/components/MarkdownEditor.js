@@ -4,6 +4,7 @@ import { autobind } from 'core-decorators';
 import qwery from 'qwery';
 import isUndefined from 'lodash/isUndefined';
 import styles from 'lib/styles';
+import shallowEqual from 'fbjs/lib/shallowEqual';
 
 import Toolbar from 'material-ui/Toolbar/Toolbar';
 import ToolbarGroup from 'material-ui/Toolbar/ToolbarGroup';
@@ -18,6 +19,10 @@ import BulletedIcon from 'material-ui/svg-icons/editor/format-list-bulleted';
 import NumberedIcon from 'material-ui/svg-icons/editor/format-list-numbered';
 
 class MarkdownEditor extends Component {
+  shouldComponentUpdate(_nextProps, nextState) {
+    return !shallowEqual(this.state, nextState);
+  }
+
   @autobind
   handlePreviewToggle() {
     this.setState({ preview: !this.state.preview });
