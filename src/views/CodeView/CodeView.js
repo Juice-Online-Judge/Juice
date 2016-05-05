@@ -77,6 +77,7 @@ class SetScoreButton extends Component {
   shouldComponentUpdate(nextProps) {
     return nextProps.needReview !== this.props.needReview;
   }
+
   @autobind
   handleScoreChange({ target: { value } }) {
     this.correctness = value;
