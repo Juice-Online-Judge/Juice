@@ -3,7 +3,7 @@ import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
 
 import { fetchUserInfo, login } from 'redux/modules/account';
-import { clearError, createIsErrorSelector, createErrorSelector } from 'redux/modules/app';
+import { createErrorSelector } from 'redux/modules/app';
 import { push } from 'react-router-redux';
 
 import Paper from 'material-ui/Paper';
@@ -18,12 +18,10 @@ import CenterBlock from 'layouts/CenterBlock';
 
 export class SignInView extends React.Component {
   componentDidMount() {
-    this.props.clearError();
     this.checkLoginState(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ open: nextProps.error });
     this.checkLoginState(nextProps);
   }
 
@@ -49,7 +47,12 @@ export class SignInView extends React.Component {
   login(event) {
     let { username, password } = this.state;
     event.preventDefault();
-    this.props.login(username, password);
+    this.props.login(username, password)
+      .then((result) => {
+        if (!result) {
+          this.setState({ open: true });
+        }
+      });
   }
 
   @autobind
@@ -107,21 +110,17 @@ export class SignInView extends React.Component {
     push: PropTypes.func.isRequired,
     account: PropTypes.object.isRequired,
     login: PropTypes.func.isRequired,
-    error: PropTypes.bool.isRequired,
     errorMessages: PropTypes.object,
-    clearError: PropTypes.func.isRequired,
     fetchUserInfo: PropTypes.func.isRequired
   };
 }
 
-const isErrorSelector = createIsErrorSelector();
 const errorSelector = createErrorSelector();
 
 export default connect((state) => ({
   account: state.account,
-  error: isErrorSelector(state),
   errorMessages: errorSelector(state)
-}), { fetchUserInfo, login, clearError, push })(SignInView);
+}), { fetchUserInfo, login, push })(SignInView);
 
 let styles = {
   paper: {
