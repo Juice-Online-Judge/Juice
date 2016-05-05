@@ -26,5 +26,5 @@ describe('<Inset />', () => {
       </Inset>
     );
     expect(wrapper).to.contain(<div className='child' />);
-  })
+  });
 });
