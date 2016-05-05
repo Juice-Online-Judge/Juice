@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
+import setDisplayName from 'recompose/setDisplayName';
+import setPropTypes from 'recompose/setPropTypes';
+import compose from 'recompose/compose';
 
 import { Row, Col } from 'react-flexbox-grid';
 import {
@@ -25,67 +28,30 @@ class CodeView extends Component {
     this.props.fetchCode(id);
   }
 
-  @autobind
-  handleScoreChange({ target: { value } }) {
-    this.setState({ correctness: value });
-  }
-
-  @autobind
-  handleSetScore(event) {
-    const { id } = this.props.params;
-    this.props.patchSubmissionCorrectness(id, this.state.score);
-  }
-
   render() {
     const { id, examId } = this.props.params;
-    const { admin, submission, code, needReview } = this.props;
+    const { admin, submission, code, needReview, patchSubmissionCorrectness } = this.props;
     const lang = submission.get('language');
-    const isFail = submission.getIn(['judge', 'result'], 'AC') !== 'AC';
-    const judgeMessage = submission.getIn(['judge', 'judge_message']);
     const ext = lang === 'c++' ? 'cpp' : lang;
     return (
       <Inset>
         <Row middle='md' end='md'>
-          {
-            examId && admin && needReview ? (
-              <Col md={ 4 }>
-                <Row middle='md'>
-                  <Col md={ 6 }>
-                    <TextField
-                      onChange={ this.handleScoreChange }
-                      floatingLabelText='Score'
-                      value={ this.state.correctness } />
-                  </Col>
-                  <Col md={ 6 }>
-                    <FlatButton
-                      label='Set score'
-                      onTouchTap={ this.handleSetScore } />
-                  </Col>
-                </Row>
-              </Col>
-            ) : null
-          }
+          <SetScoreButton
+            id={ id }
+            admin={ admin }
+            examId={ examId }
+            needReview={ needReview }
+            patchSubmissionCorrectness={ patchSubmissionCorrectness } />
           <Col md={ 3 }>
             <DownloadButton label='Download Code' text={ code } filename={ `submission${id}.${ext}` } />
           </Col>
         </Row>
-        {
-          isFail ? (
-            <div>
-              <div>Error message:</div>
-              <CodePane code={ judgeMessage } lang='txt' />
-            </div>
-          ) : null
-        }
+        <ErrorMessage submission={ submission } />
         <div>Code:</div>
         <CodePane code={ code } lang={ lang } />
       </Inset>
     );
   }
-
-  state = {
-    correctness: ''
-  };
 
   static propTypes = {
     params: PropTypes.object.isRequired,
@@ -106,3 +72,74 @@ export default connect((state, props) => ({
   admin: isAdminSelector(state),
   needReview: needReviewSelector(state, props) }),
   { fetchCode, fetchSubmission, patchSubmissionCorrectness })(CodeView);
+
+class SetScoreButton extends Component {
+  shouldComponentUpdate(nextProps) {
+    return nextProps.needReview !== this.props.needReview;
+  }
+  @autobind
+  handleScoreChange({ target: { value } }) {
+    this.correctness = value;
+  }
+
+  @autobind
+  handleSetScore(event) {
+    const { id } = this.props;
+    this.props.patchSubmissionCorrectness(id, this.correctness);
+  }
+
+  render() {
+    const { examId, admin, needReview } = this.props;
+    if (!examId || !admin || !needReview) {
+      return null;
+    }
+
+    return (
+      <Col md={ 4 }>
+        <Row middle='md'>
+          <Col md={ 6 }>
+            <TextField
+              onChange={ this.handleScoreChange }
+              floatingLabelText='Score' />
+          </Col>
+          <Col md={ 6 }>
+            <FlatButton
+              label='Set score'
+              onTouchTap={ this.handleSetScore } />
+          </Col>
+        </Row>
+      </Col>
+    );
+  }
+
+  correctness = '';
+
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    examId: PropTypes.string,
+    admin: PropTypes.bool.isRequired,
+    needReview: PropTypes.bool,
+    patchSubmissionCorrectness: PropTypes.func.isRequired
+  };
+}
+
+const ErrorMessage = compose(
+  setDisplayName('ErrorMessage'),
+  setPropTypes({
+    submission: PropTypes.object.isRequired
+  })
+)(({ submission }) => {
+  const isFail = submission.getIn(['judge', 'result'], 'AC') !== 'AC';
+  if (!isFail) {
+    return null;
+  }
+
+  const judgeMessage = submission.getIn(['judge', 'judge_message']);
+
+  return (
+    <div>
+      <div>Error message:</div>
+      <CodePane code={ judgeMessage } lang='txt' />
+    </div>
+  );
+});
