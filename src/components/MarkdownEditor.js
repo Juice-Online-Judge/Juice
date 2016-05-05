@@ -3,6 +3,7 @@ import { findDOMNode } from 'react-dom';
 import { autobind } from 'core-decorators';
 import qwery from 'qwery';
 import isUndefined from 'lodash/isUndefined';
+import styles from 'lib/styles';
 
 import Toolbar from 'material-ui/Toolbar/Toolbar';
 import ToolbarGroup from 'material-ui/Toolbar/ToolbarGroup';
@@ -197,11 +198,3 @@ class MarkdownEditor extends Component {
 }
 
 export default MarkdownEditor;
-
-const styles = {
-  active: {
-    fill: '#ff4081',
-    color: '#ff4081'
-  },
-  none: {}
-};

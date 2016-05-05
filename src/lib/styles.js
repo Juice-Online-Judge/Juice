@@ -11,7 +11,12 @@ export const styles = {
     position: 'fixed',
     right: '20px',
     bottom: '10px'
-  }
+  },
+  active: {
+    fill: '#ff4081',
+    color: '#ff4081'
+  },
+  none: {}
 };
 
 export default styles;
