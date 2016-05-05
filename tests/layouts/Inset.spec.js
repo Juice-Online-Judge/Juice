@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, render, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import Inset from 'layouts/Inset';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 
