@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'url' => 'https://juice.cs.ccu.edu.tw',
+    'url' => env('APP_URL', 'https://juice.cs.ccu.edu.tw'),
 
     /*
     |--------------------------------------------------------------------------
