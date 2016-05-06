@@ -3,17 +3,16 @@ import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import rootReducer from './rootReducer';
 
-function withDevTools(middleware) {
-  const devTools = window.devToolsExtension
-    ? window.devToolsExtension()
-    : require('containers/DevTools').default.instrument();
-  return compose(middleware, devTools);
-}
-
 export default function configureStore({ initialState = {}, browserHistory }) {
   // Compose final middleware and use devtools in debug environment
   let middleware = applyMiddleware(thunk, routerMiddleware(browserHistory));
-  if (__DEBUG__) middleware = withDevTools(middleware);
+  if (__DEBUG__) {
+    const devToolsExtension = window.devToolsExtension;
+
+    if (typeof devToolsExtension === 'function') {
+      middleware = compose(middleware, window.devToolsExtension());
+    }
+  }
 
   // Create final store and subscribe router in debug env ie. for devtools
   const store = middleware(createStore)(rootReducer, initialState);
