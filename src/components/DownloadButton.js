@@ -6,7 +6,7 @@ import compose from 'recompose/compose';
 
 import FlatButton from 'material-ui/FlatButton';
 
-const DownloadButton = compose(
+export const DownloadButton = compose(
   setDisplayName('DownloadButton'),
   setPropTypes({
     text: PropTypes.string,

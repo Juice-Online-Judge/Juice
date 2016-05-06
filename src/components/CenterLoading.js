@@ -8,7 +8,6 @@ import compose from 'recompose/compose';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 
 export const CenterLoading = compose(
-  pure,
   setDisplayName('CenterLoading'),
   setPropTypes({
     left: PropTypes.number.isRequired,
@@ -25,4 +24,4 @@ export const CenterLoading = compose(
   );
 });
 
-export default CenterLoading;
+export default pure(CenterLoading);
