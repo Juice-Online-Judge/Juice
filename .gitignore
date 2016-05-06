@@ -6,6 +6,7 @@ Homestead.json
 .env
 
 resources/views/main.blade.php
+coverage/
 public/*.js
 public/*.map
 public/*.css
