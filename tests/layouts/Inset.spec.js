@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import Inset from 'layouts/Inset';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 
-describe('<Inset />', () => {
+describe('(Layout) <Inset />', () => {
   it('render a <Grid /> component', () => {
     const wrapper = shallow(<Inset />);
     expect(wrapper).to.have.exactly(1).descendants(Grid);
