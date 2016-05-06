@@ -1,17 +1,14 @@
-import React from 'react'
+import React, { Component } from 'react';
 
-type Props = {
-
-};
-export class <%= pascalEntityName %> extends React.Component {
-  props: Props;
-
+export class <%= pascalEntityName %> extends Component {
   render () {
     return (
       <div></div>
-    )
+    );
   }
+
+  static propTypes = {
+  };
 }
 
-export default <%= pascalEntityName %>
-
+export default <%= pascalEntityName %>;

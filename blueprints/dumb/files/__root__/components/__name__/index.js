@@ -1,2 +1,2 @@
-import <%= pascalEntityName %> from './<%= pascalEntityName %>'
-export default <%= pascalEntityName %>
+import <%= pascalEntityName %> from './<%= pascalEntityName %>';
+export default <%= pascalEntityName %>;

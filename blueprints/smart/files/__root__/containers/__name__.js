@@ -1,17 +1,12 @@
-import React from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-type Props = {
-
-}
-export class <%= pascalEntityName %> extends React.Component {
-  props: Props;
-
+export class <%= pascalEntityName %> extends Component {
   render () {
     return (
       <div></div>
-    )
+    );
   }
 }
 

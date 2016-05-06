@@ -1,15 +1,17 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes } from 'react';
+import setDisplayName from 'recompose/setDisplayName';
+import setPropTypes from 'recompose/setPropTypes';
+import compose from 'recompose/compose';
 
-function <%= pascalEntityName %> ({ children }) {
-  return (
-    <div className='<%= snakeEntityName %>-layout'>
-      {children}
-    </div>
-  )
-}
+export const <%= pascalEntityName %> = compose(
+  setDisplayName('<%= pascalEntityName %>'),
+  setPropTypes({
+    children: PropTypes.element
+  })
+)(({ children }) => (
+  <div>
+    {children}
+  </div>
+));
 
-<%= pascalEntityName %>.propTypes = {
-  children: PropTypes.element
-}
-
-export default <%= pascalEntityName %>
+export default <%= pascalEntityName %>;

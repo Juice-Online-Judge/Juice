@@ -1,3 +1,11 @@
+import { createAction, handleActions } from 'redux-actions';
+import { Record } from 'immutable';
+
+const <%= pascalEntityName %>State = new Record({
+});
+
+export const initialState = new <%= pascalEntityName %>State();
+
 // Constants
 // export const constants = { }
 
@@ -5,10 +13,5 @@
 // export const actions = { }
 
 // Reducer
-export const initialState = {}
-export default function (state = initialState, action) {
-  switch (action.type) {
-    default:
-      return state
-  }
-}
+export default handleActions({
+}, initialState);
