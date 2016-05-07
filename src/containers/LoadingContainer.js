@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 
-import CenterLoading from './CenterLoading';
+import CenterLoading from 'components/CenterLoading';
 import { isPendingSelector } from 'redux/modules/app';
 
 class LoadingContainer extends Component {
