@@ -36,4 +36,13 @@ describe('(Component) <CenterLoading />', () => {
       });
     })
   });
+
+  describe('(Prop) left', () => {
+    it('Pass to <RefreshIndicator />', () => {
+      const wrapper = shallow(<CenterLoading loading={ false } left={ 10 } />);
+      expect(wrapper.find(RefreshIndicator)).to.have.prop('left', 10);
+      wrapper.setProps({ left: 20 });
+      expect(wrapper.find(RefreshIndicator)).to.have.prop('left', 20);
+    });
+  });
 });
