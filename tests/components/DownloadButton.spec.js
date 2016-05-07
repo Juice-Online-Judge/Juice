@@ -4,13 +4,13 @@ import { DownloadButton } from 'components/DownloadButton';
 import FlatButton from 'material-ui/FlatButton';
 
 describe('(Component) <DownloadButton />', () => {
-  it('render <FlatButton />', () => {
+  it('Render <FlatButton />', () => {
     const wrapper = shallow(<DownloadButton label='test' />);
     expect(wrapper).to.have.exactly(1).descendants(FlatButton);
   });
 
-  describe('(prop) text', () => {
-    context('when no text', () => {
+  describe('(Prop) text', () => {
+    context('When no text', () => {
       it('render <FlatButton disabled />', () => {
         const wrapper = shallow(<DownloadButton label='test' />);
         expect(wrapper.find(FlatButton).first()).to.have.prop('disabled', true);
@@ -18,8 +18,8 @@ describe('(Component) <DownloadButton />', () => {
       });
     });
 
-    context('when have text', () => {
-      it('render <FlatButton /> with link', () => {
+    context('When have text', () => {
+      it('Render <FlatButton /> with link', () => {
         const url = `data:text/plain;base64,${btoa('foo')}`;
         const wrapper = shallow(<DownloadButton label='test' text='foo' />);
         expect(wrapper.find(FlatButton).first()).to.have.prop('linkButton', true);

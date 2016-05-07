@@ -5,18 +5,18 @@ import { Row, Col } from 'react-flexbox-grid';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 
 describe('(Component) <CenterLoading />', () => {
-  it('render <Row /> with prop center', () => {
+  it('Render <Row /> with prop center', () => {
     const wrapper = shallow(<CenterLoading status='hide' left={ 10 } />);
     expect(wrapper).to.have.exactly(1).descendants(Row);
     expect(wrapper.find(Row).first()).to.have.prop('center', 'xs');
   });
 
-  it('render <Col />', () => {
+  it('Render <Col />', () => {
     const wrapper = shallow(<CenterLoading status='hide' left={ 10 } />);
     expect(wrapper).to.have.exactly(1).descendants(Col);
   });
 
-  it('render <RefreshIndicator />', () => {
+  it('Render <RefreshIndicator />', () => {
     const wrapper = shallow(<CenterLoading status='hide' left={ 10 } />);
     expect(wrapper).to.have.exactly(1).descendants(RefreshIndicator);
   });
