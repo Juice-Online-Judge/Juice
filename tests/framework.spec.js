@@ -14,15 +14,15 @@ class Fixture extends React.Component {
 }
 
 describe('(Framework) Karma Plugins', function () {
-  it('Should expose "expect" globally.', function () {
+  it('Expose "expect" globally.', function () {
     assert.ok(expect)
   })
 
-  it('Should expose "should" globally.', function () {
+  it('Expose "should" globally.', function () {
     assert.ok(should)
   })
 
-  it('Should have chai-as-promised helpers.', function () {
+  it('Have chai-as-promised helpers.', function () {
     const pass = new Promise(res => res('test'))
     const fail = new Promise((res, rej) => rej())
 
@@ -32,7 +32,7 @@ describe('(Framework) Karma Plugins', function () {
     ])
   })
 
-  it('should have chai-enzyme working', function() {
+  it('Have chai-enzyme working', function() {
     let wrapper = shallow(<Fixture />)
     expect(wrapper.find('#checked')).to.be.checked()
 
