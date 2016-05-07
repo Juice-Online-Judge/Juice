@@ -6,7 +6,7 @@ import compose from 'recompose/compose';
 import Card from 'material-ui/Card/Card';
 import CardTitle from 'material-ui/Card/CardTitle';
 
-const TitleCard = compose(
+export const TitleCard = compose(
   setPropTypes({
     style: PropTypes.object,
     children: PropTypes.node,
