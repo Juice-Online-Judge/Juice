@@ -11,7 +11,7 @@ describe('(Component) <DownloadButton />', () => {
 
   describe('(Prop) text', () => {
     context('When no text', () => {
-      it('render <FlatButton disabled />', () => {
+      it('Render <FlatButton disabled />', () => {
         const wrapper = shallow(<DownloadButton label='test' />);
         expect(wrapper.find(FlatButton).first()).to.have.prop('disabled', true);
         expect(wrapper.find(FlatButton).first()).to.not.have.prop('linkButton');
@@ -29,24 +29,24 @@ describe('(Component) <DownloadButton />', () => {
     });
   });
 
-  describe('(prop) filename', () => {
-    context('when no filename', () => {
-      it('render <FlatButton /> with default filename', () => {
+  describe('(Prop) filename', () => {
+    context('When no filename', () => {
+      it('Render <FlatButton /> with default filename', () => {
         const wrapper = shallow(<DownloadButton label='test' text='foo' />);
         expect(wrapper.find(FlatButton).first()).to.have.prop('download', 'download');
       });
     });
 
-    context('when have filename', () => {
-      it('render <FlatButton /> with filename', () => {
+    context('When have filename', () => {
+      it('Render <FlatButton /> with filename', () => {
         const wrapper = shallow(<DownloadButton label='test' text='foo' filename='bar' />);
         expect(wrapper.find(FlatButton).first()).to.have.prop('download', 'bar');
       });
     });
   });
 
-  describe('(prop) disabled', () => {
-    it('render <FlatButton disabled />', () => {
+  describe('(Prop) disabled', () => {
+    it('Render <FlatButton disabled />', () => {
       const wrapper = shallow(<DownloadButton label='test' text='foo' disabled />);
       expect(wrapper.find(FlatButton).first()).to.have.prop('disabled', true);
       expect(wrapper.find(FlatButton).first()).to.not.have.prop('linkButton');
