@@ -20,7 +20,7 @@ import ToggleDisplay from 'components/ToggleDisplay';
 import Label from 'components/Label';
 import ExamQuestion from 'components/ExamQuestion';
 import Pagination from 'components/Pagination';
-import LoadingContainer from 'components/LoadingContainer';
+import LoadingContainer from 'containers/LoadingContainer';
 
 import { actions as questionActions } from 'redux/modules/question';
 

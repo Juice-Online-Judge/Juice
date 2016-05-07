@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import Inset from 'layouts/Inset';
-import LoadingContainer from 'components/LoadingContainer';
+import LoadingContainer from 'containers/LoadingContainer';
 import SubmissionList from 'components/SubmissionList';
 
 import { fetchSubmissions } from 'redux/modules/submission';
