@@ -13,7 +13,6 @@ export const styles = {
     bottom: '10px'
   },
   hidden: {
-    visibility: 'hidden',
     display: 'none'
   },
   active: {
