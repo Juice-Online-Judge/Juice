@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import setDisplayName from 'recompose/setDisplayName';
 import setPropTypes from 'recompose/setPropTypes';
 import compose from 'recompose/compose';
+import styles from 'lib/styles';
 
 const ToggleDisplay = compose(
   setPropTypes({
@@ -11,7 +12,7 @@ const ToggleDisplay = compose(
   }),
   setDisplayName('ToggleDisplay')
 )(({ show, hide, children }) => {
-  const style = show || !hide ? null : styles.zeroHeight;
+  const style = show || !hide ? null : styles.hidden;
   return (
     <div style={ style }>
       { children }
@@ -20,10 +21,3 @@ const ToggleDisplay = compose(
 });
 
 export default ToggleDisplay;
-
-const styles = {
-  zeroHeight: {
-    height: '0px',
-    overflow: 'hidden'
-  }
-};

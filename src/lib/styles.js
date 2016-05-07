@@ -12,6 +12,10 @@ export const styles = {
     right: '20px',
     bottom: '10px'
   },
+  hidden: {
+    visibility: 'hidden',
+    display: 'none'
+  },
   active: {
     fill: '#ff4081',
     color: '#ff4081'
