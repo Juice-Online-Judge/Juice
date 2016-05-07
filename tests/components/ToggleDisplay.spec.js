@@ -17,7 +17,7 @@ describe('(Component) <ToggleDisplay />', () => {
     expect(wrapper).to.contain(<div className='child' />);
   });
 
-  describe('(Props) hide', () => {
+  describe('(Prop) hide', () => {
     context('When true', () => {
       it('Style is { display: none }', () => {
         const wrapper = shallow(<ToggleDisplay hide />);
@@ -33,7 +33,7 @@ describe('(Component) <ToggleDisplay />', () => {
     });
   });
 
-  describe('(Props) show', () => {
+  describe('(Prop) show', () => {
     context('When true', () => {
       it('Style must not have { display: none }', () => {
         const wrapper = shallow(<ToggleDisplay show />);
