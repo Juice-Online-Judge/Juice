@@ -19,8 +19,8 @@ const config = {
   // ----------------------------------
   // Server Configuration
   // ----------------------------------
-  server_host : 'localhost',
-  server_port : process.env.PORT || 8000,
+  server_host : process.env.APP_URL || 'localhost',
+  server_port : process.env.APP_PORT || 8000,
 
   // ----------------------------------
   // Compiler Configuration
