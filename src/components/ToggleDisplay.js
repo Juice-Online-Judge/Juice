@@ -12,7 +12,7 @@ const ToggleDisplay = compose(
   }),
   setDisplayName('ToggleDisplay')
 )(({ show, hide, children }) => {
-  const style = show || !hide ? null : styles.hidden;
+  const style = show || !hide ? styles.none : styles.hidden;
   return (
     <div style={ style }>
       { children }
