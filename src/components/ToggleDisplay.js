@@ -4,7 +4,7 @@ import setPropTypes from 'recompose/setPropTypes';
 import compose from 'recompose/compose';
 import styles from 'lib/styles';
 
-const ToggleDisplay = compose(
+export const ToggleDisplay = compose(
   setPropTypes({
     show: PropTypes.bool,
     hide: PropTypes.bool,
@@ -12,7 +12,7 @@ const ToggleDisplay = compose(
   }),
   setDisplayName('ToggleDisplay')
 )(({ show, hide, children }) => {
-  const style = show || !hide ? styles.none : styles.hidden;
+  const style = (show || !hide) && show !== false ? styles.none : styles.hidden;
   return (
     <div style={ style }>
       { children }
