@@ -7,9 +7,9 @@
   "scripts": {
     "storybook": "start-storybook -p 9001",
     "clean": "rm -rf public/*.js public/*.map public/*.css",
-    "compile": "node -r dotenv/config --harmony bin/compile",
+    "compile": "node -r dotenv/config -r babel-register --harmony bin/compile",
     "deploy": "better-npm-run deploy",
-    "watch": "nodemon -x 'node -r dotenv/config --harmony' bin/watch.js",
+    "watch": "nodemon -x 'node -r dotenv/config -r babel-register --harmony' bin/watch.js",
     "lint": "eslint . ./",
     "lint:fix": "npm run lint -- --fix",
     "test": "better-npm-run test",
