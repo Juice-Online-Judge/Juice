@@ -5,7 +5,7 @@ import { autobind } from 'core-decorators';
 import { Row, Col } from 'react-flexbox-grid';
 import Card from 'material-ui/Card/Card';
 import CardActions from 'material-ui/Card/CardActions';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import Step from 'material-ui/Stepper/Step';
 import Stepper from 'material-ui/Stepper/Stepper';
 import StepLabel from 'material-ui/Stepper/StepLabel';
@@ -46,7 +46,7 @@ export class ExamNewView extends Component {
   }
 
   @autobind
-  handleClick() {
+  handleNext() {
     const { finished, stepIndex } = this.state;
     const nextStep = stepIndex + 1;
     if (finished) {
@@ -105,7 +105,10 @@ export class ExamNewView extends Component {
             <CardActions>
               <Row end='xs'>
                 <Col md={ 2 } sm={ 6 }>
-                  <FlatButton label={ finished ? 'Add' : 'Next' } onTouchTap={ this.handleClick } />
+                  <RaisedButton
+                    primary
+                    label={ finished ? 'Add' : 'Next' }
+                    onTouchTap={ this.handleNext } />
                 </Col>
               </Row>
             </CardActions>
