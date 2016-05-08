@@ -1,7 +1,12 @@
 import assert from 'assert';
 import React from 'react';
 import { mount, render, shallow } from 'enzyme';
+import configureStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 import api from 'lib/api';
+
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares);
 
 class Fixture extends React.Component {
   render () {
@@ -42,6 +47,36 @@ describe('(Framework) Karma Plugins', () => {
 
     wrapper = render(<Fixture />);
     expect(wrapper.find('#checked')).to.be.checked();
+  });
+
+  describe('Have redux-mock-store working', () => {
+    it('Dispatch action', () => {
+      const initialState = {};
+      const store = mockStore(initialState);
+      const action = {
+        type: 'FOO_ACTION'
+      };
+
+      store.dispatch(action);
+
+      expect(store.getActions()).to.deep.equal([action]);
+    });
+
+    it('Execute async action', () => {
+      const initialState = {};
+      const store = mockStore(initialState);
+      const syncAction = () => ({
+        type: 'SYNC_ACTION'
+      });
+      const asyncAction = () => (dispatch) => (
+        Promise.resolve().then(() => dispatch(syncAction()))
+      );
+
+      return store.dispatch(asyncAction())
+        .then(() => {
+          expect(store.getActions()).to.deep.equal([syncAction()]);
+        });
+    });
   });
 
   describe('Mocking ajax', () => {
