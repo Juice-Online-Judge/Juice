@@ -31,20 +31,18 @@ const karmaConfig = {
       ...webpackConfig.resolve,
       alias: {
         ...webpackConfig.resolve.alias,
-        sinon: 'sinon/pkg/sinon-server.js'
+        sinon: 'sinon/pkg/sinon.js'
       }
     },
     plugins: webpackConfig.plugins,
     module: {
       noParse: [
-        /\/sinon\.js/
+        /sinon\.js/
       ],
-      loaders: webpackConfig.module.loaders.concat([
-        {
-          test: /sinon(\\|\/)pkg(\\|\/)sinon\.js/,
-          loader: 'imports?define=>false,require=>false'
-        }
-      ])
+      loaders: webpackConfig.module.loaders.concat([{
+        test: /sinon(\\|\/)pkg(\\|\/)sinon\.js/,
+        loader: 'imports?define=>false,require=>false'
+      }])
     },
     // Enzyme fix, see:
     // https://github.com/airbnb/enzyme/issues/47
