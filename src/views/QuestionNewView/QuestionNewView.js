@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
 import compose from 'recompose/compose';
 
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import Card from 'material-ui/Card/Card';
 import CardActions from 'material-ui/Card/CardActions';
 import SnackBar from 'material-ui/Snackbar';
-import Tabs from 'material-ui/Tabs/Tabs';
-import Tab from 'material-ui/Tabs/Tab';
+import Step from 'material-ui/Stepper/Step';
+import Stepper from 'material-ui/Stepper/Stepper';
+import StepLabel from 'material-ui/Stepper/StepLabel';
 import { Row, Col } from 'react-flexbox-grid';
 
 import redirectNotAdmin from 'lib/redirectNotAdmin';
@@ -45,6 +46,19 @@ class QuestionNewView extends Component {
   }
 
   @autobind
+  handleNext() {
+    const { finished, stepIndex } = this.state;
+    const nextStep = stepIndex + 1;
+    if (finished) {
+      this.handleAddQuestion();
+    } else {
+      this.setState({
+        stepIndex: nextStep,
+        finished: nextStep > 1
+      });
+    }
+  }
+
   handleAddQuestion() {
     this.props.addQuestion(createFormDataDeep(this.data))
       .then((result) => {
@@ -55,12 +69,30 @@ class QuestionNewView extends Component {
       });
   }
 
+  stepContent(index) {
+    if (index === 0) {
+      return (
+        <BasicInfoTab onChange={ this.handleBasicInfoChange } />
+      );
+    } else if (index === 1) {
+      return (
+        <AnswerTab onChange={ this.handleAnswerChange } />
+      );
+    } else if (index === 2) {
+      return (
+        <RestrictionTab onChange={ this.handleRestrictionChange } />
+      );
+    }
+  }
+
   @autobind
   handleClose() {
     this.setState({ open: false });
   }
 
   render() {
+    const { stepIndex, finished } = this.state;
+
     return (
       <div>
         <Inset>
@@ -68,22 +100,28 @@ class QuestionNewView extends Component {
             <CardActions>
               <Row end='xs'>
                 <Col md={ 2 } sm={ 6 }>
-                  <FlatButton label='Add' onTouchTap={ this.handleAddQuestion } />
+                  <RaisedButton
+                    primary
+                    label={ finished ? 'Add' : 'Next' }
+                    onTouchTap={ this.handleNext } />
                 </Col>
               </Row>
             </CardActions>
             <CardActions>
-              <Tabs>
-                <Tab label='Basic Info.'>
-                  <BasicInfoTab onChange={ this.handleBasicInfoChange } />
-                </Tab>
-                <Tab label='Answer'>
-                  <AnswerTab onChange={ this.handleAnswerChange } />
-                </Tab>
-                <Tab label='Restriction'>
-                  <RestrictionTab onChange={ this.handleRestrictionChange } />
-                </Tab>
-              </Tabs>
+              <Stepper activeStep={ stepIndex }>
+                <Step>
+                  <StepLabel>Set basic info.</StepLabel>
+                </Step>
+                <Step>
+                  <StepLabel>Set answer</StepLabel>
+                </Step>
+                <Step>
+                  <StepLabel>Set restriction</StepLabel>
+                </Step>
+              </Stepper>
+            </CardActions>
+            <CardActions>
+              { this.stepContent(stepIndex) }
             </CardActions>
           </Card>
         </Inset>
@@ -97,6 +135,8 @@ class QuestionNewView extends Component {
   }
 
   state = {
+    stepIndex: 0,
+    finished: false,
     message: 'Add success',
     open: false
   };
