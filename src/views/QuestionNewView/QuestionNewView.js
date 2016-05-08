@@ -6,7 +6,6 @@ import compose from 'recompose/compose';
 import RaisedButton from 'material-ui/RaisedButton';
 import Card from 'material-ui/Card/Card';
 import CardActions from 'material-ui/Card/CardActions';
-import SnackBar from 'material-ui/Snackbar';
 import Step from 'material-ui/Stepper/Step';
 import Stepper from 'material-ui/Stepper/Stepper';
 import StepLabel from 'material-ui/Stepper/StepLabel';
@@ -20,6 +19,7 @@ import BasicInfoTab from './BasicInfoTab';
 import AnswerTab from './AnswerTab';
 import RestrictionTab from './RestrictionTab';
 import Inset from 'layouts/Inset';
+import Message from 'components/Message';
 
 class QuestionNewView extends Component {
   componentWillMount() {
@@ -125,10 +125,9 @@ class QuestionNewView extends Component {
             </CardActions>
           </Card>
         </Inset>
-        <SnackBar
+        <Message
           open={ this.state.open }
           message={ this.state.message }
-          autoHideDuration={ 2000 }
           onRequestClose={ this.handleClose } />
       </div>
     );
