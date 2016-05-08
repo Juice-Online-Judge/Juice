@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { useRouterHistory } from 'react-router';
 import { createHistory } from 'history';
-import withScroll from 'scroll-behavior';
 import routes from './routes';
 import Root from './containers/Root';
 import configureStore from './redux/configureStore';
 
 const historyConfig = { basename: __BASENAME__ };
-const browserHistory = withScroll(useRouterHistory(createHistory)(historyConfig));
+const browserHistory = useRouterHistory(createHistory)(historyConfig);
 
 const initialState = window.__INITIAL_STATE__;
 const { store, history } = configureStore({ initialState, browserHistory });
