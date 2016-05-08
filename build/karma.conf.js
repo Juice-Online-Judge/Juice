@@ -31,7 +31,7 @@ const karmaConfig = {
       ...webpackConfig.resolve,
       alias: {
         ...webpackConfig.resolve.alias,
-        sinon: 'sinon/pkg/sinon.js'
+        sinon: 'sinon/pkg/sinon-server.js'
       }
     },
     plugins: webpackConfig.plugins,
