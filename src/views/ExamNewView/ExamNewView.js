@@ -6,8 +6,9 @@ import { Row, Col } from 'react-flexbox-grid';
 import Card from 'material-ui/Card/Card';
 import CardActions from 'material-ui/Card/CardActions';
 import FlatButton from 'material-ui/FlatButton';
-import Tabs from 'material-ui/Tabs/Tabs';
-import Tab from 'material-ui/Tabs/Tab';
+import Step from 'material-ui/Stepper/Step';
+import Stepper from 'material-ui/Stepper/Stepper';
+import StepLabel from 'material-ui/Stepper/StepLabel';
 import Inset from 'layouts/Inset';
 import BasicInfoTab from './BasicInfoTab';
 import QuestionTab from './QuestionTab';
@@ -15,7 +16,6 @@ import UserTab from './UserTab';
 import redirectNotAdmin from 'lib/redirectNotAdmin';
 import compose from 'recompose/compose';
 import Message from 'components/Message';
-import { RequestStatus } from 'lib/const';
 
 import { actions as examActions } from 'redux/modules/exam';
 import { clearCache, clearStatus } from 'redux/modules/app';
@@ -28,15 +28,6 @@ export class ExamNewView extends Component {
 
   componentWillUnmount() {
     this.props.clearCache();
-  }
-
-  componentWillReceiveProps(newProps) {
-    if (newProps.status === RequestStatus.SUCCESS) {
-      this.setState({ open: true, message: 'Add success' });
-    } else if (newProps.status === RequestStatus.FAIL) {
-      this.setState({ open: true, message: 'Add fail' });
-    }
-    this.props.clearStatus();
   }
 
   @autobind
@@ -55,6 +46,19 @@ export class ExamNewView extends Component {
   }
 
   @autobind
+  handleClick() {
+    const { finished, stepIndex } = this.state;
+    const nextStep = stepIndex + 1;
+    if (finished) {
+      this.handleAddExam();
+    } else {
+      this.setState({
+        stepIndex: nextStep,
+        finished: nextStep > 1
+      });
+    }
+  }
+
   handleAddExam() {
     this.props.addExam(this.data)
       .then((result) => {
@@ -63,7 +67,24 @@ export class ExamNewView extends Component {
         } else {
           this.setState({ open: true, message: 'Add fail' });
         }
+        this.props.clearStatus();
       });
+  }
+
+  stepContent(index) {
+    if (index === 0) {
+      return (
+        <BasicInfoTab onChange={ this.handleBasicInfoChange } />
+      );
+    } else if (index === 1) {
+      return (
+        <QuestionTab onChange={ this.handleQuestionChange } />
+      );
+    } else if (index === 2) {
+      return (
+        <UserTab onChange={ this.handleUsersChange } />
+      );
+    }
   }
 
   @autobind
@@ -76,6 +97,7 @@ export class ExamNewView extends Component {
   }
 
   render() {
+    const { stepIndex, finished } = this.state;
     return (
       <div>
         <Inset>
@@ -83,22 +105,25 @@ export class ExamNewView extends Component {
             <CardActions>
               <Row end='xs'>
                 <Col md={ 2 } sm={ 6 }>
-                  <FlatButton label='Add' onTouchTap={ this.handleAddExam } />
+                  <FlatButton label={ finished ? 'Add' : 'Next' } onTouchTap={ this.handleClick } />
                 </Col>
               </Row>
             </CardActions>
             <CardActions>
-              <Tabs>
-                <Tab label='Basic Info.'>
-                  <BasicInfoTab onChange={ this.handleBasicInfoChange } />
-                </Tab>
-                <Tab label='Questions'>
-                  <QuestionTab onChange={ this.handleQuestionChange } />
-                </Tab>
-                <Tab label='Users'>
-                  <UserTab onChange={ this.handleUsersChange } />
-                </Tab>
-              </Tabs>
+              <Stepper activeStep={ stepIndex }>
+                <Step>
+                  <StepLabel>Set basic info.</StepLabel>
+                </Step>
+                <Step>
+                  <StepLabel>Add questions</StepLabel>
+                </Step>
+                <Step>
+                  <StepLabel>Add users</StepLabel>
+                </Step>
+              </Stepper>
+            </CardActions>
+            <CardActions>
+              { this.stepContent(stepIndex) }
             </CardActions>
           </Card>
         </Inset>
@@ -112,7 +137,9 @@ export class ExamNewView extends Component {
 
   state = {
     open: false,
-    message: 'Add success'
+    message: 'Add success',
+    stepIndex: 0,
+    finished: false
   };
 
   data = {};
