@@ -1,6 +1,7 @@
 import assert from 'assert';
 import React from 'react';
 import { mount, render, shallow } from 'enzyme';
+import api from 'lib/api';
 
 class Fixture extends React.Component {
   render () {
@@ -42,4 +43,28 @@ describe('(Framework) Karma Plugins', () => {
     wrapper = render(<Fixture />);
     expect(wrapper.find('#checked')).to.be.checked();
   });
+
+  describe('Mocking ajax', () => {
+    let server;
+    beforeEach(() => {
+      server = sinon.fakeServer.create();
+      server.autoRespond = true;
+    });
+
+    afterEach(() => {
+      server.restore();
+    });
+
+    it('Mock global XMLHttpRequest', () => {
+      expect(global.XMLHttpRequest).to.equal(sinon.FakeXMLHttpRequest);
+    });
+
+    it('Have sinon fake server working', () => {
+      const body = { foo: 'bar' };
+      server.respondWith('GET', '/api/v1/foo', [200, { 'Content-Type': 'application/json' }, '{"foo":"bar"}']);
+      return expect(api({
+        path: 'foo'
+      }).entity()).to.eventually.deep.equal(body);
+    });
+  })
 });
