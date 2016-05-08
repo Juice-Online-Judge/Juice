@@ -58,7 +58,7 @@ webpackConfig.plugins = [
 ];
 
 if (__PROD__) {
-  debug('Enable plugins for production (OccurenceOrder, Dedupe & UglifyJS).');
+  debug('Enable plugins for production (OccurenceOrder, Dedupe, Offline, & UglifyJS).');
   webpackConfig.plugins.push(
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
@@ -74,6 +74,12 @@ if (__PROD__) {
       publicPath: '/',
       updateStrategy: 'all',
       version: 'v1',
+      externals: [
+        'index.html'
+      ],
+      exclude: [
+        '../resources/views/main.blade.php'
+      ],
       ServiceWorker: {
         output: 'sw.js'
       },
