@@ -13,12 +13,12 @@ const AppStatus = new Record({
   error: null
 });
 
-const initialState = new AppStatus();
+export const initialState = new AppStatus();
 
-const SET_STATUS = 'SET_STATUS';
-const SET_ERROR = 'SET_ERROR';
-const CLEAR_STATUS = 'CLEAR_STATUS';
-const CLEAR_ERROR = 'CLEAR_ERROR';
+export const SET_STATUS = 'SET_STATUS';
+export const SET_ERROR = 'SET_ERROR';
+export const CLEAR_STATUS = 'CLEAR_STATUS';
+export const CLEAR_ERROR = 'CLEAR_ERROR';
 
 export const setStatus = createAction(SET_STATUS);
 export const setError = createAction(SET_ERROR);
