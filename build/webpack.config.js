@@ -71,7 +71,7 @@ if (__PROD__) {
     }),
     new OfflinePlugin({
       caches: 'all',
-      scope: '/',
+      publicPath: '/',
       updateStrategy: 'all',
       version: 'v1',
       ServiceWorker: {
