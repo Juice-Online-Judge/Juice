@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
+import compose from 'recompose/compose';
 
 import { Row, Col } from 'react-flexbox-grid';
 import Card from 'material-ui/Card/Card';
@@ -14,7 +15,6 @@ import BasicInfoTab from './BasicInfoTab';
 import QuestionTab from './QuestionTab';
 import UserTab from './UserTab';
 import redirectNotAdmin from 'lib/redirectNotAdmin';
-import compose from 'recompose/compose';
 import Message from 'components/Message';
 
 import { addExam } from 'redux/modules/exam';
