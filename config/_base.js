@@ -41,7 +41,6 @@ const config = {
     'core-decorators',
     'classnames',
     'codemirror',
-    'fbjs',
     'flexboxgrid',
     'history',
     'immutable',

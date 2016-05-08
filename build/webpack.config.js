@@ -71,13 +71,12 @@ if (__PROD__) {
     }),
     new OfflinePlugin({
       caches: 'all',
-      publicPath: '/',
       updateStrategy: 'all',
       version: 'v1',
       externals: [
         'index.html'
       ],
-      exclude: [
+      excludes: [
         '../resources/views/main.blade.php'
       ],
       ServiceWorker: {
