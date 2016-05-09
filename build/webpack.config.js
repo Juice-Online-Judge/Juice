@@ -52,7 +52,8 @@ webpackConfig.plugins = [
     filename: '../resources/views/main.blade.php',
     inject: 'body',
     minify: {
-      collapseWhitespace: true
+      collapseWhitespace: true,
+      minifyJS: true
     }
   })
 ];
