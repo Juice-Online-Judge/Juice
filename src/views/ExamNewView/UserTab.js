@@ -5,6 +5,7 @@ import range from 'lodash/range';
 
 import { Table, TableHeader, TableRow, TableBody, TableRowColumn, TableHeaderColumn }
   from 'material-ui/Table';
+import LoadingContainer from 'containers/LoadingContainer';
 
 import { fetchUsers } from 'redux/modules/users';
 
@@ -37,7 +38,7 @@ class UserTab extends Component {
     const { users } = this.props;
     const { selectedRow } = this.state;
     return (
-      <div>
+      <LoadingContainer>
         <Table
           height='400px'
           fixedHeader
@@ -70,7 +71,7 @@ class UserTab extends Component {
             }
           </TableBody>
         </Table>
-      </div>
+      </LoadingContainer>
     );
   }
 
