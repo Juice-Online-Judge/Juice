@@ -54,6 +54,6 @@ describe('(Redux) app', () => {
         clearUsers(),
         clearSubmissions()
       ]);
-    })
+    });
   });
 });
