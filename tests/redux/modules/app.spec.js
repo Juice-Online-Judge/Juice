@@ -1,4 +1,4 @@
-import * as app from 'redux/modules/app';
+import reducer, * as app from 'redux/modules/app';
 import mockStore from '../../helpers/mock-store';
 import { clearExam } from 'redux/modules/exam';
 import { clearQuestion } from 'redux/modules/question';
@@ -54,6 +54,12 @@ describe('(Redux) app', () => {
         clearUsers(),
         clearSubmissions()
       ]);
+    });
+  });
+
+  describe('(Reducer)', () => {
+    it('Configure initial state correct', () => {
+      expect(reducer(undefined, {})).to.equal(app.initialState);
     });
   });
 });
