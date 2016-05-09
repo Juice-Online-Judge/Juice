@@ -5,9 +5,11 @@ import sinon from 'sinon';
 import chai from 'chai';
 import sinonChai from 'sinon-chai';
 import chaiAsPromised from 'chai-as-promised';
+import chaiImmutable from 'chai-immutable';
 import chaiEnzyme from 'chai-enzyme';
 
 chai.use(sinonChai);
+chai.use(chaiImmutable);
 chai.use(chaiAsPromised);
 chai.use(chaiEnzyme());
 
