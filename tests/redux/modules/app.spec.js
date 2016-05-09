@@ -61,5 +61,29 @@ describe('(Redux) app', () => {
     it('Configure initial state correct', () => {
       expect(reducer(undefined, {})).to.equal(app.initialState);
     });
+
+    it('Handle setState action', () => {
+      const expectedState = app.AppStatus({
+        status: 'foo'
+      });
+
+      expect(reducer(app.initialState, {
+        type: app.SET_STATUS,
+        payload: 'foo'
+      })).to.equal(expectedState);
+    });
+
+    it('Handle setState action', () => {
+      const initialState = app.AppStatus({
+        status: 'foo'
+      });
+      const expectedState = app.AppStatus({
+        status: 'NONE'
+      });
+
+      expect(reducer(initialState, {
+        type: app.CLEAR_STATUS
+      })).to.equal(expectedState);
+    });
   });
 });
