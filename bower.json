@@ -1,0 +1,19 @@
+{
+  "name": "Juice",
+  "authors": [
+    "DanSnow"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "public/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "fallback": "^1.1.8",
+    "prism": "^1.5.0"
+  }
+}
