@@ -143,8 +143,8 @@ export class BasicInfoTab extends Component {
 
   state = {
     name: '',
-    beganTime: new Date(),
-    endedTime: new Date()
+    beganTime: new Date(new Date().setSeconds(0)),
+    endedTime: new Date(new Date().setSeconds(0))
   };
 
   static propTypes = {
