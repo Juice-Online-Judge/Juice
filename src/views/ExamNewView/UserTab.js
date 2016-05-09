@@ -6,7 +6,7 @@ import range from 'lodash/range';
 import { Table, TableHeader, TableRow, TableBody, TableRowColumn, TableHeaderColumn }
   from 'material-ui/Table';
 
-import { actions as userActions } from 'redux/modules/users';
+import { fetchUsers } from 'redux/modules/users';
 
 class UserTab extends Component {
   componentDidMount() {
@@ -85,4 +85,4 @@ class UserTab extends Component {
   };
 }
 
-export default connect((state) => ({ users: state.users }), userActions)(UserTab);
+export default connect((state) => ({ users: state.users }), { fetchUsers })(UserTab);
