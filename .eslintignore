@@ -1,4 +1,4 @@
-blueprints/**
+blueprints/**/files/**
 coverage/**
 node_modules/**
 public/**
