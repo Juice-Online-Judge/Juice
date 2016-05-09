@@ -8,7 +8,7 @@ import { clearQuestion } from './question';
 import { clearSubmissions } from './submission';
 import { clearUsers } from './users';
 
-const AppStatus = new Record({
+export const AppStatus = new Record({
   status: RequestStatus.NONE,
   error: null
 });
