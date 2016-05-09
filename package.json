@@ -9,6 +9,7 @@
     "clean": "rm -rf public/*.js public/*.map public/*.css",
     "compile": "node -r dotenv/config -r babel-register --harmony bin/compile",
     "deploy": "better-npm-run deploy",
+    "deploy:dev": "better-npm-run deploy:dev",
     "watch": "nodemon -x 'node -r dotenv/config -r babel-register --harmony' bin/watch.js",
     "lint": "eslint . ./",
     "lint:fix": "npm run lint -- --fix",
@@ -20,6 +21,12 @@
       "command": "npm run clean && npm run compile",
       "env": {
         "NODE_ENV": "production"
+      }
+    },
+    "deploy:dev": {
+      "command": "npm run clean && npm run compile",
+      "env": {
+        "NODE_ENV": "development"
       }
     },
     "test": {
