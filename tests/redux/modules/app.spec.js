@@ -73,7 +73,7 @@ describe('(Redux) app', () => {
       })).to.equal(expectedState);
     });
 
-    it('Handle setState action', () => {
+    it('Handle clearState action', () => {
       const initialState = app.AppStatus({
         status: 'foo'
       });
