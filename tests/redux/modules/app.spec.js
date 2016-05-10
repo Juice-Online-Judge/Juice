@@ -1,9 +1,11 @@
 import reducer, * as app from 'redux/modules/app';
 import mockStore from '../../helpers/mock-store';
+import { RequestStatus } from 'lib/const';
 import { clearExam } from 'redux/modules/exam';
 import { clearQuestion } from 'redux/modules/question';
 import { clearSubmissions } from 'redux/modules/submission';
 import { clearUsers } from 'redux/modules/users';
+import FakeServer from '../../helpers/fake-server';
 
 describe('(Redux) app', () => {
   describe('(Action Creators) #setStatus', () => {
@@ -55,6 +57,45 @@ describe('(Redux) app', () => {
         clearSubmissions()
       ]);
     });
+  });
+
+  describe('(Async Actions) #request', () => {
+    let server;
+
+    context('When request success', () => {
+      it('Send request and set success status', () => {
+        const store = mockStore({});
+        server.get('/api/v1/foo').reply({});
+
+        return store.dispatch(app.request({ path: 'foo' }))
+          .then((result) => {
+            expect(result).to.be.ok;
+            expect(store.getActions()).to.deep.include.members([
+              app.setStatus(RequestStatus.PENDING),
+              app.setStatus(RequestStatus.SUCCESS)
+            ]);
+          });
+      });
+    });
+
+    context('When request fail', () => {
+      it('Send request and set fail status', () => {
+        const store = mockStore({});
+        server.get('/api/v1/foo').status(520).reply({});
+
+        return store.dispatch(app.request({ path: 'foo' }))
+          .then((result) => {
+            expect(result).not.to.be.ok;
+            expect(store.getActions()).to.deep.include.members([
+              app.setStatus(RequestStatus.PENDING),
+              app.setStatus(RequestStatus.FAIL)
+            ]);
+          });
+      });
+    });
+
+    beforeEach(() => server = new FakeServer());
+    afterEach(() => server.restore());
   });
 
   describe('(Reducer)', () => {
