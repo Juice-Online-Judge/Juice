@@ -3,7 +3,7 @@ import api from 'lib/api';
 import { setStatus } from '../modules/app';
 import handleRequestError from './handleRequestError';
 
-const guardRequest = (dispatch, reqOpts, handleResult, handleError, opts) => {
+const guardRequest = (dispatch, reqOpts, handleResult, handleError) => {
   dispatch(setStatus(RequestStatus.PENDING));
   return api(reqOpts)
   .then(({ entity }) => {
