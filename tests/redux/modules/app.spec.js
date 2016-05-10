@@ -1,3 +1,4 @@
+import { fromJS } from 'immutable';
 import reducer, * as app from 'redux/modules/app';
 import mockStore from '../../helpers/mock-store';
 import { RequestStatus } from 'lib/const';
@@ -132,6 +133,32 @@ describe('(Redux) app', () => {
         const state = { app: initialState };
         const isErrorSelector = app.createIsErrorSelector();
         expect(isErrorSelector(state)).to.be.false;
+      });
+    });
+  });
+
+  describe('(Selector) #createErrorSelector', () => {
+    context('When is error', () => {
+      it('Will return error content', () => {
+        const initialState = new app.AppStatus({
+          status: RequestStatus.FAIL,
+          error: fromJS({ messages: 'foo' })
+        });
+        const state = { app: initialState };
+        const errorSelector = app.createErrorSelector();
+        expect(errorSelector(state)).to.be.equal('foo');
+      });
+    });
+
+    context('When is not error', () => {
+      it('Will return null', () => {
+        const initialState = new app.AppStatus({
+          status: RequestStatus.NONE,
+          error: fromJS({ messages: 'foo' })
+        });
+        const state = { app: initialState };
+        const errorSelector = app.createErrorSelector();
+        expect(errorSelector(state)).to.be.null;
       });
     });
   });
