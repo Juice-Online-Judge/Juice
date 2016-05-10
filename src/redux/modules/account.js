@@ -4,13 +4,13 @@ import store from 'store';
 import { createSelector } from 'reselect';
 import { request } from './app';
 
-const AccountState = new Record({
+export const AccountState = new Record({
   valid: false,
   state: false,
   user: new Map()
 });
 
-const initialState = new AccountState();
+export const initialState = new AccountState();
 
 export const SET_LOGIN_STATE = 'SET_LOGIN_STATE';
 export const SET_USER_INFO = 'SET_USER_INFO';
