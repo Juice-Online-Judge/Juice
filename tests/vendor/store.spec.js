@@ -23,5 +23,20 @@ describe('(Vendor) store', () => {
     });
   });
 
+  describe('#has', () => {
+    context('When key exist', () => {
+      it('Return true', () => {
+        localStorage.setItem('foo', '"bar"')
+        expect(store.has('foo')).to.be.true;
+      });
+    });
+
+    context('When key not exist', () => {
+      it('Return false', () => {
+        expect(store.has('foo')).to.be.false;
+      });
+    });
+  });
+
   beforeEach(() => localStorage.clear());
 });
