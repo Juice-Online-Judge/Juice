@@ -116,6 +116,26 @@ describe('(Redux) app', () => {
     });
   });
 
+  describe('(Selector) #createIsErrorSelector', () => {
+    context('When is error', () => {
+      it('Will return true', () => {
+        const initialState = new app.AppStatus({ status: RequestStatus.FAIL });
+        const state = { app: initialState };
+        const isErrorSelector = app.createIsErrorSelector();
+        expect(isErrorSelector(state)).to.be.true;
+      });
+    });
+
+    context('When is not error', () => {
+      it('Will return false', () => {
+        const initialState = new app.AppStatus({ status: RequestStatus.NONE });
+        const state = { app: initialState };
+        const isErrorSelector = app.createIsErrorSelector();
+        expect(isErrorSelector(state)).to.be.false;
+      });
+    });
+  });
+
   describe('(Reducer)', () => {
     it('Configure initial state correct', () => {
       expect(reducer(undefined, {})).to.equal(app.initialState);
