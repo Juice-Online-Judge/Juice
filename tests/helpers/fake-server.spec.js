@@ -67,15 +67,14 @@ describe('(Helper) FakeServer', () => {
 
   describe('Respone', () => {
     it('Allow set status', () => {
-      const body = { foo: 'bar' };
       server
         .get('/api/v1/foo')
         .status(201)
-        .reply(body);
+        .reply({});
 
       return expect(api({
         path: 'foo'
-      })).to.eventually.have.property('status').have.property('code', 201);
+      })).to.eventually.have.deep.property('status.code', 201);
     });
   });
 
