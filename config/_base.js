@@ -20,7 +20,7 @@ const config = {
   // Server Configuration
   // ----------------------------------
   server_host : process.env.APP_URL || 'localhost',
-  server_port : process.env.APP_PORT || 8000,
+  server_port : process.env.APP_PORT || 80,
 
   // ----------------------------------
   // Compiler Configuration
@@ -38,6 +38,7 @@ const config = {
     colors : true
   },
   compiler_vendor : [
+    'babel-polyfill',
     'core-decorators',
     'classnames',
     'codemirror',
