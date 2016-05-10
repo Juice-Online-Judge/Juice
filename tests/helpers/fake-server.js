@@ -14,10 +14,12 @@ class Respone {
 
   status(statusCode) {
     this.statusCode = statusCode;
+    return this;
   }
 
   header(header) {
     Object.assign(this.headers, header);
+    return this;
   }
 
   reply(respone) {
