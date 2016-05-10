@@ -7,6 +7,7 @@ import { clearExam } from './exam';
 import { clearQuestion } from './question';
 import { clearSubmissions } from './submission';
 import { clearUsers } from './users';
+import guardRequest from '../utils/guardRequest';
 
 export const AppStatus = new Record({
   status: RequestStatus.NONE,
@@ -24,6 +25,10 @@ export const setStatus = createAction(SET_STATUS);
 export const setError = createAction(SET_ERROR);
 export const clearStatus = createAction(CLEAR_STATUS);
 export const clearError = createAction(CLEAR_ERROR);
+
+export const request = (config, handleSuccess, handleError) => (dispatch) => {
+  return guardRequest(dispatch, config, handleSuccess, handleError);
+};
 
 export const clearCache = () => (dispatch) => {
   dispatch(clearExam());
