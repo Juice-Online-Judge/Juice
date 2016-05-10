@@ -98,6 +98,24 @@ describe('(Redux) app', () => {
     afterEach(() => server.restore());
   });
 
+  describe('(Selector) #isPendingSelector', () => {
+    context('When is pending', () => {
+      it('Will return true', () => {
+        const initialState = new app.AppStatus({ status: RequestStatus.PENDING });
+        const state = { app: initialState };
+        expect(app.isPendingSelector(state)).to.be.true;
+      });
+    });
+
+    context('When is not pending', () => {
+      it('Will return false', () => {
+        const initialState = new app.AppStatus({ status: RequestStatus.NONE });
+        const state = { app: initialState };
+        expect(app.isPendingSelector(state)).to.be.false;
+      });
+    });
+  });
+
   describe('(Reducer)', () => {
     it('Configure initial state correct', () => {
       expect(reducer(undefined, {})).to.equal(app.initialState);
