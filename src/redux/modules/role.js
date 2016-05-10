@@ -2,7 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { Record, List, Map } from 'immutable';
 import { normalize, arrayOf } from 'normalizr';
 
-import guardRequest from '../utils/guardRequest';
+import { request } from './app';
 import roleSchema from 'schema/role';
 
 const RoleState = new Record({
@@ -19,11 +19,11 @@ export const setRole = createAction(SET_ROLE, (data) => normalize(data, arrayOf(
 export const clearRole = createAction(CLEAR_ROLE);
 
 export const fetchRole = () => (dispatch) => {
-  guardRequest(dispatch, {
+  dispatch(request({
     path: 'roles'
   }, (entity) => {
     dispatch(setRole(entity));
-  });
+  }));
 };
 
 export const actions = {

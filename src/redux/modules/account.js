@@ -2,7 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { Record, Map, List } from 'immutable';
 import store from 'store';
 import { createSelector } from 'reselect';
-import guardRequest from '../utils/guardRequest';
+import { request } from './app';
 
 const AccountState = new Record({
   valid: false,
@@ -22,22 +22,22 @@ export const clearUser = createAction(CLEAR_USER);
 
 export const login = (username, password) => (dispatch) => {
   let body = { username, password };
-  return guardRequest(dispatch, {
+  return dispatch(request({
     path: 'auth/sign-in',
     entity: body
   }, (entity) => {
     store.set('juice-token', entity);
     dispatch(fetchUserInfo({ force: true }));
-  });
+  }));
 };
 
 export const logout = () => (dispatch) => {
-  guardRequest(dispatch, {
+  dispatch(request({
     path: 'auth/sign-out'
   }, () => {
     store.remove('juice-token');
     dispatch(clearUser());
-  });
+  }));
 };
 
 export const fetchUserInfo = (options = { force: false }) => (dispatch, getState) => {
@@ -52,7 +52,7 @@ export const fetchUserInfo = (options = { force: false }) => (dispatch, getState
     return;
   }
 
-  guardRequest(dispatch, {
+  dispatch(request({
     path: 'account/profile'
   }, (entity) => {
     dispatch(setUserInfo(entity));
@@ -60,17 +60,17 @@ export const fetchUserInfo = (options = { force: false }) => (dispatch, getState
     // Token maybe expired here, remove it
     store.remove('juice-token');
     dispatch(setLoginState(false));
-  });
+  }));
 };
 
 export const registerUser = (info) => (dispatch) => {
-  return guardRequest(dispatch, {
+  return dispatch(request({
     path: 'auth/sign-up',
     entity: info
   }, (entity) => {
     store.set('juice-token', entity);
     dispatch(setUserInfo(info));
-  });
+  }));
 };
 
 // Selectors

@@ -5,8 +5,8 @@ import omit from 'lodash/omit';
 import mapValues from 'lodash/mapValues';
 import { createSelector } from 'reselect';
 
+import { request } from './app';
 import questionSchema from 'schema/question';
-import guardRequest from '../utils/guardRequest';
 import isRequesting from 'lib/isRequesting';
 
 const QuestionState = new Record({
@@ -59,7 +59,7 @@ export const fetchQuestion = (query = { page: 1 }, opts = { force: false }) => (
     }
   }
 
-  guardRequest(dispatch, {
+  dispatch(request({
     path: 'questions',
     params: query
   }, (entity) => {
@@ -68,7 +68,7 @@ export const fetchQuestion = (query = { page: 1 }, opts = { force: false }) => (
       page: query.page,
       total: entity.total
     }));
-  });
+  }));
 };
 
 export const fetchQuestionDetail = (uuid, opts = { force: false }) => (dispatch, getState) => {
@@ -78,14 +78,14 @@ export const fetchQuestionDetail = (uuid, opts = { force: false }) => (dispatch,
     return;
   }
 
-  guardRequest(dispatch, {
+  dispatch(request({
     path: 'questions/{uuid}',
     params: {
       uuid
     }
   }, (entity) => {
     dispatch(setQuestionDetail(entity));
-  });
+  }));
 };
 
 export const addQuestion = (data) => (dispatch) => {
@@ -93,7 +93,7 @@ export const addQuestion = (data) => (dispatch) => {
     delete data.uuid;
   }
 
-  return guardRequest(dispatch, {
+  return dispatch(request({
     path: 'questions',
     methods: 'POST',
     headers: {
@@ -102,7 +102,7 @@ export const addQuestion = (data) => (dispatch) => {
     entity: data
   }, (entity) => {
     dispatch(setQuestionDetail(entity));
-  });
+  }));
 };
 
 // Selector

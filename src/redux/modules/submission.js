@@ -6,7 +6,7 @@ import isNil from 'lodash/isNil';
 import { normalize, arrayOf } from 'normalizr';
 import { createFormDataDeep } from 'lib/utils';
 
-import guardRequest from '../utils/guardRequest';
+import { request } from './app';
 import submissionSchema from 'schema/submission';
 
 const SubmissionState = new Record({
@@ -31,7 +31,7 @@ export const clearSubmissionCode = createAction(CLEAR_SUBMISSION_CODE);
 
 export const submitCode = (submitData) => (dispatch) => {
   const { uuid, examId, ...data } = submitData;
-  return guardRequest(dispatch, {
+  return dispatch(request({
     path: 'submissions/{uuid}',
     params: {
       uuid
@@ -40,7 +40,7 @@ export const submitCode = (submitData) => (dispatch) => {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
-  });
+  }));
 };
 
 export const fetchSubmissions = (opts = { force: false }) => (dispatch, getState) => {
@@ -49,22 +49,22 @@ export const fetchSubmissions = (opts = { force: false }) => (dispatch, getState
     return;
   }
 
-  guardRequest(dispatch, {
+  dispatch(request({
     path: '/account/submissions'
   }, (entity) => {
     dispatch(setSubmissions(entity));
-  });
+  }));
 };
 
 export const fetchExamSubmissions = (id, opts = { force: false }) => (dispatch) => {
-  guardRequest(dispatch, {
+  dispatch(request({
     path: '/exams/{id}/submissions',
     params: {
       id
     }
   }, (entity) => {
     dispatch(setSubmissions(entity));
-  });
+  }));
 };
 
 export const fetchSubmission = (id, opts = { force: false }) => (dispatch, getState) => {
@@ -74,31 +74,31 @@ export const fetchSubmission = (id, opts = { force: false }) => (dispatch, getSt
     return;
   }
 
-  guardRequest(dispatch, {
+  dispatch(request({
     path: '/submissions/{id}',
     params: {
       id
     }
   }, (entity) => {
     dispatch(setSubmission(entity));
-  });
+  }));
 };
 
 export const fetchCode = (id) => (dispatch) => {
   dispatch(clearSubmissionCode());
-  guardRequest(dispatch, {
+  dispatch(request({
     path: 'submissions/{id}/code',
     params: {
       id
     }
   }, (entity) => {
     dispatch(setSubmissionCode(entity));
-  });
+  }));
 };
 
 export const patchSubmissionCorrectness = (id, correctness) => (dispatch) => {
   correctness = parseInt(correctness || 0);
-  guardRequest(dispatch, {
+  dispatch(request({
     method: 'PATCH',
     path: 'submissions/{id}',
     params: {
@@ -107,7 +107,7 @@ export const patchSubmissionCorrectness = (id, correctness) => (dispatch) => {
     entity: {
       correctness
     }
-  });
+  }));
 };
 
 export const isNeedReviewScore = (score) => score === null || score === -1;

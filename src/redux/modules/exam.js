@@ -5,9 +5,9 @@ import omit from 'lodash/omit';
 import map from 'lodash/map';
 
 import examSchema from 'schema/exam';
-import guardRequest from '../utils/guardRequest';
 import isRequesting from 'lib/isRequesting';
 import { renameKeys } from 'lib/utils';
+import { request } from './app';
 import { setQuestion } from './question';
 import { isLogin } from './account';
 
@@ -51,12 +51,12 @@ export const fetchExams = (query, opts = { force: false }) => (dispatch, getStat
     return;
   }
 
-  guardRequest(dispatch, {
+  dispatch(request({
     path: 'exams',
     params: query
   }, (entity) => {
     dispatch(setExam({ page: query.page, total: entity.total, data: entity.data }));
-  });
+  }));
 };
 
 export const addExam = (data) => (dispatch) => {
@@ -78,10 +78,10 @@ export const addExam = (data) => (dispatch) => {
   // No need to check login state here
   // Because of we check it when access add exam page
 
-  return guardRequest(dispatch, {
+  return dispatch(request({
     path: 'exams',
     entity: examData
-  });
+  }));
 };
 
 export const fetchExamQuestion = (examId) => (dispatch, getState) => {
@@ -91,7 +91,7 @@ export const fetchExamQuestion = (examId) => (dispatch, getState) => {
     return;
   }
 
-  guardRequest(dispatch, {
+  dispatch(request({
     path: 'exams/{id}/questions',
     params: {
       id: examId
@@ -103,7 +103,7 @@ export const fetchExamQuestion = (examId) => (dispatch, getState) => {
       data: entity,
       detail: true
     }));
-  });
+  }));
 };
 
 export const fetchExamToken = (examId) => (dispatch, getState) => {
@@ -113,7 +113,7 @@ export const fetchExamToken = (examId) => (dispatch, getState) => {
     return;
   }
 
-  guardRequest(dispatch, {
+  dispatch(request({
     path: 'exams/{id}/token',
     params: {
       id: examId
@@ -123,7 +123,7 @@ export const fetchExamToken = (examId) => (dispatch, getState) => {
       id: examId,
       token: entity
     }));
-  });
+  }));
 };
 
 export const actions = {

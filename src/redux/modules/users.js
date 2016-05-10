@@ -3,7 +3,7 @@ import { Record, List, Map } from 'immutable';
 import { normalize, arrayOf } from 'normalizr';
 import userSchema from 'schema/user';
 
-import guardRequest from '../utils/guardRequest';
+import { request } from './app';
 
 const UsersState = new Record({
   result: new List(),
@@ -19,11 +19,11 @@ export const setUsers = createAction(SET_USERS, (data) => normalize(data, arrayO
 export const clearUsers = createAction(CLEAR_USERS);
 
 export const fetchUsers = () => (dispatch) => {
-  guardRequest(dispatch, {
+  dispatch(request({
     path: 'users'
   }, (entity) => {
     dispatch(setUsers(entity));
-  });
+  }));
 };
 
 export const actions = {
