@@ -65,6 +65,20 @@ describe('(Helper) FakeServer', () => {
     }).entity()).to.eventually.deep.equal(body);
   });
 
+  describe('Respone', () => {
+    it('Allow set status', () => {
+      const body = { foo: 'bar' };
+      server
+        .get('/api/v1/foo')
+        .status(201)
+        .reply(body);
+
+      return expect(api({
+        path: 'foo'
+      })).to.eventually.have.property('status').have.property('code', 201);
+    });
+  });
+
   beforeEach(() => {
     server = new FakeServer();
   });
