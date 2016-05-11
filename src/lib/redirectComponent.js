@@ -47,6 +47,7 @@ export const redirectComponent = (name, shouldRedirectPath, WrappedComponent) =>
       };
     };
   };
+
   return compose(
     redirectConnect,
     setDisplayName(wrapDisplayName(WrappedComponent, name)),
