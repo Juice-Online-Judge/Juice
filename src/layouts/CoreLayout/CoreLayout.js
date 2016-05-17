@@ -6,6 +6,7 @@ import compose from 'recompose/compose';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import 'highlight.js/styles/monokai-sublime.css';
+import 'github-markdown-css';
 import 'codemirror/lib/codemirror.css';
 import '../../styles/core.scss';
 import theme from '../../themes/light';
