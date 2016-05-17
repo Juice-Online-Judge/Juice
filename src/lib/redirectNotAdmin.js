@@ -17,9 +17,7 @@ const redirectNotAdmin = (WrappedComponent) => {
     },
     checkRedirect(props) {
       const { isNotAdmin, replace } = props;
-      console.log('IsNotAdmin', isNotAdmin);
       if (isNotAdmin) {
-        console.log('Do replace');
         replace('/permission-denied');
       }
     }
