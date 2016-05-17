@@ -9,8 +9,8 @@ export const styles = {
   },
   floatBtn: {
     position: 'fixed',
-    right: '20px',
-    bottom: '10px'
+    right: '30px',
+    bottom: '20px'
   },
   hidden: {
     display: 'none'

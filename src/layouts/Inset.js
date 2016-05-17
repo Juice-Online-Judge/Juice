@@ -6,7 +6,7 @@ export class Inset extends Component {
     return (
       <Grid>
         <Row>
-          <Col sm={ 12 }>
+          <Col xs={ 12 }>
             { this.props.children }
           </Col>
         </Row>

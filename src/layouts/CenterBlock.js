@@ -12,8 +12,8 @@ export const CenterBlock = compose(
   })
 )(({ fullwidth, children }) => (
   <Grid>
-    <Row center='md' middle='md'>
-      <Col md={ fullwidth ? 12 : 6 } sm={ 12 }>
+    <Row center='xs' middle='md'>
+      <Col md={ fullwidth ? 12 : 6 } xs={ 12 }>
         { children }
       </Col>
     </Row>
