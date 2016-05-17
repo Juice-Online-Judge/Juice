@@ -1,12 +1,15 @@
 :global {
   @import 'base';
   @import 'vendor/normalize';
-  @import 'vendor/_monokai-bright';
 
   // Some best-practice CSS that's useful for most apps
   // Just remove them if they're not what you want
   html {
     box-sizing: border-box;
+  }
+
+  .markdown-body pre {
+    background-color: #141414;
   }
 
   html,
