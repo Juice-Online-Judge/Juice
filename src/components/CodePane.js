@@ -1,17 +1,16 @@
 import React, { Component, PropTypes } from 'react';
-import { PrismCode } from 'react-prism';
+import Highlight from 'react-highlight';
 import pure from 'recompose/pure';
 
 export class CodePane extends Component {
   render() {
     const code = this.props.code || this.props.children || '';
     const { lang } = this.props;
+    const className = `language-${lang}`;
     return (
-      <pre>
-        <PrismCode className={ `language-${lang}` }>
-          { code }
-        </PrismCode>
-      </pre>
+      <Highlight className={ className } >
+        { code }
+      </Highlight>
     );
   }
 
