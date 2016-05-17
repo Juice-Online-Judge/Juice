@@ -8,7 +8,7 @@ import Card from 'material-ui/Card/Card';
 import CardTitle from 'material-ui/Card/CardTitle';
 import CardText from 'material-ui/Card/CardText';
 import CardActions from 'material-ui/Card/CardActions';
-import Markdown from 'react-markdown';
+import Markdown from './Markdown';
 
 import SubmitCode from './SubmitCode';
 
