@@ -1,4 +1,7 @@
+import localStore from 'store';
 import reducer, * as account from 'redux/modules/account';
+import mockStore from '../../helpers/mock-store';
+import FakeServer from '../../helpers/fake-server';
 
 describe('(Redux) account', () => {
   describe('(Action Creator) #setLoginState', () => {
@@ -35,6 +38,34 @@ describe('(Redux) account', () => {
         type: account.CLEAR_USER,
         payload: undefined
       });
+    });
+  });
+
+  describe('(Async Action) #login', () => {
+    var server;
+
+    context('When success', () => {
+      it('Will set token and dispatch #fetchUserInfo', () => {
+        const store = mockStore({
+          account: new account.AccountState()
+        });
+        server.post('/api/v1/auth/sign-in').reply('token');
+        server.get('/api/v1/account/profile').reply({ username: 'foo' });
+
+        return store.dispatch(account.login('user', 'pass')).then((result) => {
+          console.log(store.getActions());
+          expect(result).to.be.true;
+          expect(localStore.get('juice-token')).to.equal('token');
+        });
+      });
+    });
+
+    beforeEach(() => {
+      server = new FakeServer();
+    });
+    afterEach(() => {
+      server.restore();
+      localStore.clear();
     });
   });
 
