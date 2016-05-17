@@ -11,7 +11,7 @@ import ToolbarGroup from 'material-ui/Toolbar/ToolbarGroup';
 import ToolbarTitle from 'material-ui/Toolbar/ToolbarTitle';
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
-import Markdown from 'react-markdown';
+import Markdown from './Markdown';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 import BoldIcon from 'material-ui/svg-icons/editor/format-bold';
 import ItalicIcon from 'material-ui/svg-icons/editor/format-italic';
@@ -174,7 +174,7 @@ class MarkdownEditor extends Component {
         </Toolbar>
         {
           preview ? (
-            <div style={ { height: '15em' } }>
+            <div className='markdown-body' style={ { height: '15em' } }>
               <Markdown source={ text || 'Nothing to preview' } />
             </div>
           ) : (
