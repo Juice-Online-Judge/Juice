@@ -45,7 +45,7 @@ describe('(Redux) account', () => {
     var server;
 
     context('When success', () => {
-      it('Will set token and dispatch #fetchUserInfo', () => {
+      it('Will set token', () => {
         const store = mockStore({
           account: new account.AccountState()
         });
