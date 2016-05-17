@@ -174,7 +174,7 @@ class MarkdownEditor extends Component {
         </Toolbar>
         {
           preview ? (
-            <div className='markdown-body' style={ { height: '15em' } }>
+            <div style={ { height: '15em' } }>
               <Markdown source={ text || 'Nothing to preview' } />
             </div>
           ) : (

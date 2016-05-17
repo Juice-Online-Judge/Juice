@@ -24,9 +24,11 @@ const Markdown = setDisplayName('Markdown')((props) => {
 
   if (children) {
     return (
-      <Remarkable { ...rest } options={ remarkableOpts } >
-        { children }
-      </Remarkable>
+      <span className='markdown-body'>
+        <Remarkable { ...rest } options={ remarkableOpts } >
+          { children }
+        </Remarkable>
+      </span>
     );
   }
 
