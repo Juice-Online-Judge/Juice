@@ -40,8 +40,10 @@ class Respone {
 
 class FakeServer {
   constructor() {
-    this.server = sinon.fakeServer.create();
-    this.server.autoRespond = true;
+    this.server = sinon.fakeServer.create({
+      autoRespond: true,
+      respondImmediately: true
+    });
   }
 
   restore() {
