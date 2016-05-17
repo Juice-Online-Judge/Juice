@@ -9,11 +9,11 @@ const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 class Fixture extends React.Component {
-  render () {
+  render() {
     return (
       <div>
         <input id='checked' defaultChecked />
-        <input id='not' defaultChecked={false} />
+        <input id='not' defaultChecked={ false } />
       </div>
     );
   }
@@ -29,8 +29,8 @@ describe('(Framework) Karma Plugins', () => {
   });
 
   it('Have chai-as-promised helpers.', () => {
-    const pass = new Promise(res => res('test'));
-    const fail = new Promise((res, rej) => rej());
+    const pass = new Promise(resolve => resolve('test'));
+    const fail = new Promise((resolve, reject) => reject());
 
     return Promise.all([
       expect(pass).to.be.fulfilled,
@@ -101,5 +101,5 @@ describe('(Framework) Karma Plugins', () => {
         path: 'foo'
       }).entity()).to.eventually.deep.equal(body);
     });
-  })
+  });
 });

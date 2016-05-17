@@ -95,7 +95,9 @@ describe('(Redux) app', () => {
       });
     });
 
-    beforeEach(() => server = new FakeServer());
+    beforeEach(() => {
+      server = new FakeServer();
+    });
     afterEach(() => server.restore());
   });
 

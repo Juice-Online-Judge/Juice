@@ -34,7 +34,7 @@ describe('(Component) <CenterLoading />', () => {
         const wrapper = shallow(<CenterLoading loading left={ 10 } />);
         expect(wrapper.find(RefreshIndicator)).to.have.prop('status', 'loading');
       });
-    })
+    });
   });
 
   describe('(Prop) left', () => {

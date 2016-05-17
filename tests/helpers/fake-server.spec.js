@@ -85,4 +85,4 @@ describe('(Helper) FakeServer', () => {
   afterEach(() => {
     server.restore();
   });
-})
+});

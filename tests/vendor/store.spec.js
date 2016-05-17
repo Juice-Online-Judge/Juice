@@ -11,7 +11,7 @@ describe('(Vendor) store', () => {
   describe('#get', () => {
     context('When key exist', () => {
       it('Get value in localStorage', () => {
-        localStorage.setItem('foo', '"bar"')
+        localStorage.setItem('foo', '"bar"');
         expect(store.get('foo')).to.equal('bar');
       });
     });
@@ -26,7 +26,7 @@ describe('(Vendor) store', () => {
   describe('#has', () => {
     context('When key exist', () => {
       it('Return true', () => {
-        localStorage.setItem('foo', '"bar"')
+        localStorage.setItem('foo', '"bar"');
         expect(store.has('foo')).to.be.true;
       });
     });

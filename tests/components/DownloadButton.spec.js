@@ -50,6 +50,6 @@ describe('(Component) <DownloadButton />', () => {
       const wrapper = shallow(<DownloadButton label='test' text='foo' disabled />);
       expect(wrapper.find(FlatButton).first()).to.have.prop('disabled', true);
       expect(wrapper.find(FlatButton).first()).to.not.have.prop('linkButton');
-    })
+    });
   });
 });
