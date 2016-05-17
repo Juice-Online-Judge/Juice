@@ -75,12 +75,18 @@ export const registerUser = (info) => (dispatch) => {
 
 // Selectors
 
+export const isValidSelector = (state) => state.account.get('valid');
+
 const accountRoleSelector = (state) => state.account.getIn(['user', 'roles'], new List());
 export const createIsAdminSelector = () => createSelector(
-  [accountRoleSelector],
-  (roles) => roles.includes('admin')
+  [accountRoleSelector, isValidSelector],
+  (roles, valid) => valid && roles.includes('admin')
 );
-export const isValidSelector = (state) => state.account.get('valid');
+
+export const isNotAdminSelector = createSelector(
+  [accountRoleSelector, isValidSelector],
+  (roles, valid) => valid && !roles.includes('admin')
+);
 
 // Helper function
 
