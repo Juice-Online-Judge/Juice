@@ -46,6 +46,10 @@ class FakeServer {
     });
   }
 
+  requests() {
+    return this.server.requests;
+  }
+
   restore() {
     this.server.restore();
   }
