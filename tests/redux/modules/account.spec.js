@@ -53,8 +53,8 @@ describe('(Redux) account', () => {
         server.get('/api/v1/account/profile').reply({ username: 'foo' });
 
         return store.dispatch(account.login('user', 'pass')).then((result) => {
-          console.log(store.getActions());
           expect(result).to.be.true;
+          expect(server.requests()[0].requestBody).to.equal('{"username":"user","password":"pass"}');
           expect(localStore.get('juice-token')).to.equal('token');
         });
       });
