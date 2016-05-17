@@ -105,13 +105,7 @@ export let actions = {
 };
 
 export default handleActions({
-  [SET_LOGIN_STATE]: (state, { payload }) => state.merge({valid: true, state: payload}),
-  [SET_USER_INFO]: (state, { payload }) => {
-    if (payload === {}) {
-      return state.merge({valid: true, state: false});
-    } else {
-      return state.merge({valid: true, state: true, user: payload});
-    }
-  },
-  [CLEAR_USER]: (state) => state.merge({valid: true, state: false, user: {}})
+  [SET_LOGIN_STATE]: (state, { payload }) => state.merge({ valid: true, state: payload }),
+  [SET_USER_INFO]: (state, { payload }) => state.merge({ valid: true, state: true, user: payload }),
+  [CLEAR_USER]: (state) => state.merge({ valid: true, state: false, user: {} })
 }, initialState);
