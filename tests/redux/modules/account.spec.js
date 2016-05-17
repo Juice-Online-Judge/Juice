@@ -73,5 +73,17 @@ describe('(Redux) account', () => {
     it('Configure initialState correct', () => {
       expect(reducer(undefined, {})).to.equal(account.initialState);
     });
+
+    it('Handle SET_LOGIN_STATE', () => {
+      expect(reducer(account.initialState, {
+        type: account.SET_LOGIN_STATE,
+        payload: true
+      })).to.equal(new account.AccountState({ valid: true, state: true }));
+
+      expect(reducer(account.initialState, {
+        type: account.SET_LOGIN_STATE,
+        payload: false
+      })).to.equal(new account.AccountState({ valid: true, state: false }));
+    });
   });
 });
