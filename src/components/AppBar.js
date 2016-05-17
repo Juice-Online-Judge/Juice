@@ -46,23 +46,21 @@ export class AppBar extends React.Component {
   }
 
   get rightMenu() {
-    const origin = {
-      horizontal: 'right',
-      vertical: 'top'
-    };
     const { account } = this.props;
     if (account.get('state')) {
       return (
-        <div style={ styles.rightMenu }>
-          <span>{ account.getIn(['user', 'nickname']) }</span>
+        <div>
+          <span style={ commonStyles.whiteColor }>
+            { account.getIn(['user', 'nickname']) }
+          </span>
           <IconMenu
             iconButtonElement={
-              <IconButton iconStyle={ styles.icon }>
+              <IconButton iconStyle={ commonStyles.whiteIcon }>
                 <MoreVertIcon />
               </IconButton>
             }
-            targetOrigin={ origin }
-            anchorOrigin={ origin } >
+            targetOrigin={ styles.origin }
+            anchorOrigin={ styles.origin } >
             <Link style={ commonStyles.noUnderline } to='/submissions'>
               <MenuItem primaryText='Submission' />
             </Link>
@@ -74,10 +72,10 @@ export class AppBar extends React.Component {
       return (
         <div>
           <Link to='/sign-up'>
-            <FlatButton labelStyle={ { color: 'white' } } label='Signup' />
+            <FlatButton labelStyle={ commonStyles.whiteColor } label='Signup' />
           </Link>
           <Link to='/sign-in'>
-            <FlatButton labelStyle={ { color: 'white' } } label='Signin' />
+            <FlatButton labelStyle={ commonStyles.whiteColor } label='Signin' />
           </Link>
         </div>
       );
@@ -88,7 +86,7 @@ export class AppBar extends React.Component {
     return (
       <MuiAppBar
         title={
-          <IndexLink style={ styles.link } to='/'>
+          <IndexLink style={ commonStyles.whiteLink } to='/'>
             Juice
           </IndexLink>
         }
@@ -115,16 +113,8 @@ export default connect((state) => ({
 }), { fetchUserInfo, logout })(AppBar);
 
 const styles = {
-  link: {
-    color: 'white',
-    textDecoration: 'none'
-  },
-  icon: {
-    color: 'white',
-    fill: 'white'
-  },
-  rightMenu: {
-    color: 'white',
-    verticalAlign: 'middle'
+  origin: {
+    horizontal: 'right',
+    vertical: 'top'
   }
 };

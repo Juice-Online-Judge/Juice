@@ -1,4 +1,15 @@
 export const styles = {
+  whiteColor: {
+    color: 'white'
+  },
+  whiteIcon: {
+    color: 'white',
+    fill: 'white'
+  },
+  whiteLink: {
+    color: 'white',
+    textDecoration: 'none'
+  },
   inlineRadio: {
     display: 'inline-block',
     width: 'auto',
@@ -18,10 +29,6 @@ export const styles = {
   active: {
     fill: '#ff4081',
     color: '#ff4081'
-  },
-  origin: {
-    horizontal: 'left',
-    vertical: 'top'
   },
   none: {}
 };
