@@ -12,6 +12,8 @@ import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import CodeIcon from 'material-ui/svg-icons/action/code';
 
+import commonStyles from 'lib/styles';
+
 export class Submission extends Component {
   @autobind
   handleFilterQuestion() {
@@ -93,8 +95,8 @@ export class Submission extends Component {
                     iconButtonElement={
                       <IconButton> <MoreVertIcon /> </IconButton>
                     }
-                    anchorOrigin={ { horizontal: 'left', vertical: 'top' } }
-                    targetOrigin={ { horizontal: 'left', vertical: 'top' } } >
+                    anchorOrigin={ commonStyles.origin }
+                    targetOrigin={ commonStyles.origin } >
                     <MenuItem
                       primaryText='Filter by this question'
                       onTouchTap={ this.handleFilterQuestion } />

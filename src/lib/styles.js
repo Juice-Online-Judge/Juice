@@ -19,6 +19,10 @@ export const styles = {
     fill: '#ff4081',
     color: '#ff4081'
   },
+  origin: {
+    horizontal: 'left',
+    vertical: 'top'
+  },
   none: {}
 };
 
