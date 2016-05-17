@@ -8,5 +8,4 @@ database/**
 resources/**
 storage/**
 vendor/**
-*.spec.js
 src/index.html
