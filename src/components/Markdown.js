@@ -4,11 +4,18 @@ import hljs from 'highlight.js';
 import setDisplayName from 'recompose/setDisplayName';
 
 const remarkableOpts = {
+  langPrefix: 'hljs language-',
   highlight(str, lang) {
-    if (lang && hljs.getLanguage(lang)) {
-      try {
-        return hljs.highlight(lang, str).value;
-      } catch (err) {}
+    if (lang) {
+      if (lang === 'txt' || lang === 'plain') {
+        return str;
+      }
+
+      if (hljs.getLanguage(lang)) {
+        try {
+          return hljs.highlight(lang, str).value;
+        } catch (err) {}
+      }
     }
 
     try {
@@ -33,7 +40,9 @@ const Markdown = setDisplayName('Markdown')((props) => {
   }
 
   return (
-    <Remarkable { ...rest } options={ remarkableOpts } />
+    <span className='markdown-body'>
+      <Remarkable { ...rest } options={ remarkableOpts } />
+    </span>
   );
 });
 
