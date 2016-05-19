@@ -6,7 +6,7 @@ const redirectNotAdmin = redirectComponent(
   (state) => ({ isNotAdmin: isNotAdminSelector(state) }),
   ({ isNotAdmin }) => isNotAdmin ? '/permission-denied' : null,
   {
-    omitProps: ['isNotAdmin']
+    omitProps: 'isNotAdmin'
   }
 );
 
