@@ -119,7 +119,6 @@
     "expose-loader": "^0.7.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
-    "fs-extra": "^0.30.0",
     "html-webpack-plugin": "^2.17.0",
     "imports-loader": "^0.6.5",
     "isparta-loader": "^2.0.0",
