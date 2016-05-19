@@ -20,7 +20,8 @@ const validateConnect = (validateRule, mapStatesToProps, actions) => {
 
       @autobind
       validateForm(fields) {
-        return this.props.validateForm(componentName, fields, validateRule);
+        return this.props.validateForm(componentName, fields, validateRule)
+          .then(() => true).catch(() => false);
       }
 
       render() {
