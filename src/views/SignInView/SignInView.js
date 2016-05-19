@@ -22,7 +22,7 @@ export class SignInView extends React.Component {
   handleChange(event) {
     const newState = {};
     newState[event.target.name] = event.target.value;
-    this.setState(newState);
+    this.setData(newState);
   }
 
   @autobind
@@ -32,7 +32,7 @@ export class SignInView extends React.Component {
 
   @autobind
   login(event) {
-    let { username, password } = this.state;
+    let { username, password } = this.data;
     event.preventDefault();
     this.props.login(username, password)
       .then((result) => {
@@ -47,6 +47,10 @@ export class SignInView extends React.Component {
     if (event.keyCode === 13) {
       this.login(event);
     }
+  }
+
+  setData(newData) {
+    this.data = { ...this.data, ...newData };
   }
 
   render() {
@@ -88,7 +92,10 @@ export class SignInView extends React.Component {
   }
 
   state = {
-    open: false,
+    open: false
+  };
+
+  data = {
     username: '',
     password: ''
   };

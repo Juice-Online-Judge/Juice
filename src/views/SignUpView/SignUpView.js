@@ -23,7 +23,7 @@ export class SignUpView extends React.Component {
   handleChange(event) {
     const newState = {};
     newState[event.target.name] = event.target.value;
-    this.setState(newState);
+    this.setData(newState);
   }
 
   @autobind
@@ -35,7 +35,7 @@ export class SignUpView extends React.Component {
       'email',
       'passwordConfirm'
     ];
-    let datas = pick(this.state, fields);
+    let datas = pick(this.data, fields);
     event.preventDefault();
     this.props.validateForm(datas)
     .then((result) => {
@@ -43,6 +43,10 @@ export class SignUpView extends React.Component {
         this.props.registerUser(datas);
       }
     });
+  }
+
+  setData(newData) {
+    this.data = { ...this.data, ...newData };
   }
 
   render() {
@@ -103,7 +107,7 @@ export class SignUpView extends React.Component {
     );
   }
 
-  state = {
+  data = {
     username: '',
     nickname: '',
     password: '',
