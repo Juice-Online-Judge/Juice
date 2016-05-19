@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
+import compose from 'recompose/compose';
 
-import { fetchUserInfo, login } from 'redux/modules/account';
+import { login } from 'redux/modules/account';
 import { createErrorSelector } from 'redux/modules/app';
-import { push } from 'react-router-redux';
+import redirectOnLogin from 'lib/redirectOnLogin';
 
 import Paper from 'material-ui/Paper';
 import Card from 'material-ui/Card/Card';
@@ -17,20 +18,6 @@ import Snackbar from 'material-ui/Snackbar';
 import CenterBlock from 'layouts/CenterBlock';
 
 export class SignInView extends React.Component {
-  componentDidMount() {
-    this.checkLoginState(this.props);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.checkLoginState(nextProps);
-  }
-
-  checkLoginState(props) {
-    if (props.account.get('state')) {
-      props.push('/');
-    }
-  }
-
   @autobind
   handleChange(event) {
     const newState = {};
@@ -107,20 +94,17 @@ export class SignInView extends React.Component {
   };
 
   static propTypes = {
-    push: PropTypes.func.isRequired,
-    account: PropTypes.object.isRequired,
     login: PropTypes.func.isRequired,
-    errorMessages: PropTypes.object,
-    fetchUserInfo: PropTypes.func.isRequired
+    errorMessages: PropTypes.object
   };
 }
 
 const errorSelector = createErrorSelector();
 
-export default connect((state) => ({
-  account: state.account,
-  errorMessages: errorSelector(state)
-}), { fetchUserInfo, login, push })(SignInView);
+export default compose(
+  redirectOnLogin,
+  connect((state) => ({ errorMessages: errorSelector(state) }), { login })
+)(SignInView);
 
 let styles = {
   paper: {
