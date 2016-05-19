@@ -1,52 +1,47 @@
 import { connect } from 'react-redux';
 import { replace } from 'react-router-redux';
+import concat from 'lodash/concat';
 import setDisplayName from 'recompose/setDisplayName';
 import wrapDisplayName from 'recompose/wrapDisplayName';
 import lifecycle from 'recompose/lifecycle';
 import compose from 'recompose/compose';
 import omitProps from './omitProps';
 
-import { RequestStatus } from 'lib/const';
-import { clearError } from 'redux/modules/app';
+export const redirectComponent = (name, mapStateToProp, shouldRedirectPath, options) =>
+  (WrappedComponent) => {
+    var omitPropsName = ['replace'];
+    const actions = options.actions ? { ...options.actions, replace } : { replace };
+    const redirectComponentHoc = lifecycle({
+      componentWillMount() {
+        this.checkRedirect(this.props);
+      },
+      componentWillReceiveProps(nextProps) {
+        this.checkRedirect(nextProps);
+      },
+      checkRedirect(props) {
+        const { replace } = props;
+        const redirectPath = shouldRedirectPath(props);
 
-export const redirectConnect = connect((state) => ({ app: state.app }),
-  { replace, clearError });
+        if (options.cleanUp) {
+          options.cleanUp(props);
+        }
 
-export const redirectComponent = (name, shouldRedirectPath, WrappedComponent) => {
-  const redirectComponentHoc = lifecycle({
-    componentWillMount() {
-      this.checkRedirect(this.props);
-    },
-    componentWillReceiveProps(nextProps) {
-      this.checkRedirect(nextProps);
-    },
-    checkRedirect(props) {
-      const { app, clearError, replace } = props;
-
-      if (app.get('status') !== RequestStatus.FAIL) {
-        return;
+        if (redirectPath) {
+          replace(redirectPath);
+        }
       }
+    });
 
-      const errorCode = app.getIn(['error', 'code']);
-      const redirectPath = shouldRedirectPath(errorCode);
-
-      clearError();
-
-      if (redirectPath) {
-        replace(redirectPath);
-      }
+    if (options.omitProps) {
+      omitPropsName = concat(omitPropsName, options.omitProps);
     }
-  });
 
-  return compose(
-    redirectConnect,
-    setDisplayName(wrapDisplayName(WrappedComponent, name)),
-    redirectComponentHoc,
-    omitProps([
-      'app',
-      'clearError'
-    ])
-  )(WrappedComponent);
-};
+    return compose(
+      connect(mapStateToProp, actions),
+      setDisplayName(wrapDisplayName(WrappedComponent, name)),
+      redirectComponentHoc,
+      omitProps(omitPropsName)
+    )(WrappedComponent);
+  };
 
 export default redirectComponent;
