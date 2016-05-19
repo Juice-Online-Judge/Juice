@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Radium from 'radium';
 import { autobind } from 'core-decorators';
 import pick from 'lodash/pick';
 import compose from 'recompose/compose';
@@ -50,7 +49,7 @@ export class SignUpView extends React.Component {
     const message = this.props.validation;
     return (
       <CenterBlock>
-        <Paper zDepth={ 3 } style={ Object.assign({}, styles.paper, styles.marginTop) }>
+        <Paper zDepth={ 3 } style={ { ...styles.paper, ...styles.marginTop } }>
           <Card>
             <CardTitle title='SignUp' />
             <CardActions>
@@ -125,8 +124,7 @@ export default compose(
     (state) => ({ loginState: state.account }),
     { registerUser }
   ),
-  validateForm(rule),
-  Radium
+  validateForm(rule)
 )(SignUpView);
 
 let styles = {
