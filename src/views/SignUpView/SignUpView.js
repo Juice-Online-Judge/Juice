@@ -17,7 +17,7 @@ import FlatButton from 'material-ui/FlatButton';
 import CenterBlock from 'layouts/CenterBlock';
 import rule from 'validation/register';
 import redirectOnLogin from 'lib/redirectOnLogin';
-import validateConnect from 'lib/validateConnect';
+import validateForm from 'lib/validateForm';
 
 export class SignUpView extends React.Component {
   @autobind
@@ -125,7 +125,7 @@ export default compose(
     (state) => ({ loginState: state.account }),
     { registerUser }
   ),
-  validateConnect(rule),
+  validateForm(rule),
   Radium
 )(SignUpView);
 
