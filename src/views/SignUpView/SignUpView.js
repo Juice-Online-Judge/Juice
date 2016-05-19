@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import Radium from 'radium';
 import { autobind } from 'core-decorators';
 import pick from 'lodash/pick';
@@ -120,11 +121,11 @@ export class SignUpView extends React.Component {
 
 export default compose(
   redirectOnLogin,
-  validateConnect(
-    rule,
+  connect(
     (state) => ({ loginState: state.account }),
     { registerUser }
   ),
+  validateConnect(rule),
   Radium
 )(SignUpView);
 
