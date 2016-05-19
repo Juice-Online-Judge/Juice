@@ -1,7 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
-import { compose, setDisplayName, wrapDisplayName, getDisplayName } from 'recompose';
+import setDisplayName from 'recompose/setDisplayName';
+import wrapDisplayName from 'recompose/wrapDisplayName';
+import getDisplayName from 'recompose/getDisplayName';
+import compose from 'recompose/compose';
 import { createGetComponentMessage, validateForm, clearValidationMessage } from 'redux/modules/validate';
 
 const validateConnect = (validateRule) => {
