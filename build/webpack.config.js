@@ -48,7 +48,7 @@ webpackConfig.plugins = [
   new HtmlWebpackPlugin({
     template: paths.client('index.html'),
     hash: false,
-    favicon: paths.client('static/favicon.ico'),
+    favicon: paths.dist('favicon.ico'),
     filename: '../resources/views/main.blade.php',
     inject: 'body',
     minify: {
