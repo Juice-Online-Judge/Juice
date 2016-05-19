@@ -5,7 +5,6 @@ import pick from 'lodash/pick';
 import compose from 'recompose/compose';
 
 import { registerUser } from '../../redux/modules/account';
-import { push } from 'react-router-redux';
 
 import Paper from 'material-ui/Paper';
 import Card from 'material-ui/Card/Card';
@@ -16,25 +15,10 @@ import FlatButton from 'material-ui/FlatButton';
 
 import CenterBlock from 'layouts/CenterBlock';
 import rule from 'validation/register';
+import redirectOnLogin from 'lib/redirectOnLogin';
 import validateConnect from 'lib/validateConnect';
-import { silencePromise } from 'lib/utils';
 
 export class SignUpView extends React.Component {
-  componentDidMount() {
-    this.props.fetchUserInfo();
-    this.checkLoginState(this.props);
-  }
-
-  componentWillReceiveProps(nextProp) {
-    this.checkLoginState(nextProp);
-  }
-
-  checkLoginState(props) {
-    if (props.loginState.get('state')) {
-      props.push('/');
-    }
-  }
-
   @autobind
   handleChange(event) {
     const newState = {};
@@ -53,10 +37,12 @@ export class SignUpView extends React.Component {
     ];
     let datas = pick(this.state, fields);
     event.preventDefault();
-    silencePromise(this.props.validateForm(datas)
-    .then(() => {
-      this.props.registerUser(datas);
-    }));
+    this.props.validateForm(datas)
+    .then((result) => {
+      if (result) {
+        this.props.registerUser(datas);
+      }
+    });
   }
 
   render() {
@@ -126,21 +112,18 @@ export class SignUpView extends React.Component {
   };
 
   static propTypes = {
-    push: PropTypes.func.isRequired,
-    loginState: PropTypes.object.isRequired,
-    login: PropTypes.func.isRequired,
     validation: PropTypes.object.isRequired,
-    fetchUserInfo: PropTypes.func.isRequired,
     registerUser: PropTypes.func.isRequired,
     validateForm: PropTypes.func.isRequired
   };
 }
 
 export default compose(
+  redirectOnLogin,
   validateConnect(
     rule,
     (state) => ({ loginState: state.account }),
-    { registerUser, push }
+    { registerUser }
   ),
   Radium
 )(SignUpView);
