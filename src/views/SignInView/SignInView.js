@@ -54,7 +54,7 @@ export class SignInView extends React.Component {
     const message = errorMessages ? errorMessages.get(0) : '';
     return (
       <CenterBlock>
-        <Paper zDepth={ 3 } style={ { ...styles.paper, ...styles.marginTop } }>
+        <Paper zDepth={ 3 } style={ styles.marginTop }>
           <Card>
             <CardTitle title='Juice' />
             <CardActions>
@@ -107,10 +107,6 @@ export default compose(
 )(SignInView);
 
 let styles = {
-  paper: {
-    width: '100%',
-    height: '100%'
-  },
   action: {
     width: '80%'
   },

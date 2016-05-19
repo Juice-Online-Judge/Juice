@@ -49,7 +49,7 @@ export class SignUpView extends React.Component {
     const message = this.props.validation;
     return (
       <CenterBlock>
-        <Paper zDepth={ 3 } style={ { ...styles.paper, ...styles.marginTop } }>
+        <Paper zDepth={ 3 } style={ styles.marginTop }>
           <Card>
             <CardTitle title='SignUp' />
             <CardActions>
@@ -128,10 +128,6 @@ export default compose(
 )(SignUpView);
 
 let styles = {
-  paper: {
-    width: '100%',
-    height: '100%'
-  },
   action: {
     width: '80%'
   },
