@@ -2,16 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
 import { compose, setDisplayName, wrapDisplayName, getDisplayName } from 'recompose';
-import { createGetComponentMessage, actions as validateActions } from 'redux/modules/validate';
+import { createGetComponentMessage, validateForm, clearValidationMessage } from 'redux/modules/validate';
 
-const validateConnect = (validateRule, mapStatesToProps, actions) => {
+const validateConnect = (validateRule) => {
   return (WrappedComponent) => {
     const componentName = getDisplayName(WrappedComponent);
     const getComponentMessage = createGetComponentMessage(componentName);
-    const mapStates = (state) => ({
-      ...mapStatesToProps(state),
-      ...getComponentMessage(state)
-    });
+    const mapStates = (state) => getComponentMessage(state);
 
     class ValidateCommponent extends Component {
       componentWillMount() {
@@ -38,7 +35,7 @@ const validateConnect = (validateRule, mapStatesToProps, actions) => {
     }
 
     return compose(
-      connect(mapStates, { ...actions, ...validateActions }),
+      connect(mapStates, { validateForm, clearValidationMessage }),
       setDisplayName(wrapDisplayName(WrappedComponent, 'Validate'))
     )(ValidateCommponent);
   };
