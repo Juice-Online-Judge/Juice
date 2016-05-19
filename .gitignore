@@ -7,11 +7,9 @@ Homestead.json
 
 resources/views/main.blade.php
 coverage/
+public/appcache
 public/vendor/
 public/*.js
 public/*.map
 public/*.css
-public/appcache
-public/favicon.ico
-public/humans.txt
 *.log
