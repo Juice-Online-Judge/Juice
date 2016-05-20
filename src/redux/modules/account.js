@@ -1,3 +1,5 @@
+import { takeEvery } from 'redux-saga';
+import { put, call, select } from 'redux-saga/effects';
 import { createAction, handleActions } from 'redux-actions';
 import { Record, Map, List } from 'immutable';
 import store from 'store';
@@ -16,20 +18,32 @@ export const initialState = new AccountState();
 export const SET_LOGIN_STATE = 'SET_LOGIN_STATE';
 export const SET_USER_INFO = 'SET_USER_INFO';
 export const CLEAR_USER = 'CLEAR_USER';
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
+export const FETCH_USER_INFO = 'FETCH_USER_INFO';
+export const REGISTER_USER = 'REGISTER_USER';
 
 export const setLoginState = createAction(SET_LOGIN_STATE, (state = false) => state);
 export const setUserInfo = createAction(SET_USER_INFO, (info) => info);
 export const clearUser = createAction(CLEAR_USER);
 
-export const login = (username, password) => (dispatch) => {
-  let body = { username, password };
-  return dispatch(request({
+// Async action creater
+export const login = createAction(LOGIN, (username, password) => ({ username, password }));
+export const logout = createAction(LOGOUT);
+export const fetchUserInfo = createAction(FETCH_USER_INFO);
+export const registerUser = createAction(REGISTER_USER);
+
+export function* loginRequest({ payload }) {
+  const body = payload;
+  const { entity, error } = yield call(request, {
     path: 'auth/sign-in',
     entity: body
-  }, (entity) => {
+  });
+
+  if (!error) {
     store.set('juice-token', entity);
-    dispatch(fetchUserInfo({ force: true }));
-  }, (error) => {
+    yield call(fetchUserInfoRequest, { force: true });
+  } else {
     if (error instanceof Error) {
       throw error;
     }
@@ -37,51 +51,56 @@ export const login = (username, password) => (dispatch) => {
     const { entity } = error;
 
     if (entity && entity.message) {
-      dispatch(showMessage(entity.message));
+      yield put(showMessage(entity.message));
     }
-  }));
+  }
 };
 
-export const logout = () => (dispatch) => {
-  dispatch(request({
+export function* logoutRequest() {
+  const { error } = yield call(request, {
     path: 'auth/sign-out'
-  }, () => {
+  });
+
+  if (!error) {
     store.remove('juice-token');
-    dispatch(clearUser());
-  }));
+    yield put(clearUser());
+  }
 };
 
-export const fetchUserInfo = (options = { force: false }) => (dispatch, getState) => {
+export function* fetchUserInfoRequest(options = { force: false }) {
   const { force } = options;
-  let { account } = getState();
+  const { account } = yield select();
   if (account.get('valid') && !force) {
     return;
   }
 
   if (!store.has('juice-token')) {
-    dispatch(setLoginState(false));
+    yield put(setLoginState(false));
     return;
   }
 
-  dispatch(request({
+  const { entity, error } = yield call(request, {
     path: 'account/profile'
-  }, (entity) => {
-    dispatch(setUserInfo(entity));
-  }, () => {
+  });
+
+  if (!error) {
+    yield put(setUserInfo(entity));
+  } else {
     // Token maybe expired here, remove it
     store.remove('juice-token');
-    dispatch(setLoginState(false));
-  }));
+    yield put(setLoginState(false));
+  }
 };
 
-export const registerUser = (info) => (dispatch) => {
-  return dispatch(request({
+export function* registerUserRequest({ payload }) {
+  const { entity, error } = yield call(request, {
     path: 'auth/sign-up',
-    entity: info
-  }, (entity) => {
+    entity: payload
+  });
+  if (!error) {
     store.set('juice-token', entity);
-    dispatch(setUserInfo(info));
-  }));
+    yield put(setUserInfo(payload));
+  }
 };
 
 // Selectors
@@ -104,6 +123,16 @@ export const isLoginSelector = createSelector(
   [accountStateSelector, isValidSelector],
   (state, valid) => valid && state
 );
+
+// Watcher
+export function* watcher() {
+  yield [
+    takeEvery(LOGIN, loginRequest),
+    takeEvery(FETCH_USER_INFO, fetchUserInfoRequest),
+    takeEvery(LOGOUT, logoutRequest),
+    takeEvery(REGISTER_USER, registerUserRequest)
+  ];
+}
 
 // Helper function
 

@@ -1,7 +1,8 @@
+import { put } from 'redux-saga/effects';
 import { setError, setStatus } from '../modules/app';
 import { RequestStatus } from 'lib/const';
 
-export const handleRequestError = (dispatch, error) => {
+export function* handleRequestError(error) {
   if (error instanceof Error) {
     throw error;
   } else {
@@ -9,12 +10,12 @@ export const handleRequestError = (dispatch, error) => {
     let { messages } = error.entity;
 
     if (messages && !messages.length) {
-      dispatch(setError({ code, messages: [text] }));
+      yield put(setError({ code, messages: [text] }));
     } else {
-      dispatch(setError({ code, messages }));
+      yield put(setError({ code, messages }));
     }
   }
-  dispatch(setStatus(RequestStatus.FAIL));
+  yield put(setStatus(RequestStatus.FAIL));
 };
 
 export default handleRequestError;

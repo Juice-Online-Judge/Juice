@@ -1,25 +1,21 @@
+import { put, call } from 'redux-saga/effects';
 import { RequestStatus } from 'lib/const';
 import api from 'lib/api';
 import { setStatus } from '../modules/app';
 import handleRequestError from './handleRequestError';
 
-const guardRequest = (dispatch, reqOpts, handleResult, handleError) => {
-  dispatch(setStatus(RequestStatus.PENDING));
-  return api(reqOpts)
-  .then(({ entity }) => {
-    if (handleResult) {
-      handleResult(entity);
-    }
-    dispatch(setStatus(RequestStatus.SUCCESS));
-    return true;
-  })
-  .catch((error) => {
-    if (handleError) {
-      handleError(error);
-    }
-    handleRequestError(dispatch, error);
-    return false;
-  });
+function* guardRequest(reqOpts) {
+  var result;
+  yield put(setStatus(RequestStatus.PENDING));
+  try {
+    const { entity } = yield call(api, reqOpts);
+    result = { entity };
+  } catch (error) {
+    result = false;
+    yield* handleRequestError(error);
+    result = { error };
+  }
+  return result;
 };
 
 export default guardRequest;

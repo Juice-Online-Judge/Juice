@@ -26,8 +26,8 @@ export const setError = createAction(SET_ERROR);
 export const clearStatus = createAction(CLEAR_STATUS);
 export const clearError = createAction(CLEAR_ERROR);
 
-export const request = (config, handleSuccess, handleError) => (dispatch) => {
-  return guardRequest(dispatch, config, handleSuccess, handleError);
+export function* request(config) {
+  return yield* guardRequest(config);
 };
 
 export const clearCache = () => (dispatch) => {

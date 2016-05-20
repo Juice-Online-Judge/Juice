@@ -1,11 +1,12 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
-import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 import rootReducer from './rootReducer';
 
-export default function configureStore({ initialState = {}, browserHistory }) {
+export default function configureStore({ initialState = {}, browserHistory, rootSaga }) {
   // Compose final middleware and use devtools in debug environment
-  let middleware = applyMiddleware(thunk, routerMiddleware(browserHistory));
+  const sagaMiddleware = createSagaMiddleware();
+  let middleware = applyMiddleware(sagaMiddleware, routerMiddleware(browserHistory));
   if (__DEBUG__) {
     const devToolsExtension = window.devToolsExtension;
 
@@ -17,6 +18,7 @@ export default function configureStore({ initialState = {}, browserHistory }) {
   // Create final store and subscribe router in debug env ie. for devtools
   const store = middleware(createStore)(rootReducer, initialState);
   const history = syncHistoryWithStore(browserHistory, store);
+  sagaMiddleware.run(rootSaga);
 
   return { store, history };
 }
