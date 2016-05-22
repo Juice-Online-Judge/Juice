@@ -39,9 +39,9 @@ const config = {
   },
   compiler_vendor : [
     'babel-polyfill',
-    'core-decorators',
     'classnames',
     'codemirror',
+    'decko',
     'flexboxgrid',
     'history',
     'highlight.js',
