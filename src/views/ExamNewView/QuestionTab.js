@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { autobind } from 'core-decorators';
+import { bind } from 'decko';
 import concat from 'lodash/concat';
 import without from 'lodash/without';
 import has from 'lodash/has';
@@ -32,12 +32,12 @@ class QuestionTab extends Component {
     this.props.fetchQuestion({ page }, { force: true });
   }
 
-  @autobind
+  @bind
   handleRequestDetail(uuid) {
     this.setState({ detail: true, detailUuid: uuid });
   }
 
-  @autobind
+  @bind
   handleSettingChange(uuid, setting) {
     const { questionDetail } = this.state;
     questionDetail[uuid] = setting;
@@ -45,18 +45,18 @@ class QuestionTab extends Component {
     this.emitChange(questionDetail, this.state.selectedQuestion);
   }
 
-  @autobind
+  @bind
   handleBack() {
     this.setState({ detail: false, detailUuid: null });
   }
 
-  @autobind
+  @bind
   handlePageChange(page) {
     this.props.fetchQuestion({ page });
     this.setState({ page });
   }
 
-  @autobind
+  @bind
   handleQuestionChange(selectedQuestion, uuid) {
     const { questionDetail } = this.state;
     const newState = { selectedQuestion, questionDetail };
@@ -125,7 +125,7 @@ export default connect((state) => ({ app: state.app, question: state.question })
   questionActions)(QuestionTab);
 
 class ExamQuestionList extends Component {
-  @autobind
+  @bind
   handleQuestionCheck(selected, uuid) {
     const { selectedQuestion } = this.props;
     if (selected) {
@@ -135,7 +135,7 @@ class ExamQuestionList extends Component {
     }
   }
 
-  @autobind
+  @bind
   handleRequestDetail(uuid) {
     this.props.onRequestDetail(uuid);
   }
@@ -191,12 +191,12 @@ class QuestionSetting extends Component {
     }
   }
 
-  @autobind
+  @bind
   handleScoreChange(event) {
     this.emitChange({ score: parseFloat(event.target.value) });
   }
 
-  @autobind
+  @bind
   handleIntValChange(event) {
     const { name, value } = event.target;
     const newState = {};
@@ -204,17 +204,17 @@ class QuestionSetting extends Component {
     this.emitChange(newState);
   }
 
-  @autobind
+  @bind
   handleTypeChange(_event, _idx, value) {
     this.emitChange({ type: value });
   }
 
-  @autobind
+  @bind
   handleReadFromChange(_event, _idx, value) {
     this.emitChange({ readFrom: value });
   }
 
-  @autobind
+  @bind
   handleCodeReviewChange({ target: { checked } }) {
     this.emitChange({ codeReview: checked });
   }

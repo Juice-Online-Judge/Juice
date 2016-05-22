@@ -1,16 +1,16 @@
 import React, { PropTypes, Component } from 'react';
-import { autobind } from 'core-decorators';
+import { bind } from 'decko';
 import FlatButton from 'material-ui/FlatButton';
 import Snackbar from 'material-ui/Snackbar';
 import ClipboardButton from 'react-clipboard.js';
 
 export class CopyButton extends Component {
-  @autobind
+  @bind
   handleCopySuccess() {
     this.setState({ open: true });
   }
 
-  @autobind
+  @bind
   handleRequestClose() {
     this.setState({ open: false });
   }

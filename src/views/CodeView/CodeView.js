@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { autobind } from 'core-decorators';
+import { bind } from 'decko';
 import setDisplayName from 'recompose/setDisplayName';
 import setPropTypes from 'recompose/setPropTypes';
 import compose from 'recompose/compose';
@@ -78,12 +78,12 @@ class SetScoreButton extends Component {
     return nextProps.needReview !== this.props.needReview;
   }
 
-  @autobind
+  @bind
   handleScoreChange({ target: { value } }) {
     this.correctness = value;
   }
 
-  @autobind
+  @bind
   handleSetScore(event) {
     const { id } = this.props;
     this.props.patchSubmissionCorrectness(id, this.correctness);

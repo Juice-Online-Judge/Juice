@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { autobind } from 'core-decorators';
+import { bind } from 'decko';
 import compose from 'recompose/compose';
 
 import { Row, Col } from 'react-flexbox-grid';
@@ -29,22 +29,22 @@ export class ExamNewView extends Component {
     this.props.clearCache();
   }
 
-  @autobind
+  @bind
   handleBasicInfoChange(data) {
     this.setData({ ...data });
   }
 
-  @autobind
+  @bind
   handleQuestionChange(questions) {
     this.setData({ questions });
   }
 
-  @autobind
+  @bind
   handleUsersChange(users) {
     this.setData({ users });
   }
 
-  @autobind
+  @bind
   handleNext() {
     const { finished, stepIndex } = this.state;
     const nextStep = stepIndex + 1;
@@ -85,7 +85,7 @@ export class ExamNewView extends Component {
     }
   }
 
-  @autobind
+  @bind
   handleClose() {
     this.setState({ open: false });
   }

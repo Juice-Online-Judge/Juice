@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { autobind } from 'core-decorators';
+import { bind } from 'decko';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 
@@ -18,19 +18,19 @@ import Snackbar from 'material-ui/Snackbar';
 import CenterBlock from 'layouts/CenterBlock';
 
 export class SignInView extends React.Component {
-  @autobind
+  @bind
   handleChange(event) {
     const newState = {};
     newState[event.target.name] = event.target.value;
     this.setData(newState);
   }
 
-  @autobind
+  @bind
   handleRequestClose() {
     this.setState({ open: false });
   }
 
-  @autobind
+  @bind
   login(event) {
     let { username, password } = this.data;
     event.preventDefault();
@@ -42,7 +42,7 @@ export class SignInView extends React.Component {
       });
   }
 
-  @autobind
+  @bind
   handleKeyDown(event) {
     if (event.keyCode === 13) {
       this.login(event);

@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-import { autobind } from 'core-decorators';
+import { bind } from 'decko';
 import map from 'lodash/map';
 
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 
 export class FileButton extends Component {
-  @autobind
+  @bind
   handleChange(event) {
     const files = event.target.files;
     if (files.length) {

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { autobind } from 'core-decorators';
+import { bind } from 'decko';
 import uniqueId from 'lodash/uniqueId';
 import toArray from 'lodash/toArray';
 
@@ -13,7 +13,7 @@ import FileButton from './FileButton';
 import styles from 'lib/styles';
 
 export class FileArea extends Component {
-  @autobind
+  @bind
   handleFileChange(fileList) {
     const content = {};
     const { multiple } = this.props;
@@ -25,13 +25,13 @@ export class FileArea extends Component {
     this.handleChange(content);
   }
 
-  @autobind
+  @bind
   handleTextAreaChange(event) {
     const { value } = event.target;
     this.handleTextChange(value);
   }
 
-  @autobind
+  @bind
   handleTextChange(value) {
     const { multiple } = this.props;
     const content = {};
@@ -55,7 +55,7 @@ export class FileArea extends Component {
     }
   }
 
-  @autobind
+  @bind
   handleTypeChange(event) {
     const { value } = event.target;
     this.setState({ type: value });

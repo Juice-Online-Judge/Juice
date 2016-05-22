@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { autobind } from 'core-decorators';
+import { bind } from 'decko';
 import range from 'lodash/range';
 
 import { Table, TableHeader, TableRow, TableBody, TableRowColumn, TableHeaderColumn }
@@ -14,12 +14,12 @@ class UserTab extends Component {
     this.props.fetchUsers();
   }
 
-  @autobind
+  @bind
   handlePageChange(page) {
     this.setState({ page });
   }
 
-  @autobind
+  @bind
   handleUserSelect(selectedRow) {
     setImmediate(() => this.emitChange(selectedRow));
   }

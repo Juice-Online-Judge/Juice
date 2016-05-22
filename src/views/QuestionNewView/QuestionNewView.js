@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { autobind } from 'core-decorators';
+import { bind } from 'decko';
 import compose from 'recompose/compose';
 
 import RaisedButton from 'material-ui/RaisedButton';
@@ -26,17 +26,17 @@ class QuestionNewView extends Component {
     this.props.clearStatus();
   }
 
-  @autobind
+  @bind
   handleBasicInfoChange(data) {
     this.setData(data);
   }
 
-  @autobind
+  @bind
   handleAnswerChange(data) {
     this.setData(data);
   }
 
-  @autobind
+  @bind
   handleRestrictionChange(data) {
     this.setData(data);
   }
@@ -45,7 +45,7 @@ class QuestionNewView extends Component {
     this.data = { ...this.data, ...data };
   }
 
-  @autobind
+  @bind
   handleNext() {
     const { finished, stepIndex } = this.state;
     const nextStep = stepIndex + 1;
@@ -85,7 +85,7 @@ class QuestionNewView extends Component {
     }
   }
 
-  @autobind
+  @bind
   handleClose() {
     this.setState({ open: false });
   }

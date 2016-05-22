@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { autobind } from 'core-decorators';
+import { bind } from 'decko';
 
 import { Row, Col } from 'react-flexbox-grid';
 import TextField from 'material-ui/TextField';
@@ -23,36 +23,36 @@ export class BasicInfoTab extends Component {
     this.props.fetchRole();
   }
 
-  @autobind
+  @bind
   handleNameChange(event) {
     this.handleChange({ name: event.target.value });
   }
 
-  @autobind
+  @bind
   handleRoleSelect(selectedRow) {
     const { role } = this.props;
     const selectedRole = selectedRow.map((idx) => role.getIn(['result', idx]));
     setImmediate(() => this.props.onChange({ ...this.state, role: selectedRole }));
   }
 
-  @autobind
+  @bind
   handleBeganDateChange(_event, date) {
     const newDate = copyDate(this.state.beganTime, date);
     this.handleChange({ beganTime: newDate });
   }
 
-  @autobind
+  @bind
   handleBeganTimeChange(_event, date) {
     this.handleChange({ beganTime: date });
   }
 
-  @autobind
+  @bind
   handleEndedDateChange(_event, date) {
     const newDate = copyDate(this.state.endedTime, date);
     this.handleChange({ endedTime: newDate });
   }
 
-  @autobind
+  @bind
   handleEndedTimeChange(_event, date) {
     this.handleChange({ endedTime: date });
   }

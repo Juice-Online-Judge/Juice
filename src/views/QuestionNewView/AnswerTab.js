@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { autobind } from 'core-decorators';
+import { bind } from 'decko';
 
 import FileArea from 'components/FileArea';
 
@@ -8,12 +8,12 @@ export class AnswerTab extends Component {
     this.handleChange();
   }
 
-  @autobind
+  @bind
   handleInputChange(content) {
     this.handleChange({ input: content });
   }
 
-  @autobind
+  @bind
   handleOutputChange(content) {
     this.handleChange({ output: content });
   }

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { autobind } from 'core-decorators';
+import { bind } from 'decko';
 import { connect } from 'react-redux';
 import setDisplayName from 'recompose/setDisplayName';
 import wrapDisplayName from 'recompose/wrapDisplayName';
@@ -18,7 +18,7 @@ const validateConnect = (validateRule) => {
         this.props.clearValidationMessage(componentName);
       }
 
-      @autobind
+      @bind
       validateForm(fields) {
         return this.props.validateForm(componentName, fields, validateRule)
           .then(() => true).catch(() => false);

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { autobind } from 'core-decorators';
+import { bind } from 'decko';
 
 import TextField from 'material-ui/TextField';
 import Toggle from 'material-ui/Toggle';
@@ -11,22 +11,22 @@ export class BasicInfoTab extends Component {
     this.handleChange();
   }
 
-  @autobind
+  @bind
   handleUuidChange(event) {
     this.handleChange({ uuid: event.target.value });
   }
 
-  @autobind
+  @bind
   handleTitleChange(event) {
     this.handleChange({ title: event.target.value });
   }
 
-  @autobind
+  @bind
   handleDescChange(text) {
     this.handleChange({ description: text });
   }
 
-  @autobind
+  @bind
   handlePublicChange(event) {
     this.handleChange({ public: event.target.checked });
   }

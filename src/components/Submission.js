@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Radium from 'radium';
-import { autobind } from 'core-decorators';
+import { bind } from 'decko';
 
 import { Row, Col } from 'react-flexbox-grid';
 import { Link } from 'react-router';
@@ -13,13 +13,13 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import CodeIcon from 'material-ui/svg-icons/action/code';
 
 export class Submission extends Component {
-  @autobind
+  @bind
   handleFilterQuestion() {
     const { quesUuid } = this.props;
     this.addFilter({ question: quesUuid });
   }
 
-  @autobind
+  @bind
   handleFilterUser() {
     const { userId } = this.props;
     this.addFilter({ user: userId });

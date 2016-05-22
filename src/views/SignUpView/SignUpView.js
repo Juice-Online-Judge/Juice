@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { autobind } from 'core-decorators';
+import { bind } from 'decko';
 import pick from 'lodash/pick';
 import compose from 'recompose/compose';
 
@@ -19,14 +19,14 @@ import redirectOnLogin from 'lib/redirectOnLogin';
 import validateForm from 'lib/validateForm';
 
 export class SignUpView extends React.Component {
-  @autobind
+  @bind
   handleChange(event) {
     const newState = {};
     newState[event.target.name] = event.target.value;
     this.setData(newState);
   }
 
-  @autobind
+  @bind
   signup(event) {
     let fields = [
       'username',

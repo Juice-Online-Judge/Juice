@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { goBack } from 'react-router-redux';
-import { autobind } from 'core-decorators';
+import { bind } from 'decko';
 
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
@@ -14,17 +14,17 @@ import Message from './Message';
 import { submitCode } from 'redux/modules/submission';
 
 export class SubmitCode extends Component {
-  @autobind
+  @bind
   handleLanguageChange(_event, _index, value) {
     this.setState({ language: value });
   }
 
-  @autobind
+  @bind
   handleCodeChange(content) {
     this.setState({ code: content.code });
   }
 
-  @autobind
+  @bind
   handleSubmit() {
     const { uuid, examId } = this.props;
     this.props.submitCode({
@@ -40,7 +40,7 @@ export class SubmitCode extends Component {
     });
   }
 
-  @autobind
+  @bind
   handleClose() {
     this.setState({ open: false });
     this.props.goBack();

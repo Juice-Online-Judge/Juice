@@ -1,6 +1,6 @@
 import React, { Children, Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { autobind } from 'core-decorators';
+import { bind } from 'decko';
 
 import { Link } from 'react-router';
 import Inset from 'layouts/Inset';
@@ -29,17 +29,17 @@ class ExamDetailView extends Component {
     }
   }
 
-  @autobind
+  @bind
   handleFocus() {
     this.refs.textField.select();
   }
 
-  @autobind
+  @bind
   handleChange(event) {
     this.setState({ filter: event.target.value });
   }
 
-  @autobind
+  @bind
   handleKeyDown(event) {
     if (event.keyCode === 13) {
       const newFilter = parseFilter(this.state.filter);
@@ -52,7 +52,7 @@ class ExamDetailView extends Component {
     }
   }
 
-  @autobind
+  @bind
   handleClearFilter() {
     this.props.clearFilter();
   }

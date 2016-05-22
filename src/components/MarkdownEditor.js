@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { findDOMNode } from 'react-dom';
-import { autobind } from 'core-decorators';
+import { bind } from 'decko';
 import qwery from 'qwery';
 import isUndefined from 'lodash/isUndefined';
 import styles from 'lib/styles';
@@ -23,12 +23,12 @@ class MarkdownEditor extends Component {
     return !shallowEqual(this.state, nextState);
   }
 
-  @autobind
+  @bind
   handlePreviewToggle() {
     this.setState({ preview: !this.state.preview });
   }
 
-  @autobind
+  @bind
   getTextArea(textField) {
     if (!textField) {
       return;
@@ -40,23 +40,23 @@ class MarkdownEditor extends Component {
     });
   }
 
-  @autobind
+  @bind
   handleBold() {
     this.appendOrWrapText('****');
   }
 
-  @autobind
+  @bind
   handleItalic() {
     this.appendOrWrapText('__');
   }
 
-  @autobind
+  @bind
   handleBulleted() {
     const { text } = this.state;
     this.appendText(text ? '\n- ' : '- ');
   }
 
-  @autobind
+  @bind
   handleNumbered() {
     const { text } = this.state;
     this.appendText(text ? '\n1. ' : '1. ');
@@ -121,7 +121,7 @@ class MarkdownEditor extends Component {
     return this.selectionStart !== this.selectedEnd;
   }
 
-  @autobind
+  @bind
   handleChange(event) {
     const { onChange } = this.props;
     const { value } = event.target;

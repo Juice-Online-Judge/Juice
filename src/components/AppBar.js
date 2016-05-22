@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link, IndexLink } from 'react-router';
 import { connect } from 'react-redux';
-import { autobind } from 'core-decorators';
+import { bind } from 'decko';
 
 import MuiAppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
@@ -21,17 +21,17 @@ export class AppBar extends React.Component {
     this.props.fetchUserInfo();
   }
 
-  @autobind
+  @bind
   logout() {
     this.props.logout();
   }
 
-  @autobind
+  @bind
   handleClose() {
     this.setState({ open: false });
   }
 
-  @autobind
+  @bind
   handleToggle() {
     const open = !this.state.open;
     this.setState({ open });

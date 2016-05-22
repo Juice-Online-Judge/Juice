@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { autobind } from 'core-decorators';
+import { bind } from 'decko';
 
 import { Row, Col } from 'react-flexbox-grid';
 import Checkbox from 'material-ui/Checkbox';
@@ -9,12 +9,12 @@ import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
 import TitleCard from './TitleCard';
 
 class ExamQuestion extends Component {
-  @autobind
+  @bind
   handleCheck(event) {
     this.props.onCheck(event.target.checked, this.props.uuid);
   }
 
-  @autobind
+  @bind
   handleRequestDetail() {
     if (this.props.checked) {
       this.props.onRequestDetail(this.props.uuid);

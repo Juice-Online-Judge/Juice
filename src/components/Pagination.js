@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { autobind } from 'core-decorators';
+import { bind } from 'decko';
 import times from 'lodash/times';
 
 import { Link } from 'react-router';
@@ -85,7 +85,7 @@ export class Pagination extends Component {
 export default Pagination;
 
 class PageButton extends Component {
-  @autobind
+  @bind
   handleTouchTap() {
     const { disabled, onTouchTap } = this.props;
     if (!disabled && onTouchTap) {

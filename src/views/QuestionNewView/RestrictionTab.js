@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { autobind } from 'core-decorators';
+import { bind } from 'decko';
 
 import TextField from 'material-ui/TextField';
 
@@ -8,17 +8,17 @@ export class RestrictionTab extends Component {
     this.handleChange();
   }
 
-  @autobind
+  @bind
   handleFileChange(event) {
     this.handleChange({ file: event.target.value });
   }
 
-  @autobind
+  @bind
   handleMemoryChange(event) {
     this.handleChange({ memory: event.target.value });
   }
 
-  @autobind
+  @bind
   handleTimeChange(event) {
     this.handleChange({ time: event.target.value });
   }
