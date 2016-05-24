@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { bind } from 'decko';
+import { bind, memoize } from 'decko';
 import uniqueId from 'lodash/uniqueId';
 import toArray from 'lodash/toArray';
 
@@ -86,6 +86,7 @@ export class FileArea extends Component {
     }
   }
 
+  @memoize
   areaContent(type) {
     const { label } = this.props;
 
