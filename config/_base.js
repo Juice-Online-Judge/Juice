@@ -50,6 +50,7 @@ const config = {
     'normalizr',
     'qwery',
     'react',
+    'react-addons-pure-render-mixin',
     'react-clipboard.js',
     'react-codemirror',
     'react-highlight',
