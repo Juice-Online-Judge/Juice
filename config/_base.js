@@ -48,6 +48,7 @@ const config = {
     'immutable',
     'lodash',
     'normalizr',
+    'qwery',
     'react',
     'react-clipboard.js',
     'react-codemirror',
