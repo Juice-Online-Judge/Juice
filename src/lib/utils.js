@@ -4,7 +4,9 @@ import isObject from 'lodash/isObject';
 import isBoolean from 'lodash/isBoolean';
 import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
-import lodash from 'lodash';
+import compose from 'lodash/fp/compose';
+import pick from 'lodash/fp/pick';
+import values from 'lodash/values';
 import { isPromiseLike } from 'when';
 
 export const prefixKeys = (object, prefix) => {
@@ -58,9 +60,10 @@ export const silencePromise = (promise) => {
   }
 };
 
-export const valuesAt = (array, indexes) => {
-  return lodash(array).pick(indexes).values().value();
-};
+export const valuesAt = (array, indexes) => compose(
+  pick(indexes),
+  values
+)(array);
 
 export const renameKey = (object, oldKey, newKey) => {
   return mapKeys(object, (_value, key) => (key === oldKey ? newKey : key));
