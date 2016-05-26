@@ -14,10 +14,12 @@ class SignUpRequest extends Request
     public function rules()
     {
         return [
-            'username' => 'required|string|min:5|max:24|unique:users',
+            'username' => [
+                'bail', 'required', 'string', 'regex:/^\w{5,24}$/', 'unique:users,username',
+            ],
             'password' => 'required|string|min:6',
-            'nickname' => 'required|string|min:5|max:16|unique:users',
-            'email'    => 'required|string|email|max:48|unique:users',
+            'nickname' => 'required|string|min:3|max:16',
+            'email'    => 'required|string|email|max:48|unique:users,email',
         ];
     }
 }

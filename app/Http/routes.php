@@ -12,6 +12,9 @@ $router->group(['prefix' => 'api', 'namespace' => 'Api'], function (Router $rout
             $router->post('sign-up', 'AuthController@signUp');
         });
 
+        $router->get('oauth/{driver}', 'OAuthController@oauthRedirect');
+        $router->get('oauth/{driver}/callback', 'OAuthController@oauthCallback');
+
         $router->group(['prefix' => 'account'], function (Router $router) {
             $router->get('profile', 'AccountController@profile');
             $router->get('submissions', 'AccountController@submissions')->middleware(['auth']);
@@ -52,4 +55,4 @@ $router->group(['prefix' => 'api', 'namespace' => 'Api'], function (Router $rout
     });
 });
 
-$router->get('{redirect}', ['as' => 'home', 'uses' => 'HomeController@home'])->where('redirect', '.*');
+$router->get('{redirect?}', ['as' => 'home', 'uses' => 'HomeController@home'])->where('redirect', '.*');
