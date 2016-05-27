@@ -12,6 +12,7 @@ import CardTitle from 'material-ui/Card/CardTitle';
 import CardActions from 'material-ui/Card/CardActions';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
 
 import CenterBlock from 'layouts/CenterBlock';
 import rule from 'validation/register';
@@ -100,6 +101,7 @@ export class SignUpView extends React.Component {
             </CardActions>
             <CardActions>
               <FlatButton label='Signup' primary onClick={ this.signup } />
+              <IconButton iconClassName='fa fa-facebook-square' />
             </CardActions>
           </Card>
         </Paper>
