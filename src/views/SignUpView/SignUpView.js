@@ -12,8 +12,6 @@ import CardTitle from 'material-ui/Card/CardTitle';
 import CardActions from 'material-ui/Card/CardActions';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
-import IconButton from 'material-ui/IconButton';
-import { Row, Col } from 'react-flexbox-grid';
 
 import CenterBlock from 'layouts/CenterBlock';
 import rule from 'validation/register';
@@ -101,23 +99,7 @@ export class SignUpView extends React.Component {
                 floatingLabelText='PasswordConfirm' />
             </CardActions>
             <CardActions>
-              <Row>
-                <Col mdOffset={ 2 } md={ 8 } xs={ 12 }>
-                  <Row center='xs'>
-                    <Col>
-                      <FlatButton label='Signup' primary onClick={ this.signup } />
-                    </Col>
-                  </Row>
-                </Col>
-                <Col md={ 2 } xs={ 12 }>
-                  <Row end='xs'>
-                    <Col>
-                      <IconButton iconClassName='fa fa-facebook-square' />
-                      <IconButton iconClassName='fa fa-github' />
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
+              <FlatButton label='Signup' primary onClick={ this.signup } />
             </CardActions>
           </Card>
         </Paper>

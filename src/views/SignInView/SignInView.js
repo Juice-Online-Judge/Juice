@@ -13,7 +13,9 @@ import CardTitle from 'material-ui/Card/CardTitle';
 import CardActions from 'material-ui/Card/CardActions';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
+import { Row, Col } from 'react-flexbox-grid';
 
 import CenterBlock from 'layouts/CenterBlock';
 
@@ -78,7 +80,23 @@ export class SignInView extends React.Component {
                 floatingLabelText='Password' />
             </CardActions>
             <CardActions>
-              <FlatButton label='Signin' primary onClick={ this.login } />
+              <Row>
+                <Col mdOffset={ 2 } md={ 8 } xs={ 12 }>
+                  <Row center='xs'>
+                    <Col>
+                      <FlatButton label='Signup' primary onClick={ this.login } />
+                    </Col>
+                  </Row>
+                </Col>
+                <Col md={ 2 } xs={ 12 }>
+                  <Row end='xs'>
+                    <Col>
+                      <IconButton iconClassName='fa fa-facebook-square' />
+                      <IconButton iconClassName='fa fa-github' />
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
             </CardActions>
           </Card>
         </Paper>
