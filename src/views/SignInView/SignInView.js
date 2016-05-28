@@ -91,8 +91,12 @@ export class SignInView extends React.Component {
                 <Col md={ 2 } xs={ 12 }>
                   <Row end='xs'>
                     <Col>
-                      <IconButton iconClassName='fa fa-facebook-square' />
-                      <IconButton iconClassName='fa fa-github' />
+                      <a href='/api/v1/oauth/facebook'>
+                        <IconButton iconClassName='fa fa-facebook-square' />
+                      </a>
+                      <a href='/api/v1/oauth/github'>
+                        <IconButton iconClassName='fa fa-github' />
+                      </a>
                     </Col>
                   </Row>
                 </Col>
