@@ -14,9 +14,8 @@ export default class Root extends Component {
     return (
       <Router
         history={ this.props.history }
-        render={ applyRouterMiddleware(useScroll()) }>
-        { this.props.routes }
-      </Router>
+        routes={ this.props.routes }
+        render={ applyRouterMiddleware(useScroll()) } />
     );
   }
 
