@@ -10,40 +10,41 @@ use JWTAuth;
 class AuthController extends ApiController
 {
     /**
-     * User sign in.
+     * Sign in to the application.
      *
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * 
+     * @return \Dingo\Api\Http\Response
      */
     public function signIn(Request $request)
     {
         $token = JWTAuth::attempt($request->only(['username', 'password']));
 
         if (! $token) {
-            return $this->setMessages(['These credentials do not match our records.'])
-                ->responseUnprocessableEntity();
+            $this->response->error('These credentials do not match our records.', 422);
         }
 
-        return $this->setData($token)->responseOk();
+        return $token;
     }
 
     /**
-     * User sign out.
+     * Sign out from the application.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function signOut()
     {
         JWTAuth::invalidate(JWTAuth::getToken());
 
-        return $this->responseOk();
+        return $this->response->noContent();
     }
 
     /**
-     * User sign up.
+     * Sign up for the application.
      *
      * @param SignUpRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * 
+     * @return \Dingo\Api\Http\Response
      */
     public function signUp(SignUpRequest $request)
     {
@@ -52,9 +53,9 @@ class AuthController extends ApiController
         $user->setAttribute('password', bcrypt($request->input('password')));
 
         if (! $user->save()) {
-            return $this->responseUnknownError();
+            $this->response->errorInternal();
         }
 
-        return $this->setData(JWTAuth::fromUser($user->fresh()))->responseCreated();
+        return $this->response->created(null, JWTAuth::fromUser($user));
     }
 }

@@ -9,10 +9,11 @@ use Illuminate\Http\Request;
 class TagController extends ApiController
 {
     /**
-     * Get tags. Use filter query string to filter tags.
+     * Get tags which filtered by the query string.
      *
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function index(Request $request)
     {
@@ -22,16 +23,15 @@ class TagController extends ApiController
             $tags = $tags->whereIn('type', explode(',', $request->input('filter')));
         }
 
-        $tags = $tags->get(['id', 'name']);
-
-        return $this->setData($tags)->responseOk();
+        return $tags->get(['id', 'name']);
     }
 
     /**
      * Create a new tag.
      *
      * @param TagRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function store(TagRequest $request)
     {
@@ -42,31 +42,31 @@ class TagController extends ApiController
         }
 
         if (! $tag->save()) {
-            return $this->responseUnknownError();
+            $this->response->errorInternal();
         }
 
-        return $this->setData($tag->fresh())->responseCreated();
+        return $this->response->created(null, $tag);
     }
 
     /**
-     * Get tag info.
+     * Get tag data.
      *
      * @param int $id
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function show($id)
     {
-        $tag = Tag::findOrFail($id);
-
-        return $this->setData($tag)->responseOk();
+        return Tag::findOrFail($id);
     }
 
     /**
-     * Update tag info.
+     * Update tag data.
      *
      * @param TagRequest $request
      * @param int $id
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function update(TagRequest $request, $id)
     {
@@ -79,27 +79,25 @@ class TagController extends ApiController
         }
 
         if (! $tag->save()) {
-            return $this->responseUnknownError();
+            $this->response->errorInternal();
         }
 
-        return $this->setData($tag->fresh())->responseOk();
+        return $tag;
     }
 
     /**
      * Delete the tag.
      *
      * @param int $id
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function destroy($id)
     {
-        $tag = Tag::findOrFail($id);
-
-        if (! $tag->delete()) {
-            return $this->responseUnknownError();
+        if (! Tag::findOrFail($id)->delete()) {
+            $this->response->errorInternal();
         }
 
-        return $this->responseOk();
+        return $this->response->noContent();
     }
 }

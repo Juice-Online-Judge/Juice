@@ -25,7 +25,7 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
      *
      * @var array
      */
-    protected $fillable = ['username', 'nickname', 'email'];
+    protected $fillable = ['username', 'password', 'nickname', 'email'];
 
     /**
      * 使用者所屬群組.
@@ -44,7 +44,7 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
      */
     public function submissions()
     {
-        return $this->hasMany(Submission::class);
+        return $this->hasMany(Submission::class)->whereNull('exam_id');
     }
 
     /**

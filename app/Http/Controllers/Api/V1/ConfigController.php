@@ -8,53 +8,44 @@ use App\Http\Requests\Api\V1\ConfigRequest;
 class ConfigController extends ApiController
 {
     /**
-     * ConfigController constructor.
-     */
-    public function __construct()
-    {
-        $this->middleware('role:admin', ['except' => ['show']]);
-    }
-
-    /**
      * Get all configs.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function index()
     {
-        $configs = Config::all();
-
-        return $this->setData($configs)->responseOk();
+        return Config::all();
     }
 
     /**
-     * Get config info.
+     * Get config data.
      *
      * @param string $key
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function show($key)
     {
         $config = Config::where('public', true)->findOrFail($key, ['value']);
 
-        return $this->setData($config->getAttribute('value'))->responseOk();
+        return $config->getAttribute('value');
     }
 
     /**
-     * Update config info.
+     * Update config data.
      *
      * @param ConfigRequest $request
      * @param string $key
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function update(ConfigRequest $request, $key)
     {
         $config = Config::findOrFail($key);
 
         if (! $config->update($request->only(['value', 'public']))) {
-            return $this->responseUnknownError();
+            $this->response->errorInternal();
         }
 
-        return $this->setData($config->fresh())->responseOk();
+        return $config;
     }
 }

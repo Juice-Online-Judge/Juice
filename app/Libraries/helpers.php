@@ -1,17 +1,14 @@
 <?php
 
-if (! function_exists('get_target_path')) {
+if (! function_exists('file_build_path')) {
     /**
-     * Get the correct directory separator for target path.
+     * Get the path according to os.
      *
-     * @param array|mixed $path
      * @return string
      */
-    function get_target_path($path)
+    function file_build_path()
     {
-        $path = is_array($path) ? $path : func_get_args();
-
-        return implode(DIRECTORY_SEPARATOR, $path);
+        return implode(DIRECTORY_SEPARATOR, func_get_args());
     }
 }
 

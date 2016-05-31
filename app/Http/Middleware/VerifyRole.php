@@ -2,9 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use Api;
 use Closure;
-use JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
 
 class VerifyRole
 {
@@ -17,21 +16,19 @@ class VerifyRole
      */
     public function handle($request, Closure $next)
     {
-        try {
-            $user = JWTAuth::parseToken()->authenticate();
+        $roles = array_reverse(func_get_args());
 
-            $roles = array_reverse(func_get_args());
+        array_pop($roles);
+        array_pop($roles);
 
-            array_pop($roles);
-            array_pop($roles);
+        $user = Api::user();
 
-            if (! $user->hasRole($roles)) {
-                return response()->json(['messages' => []], 403);
-            }
-
-            return $next($request);
-        } catch (JWTException $e) {
-            return response()->json(['messages' => []], 401);
+        if (is_null($user)) {
+            Api::response()->errorUnauthorized();
+        } elseif (! $user->hasRole($roles)) {
+            Api::response()->errorForbidden();
         }
+
+        return $next($request);
     }
 }

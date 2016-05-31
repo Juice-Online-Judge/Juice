@@ -7,14 +7,12 @@ use App\Accounts\Role;
 class RoleController extends ApiController
 {
     /**
-     * Get all roles info.
+     * Get all roles.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function index()
     {
-        $role = Role::all();
-
-        return $this->setData($role)->responseOk();
+        return Role::all();
     }
 }

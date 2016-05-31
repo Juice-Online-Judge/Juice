@@ -56,10 +56,10 @@ class JudgeRepository extends Repository
         }
 
         return [
-            'input'        => $this->getInput(),
-            'output'       => $this->getOutput(),
-            'argument'     => $this->getArgument(),
-            'restriction'  => $this->getRestriction(),
+            'input'       => $this->getInput(),
+            'output'      => $this->getOutput(),
+            'argument'    => $this->getArgument(),
+            'restriction' => $this->getRestriction(),
         ];
     }
 
@@ -96,8 +96,8 @@ class JudgeRepository extends Repository
         }
 
         $this->$type = [
-            'basePath'  => $this->getBasePath(),
-            'files'     => $this->request->hasFile("{$type}.file")
+            'basePath' => $this->getBasePath(),
+            'files'    => $this->request->hasFile("{$type}.file")
                 ? $this->ioUsingFiles($type, $this->request->file("{$type}.file"))
                 : $this->ioUsingTextarea($type, $this->request->input("{$type}.textarea")),
         ];
@@ -116,7 +116,10 @@ class JudgeRepository extends Repository
     {
         return $this->storeIo($type, $files, function (UploadedFile $file, $index) use ($type) {
             if ($file->isValid()) {
-                $file->move($this->getBasePath(), "{$type}_{$index}");
+                file_put_contents(
+                    file_build_path($this->getBasePath(), "{$type}_{$index}"),
+                    $this->normalizeNewLine(file_get_contents($file->getRealPath()))
+                );
             }
 
             return "{$type}_{$index}";
@@ -133,7 +136,10 @@ class JudgeRepository extends Repository
     private function ioUsingTextarea($type, array $textarea)
     {
         return $this->storeIo($type, $textarea, function ($text, $index) use ($type) {
-            return File::put(get_target_path($this->getBasePath(), "{$type}_{$index}"), $text);
+            return File::put(
+                file_build_path($this->getBasePath(), "{$type}_{$index}"),
+                $this->normalizeNewLine($text)
+            );
         });
     }
 
@@ -158,6 +164,18 @@ class JudgeRepository extends Repository
         }
 
         return isset($result) ? $result : [];
+    }
+
+    /**
+     * Normalize the new line characters.
+     *
+     * @param string $text
+     *
+     * @return string
+     */
+    protected function normalizeNewLine($text)
+    {
+        return str_replace(["\r\n", "\r", "\n"], PHP_EOL, $text);
     }
 
     /**

@@ -62,7 +62,7 @@ class OAuthController extends Controller
      */
     protected function ensureAvailableDriver($driver)
     {
-        $drivers = ['facebook', 'github'];
+        $drivers = ['facebook', 'github', 'google'];
 
         if (! in_array($driver, $drivers)) {
             throw new NotFoundHttpException;

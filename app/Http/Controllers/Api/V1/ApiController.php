@@ -33,10 +33,10 @@ class ApiController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    private function response()
-    {
-        return response()->json($this->data, $this->status, $this->headers);
-    }
+//    private function response()
+//    {
+//        return response()->json($this->data, $this->status, $this->headers);
+//    }
 
     /**
      * Http success response.

@@ -1,34 +1,47 @@
 <?php
 
+use Dingo\Api\Routing\Router as ApiRouter;
 use Illuminate\Routing\Router;
 
 /* @var Router $router */
 
+$api = app('Dingo\Api\Routing\Router');
+
+$api->group(['version' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function (ApiRouter $api) {
+    $api->group(['prefix' => 'auth'], function (ApiRouter $api) {
+        $api->post('sign-in', 'AuthController@signIn');
+        $api->get('sign-out', 'AuthController@signOut');
+        $api->post('sign-up', 'AuthController@signUp');
+    });
+
+    $api->group(['prefix' => 'account'], function (ApiRouter $api) {
+        $api->get('profile', 'AccountController@profile');
+        $api->get('submissions', 'AccountController@submissions');
+    });
+
+    $api->group(['prefix' => 'questions'], function (ApiRouter $api) {
+        $api->get('/', 'QuestionController@index');
+        $api->post('/', 'QuestionController@store')->middleware(['api.auth']);
+        $api->get('{uuid}', 'QuestionController@show');
+    });
+
+    $api->group(['prefix' => 'configs'], function (ApiRouter $api) {
+        $api->get('/', 'ConfigController@index')->middleware(['role:admin']);
+        $api->get('{key}', 'ConfigController@show');
+        $api->patch('{key}', 'ConfigController@update')->middleware(['role:admin']);
+    });
+
+    $api->get('users', 'UserController@index')->middleware(['role:admin']);
+    $api->get('roles', 'RoleController@index')->middleware(['role:admin']);
+
+    $api->resource('tags', 'TagController', ['except' => ['create', 'edit']]);
+});
+
+$router->get('oauth/{driver}', 'Api\V1\OAuthController@oauthRedirect');
+$router->get('oauth/{driver}/callback', 'Api\V1\OAuthController@oauthCallback');
+
 $router->group(['prefix' => 'api', 'namespace' => 'Api'], function (Router $router) {
     $router->group(['prefix' => 'v1', 'namespace' => 'V1'], function (Router $router) {
-        $router->group(['prefix' => 'auth'], function (Router $router) {
-            $router->post('sign-in', 'AuthController@signIn');
-            $router->get('sign-out', 'AuthController@signOut');
-            $router->post('sign-up', 'AuthController@signUp');
-        });
-
-        $router->get('oauth/{driver}', 'OAuthController@oauthRedirect');
-        $router->get('oauth/{driver}/callback', 'OAuthController@oauthCallback');
-
-        $router->group(['prefix' => 'account'], function (Router $router) {
-            $router->get('profile', 'AccountController@profile');
-            $router->get('submissions', 'AccountController@submissions')->middleware(['auth']);
-        });
-
-        $router->get('users', 'UserController@index')->middleware(['role:admin']);
-        $router->get('roles', 'RoleController@index')->middleware(['role:admin']);
-
-        $router->group(['prefix' => 'questions'], function (Router $router) {
-            $router->get('/', 'QuestionController@index');
-            $router->post('/', 'QuestionController@store')->middleware(['auth']);
-            $router->get('{uuid}', 'QuestionController@show');
-        });
-
         $router->group(['prefix' => 'submissions'], function (Router $router) {
             $router->group(['middleware' => ['auth']], function (Router $router) {
                 $router->get('recent', 'SubmissionController@recent');
@@ -48,10 +61,6 @@ $router->group(['prefix' => 'api', 'namespace' => 'Api'], function (Router $rout
             $router->get('token', 'ExamController@token');
         });
         $router->resource('exams', 'ExamController', ['except' => ['create', 'edit']]);
-
-        $router->resource('configs', 'ConfigController', ['only' => ['index', 'show', 'update']]);
-
-        $router->resource('tags', 'TagController', ['except' => ['create', 'edit']]);
     });
 });
 

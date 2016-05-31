@@ -15,7 +15,7 @@ class SignUpRequest extends Request
     {
         return [
             'username' => [
-                'bail', 'required', 'string', 'regex:/^\w{5,24}$/', 'unique:users,username',
+                'bail', 'required', 'string', 'regex:/^\w{5,32}$/', 'unique:users,username',
             ],
             'password' => 'required|string|min:6',
             'nickname' => 'required|string|min:3|max:16',

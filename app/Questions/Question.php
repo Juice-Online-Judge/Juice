@@ -9,6 +9,15 @@ use App\Tags\Tag;
 class Question extends Entity
 {
     /**
+     * The model's attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'judge' => [],
+    ];
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array

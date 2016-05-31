@@ -54,7 +54,7 @@ class Repository extends BaseRepository
      */
     public function getPath()
     {
-        return get_target_path($this->getBasePath(), $this->getFileName());
+        return file_build_path($this->getBasePath(), $this->getFileName());
     }
 
     /**
@@ -64,7 +64,7 @@ class Repository extends BaseRepository
      */
     protected function getBasePath()
     {
-        $dir = get_target_path(
+        $dir = file_build_path(
             $this->diskPath,
             'submissions',
             intval(floor($this->submission->getAttribute('id') / 1000))

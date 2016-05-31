@@ -2,47 +2,75 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Http\Requests\Api\V1\PasswordUpdateRequest;
+use App\Http\Requests\Api\V1\ProfileUpdateRequest;
+use Hash;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class AccountController extends ApiController
 {
     /**
      * Get user profile.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function profile()
     {
-        $user = request_user();
-
-        if (is_null($user)) {
-            return $this->setMessages(['Unauthorized'])->responseUnauthorized();
+        if (is_null($this->user)) {
+            $this->response->errorUnauthorized();
         }
 
-        pluck_relation_field($user->load(['roles']), 'roles', 'name');
-
-        return $this->setData($user)->responseOk();
+        return $this->user->load(['roles']);
     }
 
     /**
-     * Get user submission records.
+     * Update the user nickname and email.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @param ProfileUpdateRequest $request
+     *
+     * @return \Dingo\Api\Http\Response
+     */
+    public function updateProfile(ProfileUpdateRequest $request)
+    {
+        $this->user->update($request->only(['nickname', 'email']));
+
+        return $this->user->fresh();
+    }
+
+    /**
+     * Update the user password.
+     *
+     * @param PasswordUpdateRequest $request
+     *
+     * @return \Dingo\Api\Http\Response
+     */
+    public function updatePassword(PasswordUpdateRequest $request)
+    {
+        if (! Hash::check($request->input('old_password'), $this->user->getAttribute('password'))) {
+            $this->response->error('Invalid old password.', 422);
+        }
+
+        $this->user->update([
+            'password' => bcrypt($request->input('new_password')),
+        ]);
+
+        return $this->user->fresh();
+    }
+
+    /**
+     * Get the user submission records.
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function submissions()
     {
-        $submissions = request_user()
-            ->load([
-                'submissions' => function (HasMany $query) {
-                    $query->getBaseQuery()->whereNull('exam_id');
-                },
-                'submissions.question' => function (BelongsTo $query) {
-                    $query->getBaseQuery()->select(['id', 'uuid', 'title']);
-                },
-            ])
-            ->getRelation('submissions');
+        $submissions = $this->user->load([
+            'submissions.question' => function (Relation $query) {
+                $query->getBaseQuery()->select(['id', 'uuid', 'title']);
+            },
+        ])
+        ->getRelation('submissions');
 
-        return $this->setData($submissions)->responseOk();
+        return $submissions;
     }
 }

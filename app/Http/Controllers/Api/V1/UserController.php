@@ -9,12 +9,10 @@ class UserController extends ApiController
     /**
      * Get all users info.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function index()
     {
-        $users = User::all(['id', 'username', 'nickname']);
-
-        return $this->setData($users)->responseOk();
+        return User::all(['id', 'username', 'nickname']);
     }
 }

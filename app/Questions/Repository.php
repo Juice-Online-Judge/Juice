@@ -23,7 +23,7 @@ class Repository extends BaseRepository
             return $this->basePath;
         }
 
-        $this->basePath = get_target_path($this->diskPath, 'questions', intval(floor($questionId / 1000)), $questionId);
+        $this->basePath = file_build_path($this->diskPath, 'questions', intval(floor($questionId / 1000)), $questionId);
 
         $this->makeDirectoryIfNotExists($this->basePath);
 
