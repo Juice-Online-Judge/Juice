@@ -82,7 +82,7 @@ export const QuestionCard = compose(
       </div>
     </CardText>
     <CardText>
-      <Markdown escapeHtml source={ question.get('description', '') } />
+      <Markdown source={ question.get('description', '') } />
     </CardText>
     <CardActions>
       <SubmitCode
