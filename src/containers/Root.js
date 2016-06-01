@@ -6,7 +6,7 @@ import useScroll from 'react-router-scroll';
 export default class Root extends Component {
   static propTypes = {
     history: PropTypes.object.isRequired,
-    routes: PropTypes.element.isRequired,
+    routes: PropTypes.object.isRequired,
     store: PropTypes.object.isRequired
   };
 
