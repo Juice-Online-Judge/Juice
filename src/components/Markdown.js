@@ -8,7 +8,7 @@ const remarkableOpts = {
   highlight(str, lang) {
     if (lang) {
       if (lang === 'txt' || lang === 'plain') {
-        return str;
+        return '';
       }
 
       if (hljs.getLanguage(lang)) {
