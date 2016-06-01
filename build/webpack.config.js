@@ -70,6 +70,8 @@ if (__PROD__) {
         warnings: false
       }
     }),
+    new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
+    new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000}),
     new OfflinePlugin({
       caches: 'all',
       updateStrategy: 'all',
