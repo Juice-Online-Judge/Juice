@@ -52,7 +52,6 @@ const config = {
     'react',
     'react-clipboard.js',
     'react-codemirror',
-    'react-highlight',
     'react-redux',
     'react-remarkable',
     'react-router',
