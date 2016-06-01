@@ -1,6 +1,8 @@
-import CodeView from 'views/CodeView/CodeView';
-
 export default {
   path: 'exams/:examId/submissions/:id/code',
-  component: CodeView
+  getComponent(_state, cb) {
+    require.ensure('views/CodeView/CodeView', () => {
+      cb(null, require('views/CodeView/CodeView').default);
+    });
+  }
 };
