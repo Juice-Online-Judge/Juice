@@ -11,6 +11,7 @@
     "browser" : true
   },
   "globals" : {
+    "API_HEADER"   : false,
     "__DEV__"      : false,
     "__PROD__"     : false,
     "__DEBUG__"    : false,

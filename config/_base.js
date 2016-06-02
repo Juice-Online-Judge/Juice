@@ -94,11 +94,18 @@ Edit at Your Own Risk
 // Environment
 // ------------------------------------
 // N.B.: globals added here must _also_ be added to .eslintrc
+
+const apiSubtree = process.env.API_STANDARDS_TREE;
+const apiSubtype = process.env.API_SUBTYPE;
+const apiVersion = process.env.API_VERSION;
+const apiHeader = `application/${apiSubtree}.${apiSubtype}.${apiVersion}+json`;
+
 config.globals = {
   'process.env'  : {
     'NODE_ENV' : JSON.stringify(config.env)
   },
   'NODE_ENV'     : config.env,
+  'API_HEADER'   : apiHeader,
   '__DEV__'      : config.env === 'development',
   '__PROD__'     : config.env === 'production',
   '__TEST__'     : config.env === 'test',
