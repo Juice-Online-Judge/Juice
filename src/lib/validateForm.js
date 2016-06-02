@@ -19,9 +19,8 @@ const validateConnect = (validateRule) => {
       }
 
       @bind
-      validateForm(fields) {
-        return this.props.validateForm(componentName, fields, validateRule)
-          .then(() => true).catch(() => false);
+      validateForm(fields, cb) {
+        return this.props.validateForm(componentName, fields, validateRule, cb);
       }
 
       render() {

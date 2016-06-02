@@ -37,8 +37,7 @@ export class SignUpView extends React.Component {
     ];
     let datas = pick(this.data, fields);
     event.preventDefault();
-    this.props.validateForm(datas)
-    .then((result) => {
+    this.props.validateForm(datas, (result) => {
       if (result) {
         this.props.registerUser(datas);
       }

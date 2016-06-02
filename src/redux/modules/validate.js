@@ -1,6 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
 import { fromJS, Map } from 'immutable';
-import when from 'when';
 import validate from 'validate.js';
 
 const initialState = fromJS({
@@ -17,10 +16,12 @@ export const setValidationMessage = createAction(SET_VALIDATION_MESSAGE, (name, 
 });
 export const clearValidationMessage = createAction(CLEAR_VALIDATION_MESSAGE);
 
-export const validateForm = (name, fields, rule) => (dispatch) => validate
+export const validateForm = (name, fields, rule, cb) => (dispatch) => validate
   .async(fields, rule)
   .then(() => {
     dispatch(clearValidationMessage(name));
+    cb(true);
+    return true;
   })
   .catch((error) => {
     if (error instanceof Error) {
@@ -29,7 +30,8 @@ export const validateForm = (name, fields, rule) => (dispatch) => validate
     } else {
       dispatch(setValidationMessage(name, error));
     }
-    return when.reject();
+    cb(false);
+    return false;
   });
 
 export const createGetComponentMessage = (name) => (state) => ({
