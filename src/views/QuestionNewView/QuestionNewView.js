@@ -14,12 +14,11 @@ import { Row, Col } from 'react-flexbox-grid';
 import redirectNotAdmin from 'lib/redirectNotAdmin';
 import { addQuestion } from 'redux/modules/question';
 import { clearStatus } from 'redux/modules/app';
-import { createFormDataDeep } from 'lib/utils';
 import BasicInfoTab from './BasicInfoTab';
 import AnswerTab from './AnswerTab';
 import RestrictionTab from './RestrictionTab';
 import Inset from 'layouts/Inset';
-import Message from 'components/Message';
+import MessageContainer from 'containers/MessageContainer';
 
 class QuestionNewView extends Component {
   componentWillMount() {
@@ -60,13 +59,7 @@ class QuestionNewView extends Component {
   }
 
   handleAddQuestion() {
-    this.props.addQuestion(createFormDataDeep(this.data))
-      .then((result) => {
-        this.setState({
-          open: true,
-          message: result ? 'Add success' : 'Add fail'
-        });
-      });
+    this.props.addQuestion(this.data);
   }
 
   stepContent(index) {
@@ -94,7 +87,7 @@ class QuestionNewView extends Component {
     const { stepIndex, finished } = this.state;
 
     return (
-      <div>
+      <MessageContainer>
         <Inset>
           <Card>
             <CardActions>
@@ -125,19 +118,13 @@ class QuestionNewView extends Component {
             </CardActions>
           </Card>
         </Inset>
-        <Message
-          open={ this.state.open }
-          message={ this.state.message }
-          onRequestClose={ this.handleClose } />
-      </div>
+      </MessageContainer>
     );
   }
 
   state = {
     stepIndex: 0,
-    finished: false,
-    message: 'Add success',
-    open: false
+    finished: false
   };
 
   data = {};

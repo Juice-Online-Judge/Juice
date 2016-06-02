@@ -5,7 +5,9 @@ import omit from 'lodash/omit';
 import mapValues from 'lodash/mapValues';
 import { createSelector } from 'reselect';
 
+import { createFormDataDeep } from 'lib/utils';
 import { request } from './app';
+import { showMessage } from './message';
 import questionSchema from 'schema/question';
 import isRequesting from 'lib/isRequesting';
 
@@ -89,6 +91,7 @@ export const fetchQuestionDetail = (uuid, opts = { force: false }) => (dispatch,
 };
 
 export const addQuestion = (data) => (dispatch) => {
+  data = createFormDataDeep(data);
   if (!data.uuid) {
     delete data.uuid;
   }
@@ -102,6 +105,9 @@ export const addQuestion = (data) => (dispatch) => {
     entity: data
   }, (entity) => {
     dispatch(setQuestionDetail(entity));
+    dispatch(showMessage('Add success'));
+  }, () => {
+    dispatch(showMessage('Add fail'));
   }));
 };
 
