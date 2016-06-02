@@ -72,7 +72,7 @@ export class SignInView extends React.Component {
                   <Col mdOffset={ 2 } md={ 8 } xs={ 12 }>
                     <Row center='xs'>
                       <Col>
-                        <FlatButton label='Signup' primary onClick={ this.login } />
+                        <FlatButton label='Signin' primary onClick={ this.login } />
                       </Col>
                     </Row>
                   </Col>
