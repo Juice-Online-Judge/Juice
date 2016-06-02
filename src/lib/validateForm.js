@@ -1,46 +1,30 @@
-import React, { Component, PropTypes } from 'react';
-import { bind } from 'decko';
 import { connect } from 'react-redux';
+import lifecycle from 'recompose/lifecycle';
+import withHandlers from 'recompose/withHandlers';
 import setDisplayName from 'recompose/setDisplayName';
 import wrapDisplayName from 'recompose/wrapDisplayName';
 import getDisplayName from 'recompose/getDisplayName';
 import compose from 'recompose/compose';
 import { createGetComponentMessage, validateForm, clearValidationMessage } from 'redux/modules/validate';
 
-const validateConnect = (validateRule) => {
-  return (WrappedComponent) => {
-    const componentName = getDisplayName(WrappedComponent);
-    const getComponentMessage = createGetComponentMessage(componentName);
-    const mapStates = (state) => getComponentMessage(state);
+const validateConnect = (validateRule) => (WrappedComponent) => {
+  const componentName = getDisplayName(WrappedComponent);
+  const getComponentMessage = createGetComponentMessage(componentName);
+  const mapStates = (state) => getComponentMessage(state);
 
-    class ValidateCommponent extends Component {
+  return compose(
+    connect(mapStates, { validateForm, clearValidationMessage }),
+    lifecycle({
       componentWillMount() {
         this.props.clearValidationMessage(componentName);
       }
-
-      @bind
-      validateForm(fields, cb) {
-        return this.props.validateForm(componentName, fields, validateRule, cb);
-      }
-
-      render() {
-        const props = { ...this.props, validateForm: this.validateForm };
-        return (
-          <WrappedComponent { ...props } />
-        );
-      }
-
-      static propTypes = {
-        validateForm: PropTypes.func.isRequired,
-        clearValidationMessage: PropTypes.func.isRequired
-      }
-    }
-
-    return compose(
-      connect(mapStates, { validateForm, clearValidationMessage }),
-      setDisplayName(wrapDisplayName(WrappedComponent, 'Validate'))
-    )(ValidateCommponent);
-  };
+    }),
+    withHandlers({
+      validateForm: (props) => (fields, cb) =>
+        props.validateForm(componentName, fields, validateRule, cb)
+    }),
+    setDisplayName(wrapDisplayName(WrappedComponent, 'Validate'))
+  )(WrappedComponent);
 };
 
 export default validateConnect;
