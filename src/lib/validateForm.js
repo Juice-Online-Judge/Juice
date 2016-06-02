@@ -7,7 +7,7 @@ import getDisplayName from 'recompose/getDisplayName';
 import compose from 'recompose/compose';
 import { createGetComponentMessage, validateForm, clearValidationMessage } from 'redux/modules/validate';
 
-const validateConnect = (validateRule) => (WrappedComponent) => {
+const validateFormHoc = (validateRule) => (WrappedComponent) => {
   const componentName = getDisplayName(WrappedComponent);
   const getComponentMessage = createGetComponentMessage(componentName);
   const mapStates = (state) => getComponentMessage(state);
@@ -27,4 +27,4 @@ const validateConnect = (validateRule) => (WrappedComponent) => {
   )(WrappedComponent);
 };
 
-export default validateConnect;
+export default validateFormHoc;
