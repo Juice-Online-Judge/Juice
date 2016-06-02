@@ -9,7 +9,7 @@ import FlatButton from 'material-ui/FlatButton';
 
 import FileArea from './FileArea';
 import Label from './Label';
-import Message from './Message';
+import MessageContainer from 'containers/MessageContainer';
 
 import { submitCode } from 'redux/modules/submission';
 
@@ -31,25 +31,17 @@ export class SubmitCode extends Component {
       uuid,
       examId,
       ...this.state
-    }).then((result) => {
-      if (result) {
-        this.setState({ open: true, message: 'Submit success' });
-      } else {
-        this.setState({ open: true, message: 'Submit fail. Please retry later.' });
-      }
     });
   }
 
   @bind
   handleClose() {
-    this.setState({ open: false });
     this.props.goBack();
   }
 
   render() {
-    const { open, message } = this.state;
     return (
-      <div>
+      <MessageContainer onRequestClose={ this.handleClose }>
         <Label label='Language: ' />
         <SelectField
           style={ styles.margin }
@@ -67,18 +59,12 @@ export class SubmitCode extends Component {
           label='Submit'
           primary
           onTouchTap={ this.handleSubmit } />
-        <Message
-          open={ open }
-          message={ message }
-          onRequestClose={ this.handleClose } />
-      </div>
+      </MessageContainer>
     );
   }
 
   state = {
-    language: 'c',
-    open: false,
-    message: 'Submission success'
+    language: 'c'
   };
 
   static propTypes = {

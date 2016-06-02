@@ -7,6 +7,7 @@ import { normalize, arrayOf } from 'normalizr';
 import { createFormDataDeep } from 'lib/utils';
 
 import { request } from './app';
+import { showMessage } from './message';
 import submissionSchema from 'schema/submission';
 
 const SubmissionState = new Record({
@@ -40,6 +41,10 @@ export const submitCode = (submitData) => (dispatch) => {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
+  }, () => {
+    dispatch(showMessage('Submit success'));
+  }, () => {
+    dispatch(showMessage('Submit fail. Please retry later.'));
   }));
 };
 
