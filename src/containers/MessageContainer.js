@@ -8,6 +8,9 @@ export class MessageContainer extends Component {
   @bind
   handleClose() {
     this.props.setOpen(false);
+    if (this.props.onRequestClose) {
+      this.props.onRequestClose();
+    }
   }
 
   render() {
@@ -27,6 +30,7 @@ export class MessageContainer extends Component {
     message: PropTypes.string,
     messageStore: PropTypes.object.isRequired,
     setOpen: PropTypes.func.isRequired,
+    onRequestClose: PropTypes.func,
     children: PropTypes.node
   };
 }
