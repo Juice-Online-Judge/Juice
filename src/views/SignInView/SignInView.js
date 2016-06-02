@@ -97,10 +97,6 @@ export class SignInView extends React.Component {
     );
   }
 
-  state = {
-    open: false
-  };
-
   data = {
     username: '',
     password: ''
