@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 
 import { login } from 'redux/modules/account';
-import { createErrorSelector } from 'redux/modules/app';
 import redirectOnLogin from 'lib/redirectOnLogin';
 
 import Paper from 'material-ui/Paper';
@@ -14,10 +13,10 @@ import CardActions from 'material-ui/Card/CardActions';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
-import Snackbar from 'material-ui/Snackbar';
 import { Row, Col } from 'react-flexbox-grid';
 
 import CenterBlock from 'layouts/CenterBlock';
+import MessageContainer from 'containers/MessageContainer';
 
 export class SignInView extends React.Component {
   @bind
@@ -28,20 +27,10 @@ export class SignInView extends React.Component {
   }
 
   @bind
-  handleRequestClose() {
-    this.setState({ open: false });
-  }
-
-  @bind
   login(event) {
     let { username, password } = this.data;
     event.preventDefault();
-    this.props.login(username, password)
-      .then((result) => {
-        if (!result) {
-          this.setState({ open: true });
-        }
-      });
+    this.props.login(username, password);
   }
 
   @bind
@@ -56,59 +45,54 @@ export class SignInView extends React.Component {
   }
 
   render() {
-    const { errorMessages } = this.props;
-    const message = errorMessages ? errorMessages.get(0) : '';
     return (
       <CenterBlock>
-        <Paper zDepth={ 3 } style={ styles.marginTop }>
-          <Card>
-            <CardTitle title='Juice' />
-            <CardActions>
-              <TextField
-                name='username'
-                style={ styles.action }
-                onChange={ this.handleChange }
-                floatingLabelText='Username' />
-            </CardActions>
-            <CardActions>
-              <TextField
-                name='password'
-                style={ styles.action }
-                type='password'
-                onKeyDown={ this.handleKeyDown }
-                onChange={ this.handleChange }
-                floatingLabelText='Password' />
-            </CardActions>
-            <CardActions>
-              <Row>
-                <Col mdOffset={ 2 } md={ 8 } xs={ 12 }>
-                  <Row center='xs'>
-                    <Col>
-                      <FlatButton label='Signup' primary onClick={ this.login } />
-                    </Col>
-                  </Row>
-                </Col>
-                <Col md={ 2 } xs={ 12 }>
-                  <Row end='xs'>
-                    <Col>
-                      <a href='/api/v1/oauth/facebook'>
-                        <IconButton iconClassName='fa fa-facebook-square' />
-                      </a>
-                      <a href='/api/v1/oauth/github'>
-                        <IconButton iconClassName='fa fa-github' />
-                      </a>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
-            </CardActions>
-          </Card>
-        </Paper>
-        <Snackbar
-          message={ message }
-          open={ this.state.open }
-          autoHideDuration={ 2000 }
-          onRequestClose={ this.handleRequestClose } />
+        <MessageContainer>
+          <Paper zDepth={ 3 } style={ styles.marginTop }>
+            <Card>
+              <CardTitle title='Juice' />
+              <CardActions>
+                <TextField
+                  name='username'
+                  style={ styles.action }
+                  onChange={ this.handleChange }
+                  floatingLabelText='Username' />
+              </CardActions>
+              <CardActions>
+                <TextField
+                  name='password'
+                  style={ styles.action }
+                  type='password'
+                  onKeyDown={ this.handleKeyDown }
+                  onChange={ this.handleChange }
+                  floatingLabelText='Password' />
+              </CardActions>
+              <CardActions>
+                <Row>
+                  <Col mdOffset={ 2 } md={ 8 } xs={ 12 }>
+                    <Row center='xs'>
+                      <Col>
+                        <FlatButton label='Signup' primary onClick={ this.login } />
+                      </Col>
+                    </Row>
+                  </Col>
+                  <Col md={ 2 } xs={ 12 }>
+                    <Row end='xs'>
+                      <Col>
+                        <a href='/api/v1/oauth/facebook'>
+                          <IconButton iconClassName='fa fa-facebook-square' />
+                        </a>
+                        <a href='/api/v1/oauth/github'>
+                          <IconButton iconClassName='fa fa-github' />
+                        </a>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+              </CardActions>
+            </Card>
+          </Paper>
+        </MessageContainer>
       </CenterBlock>
     );
   }
@@ -123,16 +107,13 @@ export class SignInView extends React.Component {
   };
 
   static propTypes = {
-    login: PropTypes.func.isRequired,
-    errorMessages: PropTypes.object
+    login: PropTypes.func.isRequired
   };
 }
 
-const errorSelector = createErrorSelector();
-
 export default compose(
   redirectOnLogin,
-  connect((state) => ({ errorMessages: errorSelector(state) }), { login })
+  connect(null, { login })
 )(SignInView);
 
 let styles = {
