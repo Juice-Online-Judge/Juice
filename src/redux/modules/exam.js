@@ -10,6 +10,7 @@ import { renameKeys } from 'lib/utils';
 import { request } from './app';
 import { setQuestion } from './question';
 import { isLogin } from './account';
+import { showMessage } from './message';
 
 const ExamStatus = new Record({
   result: new List(),
@@ -81,6 +82,10 @@ export const addExam = (data) => (dispatch) => {
   return dispatch(request({
     path: 'exams',
     entity: examData
+  }, () => {
+    dispatch(showMessage('Add success'));
+  }, () => {
+    dispatch(showMessage('Add fail'));
   }));
 };
 

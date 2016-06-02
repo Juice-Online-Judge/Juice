@@ -15,7 +15,7 @@ import BasicInfoTab from './BasicInfoTab';
 import QuestionTab from './QuestionTab';
 import UserTab from './UserTab';
 import redirectNotAdmin from 'lib/redirectNotAdmin';
-import Message from 'components/Message';
+import MessageContainer from 'containers/MessageContainer';
 
 import { addExam } from 'redux/modules/exam';
 import { clearCache } from 'redux/modules/app';
@@ -59,14 +59,7 @@ export class ExamNewView extends Component {
   }
 
   handleAddExam() {
-    this.props.addExam(this.data)
-      .then((result) => {
-        if (result) {
-          this.setState({ open: true, message: 'Add success' });
-        } else {
-          this.setState({ open: true, message: 'Add fail' });
-        }
-      });
+    this.props.addExam(this.data);
   }
 
   stepContent(index) {
@@ -85,11 +78,6 @@ export class ExamNewView extends Component {
     }
   }
 
-  @bind
-  handleClose() {
-    this.setState({ open: false });
-  }
-
   setData(newData) {
     this.data = { ...this.data, ...newData };
   }
@@ -97,7 +85,7 @@ export class ExamNewView extends Component {
   render() {
     const { stepIndex, finished } = this.state;
     return (
-      <div>
+      <MessageContainer>
         <Inset>
           <Card>
             <CardActions>
@@ -128,17 +116,11 @@ export class ExamNewView extends Component {
             </CardActions>
           </Card>
         </Inset>
-        <Message
-          open={ this.state.open }
-          message={ this.state.message }
-          onRequestClose={ this.handleClose } />
-      </div>
+      </MessageContainer>
     );
   }
 
   state = {
-    open: false,
-    message: 'Add success',
     stepIndex: 0,
     finished: false
   };
