@@ -3,6 +3,7 @@ import { Record, Map, List } from 'immutable';
 import store from 'store';
 import { createSelector } from 'reselect';
 import { request } from './app';
+import { showMessage } from './message';
 
 export const AccountState = new Record({
   valid: false,
@@ -28,6 +29,10 @@ export const login = (username, password) => (dispatch) => {
   }, (entity) => {
     store.set('juice-token', entity);
     dispatch(fetchUserInfo({ force: true }));
+  }, ({ entity }) => {
+    if (entity.messages) {
+      dispatch(showMessage(entity.messages[0]));
+    }
   }));
 };
 
