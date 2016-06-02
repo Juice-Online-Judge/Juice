@@ -1,3 +1,5 @@
+import { takeEvery } from 'redux-saga';
+import { call, put } from 'redux-saga/effects';
 import { createAction, handleActions } from 'redux-actions';
 import { createSelector } from 'reselect';
 import { fromJS, Record } from 'immutable';
@@ -20,21 +22,25 @@ export const SET_STATUS = 'SET_STATUS';
 export const SET_ERROR = 'SET_ERROR';
 export const CLEAR_STATUS = 'CLEAR_STATUS';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
+export const CLEAR_CACHE = 'CLEAR_CACHE';
 
 export const setStatus = createAction(SET_STATUS);
 export const setError = createAction(SET_ERROR);
 export const clearStatus = createAction(CLEAR_STATUS);
 export const clearError = createAction(CLEAR_ERROR);
+export const clearCache = createAction(CLEAR_CACHE);
 
 export function* request(config) {
-  return yield* guardRequest(config);
+  return yield* call(guardRequest, config);
 };
 
-export const clearCache = () => (dispatch) => {
-  dispatch(clearExam());
-  dispatch(clearQuestion());
-  dispatch(clearSubmissions());
-  dispatch(clearUsers());
+export function* doClearCache() {
+  yield [
+    put(clearExam()),
+    put(clearQuestion()),
+    put(clearSubmissions()),
+    put(clearUsers())
+  ];
 };
 
 export const appStatusSelector = (state) => state.app.get('status');
@@ -60,6 +66,10 @@ export const createErrorSelector = () => createSelector(
   [createIsErrorSelector(), appErrorSelector],
   (error, message) => error ? message : null
 );
+
+export function* watcher() {
+  yield* takeEvery(CLEAR_CACHE, doClearCache);
+}
 
 export const actions = {
   setStatus,
