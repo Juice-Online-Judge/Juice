@@ -1,46 +1,36 @@
 import React, { PropTypes, Component } from 'react';
 import { bind } from 'decko';
+import { connect } from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
-import Snackbar from 'material-ui/Snackbar';
 import ClipboardButton from 'react-clipboard.js';
+
+import { setOpen } from 'redux/modules/message';
+import MessageContainer from '../containers/MessageContainer';
 
 export class CopyButton extends Component {
   @bind
   handleCopySuccess() {
-    this.setState({ open: true });
-  }
-
-  @bind
-  handleRequestClose() {
-    this.setState({ open: false });
+    this.props.setOpen(true);
   }
 
   render() {
     const { text } = this.props;
     return (
-      <div>
+      <MessageContainer message='Copy success'>
         <ClipboardButton
           component='a'
           data-clipboard-text={ text }
           onSuccess={ this.handleCopySuccess } >
           <FlatButton label='Copy' primary disabled={ !text } />
         </ClipboardButton>
-        <Snackbar
-          open={ this.state.open }
-          message='Copy success'
-          autoHideDuration={ 1000 }
-          onRequestClose={ this.handleRequestClose } />
-      </div>
+      </MessageContainer>
     );
   }
 
-  state = {
-    open: false
-  };
-
   static propTypes = {
-    text: PropTypes.string
+    text: PropTypes.string,
+    setOpen: PropTypes.func.isRequired
   };
 }
 
-export default CopyButton;
+export default connect(null, { setOpen })(CopyButton);
