@@ -12,7 +12,7 @@ function* guardRequest(reqOpts) {
     result = { entity };
   } catch (error) {
     result = false;
-    yield* handleRequestError(error);
+    yield* call(handleRequestError, error);
     result = { error };
   }
   return result;
