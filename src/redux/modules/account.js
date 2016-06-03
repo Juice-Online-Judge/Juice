@@ -67,7 +67,7 @@ export const fetchUserInfo = (options = { force: false }) => (dispatch, getState
   dispatch(request({
     path: 'account/profile'
   }, (entity) => {
-    dispatch(setUserInfo(entity));
+    dispatch(setUserInfo(entity.user));
   }, () => {
     // Token maybe expired here, remove it
     store.remove('juice-token');
@@ -130,6 +130,6 @@ export let actions = {
 
 export default handleActions({
   [SET_LOGIN_STATE]: (state, { payload }) => state.merge({ valid: true, state: payload }),
-  [SET_USER_INFO]: (state, { payload }) => state.merge({ valid: true, state: true, user: payload.user }),
+  [SET_USER_INFO]: (state, { payload }) => state.merge({ valid: true, state: true, user: payload }),
   [CLEAR_USER]: (state) => state.merge({ valid: true, state: false, user: {} })
 }, initialState);
