@@ -3,6 +3,7 @@ import { Record, Map, List } from 'immutable';
 import { normalize, arrayOf } from 'normalizr';
 import omit from 'lodash/omit';
 import map from 'lodash/map';
+import { replace } from 'react-router-redux';
 
 import examSchema from 'schema/exam';
 import isRequesting from 'lib/isRequesting';
@@ -49,6 +50,7 @@ export const fetchExams = (query, opts = { force: false }) => (dispatch, getStat
   }
 
   if (!isLogin(account)) {
+    dispatch(replace('/sign-in'));
     return;
   }
 
