@@ -1,6 +1,6 @@
 export default {
   path: 'exams/new',
-  getComponent(cb) {
+  getComponent(_state, cb) {
     require.ensure([
       'material-ui/RaisedButton',
       'material-ui/Stepper/Step',
