@@ -4,9 +4,11 @@ import { Record, Map } from 'immutable';
 import omitBy from 'lodash/omitBy';
 import isNil from 'lodash/isNil';
 import { normalize, arrayOf } from 'normalizr';
+import { replace } from 'react-router-redux';
 import { createFormDataDeep } from 'lib/utils';
 
 import { request } from './app';
+import { isLogin } from './account';
 import { showMessage } from './message';
 import submissionSchema from 'schema/submission';
 
@@ -49,8 +51,13 @@ export const submitCode = (submitData) => (dispatch) => {
 };
 
 export const fetchSubmissions = (opts = { force: false }) => (dispatch, getState) => {
-  const { submission } = getState();
+  const { submission, account } = getState();
   if (submission.get('result').size && !opts.force) {
+    return;
+  }
+
+  if (!isLogin(account)) {
+    dispatch(replace('/sign-in'));
     return;
   }
 
