@@ -11,7 +11,7 @@ import examNew from './exams/new';
 import examDetail from './exams/detail';
 import examQuestionDetail from './exams/question-detail.js';
 import examSubmissionCode from './exams/code.js';
-import premissionDenied from './premission-denied';
+import permissionDenied from './permission-denied';
 import pageNotFound from './page-not-found';
 import redirect from './utils/redirect';
 
@@ -33,7 +33,7 @@ export default {
     examDetail,
     examQuestionDetail,
     examSubmissionCode,
-    premissionDenied,
+    permissionDenied,
     pageNotFound,
     redirect('/page-not-found')
   ]

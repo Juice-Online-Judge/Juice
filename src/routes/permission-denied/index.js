@@ -1,6 +1,6 @@
 import PermissionDeniedView from 'views/PermissionDeniedView/PermissionDeniedView';
 
 export default {
-  path: '/premission-denied',
+  path: '/permission-denied',
   component: PermissionDeniedView
 };
