@@ -25,7 +25,7 @@ export const clearValidationMessage = createAction(CLEAR_VALIDATION_MESSAGE);
 
 export const validateForm = (fields, cb) => (dispatch, getState) => {
   const { validation } = getState();
-  const messages = validate(fields, validation.get('rule'));
+  const messages = validate(fields, validation.get('rule').toJS());
   const result = !messages;
   if (result) {
     dispatch(clearValidationMessage(validation.get('name')));
