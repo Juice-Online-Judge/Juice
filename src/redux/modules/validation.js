@@ -1,5 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import { fromJS, Map } from 'immutable';
+import { createSelector } from 'reselect';
 import validate from 'validate.js';
 
 const initialState = fromJS({
@@ -35,9 +36,12 @@ export const validateForm = (fields, cb) => (dispatch, getState) => {
   return result;
 };
 
-export const createGetComponentMessage = (name) => (state) => ({
-  validation: state.validate.getIn(['message', name], new Map())
-});
+const getComponentName = ({ validation }) => validation.get('name');
+const getValidation = ({ validation }) => validation;
+export const getComponentMessage = createSelector(
+  [getComponentName, getValidation],
+  (name, validate) => validate.getIn(['message', name], new Map())
+);
 
 export const actions = {
   setValidationMessage,

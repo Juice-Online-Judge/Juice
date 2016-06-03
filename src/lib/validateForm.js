@@ -6,17 +6,16 @@ import wrapDisplayName from 'recompose/wrapDisplayName';
 import getDisplayName from 'recompose/getDisplayName';
 import compose from 'recompose/compose';
 import {
-  createGetComponentMessage,
+  getComponentMessage,
   validateForm,
   setValidationName,
   setValidationRule,
   clearValidationMessage
-} from 'redux/modules/validate';
+} from 'redux/modules/validation';
 
 const validateFormHoc = (validateRule) => (WrappedComponent) => {
   const componentName = getDisplayName(WrappedComponent);
-  const getComponentMessage = createGetComponentMessage(componentName);
-  const mapStates = (state) => getComponentMessage(state);
+  const mapStates = (state) => ({ validation: getComponentMessage(state) });
 
   return compose(
     connect(mapStates, {
