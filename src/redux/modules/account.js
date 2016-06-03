@@ -19,7 +19,7 @@ export const SET_USER_INFO = 'SET_USER_INFO';
 export const CLEAR_USER = 'CLEAR_USER';
 
 export const setLoginState = createAction(SET_LOGIN_STATE, (state = false) => state);
-export const setUserInfo = createAction(SET_USER_INFO, (info) => info);
+export const setUserInfo = createAction(SET_USER_INFO);
 export const clearUser = createAction(CLEAR_USER);
 
 export const login = (username, password) => (dispatch) => {
@@ -130,6 +130,6 @@ export let actions = {
 
 export default handleActions({
   [SET_LOGIN_STATE]: (state, { payload }) => state.merge({ valid: true, state: payload }),
-  [SET_USER_INFO]: (state, { payload }) => state.merge({ valid: true, state: true, user: payload }),
+  [SET_USER_INFO]: (state, { payload }) => state.merge({ valid: true, state: true, user: payload.user }),
   [CLEAR_USER]: (state) => state.merge({ valid: true, state: false, user: {} })
 }, initialState);
