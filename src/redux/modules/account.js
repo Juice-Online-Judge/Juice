@@ -4,6 +4,7 @@ import store from 'store';
 import { createSelector } from 'reselect';
 import { request } from './app';
 import { showMessage } from './message';
+import { validateForm } from './validation';
 
 export const AccountState = new Record({
   valid: false,
@@ -75,6 +76,12 @@ export const fetchUserInfo = (options = { force: false }) => (dispatch, getState
 };
 
 export const registerUser = (info) => (dispatch) => {
+  const isValidation = dispatch(validateForm(info));
+
+  if (!isValidation) {
+    return;
+  }
+
   return dispatch(request({
     path: 'auth/sign-up',
     entity: info
