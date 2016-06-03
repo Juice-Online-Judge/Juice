@@ -32,7 +32,9 @@ export const validateForm = (fields, cb) => (dispatch, getState) => {
   } else {
     dispatch(setValidationMessage(validation.get('name'), messages));
   }
-  cb(result);
+  if (cb) {
+    cb(result);
+  }
   return result;
 };
 
