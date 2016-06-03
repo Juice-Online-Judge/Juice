@@ -1,8 +1,16 @@
 export default {
   path: 'questions/new',
   getComponent(cb) {
-    require.ensure('views/QuestionNewView/QuestionNewView', () => {
-      cb(null, require('views/QuestionNewView/QuestionNewView').default);
+    require.ensure([
+      'material-ui/RaisedButton',
+      'material-ui/Stepper/Step',
+      'material-ui/Stepper/Stepper',
+      'material-ui/Stepper/StepLabel',
+      'lib/redirectNotAdmin'
+    ], () => {
+      require.ensure('views/QuestionNewView/QuestionNewView', () => {
+        cb(null, require('views/QuestionNewView/QuestionNewView').default);
+      });
     });
   }
 };
