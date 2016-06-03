@@ -10,7 +10,7 @@
     "compile": "node -r dotenv/config -r babel-register --harmony bin/compile",
     "deploy": "better-npm-run deploy",
     "deploy:dev": "better-npm-run deploy:dev",
-    "watch": "nodemon -x 'node -r dotenv/config -r babel-register --harmony' bin/watch.js",
+    "watch": "npm run clean && nodemon -x 'node -r dotenv/config -r babel-register --harmony' bin/watch.js",
     "lint": "eslint . ./",
     "lint:fix": "npm run lint -- --fix",
     "test": "better-npm-run test",
