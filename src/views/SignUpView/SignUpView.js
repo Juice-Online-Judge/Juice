@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bind } from 'decko';
-import pick from 'lodash/pick';
 import compose from 'recompose/compose';
 
 import { registerUser } from '../../redux/modules/account';
@@ -28,16 +27,8 @@ export class SignUpView extends React.Component {
 
   @bind
   signup(event) {
-    let fields = [
-      'username',
-      'nickname',
-      'password',
-      'email',
-      'passwordConfirm'
-    ];
-    let datas = pick(this.data, fields);
     event.preventDefault();
-    this.props.registerUser(datas);
+    this.props.registerUser(this.data);
   }
 
   setData(newData) {
