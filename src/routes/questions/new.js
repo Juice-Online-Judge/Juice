@@ -1,6 +1,8 @@
-import QuestionNewView from 'views/QuestionNewView/QuestionNewView';
-
 export default {
   path: 'questions/new',
-  component: QuestionNewView
+  getComponent(cb) {
+    require.ensure('views/QuestionNewView/QuestionNewView', () => {
+      cb(null, require('views/QuestionNewView/QuestionNewView').default);
+    });
+  }
 };

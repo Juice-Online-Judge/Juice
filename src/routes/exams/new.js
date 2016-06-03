@@ -1,6 +1,8 @@
-import ExamNewView from 'views/ExamNewView/ExamNewView';
-
 export default {
   path: 'exams/new',
-  component: ExamNewView
+  getComponent(cb) {
+    require.ensure('views/ExamNewView/ExamNewView', () => {
+      cb(null, require('views/ExamNewView/ExamNewView').default);
+    });
+  }
 };
