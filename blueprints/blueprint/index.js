@@ -2,12 +2,11 @@ module.exports = {
   description() {
     return 'generates a blueprint and definition';
   },
-
-  beforeInstall() {
-    console.log('Before installation hook!');
-  },
-
-  afterInstall() {
-    console.log('After installation hook!');
+  fileMapTokens() {
+    return {
+      __name__(options) {
+        return options.entity.name;
+      }
+    };
   }
 };
