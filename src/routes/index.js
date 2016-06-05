@@ -9,6 +9,7 @@ import submissionCode from './submissions/code';
 import exams from './exams';
 import examNew from './exams/new';
 import examDetail from './exams/detail';
+import dashboard from './dashboard';
 import examQuestionDetail from './exams/question-detail.js';
 import examSubmissionCode from './exams/code.js';
 import permissionDenied from './permission-denied';
@@ -22,6 +23,7 @@ export default {
   childRoutes: [
     signIn,
     signUp,
+    dashboard,
     questions,
     questionNew,
     questionDetail,
