@@ -1,5 +1,5 @@
-import { Schema } from 'normalizr';
+import { Schema } from 'normalizr'
 
-const exam = new Schema('exam');
+const exam = new Schema('exam')
 
-export default exam;
+export default exam

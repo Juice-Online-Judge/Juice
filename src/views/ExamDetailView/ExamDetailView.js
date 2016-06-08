@@ -1,81 +1,81 @@
-import React, { Children, Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { bind } from 'decko';
+import React, { Children, Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { bind } from 'decko'
 
-import { Link } from 'react-router';
-import Inset from 'layouts/Inset';
-import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import FlipToFrontIcon from 'material-ui/svg-icons/action/flip-to-front';
-import CopyButton from 'components/CopyButton';
-import { Row, Col } from 'react-flexbox-grid';
-import { fetchExamToken } from 'redux/modules/exam';
-import { filterStringify, parseFilter, addFilter, clearFilter } from 'redux/modules/submissionFilter';
-import styles from 'lib/styles';
+import { Link } from 'react-router'
+import Inset from 'layouts/Inset'
+import TextField from 'material-ui/TextField'
+import FlatButton from 'material-ui/FlatButton'
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import FlipToFrontIcon from 'material-ui/svg-icons/action/flip-to-front'
+import CopyButton from 'components/CopyButton'
+import { Row, Col } from 'react-flexbox-grid'
+import { fetchExamToken } from 'redux/modules/exam'
+import { filterStringify, parseFilter, addFilter, clearFilter } from 'redux/modules/submissionFilter'
+import styles from 'lib/styles'
 
 class ExamDetailView extends Component {
   componentDidMount() {
-    const { id } = this.props.params;
-    const { submissionFilter } = this.props;
-    this.props.fetchExamToken(id);
-    this.setState({ filter: filterStringify(submissionFilter) });
+    const { id } = this.props.params
+    const { submissionFilter } = this.props
+    this.props.fetchExamToken(id)
+    this.setState({ filter: filterStringify(submissionFilter) })
   }
 
   componentWillReceiveProps(nextProps) {
-    const nextFilter = nextProps.submissionFilter;
+    const nextFilter = nextProps.submissionFilter
     if (nextFilter !== this.props.submissionFilter) {
-      this.setState({ filter: filterStringify(nextFilter) });
+      this.setState({ filter: filterStringify(nextFilter) })
     }
   }
 
   @bind
   handleFocus() {
-    this.refs.textField.select();
+    this.refs.textField.select()
   }
 
   @bind
   handleChange(event) {
-    this.setState({ filter: event.target.value });
+    this.setState({ filter: event.target.value })
   }
 
   @bind
   handleKeyDown(event) {
     if (event.keyCode === 13) {
-      const newFilter = parseFilter(this.state.filter);
+      const newFilter = parseFilter(this.state.filter)
       if (newFilter === null) {
-        this.setState({ errorText: 'Syntax error' });
+        this.setState({ errorText: 'Syntax error' })
       } else {
-        this.setState({ errorText: null });
-        this.props.addFilter(newFilter);
+        this.setState({ errorText: null })
+        this.props.addFilter(newFilter)
       }
     }
   }
 
   @bind
   handleClearFilter() {
-    this.props.clearFilter();
+    this.props.clearFilter()
   }
 
   get switchButton() {
-    const { id } = this.props.params;
-    const { path } = this.props.routes[2];
-    const othFunc = path === 'questions' ? 'submissions' : 'questions';
+    const { id } = this.props.params
+    const { path } = this.props.routes[2]
+    const othFunc = path === 'questions' ? 'submissions' : 'questions'
     return (
       <Link to={ `/exams/${id}/${othFunc}` }>
         <FloatingActionButton style={ styles.floatBtn } >
           <FlipToFrontIcon />
         </FloatingActionButton>
       </Link>
-    );
+    )
   }
 
   render() {
-    const { id } = this.props.params;
-    const { exam, children } = this.props;
-    const token = exam.getIn(['tokens', `${id}`]);
-    const { path } = this.props.routes[2];
-    const isSubmission = path === 'submissions';
+    const { id } = this.props.params
+    const { exam, children } = this.props
+    const token = exam.getIn(['tokens', `${id}`])
+    const { path } = this.props.routes[2]
+    const isSubmission = path === 'submissions'
     return (
       <Inset>
         <Row middle='md'>
@@ -119,7 +119,7 @@ class ExamDetailView extends Component {
         { Children.only(children) }
         { this.switchButton }
       </Inset>
-    );
+    )
   }
 
   state = {
@@ -144,4 +144,4 @@ class ExamDetailView extends Component {
 export default connect((state) => ({
   exam: state.exam,
   submissionFilter: state.submissionFilter
-}), { fetchExamToken, addFilter, clearFilter })(ExamDetailView);
+}), { fetchExamToken, addFilter, clearFilter })(ExamDetailView)

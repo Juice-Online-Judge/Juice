@@ -1,44 +1,44 @@
-import React, { Component, PropTypes } from 'react';
-import { bind } from 'decko';
+import React, { Component, PropTypes } from 'react'
+import { bind } from 'decko'
 
-import TextField from 'material-ui/TextField';
-import Toggle from 'material-ui/Toggle';
-import MarkdownEditor from 'components/MarkdownEditor';
+import TextField from 'material-ui/TextField'
+import Toggle from 'material-ui/Toggle'
+import MarkdownEditor from 'components/MarkdownEditor'
 
 export class BasicInfoTab extends Component {
   componentDidMount() {
     // Fire event to set default value
-    this.handleChange();
+    this.handleChange()
   }
 
   @bind
   handleUuidChange(event) {
-    this.handleChange({ uuid: event.target.value });
+    this.handleChange({ uuid: event.target.value })
   }
 
   @bind
   handleTitleChange(event) {
-    this.handleChange({ title: event.target.value });
+    this.handleChange({ title: event.target.value })
   }
 
   @bind
   handleDescChange(text) {
-    this.handleChange({ description: text });
+    this.handleChange({ description: text })
   }
 
   @bind
   handlePublicChange(event) {
-    this.handleChange({ public: event.target.checked });
+    this.handleChange({ public: event.target.checked })
   }
 
   handleChange(data = {}) {
     // Fire change event
-    this.setData(data);
-    this.props.onChange(this.data);
+    this.setData(data)
+    this.props.onChange(this.data)
   }
 
   setData(data) {
-    this.data = { ...this.data, ...data };
+    this.data = { ...this.data, ...data }
   }
 
   render() {
@@ -68,7 +68,7 @@ export class BasicInfoTab extends Component {
             onToggle={ this.handlePublicChange } />
         </div>
       </div>
-    );
+    )
   }
 
   data = {
@@ -83,4 +83,4 @@ export class BasicInfoTab extends Component {
   };
 }
 
-export default BasicInfoTab;
+export default BasicInfoTab

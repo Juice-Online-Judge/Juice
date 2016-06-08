@@ -1,8 +1,8 @@
-import React, { PropTypes } from 'react';
-import setDisplayName from 'recompose/setDisplayName';
-import setPropTypes from 'recompose/setPropTypes';
-import compose from 'recompose/compose';
-import Snackbar from 'material-ui/Snackbar';
+import React, { PropTypes } from 'react'
+import setDisplayName from 'recompose/setDisplayName'
+import setPropTypes from 'recompose/setPropTypes'
+import compose from 'recompose/compose'
+import Snackbar from 'material-ui/Snackbar'
 
 const Message = compose(
   setPropTypes({
@@ -17,6 +17,6 @@ const Message = compose(
     message={ message }
     autoHideDuration={ 2000 }
     onRequestClose={ onRequestClose } />
-));
+))
 
-export default Message;
+export default Message

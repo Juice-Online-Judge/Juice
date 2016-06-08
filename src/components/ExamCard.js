@@ -1,12 +1,12 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes } from 'react'
 
-import { Link } from 'react-router';
-import setDisplayName from 'recompose/setDisplayName';
-import setPropTypes from 'recompose/setPropTypes';
-import compose from 'recompose/compose';
+import { Link } from 'react-router'
+import setDisplayName from 'recompose/setDisplayName'
+import setPropTypes from 'recompose/setPropTypes'
+import compose from 'recompose/compose'
 
-import TitleCard from './TitleCard';
-import styles from 'lib/styles';
+import TitleCard from './TitleCard'
+import styles from 'lib/styles'
 
 const ExamCard = compose(
   setPropTypes({
@@ -22,6 +22,6 @@ const ExamCard = compose(
       title={ name }
       subtitle={ `${beganTime} ~ ${endedTime}` } />
   </Link>
-));
+))
 
-export default ExamCard;
+export default ExamCard

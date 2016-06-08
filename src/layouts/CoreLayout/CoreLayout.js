@@ -1,17 +1,17 @@
-import React, { PropTypes } from 'react';
-import { StyleRoot } from 'radium';
-import setPropTypes from 'recompose/setPropTypes';
-import setDisplayName from 'recompose/setDisplayName';
-import compose from 'recompose/compose';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import React, { PropTypes } from 'react'
+import { StyleRoot } from 'radium'
+import setPropTypes from 'recompose/setPropTypes'
+import setDisplayName from 'recompose/setDisplayName'
+import compose from 'recompose/compose'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-import 'highlight.js/styles/monokai-sublime.css';
-import 'github-markdown-css';
-import 'codemirror/lib/codemirror.css';
-import '../../styles/core.scss';
-import theme from '../../themes/light';
+import 'highlight.js/styles/monokai-sublime.css'
+import 'github-markdown-css'
+import 'codemirror/lib/codemirror.css'
+import '../../styles/core.scss'
+import theme from '../../themes/light'
 
-import AppBar from 'components/AppBar';
+import AppBar from 'components/AppBar'
 
 export const CoreLayout = compose(
   setDisplayName('CoreLayout'),
@@ -29,12 +29,12 @@ export const CoreLayout = compose(
       </div>
     </div>
   </MuiThemeProvider>
-));
+))
 
-export default CoreLayout;
+export default CoreLayout
 
 let styles = {
   container: {
     height: '100%'
   }
-};
+}

@@ -1,31 +1,31 @@
-import React, { Component, PropTypes } from 'react';
-import { bind } from 'decko';
+import React, { Component, PropTypes } from 'react'
+import { bind } from 'decko'
 
-import FileArea from 'components/FileArea';
+import FileArea from 'components/FileArea'
 
 export class AnswerTab extends Component {
   componentDidMount() {
-    this.handleChange();
+    this.handleChange()
   }
 
   @bind
   handleInputChange(content) {
-    this.handleChange({ input: content });
+    this.handleChange({ input: content })
   }
 
   @bind
   handleOutputChange(content) {
-    this.handleChange({ output: content });
+    this.handleChange({ output: content })
   }
 
   handleChange(data = {}) {
     // Fire change event
-    this.setData(data);
-    this.props.onChange(this.data);
+    this.setData(data)
+    this.props.onChange(this.data)
   }
 
   setData(data) {
-    this.data = { ...this.data, ...data };
+    this.data = { ...this.data, ...data }
   }
 
   render() {
@@ -38,7 +38,7 @@ export class AnswerTab extends Component {
           <FileArea multiple onChange={ this.handleOutputChange } />
         </div>
       </div>
-    );
+    )
   }
 
   data = {
@@ -51,4 +51,4 @@ export class AnswerTab extends Component {
   };
 }
 
-export default AnswerTab;
+export default AnswerTab

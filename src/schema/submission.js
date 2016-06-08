@@ -1,5 +1,5 @@
-import { Schema } from 'normalizr';
+import { Schema } from 'normalizr'
 
-const submission = new Schema('submission');
+const submission = new Schema('submission')
 
-export default submission;
+export default submission

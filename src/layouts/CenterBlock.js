@@ -1,8 +1,8 @@
-import React, { PropTypes } from 'react';
-import setPropTypes from 'recompose/setPropTypes';
-import setDisplayName from 'recompose/setDisplayName';
-import compose from 'recompose/compose';
-import { Grid, Row, Col } from 'react-flexbox-grid';
+import React, { PropTypes } from 'react'
+import setPropTypes from 'recompose/setPropTypes'
+import setDisplayName from 'recompose/setDisplayName'
+import compose from 'recompose/compose'
+import { Grid, Row, Col } from 'react-flexbox-grid'
 
 export const CenterBlock = compose(
   setDisplayName('CenterBlock'),
@@ -18,6 +18,6 @@ export const CenterBlock = compose(
       </Col>
     </Row>
   </Grid>
-));
+))
 
-export default CenterBlock;
+export default CenterBlock

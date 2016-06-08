@@ -1,2 +1,2 @@
-import DashBoardView from './DashBoardView';
-export default DashBoardView;
+import DashBoardView from './DashBoardView'
+export default DashBoardView

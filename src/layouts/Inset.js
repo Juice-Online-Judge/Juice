@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import { Grid, Row, Col } from 'react-flexbox-grid';
+import React, { Component, PropTypes } from 'react'
+import { Grid, Row, Col } from 'react-flexbox-grid'
 
 export class Inset extends Component {
   render() {
@@ -11,7 +11,7 @@ export class Inset extends Component {
           </Col>
         </Row>
       </Grid>
-    );
+    )
   }
 
   static propTypes = {
@@ -19,4 +19,4 @@ export class Inset extends Component {
   };
 }
 
-export default Inset;
+export default Inset

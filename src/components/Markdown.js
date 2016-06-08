@@ -1,33 +1,33 @@
-import React from 'react';
-import Remarkable from 'react-remarkable';
-import hljs from 'highlight.js';
-import setDisplayName from 'recompose/setDisplayName';
+import React from 'react'
+import Remarkable from 'react-remarkable'
+import hljs from 'highlight.js'
+import setDisplayName from 'recompose/setDisplayName'
 
 const remarkableOpts = {
   langPrefix: 'hljs language-',
   highlight(str, lang) {
     if (lang) {
       if (lang === 'txt' || lang === 'plain') {
-        return '';
+        return ''
       }
 
       if (hljs.getLanguage(lang)) {
         try {
-          return hljs.highlight(lang, str).value;
+          return hljs.highlight(lang, str).value
         } catch (err) {}
       }
     }
 
     try {
-      return hljs.highlightAuto(str).value;
+      return hljs.highlightAuto(str).value
     } catch (err) {}
 
-    return '';
+    return ''
   }
-};
+}
 
 const Markdown = setDisplayName('Markdown')((props) => {
-  const { children, ...rest } = props;
+  const { children, ...rest } = props
 
   if (children) {
     return (
@@ -36,14 +36,14 @@ const Markdown = setDisplayName('Markdown')((props) => {
           { children }
         </Remarkable>
       </span>
-    );
+    )
   }
 
   return (
     <span className='markdown-body'>
       <Remarkable { ...rest } options={ remarkableOpts } />
     </span>
-  );
-});
+  )
+})
 
-export default Markdown;
+export default Markdown

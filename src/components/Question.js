@@ -1,48 +1,48 @@
-import React, { Component, PropTypes } from 'react';
-import setDisplayName from 'recompose/setDisplayName';
-import setPropTypes from 'recompose/setPropTypes';
-import compose from 'recompose/compose';
-import { connect } from 'react-redux';
+import React, { Component, PropTypes } from 'react'
+import setDisplayName from 'recompose/setDisplayName'
+import setPropTypes from 'recompose/setPropTypes'
+import compose from 'recompose/compose'
+import { connect } from 'react-redux'
 
-import Card from 'material-ui/Card/Card';
-import CardTitle from 'material-ui/Card/CardTitle';
-import CardText from 'material-ui/Card/CardText';
-import CardActions from 'material-ui/Card/CardActions';
-import Markdown from './Markdown';
+import Card from 'material-ui/Card/Card'
+import CardTitle from 'material-ui/Card/CardTitle'
+import CardText from 'material-ui/Card/CardText'
+import CardActions from 'material-ui/Card/CardActions'
+import Markdown from './Markdown'
 
-import SubmitCode from './SubmitCode';
+import SubmitCode from './SubmitCode'
 
-import { fetchQuestionDetail, questionSelector } from 'redux/modules/question';
-import { fetchExamQuestion } from 'redux/modules/exam';
+import { fetchQuestionDetail, questionSelector } from 'redux/modules/question'
+import { fetchExamQuestion } from 'redux/modules/exam'
 
 export class Question extends Component {
   componentDidMount() {
-    this.fetchQuestionDetail();
+    this.fetchQuestionDetail()
   }
 
   fetchQuestionDetail() {
-    const { question, uuid, examId } = this.props;
+    const { question, uuid, examId } = this.props
     if (question && question.get('detail')) {
-      return;
+      return
     }
 
     if (examId) {
       // It an exam's question.
-      this.props.fetchExamQuestion(examId);
+      this.props.fetchExamQuestion(examId)
     } else {
-      this.props.fetchQuestionDetail(uuid, { force: true });
+      this.props.fetchQuestionDetail(uuid, { force: true })
     }
   }
 
   render() {
-    const { uuid, examId, question } = this.props;
+    const { uuid, examId, question } = this.props
 
     return (
       <QuestionCard
         uuid={ uuid }
         examId={ examId }
         question={ question } />
-    );
+    )
   }
 
   static propTypes = {
@@ -56,7 +56,7 @@ export class Question extends Component {
 
 export default connect((state, props) => ({
   question: questionSelector(state, props)
-}), { fetchQuestionDetail, fetchExamQuestion })(Question);
+}), { fetchQuestionDetail, fetchExamQuestion })(Question)
 
 export const QuestionCard = compose(
   setDisplayName('QuestionCard'),
@@ -90,4 +90,4 @@ export const QuestionCard = compose(
         uuid={ uuid } />
     </CardActions>
   </Card>
-));
+))

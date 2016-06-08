@@ -3,8 +3,8 @@ export const RequestStatus = {
   PENDING: 'PENDING',
   NONE: 'NONE',
   FAIL: 'FAIL'
-};
+}
 
 export default {
   RequestStatus
-};
+}

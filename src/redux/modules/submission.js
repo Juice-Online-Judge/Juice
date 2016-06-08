@@ -1,39 +1,39 @@
-import { createAction, handleActions } from 'redux-actions';
-import { createSelector } from 'reselect';
-import { Record, Map } from 'immutable';
-import omitBy from 'lodash/omitBy';
-import isNil from 'lodash/isNil';
-import { normalize, arrayOf } from 'normalizr';
-import { replace } from 'react-router-redux';
-import { createFormDataDeep } from 'lib/utils';
+import { createAction, handleActions } from 'redux-actions'
+import { createSelector } from 'reselect'
+import { Record, Map } from 'immutable'
+import omitBy from 'lodash/omitBy'
+import isNil from 'lodash/isNil'
+import { normalize, arrayOf } from 'normalizr'
+import { replace } from 'react-router-redux'
+import { createFormDataDeep } from 'lib/utils'
 
-import { request } from './app';
-import { isLogin } from './account';
-import { showMessage } from './message';
-import submissionSchema from 'schema/submission';
+import { request } from './app'
+import { isLogin } from './account'
+import { showMessage } from './message'
+import submissionSchema from 'schema/submission'
 
 const SubmissionState = new Record({
   result: [],
   entities: {},
   code: ''
-});
+})
 
-const initialState = new SubmissionState();
+const initialState = new SubmissionState()
 
-const SET_SUBMISSIONS = 'SET_SUBMISSIONS';
-const SET_SUBMISSION = 'SET_SUBMISSION';
-const SET_SUBMISSION_CODE = 'SET_SUCMISSION_CODE';
-const CLEAR_SUBMISSIONS = 'CLEAR_SUBMISSIONS';
-const CLEAR_SUBMISSION_CODE = 'CLEAR_SUBMISSION_CODE';
+const SET_SUBMISSIONS = 'SET_SUBMISSIONS'
+const SET_SUBMISSION = 'SET_SUBMISSION'
+const SET_SUBMISSION_CODE = 'SET_SUCMISSION_CODE'
+const CLEAR_SUBMISSIONS = 'CLEAR_SUBMISSIONS'
+const CLEAR_SUBMISSION_CODE = 'CLEAR_SUBMISSION_CODE'
 
-export const setSubmissions = createAction(SET_SUBMISSIONS, (data) => normalize(data, arrayOf(submissionSchema)));
-export const setSubmission = createAction(SET_SUBMISSION, (data) => normalize(data, submissionSchema));
-export const setSubmissionCode = createAction(SET_SUBMISSION_CODE);
-export const clearSubmissions = createAction(CLEAR_SUBMISSIONS);
-export const clearSubmissionCode = createAction(CLEAR_SUBMISSION_CODE);
+export const setSubmissions = createAction(SET_SUBMISSIONS, (data) => normalize(data, arrayOf(submissionSchema)))
+export const setSubmission = createAction(SET_SUBMISSION, (data) => normalize(data, submissionSchema))
+export const setSubmissionCode = createAction(SET_SUBMISSION_CODE)
+export const clearSubmissions = createAction(CLEAR_SUBMISSIONS)
+export const clearSubmissionCode = createAction(CLEAR_SUBMISSION_CODE)
 
 export const submitCode = (submitData) => (dispatch) => {
-  const { uuid, examId, ...data } = submitData;
+  const { uuid, examId, ...data } = submitData
   return dispatch(request({
     path: 'submissions/{uuid}',
     params: {
@@ -44,29 +44,29 @@ export const submitCode = (submitData) => (dispatch) => {
       'Content-Type': 'multipart/form-data'
     }
   }, () => {
-    dispatch(showMessage('Submit success'));
+    dispatch(showMessage('Submit success'))
   }, () => {
-    dispatch(showMessage('Submit fail. Please retry later.'));
-  }));
-};
+    dispatch(showMessage('Submit fail. Please retry later.'))
+  }))
+}
 
 export const fetchSubmissions = (opts = { force: false }) => (dispatch, getState) => {
-  const { submission, account } = getState();
+  const { submission, account } = getState()
   if (submission.get('result').size && !opts.force) {
-    return;
+    return
   }
 
   if (!isLogin(account)) {
-    dispatch(replace('/sign-in'));
-    return;
+    dispatch(replace('/sign-in'))
+    return
   }
 
   dispatch(request({
     path: '/account/submissions'
   }, (entity) => {
-    dispatch(setSubmissions(entity));
-  }));
-};
+    dispatch(setSubmissions(entity))
+  }))
+}
 
 export const fetchExamSubmissions = (id, opts = { force: false }) => (dispatch) => {
   dispatch(request({
@@ -75,15 +75,15 @@ export const fetchExamSubmissions = (id, opts = { force: false }) => (dispatch) 
       id
     }
   }, (entity) => {
-    dispatch(setSubmissions(entity));
-  }));
-};
+    dispatch(setSubmissions(entity))
+  }))
+}
 
 export const fetchSubmission = (id, opts = { force: false }) => (dispatch, getState) => {
-  const { submission } = getState();
-  id = `${id}`;
+  const { submission } = getState()
+  id = `${id}`
   if (submission.hasIn(['entities', 'submission', id]) && !opts.force) {
-    return;
+    return
   }
 
   dispatch(request({
@@ -92,24 +92,24 @@ export const fetchSubmission = (id, opts = { force: false }) => (dispatch, getSt
       id
     }
   }, (entity) => {
-    dispatch(setSubmission(entity));
-  }));
-};
+    dispatch(setSubmission(entity))
+  }))
+}
 
 export const fetchCode = (id) => (dispatch) => {
-  dispatch(clearSubmissionCode());
+  dispatch(clearSubmissionCode())
   dispatch(request({
     path: 'submissions/{id}/code',
     params: {
       id
     }
   }, (entity) => {
-    dispatch(setSubmissionCode(entity));
-  }));
-};
+    dispatch(setSubmissionCode(entity))
+  }))
+}
 
 export const patchSubmissionCorrectness = (id, correctness) => (dispatch) => {
-  correctness = parseInt(correctness || 0);
+  correctness = parseInt(correctness || 0)
   dispatch(request({
     method: 'PATCH',
     path: 'submissions/{id}',
@@ -119,28 +119,28 @@ export const patchSubmissionCorrectness = (id, correctness) => (dispatch) => {
     entity: {
       correctness
     }
-  }));
-};
+  }))
+}
 
-export const isNeedReviewScore = (score) => score === null || score === -1;
+export const isNeedReviewScore = (score) => score === null || score === -1
 
-const getSubmission = ({ submission }) => submission;
+const getSubmission = ({ submission }) => submission
 const getSubmissionWithId = ({ submission }, { params: { id } }) =>
-  submission.getIn(['entities', 'submission', id], new Map());
+  submission.getIn(['entities', 'submission', id], new Map())
 
 export const codeSelector = createSelector(
   [getSubmission],
   (submission) => submission.get('code')
-);
+)
 export const submissionSelector = createSelector(
   [getSubmissionWithId],
   (submission) => submission
-);
+)
 
 export const needReviewSelector = createSelector(
   [submissionSelector],
   (submission) => isNeedReviewScore(submission.getIn(['judge', 'score']))
-);
+)
 
 export const actions = {
   fetchSubmissions,
@@ -151,7 +151,7 @@ export const actions = {
   clearSubmissionCode,
   fetchCode,
   submitCode
-};
+}
 
 export default handleActions({
   [SET_SUBMISSIONS]: (state, { payload }) => state.merge(payload),
@@ -159,4 +159,4 @@ export default handleActions({
   [CLEAR_SUBMISSIONS]: () => new SubmissionState(),
   [SET_SUBMISSION_CODE]: (state, { payload }) => state.set('code', payload),
   [CLEAR_SUBMISSION_CODE]: (state) => state.set('code', '')
-}, initialState);
+}, initialState)

@@ -1,141 +1,141 @@
-import React, { PropTypes, Component } from 'react';
-import { findDOMNode } from 'react-dom';
-import { bind } from 'decko';
-import qwery from 'qwery';
-import isUndefined from 'lodash/isUndefined';
-import styles from 'lib/styles';
-import shallowEqual from 'fbjs/lib/shallowEqual';
+import React, { PropTypes, Component } from 'react'
+import { findDOMNode } from 'react-dom'
+import { bind } from 'decko'
+import qwery from 'qwery'
+import isUndefined from 'lodash/isUndefined'
+import styles from 'lib/styles'
+import shallowEqual from 'fbjs/lib/shallowEqual'
 
-import Toolbar from 'material-ui/Toolbar/Toolbar';
-import ToolbarGroup from 'material-ui/Toolbar/ToolbarGroup';
-import ToolbarTitle from 'material-ui/Toolbar/ToolbarTitle';
-import IconButton from 'material-ui/IconButton';
-import TextField from 'material-ui/TextField';
-import Markdown from './Markdown';
-import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
-import BoldIcon from 'material-ui/svg-icons/editor/format-bold';
-import ItalicIcon from 'material-ui/svg-icons/editor/format-italic';
-import BulletedIcon from 'material-ui/svg-icons/editor/format-list-bulleted';
-import NumberedIcon from 'material-ui/svg-icons/editor/format-list-numbered';
+import Toolbar from 'material-ui/Toolbar/Toolbar'
+import ToolbarGroup from 'material-ui/Toolbar/ToolbarGroup'
+import ToolbarTitle from 'material-ui/Toolbar/ToolbarTitle'
+import IconButton from 'material-ui/IconButton'
+import TextField from 'material-ui/TextField'
+import Markdown from './Markdown'
+import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
+import BoldIcon from 'material-ui/svg-icons/editor/format-bold'
+import ItalicIcon from 'material-ui/svg-icons/editor/format-italic'
+import BulletedIcon from 'material-ui/svg-icons/editor/format-list-bulleted'
+import NumberedIcon from 'material-ui/svg-icons/editor/format-list-numbered'
 
 class MarkdownEditor extends Component {
   shouldComponentUpdate(_nextProps, nextState) {
-    return !shallowEqual(this.state, nextState);
+    return !shallowEqual(this.state, nextState)
   }
 
   @bind
   handlePreviewToggle() {
-    this.setState({ preview: !this.state.preview });
+    this.setState({ preview: !this.state.preview })
   }
 
   @bind
   getTextArea(textField) {
     if (!textField) {
-      return;
+      return
     }
-    this.textarea = qwery('textarea:nth-child(2)', findDOMNode(textField))[0];
+    this.textarea = qwery('textarea:nth-child(2)', findDOMNode(textField))[0]
     this.textarea.addEventListener('select', (event) => {
-      this.selectionStart = event.target.selectionStart;
-      this.selectionEnd = event.target.selectionEnd;
-    });
+      this.selectionStart = event.target.selectionStart
+      this.selectionEnd = event.target.selectionEnd
+    })
   }
 
   @bind
   handleBold() {
-    this.appendOrWrapText('****');
+    this.appendOrWrapText('****')
   }
 
   @bind
   handleItalic() {
-    this.appendOrWrapText('__');
+    this.appendOrWrapText('__')
   }
 
   @bind
   handleBulleted() {
-    const { text } = this.state;
-    this.appendText(text ? '\n- ' : '- ');
+    const { text } = this.state
+    this.appendText(text ? '\n- ' : '- ')
   }
 
   @bind
   handleNumbered() {
-    const { text } = this.state;
-    this.appendText(text ? '\n1. ' : '1. ');
+    const { text } = this.state
+    this.appendText(text ? '\n1. ' : '1. ')
   }
 
   appendOrWrapText(addText) {
     if (this.isSelection()) {
-      this.wrapText(addText);
+      this.wrapText(addText)
     } else {
-      this.appendTextAndMoveCursor(addText);
+      this.appendTextAndMoveCursor(addText)
     }
   }
 
   wrapText(wrappedText) {
-    wrappedText = wrappedText.substr(0, wrappedText.length / 2);
-    const start = this.selectionStart;
-    const end = this.selectionEnd;
-    const { text } = this.state;
-    const selectedText = text.substr(start, end);
-    const selectedBefore = text.substr(0, start);
-    const selectedEnd = text.substr(end);
+    wrappedText = wrappedText.substr(0, wrappedText.length / 2)
+    const start = this.selectionStart
+    const end = this.selectionEnd
+    const { text } = this.state
+    const selectedText = text.substr(start, end)
+    const selectedBefore = text.substr(0, start)
+    const selectedEnd = text.substr(end)
     this.setState({
       text: `${selectedBefore}${wrappedText}${selectedText}${wrappedText}${selectedEnd}`
     }, () => {
-      this.moveCursor(end + wrappedText.length);
-    });
+      this.moveCursor(end + wrappedText.length)
+    })
   }
 
   appendTextAndMoveCursor(appendText) {
-    const { text } = this.state;
+    const { text } = this.state
     this.setState({ text: `${text}${appendText}` }, () => {
-      this.moveCursorBack(appendText.length / 2);
-    });
+      this.moveCursorBack(appendText.length / 2)
+    })
   }
 
   appendText(appendText) {
-    const { text } = this.state;
+    const { text } = this.state
     this.setState({ text: `${text}${appendText}` }, () => {
-      this.moveCursorBack(0);
-    });
+      this.moveCursorBack(0)
+    })
   }
 
   moveCursorBack(count) {
-    const { text } = this.state;
-    this.moveCursor(text.length - count);
+    const { text } = this.state
+    this.moveCursor(text.length - count)
   }
 
   moveCursor(pos) {
-    const { preview } = this.state;
+    const { preview } = this.state
     if (preview) {
-      return;
+      return
     }
 
-    this.textarea.setSelectionRange(pos, pos);
-    this.textarea.focus();
+    this.textarea.setSelectionRange(pos, pos)
+    this.textarea.focus()
   }
 
   isSelection() {
     if (isUndefined(this.selectionStart)) {
-      return false;
+      return false
     }
-    return this.selectionStart !== this.selectedEnd;
+    return this.selectionStart !== this.selectedEnd
   }
 
   @bind
   handleChange(event) {
-    const { onChange } = this.props;
-    const { value } = event.target;
+    const { onChange } = this.props
+    const { value } = event.target
     this.setState({
       text: value
-    });
+    })
 
     if (onChange) {
-      onChange(value);
+      onChange(value)
     }
   }
 
   render() {
-    const { preview, text } = this.state;
+    const { preview, text } = this.state
     return (
       <div>
         <Toolbar>
@@ -189,7 +189,7 @@ class MarkdownEditor extends Component {
           )
         }
       </div>
-    );
+    )
   }
 
   state = {
@@ -202,4 +202,4 @@ class MarkdownEditor extends Component {
   };
 }
 
-export default MarkdownEditor;
+export default MarkdownEditor

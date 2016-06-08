@@ -1,5 +1,5 @@
-import redirectComponent from './redirectComponent';
-import { isLoginSelector } from 'redux/modules/account';
+import redirectComponent from './redirectComponent'
+import { isLoginSelector } from 'redux/modules/account'
 
 export const redirectOnLogin = redirectComponent(
   'RedirectOnLogin',
@@ -8,6 +8,6 @@ export const redirectOnLogin = redirectComponent(
   {
     omitProps: 'isLogin'
   }
-);
+)
 
-export default redirectOnLogin;
+export default redirectOnLogin

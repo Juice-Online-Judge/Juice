@@ -1,12 +1,12 @@
-import isUndefined from 'lodash/isUndefined';
-import isObject from 'lodash/isObject';
-import has from 'lodash/has';
-import { Redirect } from 'react-router';
+import isUndefined from 'lodash/isUndefined'
+import isObject from 'lodash/isObject'
+import has from 'lodash/has'
+import { Redirect } from 'react-router'
 function generateByConfig(config) {
   if (has(config, 'from')) {
-    return generateRedirectWithPath(config.from, config.to);
+    return generateRedirectWithPath(config.from, config.to)
   } else {
-    return generateRedirect(config.to);
+    return generateRedirect(config.to)
   }
 }
 
@@ -16,7 +16,7 @@ function generateRedirect(to) {
     props: {
       to
     }
-  });
+  })
 }
 
 function generateRedirectWithPath(from, to) {
@@ -26,17 +26,17 @@ function generateRedirectWithPath(from, to) {
       from,
       to
     }
-  });
+  })
 }
 
 function redirect(pathOrConfig, to) {
   if (isObject(pathOrConfig)) {
-    return generateByConfig(pathOrConfig);
+    return generateByConfig(pathOrConfig)
   } else if (isUndefined(to)) {
-    return generateRedirect(pathOrConfig);
+    return generateRedirect(pathOrConfig)
   } else {
-    return generateRedirectWithPath(pathOrConfig, to);
+    return generateRedirectWithPath(pathOrConfig, to)
   }
 }
 
-export default redirect;
+export default redirect

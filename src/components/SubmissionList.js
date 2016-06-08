@@ -1,8 +1,8 @@
-import React, { PropTypes } from 'react';
-import { setDisplayName, setPropTypes, pure, compose } from 'recompose';
-import { isNeedReviewScore } from 'redux/modules/submission';
+import React, { PropTypes } from 'react'
+import { setDisplayName, setPropTypes, pure, compose } from 'recompose'
+import { isNeedReviewScore } from 'redux/modules/submission'
 
-import Submission from './Submission';
+import Submission from './Submission'
 
 const SubmissionList = compose(
   pure,
@@ -13,12 +13,12 @@ const SubmissionList = compose(
     examId: PropTypes.string
   })
 )(({ submission, examId, addFilter }) => {
-  const entities = submission.getIn(['entities', 'submission']);
+  const entities = submission.getIn(['entities', 'submission'])
   return (
     <div>
       {
         submission.get('result').map((idNum) => {
-          const id = `${idNum}`;
+          const id = `${idNum}`
           return (
             <Submission
               addFilter={ addFilter }
@@ -34,11 +34,11 @@ const SubmissionList = compose(
               result={ entities.getIn([id, 'judge', 'result']) }
               time={ entities.getIn([id, 'judge', 'time']) }
               memory={ entities.getIn([id, 'judge', 'memory']) } />
-          );
+          )
         })
       }
     </div>
-  );
-});
+  )
+})
 
-export default SubmissionList;
+export default SubmissionList

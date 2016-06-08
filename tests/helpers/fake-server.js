@@ -1,40 +1,40 @@
 const isObject = (obj) => {
-  return typeof obj === 'object';
-};
+  return typeof obj === 'object'
+}
 
 class Respone {
   constructor(server, method, url) {
-    this.server = server;
-    this.url = url;
-    this.method = method;
-    this.statusCode = 200;
-    this.headers = {};
-    this.responeContent = '';
+    this.server = server
+    this.url = url
+    this.method = method
+    this.statusCode = 200
+    this.headers = {}
+    this.responeContent = ''
   }
 
   status(statusCode) {
-    this.statusCode = statusCode;
-    return this;
+    this.statusCode = statusCode
+    return this
   }
 
   header(header) {
-    Object.assign(this.headers, header);
-    return this;
+    Object.assign(this.headers, header)
+    return this
   }
 
   reply(respone) {
     if (isObject(respone)) {
-      this.header({ 'Content-Type': 'application/json' });
-      this.responeContent = JSON.stringify(respone);
+      this.header({ 'Content-Type': 'application/json' })
+      this.responeContent = JSON.stringify(respone)
     } else {
-      this.responeContent = respone;
+      this.responeContent = respone
     }
 
     this.server.respondWith(this.method, this.url, [
       this.statusCode,
       this.headers,
       this.responeContent
-    ]);
+    ])
   }
 }
 
@@ -43,40 +43,40 @@ class FakeServer {
     this.server = sinon.fakeServer.create({
       autoRespond: true,
       respondImmediately: true
-    });
+    })
   }
 
   requests() {
-    return this.server.requests;
+    return this.server.requests
   }
 
   restore() {
-    this.server.restore();
+    this.server.restore()
   }
 
   get(url) {
-    return this.mock('GET', url);
+    return this.mock('GET', url)
   }
 
   post(url) {
-    return this.mock('POST', url);
+    return this.mock('POST', url)
   }
 
   put(url) {
-    return this.mock('PUT', url);
+    return this.mock('PUT', url)
   }
 
   patch(url) {
-    return this.mock('PATCH', url);
+    return this.mock('PATCH', url)
   }
 
   delete(url) {
-    return this.mock('DELETE', url);
+    return this.mock('DELETE', url)
   }
 
   mock(method, url) {
-    return new Respone(this.server, method, url);
+    return new Respone(this.server, method, url)
   }
 }
 
-export default FakeServer;
+export default FakeServer

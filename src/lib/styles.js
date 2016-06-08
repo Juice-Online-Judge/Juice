@@ -31,6 +31,6 @@ export const styles = {
     color: '#ff4081'
   },
   none: {}
-};
+}
 
-export default styles;
+export default styles

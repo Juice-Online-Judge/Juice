@@ -1,11 +1,11 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { bind } from 'decko';
-import setDisplayName from 'recompose/setDisplayName';
-import setPropTypes from 'recompose/setPropTypes';
-import compose from 'recompose/compose';
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { bind } from 'decko'
+import setDisplayName from 'recompose/setDisplayName'
+import setPropTypes from 'recompose/setPropTypes'
+import compose from 'recompose/compose'
 
-import { Row, Col } from 'react-flexbox-grid';
+import { Row, Col } from 'react-flexbox-grid'
 import {
     fetchCode,
     fetchSubmission,
@@ -13,26 +13,26 @@ import {
     submissionSelector,
     needReviewSelector,
     patchSubmissionCorrectness
- } from 'redux/modules/submission';
-import { createIsAdminSelector } from 'redux/modules/account';
-import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
-import Inset from 'layouts/Inset';
-import CodePane from 'components/CodePane';
-import DownloadButton from 'components/DownloadButton';
+ } from 'redux/modules/submission'
+import { createIsAdminSelector } from 'redux/modules/account'
+import TextField from 'material-ui/TextField'
+import FlatButton from 'material-ui/FlatButton'
+import Inset from 'layouts/Inset'
+import CodePane from 'components/CodePane'
+import DownloadButton from 'components/DownloadButton'
 
 class CodeView extends Component {
   componentWillMount() {
-    const { id } = this.props.params;
-    this.props.fetchSubmission(id);
-    this.props.fetchCode(id);
+    const { id } = this.props.params
+    this.props.fetchSubmission(id)
+    this.props.fetchCode(id)
   }
 
   render() {
-    const { id, examId } = this.props.params;
-    const { admin, submission, code, needReview, patchSubmissionCorrectness } = this.props;
-    const lang = submission.get('language');
-    const ext = lang === 'c++' ? 'cpp' : lang;
+    const { id, examId } = this.props.params
+    const { admin, submission, code, needReview, patchSubmissionCorrectness } = this.props
+    const lang = submission.get('language')
+    const ext = lang === 'c++' ? 'cpp' : lang
     return (
       <Inset>
         <Row middle='md' end='md'>
@@ -50,7 +50,7 @@ class CodeView extends Component {
         <div>Code:</div>
         <CodePane code={ code } lang={ lang } />
       </Inset>
-    );
+    )
   }
 
   static propTypes = {
@@ -65,34 +65,34 @@ class CodeView extends Component {
   };
 }
 
-const isAdminSelector = createIsAdminSelector();
+const isAdminSelector = createIsAdminSelector()
 export default connect((state, props) => ({
   code: codeSelector(state),
   submission: submissionSelector(state, props),
   admin: isAdminSelector(state),
   needReview: needReviewSelector(state, props) }),
-  { fetchCode, fetchSubmission, patchSubmissionCorrectness })(CodeView);
+  { fetchCode, fetchSubmission, patchSubmissionCorrectness })(CodeView)
 
 class SetScoreButton extends Component {
   shouldComponentUpdate(nextProps) {
-    return nextProps.needReview !== this.props.needReview;
+    return nextProps.needReview !== this.props.needReview
   }
 
   @bind
   handleScoreChange({ target: { value } }) {
-    this.correctness = value;
+    this.correctness = value
   }
 
   @bind
   handleSetScore(event) {
-    const { id } = this.props;
-    this.props.patchSubmissionCorrectness(id, this.correctness);
+    const { id } = this.props
+    this.props.patchSubmissionCorrectness(id, this.correctness)
   }
 
   render() {
-    const { examId, admin, needReview } = this.props;
+    const { examId, admin, needReview } = this.props
     if (!examId || !admin || !needReview) {
-      return null;
+      return null
     }
 
     return (
@@ -110,7 +110,7 @@ class SetScoreButton extends Component {
           </Col>
         </Row>
       </Col>
-    );
+    )
   }
 
   correctness = '';
@@ -130,17 +130,17 @@ const ErrorMessage = compose(
     submission: PropTypes.object.isRequired
   })
 )(({ submission }) => {
-  const isFail = submission.getIn(['judge', 'result'], 'AC') !== 'AC';
+  const isFail = submission.getIn(['judge', 'result'], 'AC') !== 'AC'
   if (!isFail) {
-    return null;
+    return null
   }
 
-  const judgeMessage = submission.getIn(['judge', 'judge_message']);
+  const judgeMessage = submission.getIn(['judge', 'judge_message'])
 
   return (
     <div>
       <div>Error message:</div>
       <CodePane code={ judgeMessage } lang='txt' />
     </div>
-  );
-});
+  )
+})

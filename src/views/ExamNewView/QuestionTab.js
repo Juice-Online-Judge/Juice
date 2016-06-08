@@ -1,80 +1,80 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { bind } from 'decko';
-import concat from 'lodash/concat';
-import without from 'lodash/without';
-import has from 'lodash/has';
-import pick from 'lodash/pick';
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { bind } from 'decko'
+import concat from 'lodash/concat'
+import without from 'lodash/without'
+import has from 'lodash/has'
+import pick from 'lodash/pick'
 
-import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
-import SelectField from 'material-ui/SelectField';
-import Toggle from 'material-ui/Toggle';
-import MenuItem from 'material-ui/MenuItem';
-import ChevronLeft from 'material-ui/svg-icons/navigation/chevron-left';
-import Card from 'material-ui/Card/Card';
-import CardTitle from 'material-ui/Card/CardTitle';
-import CardActions from 'material-ui/Card/CardActions';
-import { RequestStatus } from 'lib/const';
-import ToggleDisplay from 'components/ToggleDisplay';
-import Label from 'components/Label';
-import ExamQuestion from 'components/ExamQuestion';
-import Pagination from 'components/Pagination';
-import LoadingContainer from 'containers/LoadingContainer';
+import TextField from 'material-ui/TextField'
+import FlatButton from 'material-ui/FlatButton'
+import SelectField from 'material-ui/SelectField'
+import Toggle from 'material-ui/Toggle'
+import MenuItem from 'material-ui/MenuItem'
+import ChevronLeft from 'material-ui/svg-icons/navigation/chevron-left'
+import Card from 'material-ui/Card/Card'
+import CardTitle from 'material-ui/Card/CardTitle'
+import CardActions from 'material-ui/Card/CardActions'
+import { RequestStatus } from 'lib/const'
+import ToggleDisplay from 'components/ToggleDisplay'
+import Label from 'components/Label'
+import ExamQuestion from 'components/ExamQuestion'
+import Pagination from 'components/Pagination'
+import LoadingContainer from 'containers/LoadingContainer'
 
-import { actions as questionActions } from 'redux/modules/question';
+import { actions as questionActions } from 'redux/modules/question'
 
-const isNotPortion = (type) => type !== 'portion_num' && type !== 'portion_str';
+const isNotPortion = (type) => type !== 'portion_num' && type !== 'portion_str'
 
 class QuestionTab extends Component {
   componentDidMount() {
-    const { page } = this.state;
-    this.props.fetchQuestion({ page }, { force: true });
+    const { page } = this.state
+    this.props.fetchQuestion({ page }, { force: true })
   }
 
   @bind
   handleRequestDetail(uuid) {
-    this.setState({ detail: true, detailUuid: uuid });
+    this.setState({ detail: true, detailUuid: uuid })
   }
 
   @bind
   handleSettingChange(uuid, setting) {
-    const { questionDetail } = this.state;
-    questionDetail[uuid] = setting;
-    this.setState({ questionDetail });
-    this.emitChange(questionDetail, this.state.selectedQuestion);
+    const { questionDetail } = this.state
+    questionDetail[uuid] = setting
+    this.setState({ questionDetail })
+    this.emitChange(questionDetail, this.state.selectedQuestion)
   }
 
   @bind
   handleBack() {
-    this.setState({ detail: false, detailUuid: null });
+    this.setState({ detail: false, detailUuid: null })
   }
 
   @bind
   handlePageChange(page) {
-    this.props.fetchQuestion({ page });
-    this.setState({ page });
+    this.props.fetchQuestion({ page })
+    this.setState({ page })
   }
 
   @bind
   handleQuestionChange(selectedQuestion, uuid) {
-    const { questionDetail } = this.state;
-    const newState = { selectedQuestion, questionDetail };
+    const { questionDetail } = this.state
+    const newState = { selectedQuestion, questionDetail }
     if (!has(questionDetail, uuid)) {
-      newState.questionDetail[uuid] = Object.assign({}, DEFAULT_DETAIL);
+      newState.questionDetail[uuid] = Object.assign({}, DEFAULT_DETAIL)
     }
-    this.emitChange(newState.questionDetail, selectedQuestion);
-    this.setState(newState);
+    this.emitChange(newState.questionDetail, selectedQuestion)
+    this.setState(newState)
   }
 
   emitChange(questionDetail, selectedQuestion) {
-    this.props.onChange(pick(questionDetail, selectedQuestion));
+    this.props.onChange(pick(questionDetail, selectedQuestion))
   }
 
   render() {
-    const { app, question, fetchQuestion } = this.props;
-    const { selectedQuestion, detail, detailUuid, questionDetail } = this.state;
-    const total = question.get('total');
+    const { app, question, fetchQuestion } = this.props
+    const { selectedQuestion, detail, detailUuid, questionDetail } = this.state
+    const total = question.get('total')
     return (
       <div>
         <ToggleDisplay hide={ detail }>
@@ -102,7 +102,7 @@ class QuestionTab extends Component {
             uuid={ detailUuid } />
         </ToggleDisplay>
       </div>
-    );
+    )
   }
 
   state = {
@@ -122,26 +122,26 @@ class QuestionTab extends Component {
 }
 
 export default connect((state) => ({ app: state.app, question: state.question }),
-  questionActions)(QuestionTab);
+  questionActions)(QuestionTab)
 
 class ExamQuestionList extends Component {
   @bind
   handleQuestionCheck(selected, uuid) {
-    const { selectedQuestion } = this.props;
+    const { selectedQuestion } = this.props
     if (selected) {
-      this.props.onChange(concat(selectedQuestion, uuid), uuid);
+      this.props.onChange(concat(selectedQuestion, uuid), uuid)
     } else {
-      this.props.onChange(without(selectedQuestion, uuid), uuid);
+      this.props.onChange(without(selectedQuestion, uuid), uuid)
     }
   }
 
   @bind
   handleRequestDetail(uuid) {
-    this.props.onRequestDetail(uuid);
+    this.props.onRequestDetail(uuid)
   }
 
   render() {
-    const { question, selectedQuestion } = this.props;
+    const { question, selectedQuestion } = this.props
     return (
       <div>
         {
@@ -153,11 +153,11 @@ class ExamQuestionList extends Component {
                 checked={ selectedQuestion.indexOf(uuid) !== -1 }
                 onCheck={ this.handleQuestionCheck }
                 onRequestDetail={ this.handleRequestDetail } />
-            );
+            )
           })
         }
       </div>
-    );
+    )
   }
 
   static propTypes = {
@@ -172,51 +172,51 @@ class ExamQuestionList extends Component {
 
 class QuestionSetting extends Component {
   componentDidMount() {
-    this.settingToState(this.props.setting);
+    this.settingToState(this.props.setting)
   }
 
   componentWillReceiveProps(newProps) {
-    this.settingToState(newProps.setting);
+    this.settingToState(newProps.setting)
   }
 
   settingToState(setting) {
     if (setting) {
-      const score = setting.score || '';
-      const type = setting.type || 'normal';
-      const readFrom = setting.readFrom || 'stdin';
-      const codeReview = setting.codeReview;
-      const goal = setting.goal || '';
-      const reward = setting.reward || '';
-      this.setState({ score, type, goal, reward, codeReview, readFrom });
+      const score = setting.score || ''
+      const type = setting.type || 'normal'
+      const readFrom = setting.readFrom || 'stdin'
+      const codeReview = setting.codeReview
+      const goal = setting.goal || ''
+      const reward = setting.reward || ''
+      this.setState({ score, type, goal, reward, codeReview, readFrom })
     }
   }
 
   @bind
   handleScoreChange(event) {
-    this.emitChange({ score: parseFloat(event.target.value) });
+    this.emitChange({ score: parseFloat(event.target.value) })
   }
 
   @bind
   handleIntValChange(event) {
-    const { name, value } = event.target;
-    const newState = {};
-    newState[name] = parseInt(value);
-    this.emitChange(newState);
+    const { name, value } = event.target
+    const newState = {}
+    newState[name] = parseInt(value)
+    this.emitChange(newState)
   }
 
   @bind
   handleTypeChange(_event, _idx, value) {
-    this.emitChange({ type: value });
+    this.emitChange({ type: value })
   }
 
   @bind
   handleReadFromChange(_event, _idx, value) {
-    this.emitChange({ readFrom: value });
+    this.emitChange({ readFrom: value })
   }
 
   @bind
   handleCodeReviewChange({ target: { checked } }) {
-    this.emitChange({ codeReview: checked });
+    this.emitChange({ codeReview: checked })
   }
 
   emitChange(data) {
@@ -227,24 +227,24 @@ class QuestionSetting extends Component {
       'codeReview',
       'goal',
       'reward'
-    ]), ...data };
-    const { uuid } = this.props;
-    this.setState(data);
+    ]), ...data }
+    const { uuid } = this.props
+    this.setState(data)
     if (mergeData.type === 'normal') {
-      mergeData.type = null;
-      mergeData.goal = null;
-      mergeData.reward = null;
+      mergeData.type = null
+      mergeData.goal = null
+      mergeData.reward = null
     }
 
-    this.props.onChange(uuid, mergeData);
+    this.props.onChange(uuid, mergeData)
   }
 
   render() {
-    const { detail, question, uuid } = this.props;
-    const { score, type, readFrom, codeReview, goal, reward } = this.state;
+    const { detail, question, uuid } = this.props
+    const { score, type, readFrom, codeReview, goal, reward } = this.state
 
     if (!detail) {
-      return null;
+      return null
     }
 
     return (
@@ -304,7 +304,7 @@ class QuestionSetting extends Component {
           </CardActions>
         </Card>
       </div>
-    );
+    )
   }
 
   state = {
@@ -331,4 +331,4 @@ const DEFAULT_DETAIL = {
   type: null,
   goal: null,
   reward: null
-};
+}

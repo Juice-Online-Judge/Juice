@@ -1,6 +1,6 @@
-import React from 'react';
-import { setDisplayName } from 'recompose';
-import { Link } from 'react-router';
+import React from 'react'
+import { setDisplayName } from 'recompose'
+import { Link } from 'react-router'
 
 export const NotFoundView = setDisplayName('NotFoundView')(
   () => (
@@ -10,6 +10,6 @@ export const NotFoundView = setDisplayName('NotFoundView')(
       <Link to='/'>Back To Index</Link>
     </div>
   )
-);
+)
 
-export default NotFoundView;
+export default NotFoundView

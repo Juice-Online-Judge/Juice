@@ -1,15 +1,15 @@
-import React, { Component, PropTypes } from 'react';
-import { bind } from 'decko';
-import times from 'lodash/times';
+import React, { Component, PropTypes } from 'react'
+import { bind } from 'decko'
+import times from 'lodash/times'
 
-import { Link } from 'react-router';
-import FlatButton from 'material-ui/FlatButton';
+import { Link } from 'react-router'
+import FlatButton from 'material-ui/FlatButton'
 
-import CenterBlock from 'layouts/CenterBlock';
+import CenterBlock from 'layouts/CenterBlock'
 
 export class Pagination extends Component {
   get prevButton() {
-    const { baseUrl, current } = this.props;
+    const { baseUrl, current } = this.props
 
     return (
       <PageButton
@@ -18,11 +18,11 @@ export class Pagination extends Component {
         disabled={ current === 1 }
         label='Prev'
         onTouchTap={ this.props.onChange } />
-    );
+    )
   }
 
   get nextButton() {
-    const { baseUrl, current, maxPage } = this.props;
+    const { baseUrl, current, maxPage } = this.props
 
     return (
       <PageButton
@@ -31,25 +31,25 @@ export class Pagination extends Component {
         disabled={ current === maxPage }
         label='Next'
         onTouchTap={ this.props.onChange } />
-    );
+    )
   }
 
   get pagination() {
-    const { baseUrl, current, maxPage } = this.props;
-    var min = current - 4;
-    var max;
+    const { baseUrl, current, maxPage } = this.props
+    var min = current - 4
+    var max
     // Calculate min page
-    min = Math.max(min, 1);
+    min = Math.max(min, 1)
     // Calculate max page
-    max = Math.min(min + 9, maxPage);
+    max = Math.min(min + 9, maxPage)
 
     if (max - min < 9) { // If not enough for 10 page
       // Modify min page
-      min = Math.max(1, max - 9);
+      min = Math.max(1, max - 9)
     }
 
     return times(max - min + 1, (i) => {
-      const page = min + i;
+      const page = min + i
       return (
         <PageButton
           key={ i }
@@ -59,19 +59,19 @@ export class Pagination extends Component {
           labelStyle={ styles.noPadding }
           page={ page }
           onTouchTap={ this.props.onChange } />
-      );
-    });
+      )
+    })
   }
 
   render() {
-    const { prevButton, pagination, nextButton } = this;
+    const { prevButton, pagination, nextButton } = this
     return (
       <CenterBlock fullwidth>
         { prevButton }
         { pagination }
         { nextButton }
       </CenterBlock>
-    );
+    )
   }
 
   static propTypes = {
@@ -82,14 +82,14 @@ export class Pagination extends Component {
   };
 }
 
-export default Pagination;
+export default Pagination
 
 class PageButton extends Component {
   @bind
   handleTouchTap() {
-    const { disabled, onTouchTap } = this.props;
+    const { disabled, onTouchTap } = this.props
     if (!disabled && onTouchTap) {
-      onTouchTap(this.props.page);
+      onTouchTap(this.props.page)
     }
   }
 
@@ -100,8 +100,8 @@ class PageButton extends Component {
       label,
       disabled,
       ...props
-    } = this.props;
-    const text = label || page;
+    } = this.props
+    const text = label || page
     if (baseUrl && !disabled) {
       return (
         <Link to={ `${baseUrl}?page=${page}` }>
@@ -111,7 +111,7 @@ class PageButton extends Component {
             disabled={ disabled }
             onTouchTap={ this.handleTouchTap } />
         </Link>
-      );
+      )
     } else {
       return (
         <FlatButton
@@ -119,7 +119,7 @@ class PageButton extends Component {
           label={ text }
           disabled={ disabled }
           onTouchTap={ this.handleTouchTap } />
-      );
+      )
     }
   }
 
@@ -140,4 +140,4 @@ const styles = {
   noPadding: {
     padding: '0'
   }
-};
+}

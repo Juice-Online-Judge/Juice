@@ -1,40 +1,40 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
 
-import { Link } from 'react-router';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import AddIcon from 'material-ui/svg-icons/content/add';
-import Inset from 'layouts/Inset';
-import ExamCard from 'components/ExamCard';
-import Pagination from 'components/Pagination';
-import redirectNotAuth from 'lib/redirectNotAuth';
+import { Link } from 'react-router'
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import AddIcon from 'material-ui/svg-icons/content/add'
+import Inset from 'layouts/Inset'
+import ExamCard from 'components/ExamCard'
+import Pagination from 'components/Pagination'
+import redirectNotAuth from 'lib/redirectNotAuth'
 
-import styles from 'lib/styles';
-import { actions as examActions } from 'redux/modules/exam';
-import { createIsAdminSelector } from 'redux/modules/account';
-import createMaxPageSelector from 'redux/selectors/maxPageSelector';
+import styles from 'lib/styles'
+import { actions as examActions } from 'redux/modules/exam'
+import { createIsAdminSelector } from 'redux/modules/account'
+import createMaxPageSelector from 'redux/selectors/maxPageSelector'
 
 class ExamListView extends Component {
   componentDidMount() {
-    const { query } = this.props.location;
-    this.fetchExams(query, { force: true });
+    const { query } = this.props.location
+    this.fetchExams(query, { force: true })
   }
 
   componentWillReceiveProps(newProps) {
-    const { query } = newProps.location;
+    const { query } = newProps.location
     if (query.page !== this.props.location.query.page) {
-      this.fetchExams(query);
+      this.fetchExams(query)
     }
   }
 
   fetchExams(query, opts) {
-    const page = parseInt(query.page) || 1;
-    this.props.fetchExams({ page }, opts);
+    const page = parseInt(query.page) || 1
+    this.props.fetchExams({ page }, opts)
   }
 
   render() {
-    const { exam, maxPage, admin } = this.props;
-    const examData = exam.getIn(['entities', 'exam']);
+    const { exam, maxPage, admin } = this.props
+    const examData = exam.getIn(['entities', 'exam'])
     return (
       <div>
         <Inset>
@@ -47,7 +47,7 @@ class ExamListView extends Component {
                   name={ examData.getIn([`${id}`, 'name']) }
                   beganTime={ examData.getIn([`${id}`, 'began_at']) }
                   endedTime={ examData.getIn([`${id}`, 'ended_at']) } />
-              );
+              )
             })
           }
         </Inset>
@@ -65,7 +65,7 @@ class ExamListView extends Component {
           ) : null
         }
       </div>
-    );
+    )
   }
 
   static propTypes = {
@@ -77,11 +77,11 @@ class ExamListView extends Component {
   };
 }
 
-const maxPageSelector = createMaxPageSelector();
-const isAdminSelector = createIsAdminSelector();
+const maxPageSelector = createMaxPageSelector()
+const isAdminSelector = createIsAdminSelector()
 
 export default redirectNotAuth(connect((state) => ({
   exam: state.exam,
   maxPage: maxPageSelector(state.exam),
   admin: isAdminSelector(state)
-}), examActions)(ExamListView));
+}), examActions)(ExamListView))

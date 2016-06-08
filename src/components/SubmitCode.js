@@ -1,42 +1,42 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { goBack } from 'react-router-redux';
-import { bind } from 'decko';
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { goBack } from 'react-router-redux'
+import { bind } from 'decko'
 
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import FlatButton from 'material-ui/FlatButton';
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
+import FlatButton from 'material-ui/FlatButton'
 
-import FileArea from './FileArea';
-import Label from './Label';
-import MessageContainer from 'containers/MessageContainer';
+import FileArea from './FileArea'
+import Label from './Label'
+import MessageContainer from 'containers/MessageContainer'
 
-import { submitCode } from 'redux/modules/submission';
+import { submitCode } from 'redux/modules/submission'
 
 export class SubmitCode extends Component {
   @bind
   handleLanguageChange(_event, _index, value) {
-    this.setState({ language: value });
+    this.setState({ language: value })
   }
 
   @bind
   handleCodeChange(content) {
-    this.setState({ code: content.code });
+    this.setState({ code: content.code })
   }
 
   @bind
   handleSubmit() {
-    const { uuid, examId } = this.props;
+    const { uuid, examId } = this.props
     this.props.submitCode({
       uuid,
       examId,
       ...this.state
-    });
+    })
   }
 
   @bind
   handleClose() {
-    this.props.goBack();
+    this.props.goBack()
   }
 
   render() {
@@ -60,7 +60,7 @@ export class SubmitCode extends Component {
           primary
           onTouchTap={ this.handleSubmit } />
       </MessageContainer>
-    );
+    )
   }
 
   state = {
@@ -82,8 +82,8 @@ const styles = {
     marginLeft: '5px',
     marginBottom: '5px'
   }
-};
+}
 
 export default connect((state) => ({
   submission: state.submission
-}), { submitCode, goBack })(SubmitCode);
+}), { submitCode, goBack })(SubmitCode)

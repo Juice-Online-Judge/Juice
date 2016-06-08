@@ -1,5 +1,5 @@
-import redirectComponent from './redirectComponent';
-import { isNotAdminSelector } from 'redux/modules/account';
+import redirectComponent from './redirectComponent'
+import { isNotAdminSelector } from 'redux/modules/account'
 
 const redirectNotAdmin = redirectComponent(
   'RedirectNotAdmin',
@@ -8,6 +8,6 @@ const redirectNotAdmin = redirectComponent(
   {
     omitProps: 'isNotAdmin'
   }
-);
+)
 
-export default redirectNotAdmin;
+export default redirectNotAdmin

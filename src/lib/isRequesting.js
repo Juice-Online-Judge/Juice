@@ -1,13 +1,13 @@
-import { RequestStatus } from './const';
+import { RequestStatus } from './const'
 
 export const isRequesting = (app) => {
-  const status = app.get('status');
+  const status = app.get('status')
   // Stop send request when pending.
   if (status === RequestStatus.PENDING) {
-    return true;
+    return true
   }
 
-  return false;
-};
+  return false
+}
 
-export default isRequesting;
+export default isRequesting

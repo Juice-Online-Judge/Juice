@@ -1,13 +1,13 @@
-import React, { PropTypes } from 'react';
-import setDisplayName from 'recompose/setDisplayName';
-import setPropTypes from 'recompose/setPropTypes';
-import compose from 'recompose/compose';
+import React, { PropTypes } from 'react'
+import setDisplayName from 'recompose/setDisplayName'
+import setPropTypes from 'recompose/setPropTypes'
+import compose from 'recompose/compose'
 
-import { Link } from 'react-router';
-import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
+import { Link } from 'react-router'
+import Drawer from 'material-ui/Drawer'
+import MenuItem from 'material-ui/MenuItem'
 
-import styles from 'lib/styles';
+import styles from 'lib/styles'
 
 const LeftNav = compose(
   setDisplayName('LeftNav'),
@@ -32,6 +32,6 @@ const LeftNav = compose(
       </MenuItem>
     </Link>
   </Drawer>
-));
+))
 
-export default LeftNav;
+export default LeftNav

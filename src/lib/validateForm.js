@@ -1,21 +1,21 @@
-import { connect } from 'react-redux';
-import lifecycle from 'recompose/lifecycle';
-import withHandlers from 'recompose/withHandlers';
-import setDisplayName from 'recompose/setDisplayName';
-import wrapDisplayName from 'recompose/wrapDisplayName';
-import getDisplayName from 'recompose/getDisplayName';
-import compose from 'recompose/compose';
+import { connect } from 'react-redux'
+import lifecycle from 'recompose/lifecycle'
+import withHandlers from 'recompose/withHandlers'
+import setDisplayName from 'recompose/setDisplayName'
+import wrapDisplayName from 'recompose/wrapDisplayName'
+import getDisplayName from 'recompose/getDisplayName'
+import compose from 'recompose/compose'
 import {
   getComponentMessage,
   validateForm,
   setValidationName,
   setValidationRule,
   clearValidationMessage
-} from 'redux/modules/validation';
+} from 'redux/modules/validation'
 
 const validateFormHoc = (validateRule) => (WrappedComponent) => {
-  const componentName = getDisplayName(WrappedComponent);
-  const mapStates = (state) => ({ validation: getComponentMessage(state) });
+  const componentName = getDisplayName(WrappedComponent)
+  const mapStates = (state) => ({ validation: getComponentMessage(state) })
 
   return compose(
     connect(mapStates, {
@@ -26,13 +26,13 @@ const validateFormHoc = (validateRule) => (WrappedComponent) => {
     }),
     lifecycle({
       componentWillMount() {
-        this.props.clearValidationMessage(componentName);
-        this.props.setValidationName(componentName);
-        this.props.setValidationRule(validateRule);
+        this.props.clearValidationMessage(componentName)
+        this.props.setValidationName(componentName)
+        this.props.setValidationRule(validateRule)
       },
       componentWillUnmount() {
-        this.props.setValidationName(null);
-        this.props.setValidationRule({});
+        this.props.setValidationName(null)
+        this.props.setValidationRule({})
       }
     }),
     withHandlers({
@@ -40,7 +40,7 @@ const validateFormHoc = (validateRule) => (WrappedComponent) => {
         props.validateForm(fields, cb)
     }),
     setDisplayName(wrapDisplayName(WrappedComponent, 'Validate'))
-  )(WrappedComponent);
-};
+  )(WrappedComponent)
+}
 
-export default validateFormHoc;
+export default validateFormHoc

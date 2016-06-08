@@ -1,36 +1,36 @@
-import React, { Component, PropTypes } from 'react';
-import { bind } from 'decko';
+import React, { Component, PropTypes } from 'react'
+import { bind } from 'decko'
 
-import TextField from 'material-ui/TextField';
+import TextField from 'material-ui/TextField'
 
 export class RestrictionTab extends Component {
   componentDidMount() {
-    this.handleChange();
+    this.handleChange()
   }
 
   @bind
   handleFileChange(event) {
-    this.handleChange({ file: event.target.value });
+    this.handleChange({ file: event.target.value })
   }
 
   @bind
   handleMemoryChange(event) {
-    this.handleChange({ memory: event.target.value });
+    this.handleChange({ memory: event.target.value })
   }
 
   @bind
   handleTimeChange(event) {
-    this.handleChange({ time: event.target.value });
+    this.handleChange({ time: event.target.value })
   }
 
   handleChange(data = {}) {
     // Fire change event
-    this.setData(data);
-    this.props.onChange({ restriction: this.data });
+    this.setData(data)
+    this.props.onChange({ restriction: this.data })
   }
 
   setData(data) {
-    this.data = { ...this.data, ...data };
+    this.data = { ...this.data, ...data }
   }
 
   render() {
@@ -46,7 +46,7 @@ export class RestrictionTab extends Component {
           <TextField floatingLabelText='File limit' onChange={ this.handleFileChange } />
         </div>
       </div>
-    );
+    )
   }
 
   data = {
@@ -60,4 +60,4 @@ export class RestrictionTab extends Component {
   };
 }
 
-export default RestrictionTab;
+export default RestrictionTab

@@ -1,18 +1,18 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react'
 
-import Question from 'components/Question';
-import Inset from 'layouts/Inset';
+import Question from 'components/Question'
+import Inset from 'layouts/Inset'
 
-import redirectNotFound from 'lib/redirectNotFound';
+import redirectNotFound from 'lib/redirectNotFound'
 
 export class QuestionView extends Component {
   render() {
-    const { uuid } = this.props.params;
+    const { uuid } = this.props.params
     return (
       <Inset>
         <Question uuid={ uuid } />
       </Inset>
-    );
+    )
   }
 
   static propTypes = {
@@ -20,4 +20,4 @@ export class QuestionView extends Component {
   };
 }
 
-export default redirectNotFound(QuestionView);
+export default redirectNotFound(QuestionView)

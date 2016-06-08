@@ -1,39 +1,39 @@
-import { connect } from 'react-redux';
-import { replace } from 'react-router-redux';
-import concat from 'lodash/concat';
-import setDisplayName from 'recompose/setDisplayName';
-import wrapDisplayName from 'recompose/wrapDisplayName';
-import lifecycle from 'recompose/lifecycle';
-import compose from 'recompose/compose';
-import omitProps from './omitProps';
+import { connect } from 'react-redux'
+import { replace } from 'react-router-redux'
+import concat from 'lodash/concat'
+import setDisplayName from 'recompose/setDisplayName'
+import wrapDisplayName from 'recompose/wrapDisplayName'
+import lifecycle from 'recompose/lifecycle'
+import compose from 'recompose/compose'
+import omitProps from './omitProps'
 
 export const redirectComponent = (name, mapStateToProp, shouldRedirectPath, options) =>
   (WrappedComponent) => {
-    var omitPropsName = ['replace'];
-    const actions = options.actions ? { ...options.actions, replace } : { replace };
+    var omitPropsName = ['replace']
+    const actions = options.actions ? { ...options.actions, replace } : { replace }
     const redirectComponentHoc = lifecycle({
       componentWillMount() {
-        this.checkRedirect(this.props);
+        this.checkRedirect(this.props)
       },
       componentWillReceiveProps(nextProps) {
-        this.checkRedirect(nextProps);
+        this.checkRedirect(nextProps)
       },
       checkRedirect(props) {
-        const { replace } = props;
-        const redirectPath = shouldRedirectPath(props);
+        const { replace } = props
+        const redirectPath = shouldRedirectPath(props)
 
         if (options.cleanUp) {
-          options.cleanUp(props);
+          options.cleanUp(props)
         }
 
         if (redirectPath) {
-          replace(redirectPath);
+          replace(redirectPath)
         }
       }
-    });
+    })
 
     if (options.omitProps) {
-      omitPropsName = concat(omitPropsName, options.omitProps);
+      omitPropsName = concat(omitPropsName, options.omitProps)
     }
 
     return compose(
@@ -41,7 +41,7 @@ export const redirectComponent = (name, mapStateToProp, shouldRedirectPath, opti
       setDisplayName(wrapDisplayName(WrappedComponent, name)),
       redirectComponentHoc,
       omitProps(omitPropsName)
-    )(WrappedComponent);
-  };
+    )(WrappedComponent)
+  }
 
-export default redirectComponent;
+export default redirectComponent

@@ -1,5 +1,5 @@
-import { Schema } from 'normalizr';
+import { Schema } from 'normalizr'
 
-const question = new Schema('question', { idAttribute: 'uuid' });
+const question = new Schema('question', { idAttribute: 'uuid' })
 
-export default question;
+export default question

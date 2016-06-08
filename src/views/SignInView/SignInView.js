@@ -1,47 +1,47 @@
-import React, { PropTypes } from 'react';
-import { bind } from 'decko';
-import { connect } from 'react-redux';
-import compose from 'recompose/compose';
+import React, { PropTypes } from 'react'
+import { bind } from 'decko'
+import { connect } from 'react-redux'
+import compose from 'recompose/compose'
 
-import { login } from 'redux/modules/account';
-import redirectOnLogin from 'lib/redirectOnLogin';
+import { login } from 'redux/modules/account'
+import redirectOnLogin from 'lib/redirectOnLogin'
 
-import Paper from 'material-ui/Paper';
-import Card from 'material-ui/Card/Card';
-import CardTitle from 'material-ui/Card/CardTitle';
-import CardActions from 'material-ui/Card/CardActions';
-import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
-import IconButton from 'material-ui/IconButton';
-import { Row, Col } from 'react-flexbox-grid';
+import Paper from 'material-ui/Paper'
+import Card from 'material-ui/Card/Card'
+import CardTitle from 'material-ui/Card/CardTitle'
+import CardActions from 'material-ui/Card/CardActions'
+import TextField from 'material-ui/TextField'
+import FlatButton from 'material-ui/FlatButton'
+import IconButton from 'material-ui/IconButton'
+import { Row, Col } from 'react-flexbox-grid'
 
-import CenterBlock from 'layouts/CenterBlock';
-import MessageContainer from 'containers/MessageContainer';
+import CenterBlock from 'layouts/CenterBlock'
+import MessageContainer from 'containers/MessageContainer'
 
 export class SignInView extends React.Component {
   @bind
   handleChange(event) {
-    const newState = {};
-    newState[event.target.name] = event.target.value;
-    this.setData(newState);
+    const newState = {}
+    newState[event.target.name] = event.target.value
+    this.setData(newState)
   }
 
   @bind
   login(event) {
-    let { username, password } = this.data;
-    event.preventDefault();
-    this.props.login(username, password);
+    let { username, password } = this.data
+    event.preventDefault()
+    this.props.login(username, password)
   }
 
   @bind
   handleKeyDown(event) {
     if (event.keyCode === 13) {
-      this.login(event);
+      this.login(event)
     }
   }
 
   setData(newData) {
-    this.data = { ...this.data, ...newData };
+    this.data = { ...this.data, ...newData }
   }
 
   render() {
@@ -94,7 +94,7 @@ export class SignInView extends React.Component {
           </Paper>
         </MessageContainer>
       </CenterBlock>
-    );
+    )
   }
 
   data = {
@@ -110,7 +110,7 @@ export class SignInView extends React.Component {
 export default compose(
   redirectOnLogin,
   connect(null, { login })
-)(SignInView);
+)(SignInView)
 
 let styles = {
   action: {
@@ -119,4 +119,4 @@ let styles = {
   marginTop: {
     marginTop: '20%'
   }
-};
+}

@@ -1,40 +1,40 @@
-import React, { PropTypes } from 'react';
-import { Link, IndexLink } from 'react-router';
-import { connect } from 'react-redux';
-import { bind } from 'decko';
+import React, { PropTypes } from 'react'
+import { Link, IndexLink } from 'react-router'
+import { connect } from 'react-redux'
+import { bind } from 'decko'
 
-import MuiAppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import FlatButton from 'material-ui/FlatButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import MenuIcon from 'material-ui/svg-icons/navigation/menu';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import MuiAppBar from 'material-ui/AppBar'
+import IconButton from 'material-ui/IconButton'
+import FlatButton from 'material-ui/FlatButton'
+import IconMenu from 'material-ui/IconMenu'
+import MenuItem from 'material-ui/MenuItem'
+import MenuIcon from 'material-ui/svg-icons/navigation/menu'
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 
-import LeftNav from './LeftNav';
+import LeftNav from './LeftNav'
 
-import { fetchUserInfo, logout } from 'redux/modules/account';
-import commonStyles from 'lib/styles';
+import { fetchUserInfo, logout } from 'redux/modules/account'
+import commonStyles from 'lib/styles'
 
 export class AppBar extends React.Component {
   componentDidMount() {
-    this.props.fetchUserInfo();
+    this.props.fetchUserInfo()
   }
 
   @bind
   logout() {
-    this.props.logout();
+    this.props.logout()
   }
 
   @bind
   handleClose() {
-    this.setState({ open: false });
+    this.setState({ open: false })
   }
 
   @bind
   handleToggle() {
-    const open = !this.state.open;
-    this.setState({ open });
+    const open = !this.state.open
+    this.setState({ open })
   }
 
   get leftMenu() {
@@ -42,11 +42,11 @@ export class AppBar extends React.Component {
       <IconButton onTouchTap={ this.handleToggle }>
         <MenuIcon />
       </IconButton>
-    );
+    )
   }
 
   get rightMenu() {
-    const { account } = this.props;
+    const { account } = this.props
     if (account.get('state')) {
       return (
         <div>
@@ -67,7 +67,7 @@ export class AppBar extends React.Component {
             <MenuItem primaryText='Logout' onTouchTap={ this.logout } />
           </IconMenu>
         </div>
-      );
+      )
     } else {
       return (
         <div>
@@ -78,7 +78,7 @@ export class AppBar extends React.Component {
             <FlatButton labelStyle={ commonStyles.whiteColor } label='Signin' />
           </Link>
         </div>
-      );
+      )
     }
   }
 
@@ -94,7 +94,7 @@ export class AppBar extends React.Component {
         iconElementRight={ this.rightMenu } >
         <LeftNav open={ this.state.open } onRequestChange={ this.handleClose } />
       </MuiAppBar>
-    );
+    )
   }
 
   state = {
@@ -110,11 +110,11 @@ export class AppBar extends React.Component {
 
 export default connect((state) => ({
   account: state.account
-}), { fetchUserInfo, logout })(AppBar);
+}), { fetchUserInfo, logout })(AppBar)
 
 const styles = {
   origin: {
     horizontal: 'right',
     vertical: 'top'
   }
-};
+}

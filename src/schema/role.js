@@ -1,5 +1,5 @@
-import { Schema } from 'normalizr';
+import { Schema } from 'normalizr'
 
-const role = new Schema('role');
+const role = new Schema('role')
 
-export default role;
+export default role

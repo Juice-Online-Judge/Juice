@@ -1,7 +1,7 @@
-import redirectComponent from './redirectComponent';
-import { clearError, errorCodeSelector } from 'redux/modules/app';
+import redirectComponent from './redirectComponent'
+import { clearError, errorCodeSelector } from 'redux/modules/app'
 
-const shouldRedirectPath = ({ errorCode }) => errorCode === 404 ? '/page-not-found' : null;
+const shouldRedirectPath = ({ errorCode }) => errorCode === 404 ? '/page-not-found' : null
 
 export const redirectNotFound = redirectComponent(
   'RedirectNotFound',
@@ -12,6 +12,6 @@ export const redirectNotFound = redirectComponent(
     cleanUp: ({ clearError }) => clearError(),
     omitProps: [ 'errorCode', 'clearError' ]
   }
-);
+)
 
-export default redirectNotFound;
+export default redirectNotFound

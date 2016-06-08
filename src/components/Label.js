@@ -1,7 +1,7 @@
-import React, { PropTypes } from 'react';
-import setDisplayName from 'recompose/setDisplayName';
-import setPropTypes from 'recompose/setPropTypes';
-import compose from 'recompose/compose';
+import React, { PropTypes } from 'react'
+import setDisplayName from 'recompose/setDisplayName'
+import setPropTypes from 'recompose/setPropTypes'
+import compose from 'recompose/compose'
 
 export const Label = compose(
   setDisplayName('Label'),
@@ -13,12 +13,12 @@ export const Label = compose(
   <label style={ styles.label }>
     { label || children }
   </label>
-));
+))
 
-export default Label;
+export default Label
 
 const styles = {
   label: {
     marginBottom: '5px'
   }
-};
+}

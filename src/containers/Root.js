@@ -1,7 +1,7 @@
-import React, { PropTypes, Component } from 'react';
-import { Provider } from 'react-redux';
-import { Router, applyRouterMiddleware } from 'react-router';
-import useScroll from 'react-router-scroll';
+import React, { PropTypes, Component } from 'react'
+import { Provider } from 'react-redux'
+import { Router, applyRouterMiddleware } from 'react-router'
+import useScroll from 'react-router-scroll'
 
 export default class Root extends Component {
   static propTypes = {
@@ -16,7 +16,7 @@ export default class Root extends Component {
         history={ this.props.history }
         routes={ this.props.routes }
         render={ applyRouterMiddleware(useScroll()) } />
-    );
+    )
   }
 
   render() {
@@ -26,6 +26,6 @@ export default class Root extends Component {
           { this.content }
         </div>
       </Provider>
-    );
+    )
   }
 }

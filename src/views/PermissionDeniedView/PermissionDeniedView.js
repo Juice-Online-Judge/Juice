@@ -1,6 +1,6 @@
-import React from 'react';
-import { setDisplayName } from 'recompose';
-import { Link } from 'react-router';
+import React from 'react'
+import { setDisplayName } from 'recompose'
+import { Link } from 'react-router'
 
 export const PermissionDeniedView = setDisplayName('PermissionDeniedView')(
   () => (
@@ -10,6 +10,6 @@ export const PermissionDeniedView = setDisplayName('PermissionDeniedView')(
       <Link to='/'>Back To Index</Link>
     </div>
   )
-);
+)
 
-export default PermissionDeniedView;
+export default PermissionDeniedView

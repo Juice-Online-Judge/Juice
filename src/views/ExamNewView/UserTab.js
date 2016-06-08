@@ -1,42 +1,42 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { bind } from 'decko';
-import range from 'lodash/range';
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { bind } from 'decko'
+import range from 'lodash/range'
 
 import { Table, TableHeader, TableRow, TableBody, TableRowColumn, TableHeaderColumn }
-  from 'material-ui/Table';
-import LoadingContainer from 'containers/LoadingContainer';
+  from 'material-ui/Table'
+import LoadingContainer from 'containers/LoadingContainer'
 
-import { fetchUsers } from 'redux/modules/users';
+import { fetchUsers } from 'redux/modules/users'
 
 class UserTab extends Component {
   componentDidMount() {
-    this.props.fetchUsers();
+    this.props.fetchUsers()
   }
 
   @bind
   handlePageChange(page) {
-    this.setState({ page });
+    this.setState({ page })
   }
 
   @bind
   handleUserSelect(selectedRow) {
-    setImmediate(() => this.emitChange(selectedRow));
+    setImmediate(() => this.emitChange(selectedRow))
   }
 
   emitChange(selectedRow) {
-    const { users } = this.props;
+    const { users } = this.props
     if (selectedRow === 'all') {
-      selectedRow = range(0, users.get('result').size);
+      selectedRow = range(0, users.get('result').size)
     }
-    const result = selectedRow.map((idx) => users.getIn(['result', idx]));
-    this.setState({ selectedRow });
-    this.props.onChange(result);
+    const result = selectedRow.map((idx) => users.getIn(['result', idx]))
+    this.setState({ selectedRow })
+    this.props.onChange(result)
   }
 
   render() {
-    const { users } = this.props;
-    const { selectedRow } = this.state;
+    const { users } = this.props
+    const { selectedRow } = this.state
     return (
       <LoadingContainer>
         <Table
@@ -72,7 +72,7 @@ class UserTab extends Component {
           </TableBody>
         </Table>
       </LoadingContainer>
-    );
+    )
   }
 
   state = {
@@ -86,4 +86,4 @@ class UserTab extends Component {
   };
 }
 
-export default connect((state) => ({ users: state.users }), { fetchUsers })(UserTab);
+export default connect((state) => ({ users: state.users }), { fetchUsers })(UserTab)

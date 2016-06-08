@@ -1,17 +1,17 @@
-import React, { Component, PropTypes } from 'react';
-import { bind, memoize } from 'decko';
-import uniqueId from 'lodash/uniqueId';
-import toArray from 'lodash/toArray';
-import invariant from 'invariant';
+import React, { Component, PropTypes } from 'react'
+import { bind, memoize } from 'decko'
+import uniqueId from 'lodash/uniqueId'
+import toArray from 'lodash/toArray'
+import invariant from 'invariant'
 
-import TextField from 'material-ui/TextField';
-import RadioButton from 'material-ui/RadioButton/RadioButton';
-import RadioButtonGroup from 'material-ui/RadioButton/RadioButtonGroup';
-import Codemirror from 'react-codemirror';
-import 'codemirror/mode/clike/clike';
+import TextField from 'material-ui/TextField'
+import RadioButton from 'material-ui/RadioButton/RadioButton'
+import RadioButtonGroup from 'material-ui/RadioButton/RadioButtonGroup'
+import Codemirror from 'react-codemirror'
+import 'codemirror/mode/clike/clike'
 
-import FileButton from './FileButton';
-import styles from 'lib/styles';
+import FileButton from './FileButton'
+import styles from 'lib/styles'
 
 export class FileArea extends Component {
   componentWillReceiveProps(nextProps) {
@@ -20,64 +20,64 @@ export class FileArea extends Component {
         this.props.multiple !== nextProps.multiple ||
         this.props.mode !== nextProps.mode,
         'Component <FileArea /> not allow change props `multiple` or `mode` on the fly'
-      );
+      )
     }
   }
 
   @bind
   handleFileChange(fileList) {
-    const content = {};
-    const { multiple } = this.props;
-    const files = toArray(fileList);
+    const content = {}
+    const { multiple } = this.props
+    const files = toArray(fileList)
 
-    content[this.props.textKey] = null;
-    content[this.props.fileKey] = multiple ? files : files[0];
+    content[this.props.textKey] = null
+    content[this.props.fileKey] = multiple ? files : files[0]
 
-    this.handleChange(content);
+    this.handleChange(content)
   }
 
   @bind
   handleTextAreaChange(event) {
-    const { value } = event.target;
-    this.handleTextChange(value);
+    const { value } = event.target
+    this.handleTextChange(value)
   }
 
   @bind
   handleTextChange(value) {
-    const { multiple } = this.props;
-    const content = {};
+    const { multiple } = this.props
+    const content = {}
 
-    content[this.props.fileKey] = null;
-    content[this.props.textKey] = null;
+    content[this.props.fileKey] = null
+    content[this.props.textKey] = null
     if (value) {
       if (multiple) {
-        content[this.props.textKey] = [value];
+        content[this.props.textKey] = [value]
       } else {
-        content[this.props.textKey] = value;
+        content[this.props.textKey] = value
       }
     }
 
-    this.handleChange(content);
+    this.handleChange(content)
   }
 
   handleChange(content) {
     if (this.props.onChange) {
-      this.props.onChange(content);
+      this.props.onChange(content)
     }
   }
 
   @bind
   handleTypeChange(event) {
-    const { value } = event.target;
-    this.setState({ type: value });
+    const { value } = event.target
+    this.setState({ type: value })
   }
 
   get textareas() {
-    const { rows, mode } = this.props;
+    const { rows, mode } = this.props
     const options = {
       mode: 'clike',
       theme: 'monokai-bright'
-    };
+    }
 
     if (mode === 'text') {
       return (
@@ -86,20 +86,20 @@ export class FileArea extends Component {
           floatingLabelText='Input in here'
           multiLine
           rows={ rows } />
-      );
+      )
     } else {
       return (
         <Codemirror
           autoSave
           onChange={ this.handleTextChange }
           options={ options } />
-      );
+      )
     }
   }
 
   @memoize
   areaContent(type) {
-    const { label } = this.props;
+    const { label } = this.props
 
     if (type === 'file') {
       return (
@@ -107,9 +107,9 @@ export class FileArea extends Component {
           onChange={ this.handleFileChange }
           multiple={ this.props.multiple }
           label={ label } />
-      );
+      )
     } else {
-      return this.textareas;
+      return this.textareas
     }
   }
 
@@ -133,7 +133,7 @@ export class FileArea extends Component {
         </div>
         { this.areaContent(this.state.type) }
       </div>
-    );
+    )
   }
 
   state = {
@@ -159,4 +159,4 @@ export class FileArea extends Component {
   };
 }
 
-export default FileArea;
+export default FileArea

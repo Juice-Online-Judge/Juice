@@ -1,23 +1,23 @@
-import React, { Component, PropTypes } from 'react';
-import { bind } from 'decko';
-import map from 'lodash/map';
+import React, { Component, PropTypes } from 'react'
+import { bind } from 'decko'
+import map from 'lodash/map'
 
-import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton'
+import TextField from 'material-ui/TextField'
 
 export class FileButton extends Component {
   @bind
   handleChange(event) {
-    const files = event.target.files;
+    const files = event.target.files
     if (files.length) {
-      const filename = map(files, 'name').join(', ');
-      this.setState({ filename });
+      const filename = map(files, 'name').join(', ')
+      this.setState({ filename })
     } else {
-      this.setState({ filename: null });
+      this.setState({ filename: null })
     }
 
     if (this.props.onChange) {
-      this.props.onChange(files);
+      this.props.onChange(files)
     }
   }
 
@@ -35,7 +35,7 @@ export class FileButton extends Component {
         </FlatButton>
         <TextField hintText='Please select file' value={ this.state.filename } />
       </div>
-    );
+    )
   }
 
   state = {
@@ -49,7 +49,7 @@ export class FileButton extends Component {
   };
 }
 
-export default FileButton;
+export default FileButton
 
 const styles = {
   file: {
@@ -66,4 +66,4 @@ const styles = {
     outline: 'none',
     display: 'block'
   }
-};
+}

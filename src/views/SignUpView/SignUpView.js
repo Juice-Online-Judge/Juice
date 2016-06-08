@@ -1,42 +1,42 @@
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { bind } from 'decko';
-import compose from 'recompose/compose';
+import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { bind } from 'decko'
+import compose from 'recompose/compose'
 
-import { registerUser } from '../../redux/modules/account';
+import { registerUser } from '../../redux/modules/account'
 
-import Paper from 'material-ui/Paper';
-import Card from 'material-ui/Card/Card';
-import CardTitle from 'material-ui/Card/CardTitle';
-import CardActions from 'material-ui/Card/CardActions';
-import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
+import Paper from 'material-ui/Paper'
+import Card from 'material-ui/Card/Card'
+import CardTitle from 'material-ui/Card/CardTitle'
+import CardActions from 'material-ui/Card/CardActions'
+import TextField from 'material-ui/TextField'
+import FlatButton from 'material-ui/FlatButton'
 
-import CenterBlock from 'layouts/CenterBlock';
-import rule from 'validation/register';
-import redirectOnLogin from 'lib/redirectOnLogin';
-import validateForm from 'lib/validateForm';
+import CenterBlock from 'layouts/CenterBlock'
+import rule from 'validation/register'
+import redirectOnLogin from 'lib/redirectOnLogin'
+import validateForm from 'lib/validateForm'
 
 export class SignUpView extends React.Component {
   @bind
   handleChange(event) {
-    const newState = {};
-    newState[event.target.name] = event.target.value;
-    this.setData(newState);
+    const newState = {}
+    newState[event.target.name] = event.target.value
+    this.setData(newState)
   }
 
   @bind
   signup(event) {
-    event.preventDefault();
-    this.props.registerUser(this.data);
+    event.preventDefault()
+    this.props.registerUser(this.data)
   }
 
   setData(newData) {
-    this.data = { ...this.data, ...newData };
+    this.data = { ...this.data, ...newData }
   }
 
   render() {
-    const message = this.props.validation;
+    const message = this.props.validation
     return (
       <CenterBlock>
         <Paper zDepth={ 3 } style={ styles.marginTop }>
@@ -90,7 +90,7 @@ export class SignUpView extends React.Component {
           </Card>
         </Paper>
       </CenterBlock>
-    );
+    )
   }
 
   data = {
@@ -115,7 +115,7 @@ export default compose(
     { registerUser }
   ),
   validateForm(rule)
-)(SignUpView);
+)(SignUpView)
 
 let styles = {
   action: {
@@ -124,4 +124,4 @@ let styles = {
   marginTop: {
     marginTop: '20px'
   }
-};
+}

@@ -1,17 +1,17 @@
-import React, { Component, PropTypes } from 'react';
-import Highlight from 'react-highlight';
-import pure from 'recompose/pure';
+import React, { Component, PropTypes } from 'react'
+import Highlight from 'react-highlight'
+import pure from 'recompose/pure'
 
 export class CodePane extends Component {
   render() {
-    const code = this.props.code || this.props.children || '';
-    const { lang } = this.props;
-    const className = `language-${lang}`;
+    const code = this.props.code || this.props.children || ''
+    const { lang } = this.props
+    const className = `language-${lang}`
     return (
       <Highlight className={ className } >
         { code }
       </Highlight>
-    );
+    )
   }
 
   static propTypes = {
@@ -25,4 +25,4 @@ export class CodePane extends Component {
   };
 }
 
-export default pure(CodePane);
+export default pure(CodePane)

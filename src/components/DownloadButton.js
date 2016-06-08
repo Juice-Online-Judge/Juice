@@ -1,10 +1,10 @@
-import React, { PropTypes } from 'react';
-import pure from 'recompose/pure';
-import setPropTypes from 'recompose/setPropTypes';
-import setDisplayName from 'recompose/setDisplayName';
-import compose from 'recompose/compose';
+import React, { PropTypes } from 'react'
+import pure from 'recompose/pure'
+import setPropTypes from 'recompose/setPropTypes'
+import setDisplayName from 'recompose/setDisplayName'
+import compose from 'recompose/compose'
 
-import FlatButton from 'material-ui/FlatButton';
+import FlatButton from 'material-ui/FlatButton'
 
 export const DownloadButton = compose(
   setDisplayName('DownloadButton'),
@@ -15,17 +15,17 @@ export const DownloadButton = compose(
     filename: PropTypes.string
   })
 )(({ text, disabled, label, filename }) => {
-  filename = filename || 'download';
+  filename = filename || 'download'
   if (disabled || !text) {
     return (
       <FlatButton label={ label } disabled />
-    );
+    )
   }
 
-  const url = `data:text/plain;base64,${btoa(text)}`;
+  const url = `data:text/plain;base64,${btoa(text)}`
   return (
     <FlatButton linkButton href={ url } label={ label } download={ filename } />
-  );
-});
+  )
+})
 
-export default pure(DownloadButton);
+export default pure(DownloadButton)

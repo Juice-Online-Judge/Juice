@@ -1,34 +1,34 @@
-import React, { Component, PropTypes } from 'react';
-import Radium from 'radium';
-import { bind } from 'decko';
+import React, { Component, PropTypes } from 'react'
+import Radium from 'radium'
+import { bind } from 'decko'
 
-import { Row, Col } from 'react-flexbox-grid';
-import { Link } from 'react-router';
-import Card from 'material-ui/Card/Card';
-import CardText from 'material-ui/Card/CardText';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import CodeIcon from 'material-ui/svg-icons/action/code';
+import { Row, Col } from 'react-flexbox-grid'
+import { Link } from 'react-router'
+import Card from 'material-ui/Card/Card'
+import CardText from 'material-ui/Card/CardText'
+import IconButton from 'material-ui/IconButton'
+import IconMenu from 'material-ui/IconMenu'
+import MenuItem from 'material-ui/MenuItem'
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
+import CodeIcon from 'material-ui/svg-icons/action/code'
 
 export class Submission extends Component {
   @bind
   handleFilterQuestion() {
-    const { quesUuid } = this.props;
-    this.addFilter({ question: quesUuid });
+    const { quesUuid } = this.props
+    this.addFilter({ question: quesUuid })
   }
 
   @bind
   handleFilterUser() {
-    const { userId } = this.props;
-    this.addFilter({ user: userId });
+    const { userId } = this.props
+    this.addFilter({ user: userId })
   }
 
   addFilter(filter) {
-    const { addFilter } = this.props;
+    const { addFilter } = this.props
     if (addFilter) {
-      addFilter(filter);
+      addFilter(filter)
     }
   }
 
@@ -45,11 +45,11 @@ export class Submission extends Component {
       time,
       memory,
       result
-    } = this.props;
-    const origQuesUrl = `/questions/${quesUuid}`;
-    const quesUrl = examId ? `/exams/${examId}${origQuesUrl}` : origQuesUrl;
-    const origSubUrl = `/submissions/${id}/code`;
-    const subUrl = examId ? `/exams/${examId}${origSubUrl}` : origSubUrl;
+    } = this.props
+    const origQuesUrl = `/questions/${quesUuid}`
+    const quesUrl = examId ? `/exams/${examId}${origQuesUrl}` : origQuesUrl
+    const origSubUrl = `/submissions/${id}/code`
+    const subUrl = examId ? `/exams/${examId}${origSubUrl}` : origSubUrl
     return (
       <Card>
         <CardText style={ styles.padding }>
@@ -108,7 +108,7 @@ export class Submission extends Component {
           </Row>
         </CardText>
       </Card>
-    );
+    )
   }
 
   static propTypes = {
@@ -147,6 +147,6 @@ const styles = {
   padding: {
     padding: '0 16px'
   }
-};
+}
 
-export default Radium(Submission);
+export default Radium(Submission)

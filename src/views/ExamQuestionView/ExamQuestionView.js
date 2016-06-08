@@ -1,18 +1,18 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react'
 
-import Inset from 'layouts/Inset';
-import Question from 'components/Question';
+import Inset from 'layouts/Inset'
+import Question from 'components/Question'
 
 class ExamQuestionView extends Component {
   render() {
-    const { examId, uuid } = this.props.params;
+    const { examId, uuid } = this.props.params
     return (
       <Inset>
         <Question
           examId={ examId }
           uuid={ uuid } />
       </Inset>
-    );
+    )
   }
 
   static propTypes = {
@@ -20,4 +20,4 @@ class ExamQuestionView extends Component {
   };
 }
 
-export default ExamQuestionView;
+export default ExamQuestionView
