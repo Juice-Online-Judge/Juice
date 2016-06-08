@@ -19,7 +19,7 @@
     "__BASENAME__" : false
   },
   "rules": {
-    "semi" : [2, "always"],
+    "semi" : [2, "never"],
     "space-before-function-paren" : [2, "never"],
     "generator-star-spacing": [2, "after"],
     "yield-star-spacing": [2, "after"],
