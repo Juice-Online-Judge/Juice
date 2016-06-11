@@ -1,23 +1,20 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
+import setPropTypes from 'recompose/setPropTypes'
 
 import Inset from 'layouts/Inset'
 import Question from 'components/Question'
 
-class ExamQuestionView extends Component {
-  render() {
-    const { examId, uuid } = this.props.params
-    return (
-      <Inset>
-        <Question
-          examId={ examId }
-          uuid={ uuid } />
-      </Inset>
-    )
-  }
-
-  static propTypes = {
-    params: PropTypes.object.isRequired
-  };
-}
+const ExamQuestionView = setPropTypes({
+  params: PropTypes.shape({
+    examId: PropTypes.string,
+    uuid: PropTypes.string.isRequired
+  }).isRequired
+})(({ params: { examId, uuid } }) => (
+  <Inset>
+    <Question
+      examId={ examId }
+      uuid={ uuid } />
+  </Inset>
+))
 
 export default ExamQuestionView

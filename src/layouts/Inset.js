@@ -1,22 +1,17 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import { Grid, Row, Col } from 'react-flexbox-grid'
+import setPropTypes from 'recompose/setPropTypes'
 
-export class Inset extends Component {
-  render() {
-    return (
-      <Grid>
-        <Row>
-          <Col xs={ 12 }>
-            { this.props.children }
-          </Col>
-        </Row>
-      </Grid>
-    )
-  }
-
-  static propTypes = {
-    children: PropTypes.node
-  };
-}
+export const Inset = setPropTypes({
+  children: PropTypes.node
+})(({ children }) => (
+  <Grid>
+    <Row>
+      <Col xs={ 12 }>
+        { this.props.children }
+      </Col>
+    </Row>
+  </Grid>
+))
 
 export default Inset
