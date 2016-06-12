@@ -8,7 +8,7 @@ export const Inset = setPropTypes({
   <Grid>
     <Row>
       <Col xs={ 12 }>
-        { this.props.children }
+        { children }
       </Col>
     </Row>
   </Grid>
