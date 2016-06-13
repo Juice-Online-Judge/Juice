@@ -13,7 +13,7 @@ class AuthController extends ApiController
      * Sign in to the application.
      *
      * @param Request $request
-     * 
+     *
      * @return \Dingo\Api\Http\Response
      */
     public function signIn(Request $request)
@@ -43,7 +43,7 @@ class AuthController extends ApiController
      * Sign up for the application.
      *
      * @param SignUpRequest $request
-     * 
+     *
      * @return \Dingo\Api\Http\Response
      */
     public function signUp(SignUpRequest $request)
