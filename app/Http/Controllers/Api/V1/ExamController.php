@@ -37,7 +37,7 @@ class ExamController extends ApiController
     {
         $exams = Exam::with(['role'])->where('ended_at', '>=', Carbon::now());
 
-        if (! $this->user-hasRole(['admin'])) {
+        if (! $this->user->hasRole(['admin'])) {
             $exams = $exams->whereHas('users', function (Builder $query) {
                 $query->where('user_id', $this->user->getKey());
             });
