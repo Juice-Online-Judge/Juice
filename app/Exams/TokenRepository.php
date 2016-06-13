@@ -92,8 +92,12 @@ class TokenRepository
         $now = Carbon::now();
 
         $exam = Exam::with([
-            'questions' => function (BelongsToMany $query) { $query->getBaseQuery()->select(['id', 'uuid']); },
-            'users'     => function (BelongsToMany $query) { $query->wherePivot('user_id', $this->userId); },
+            'questions' => function (BelongsToMany $query) {
+                $query->getBaseQuery()->select(['id', 'uuid']);
+            },
+            'users'     => function (BelongsToMany $query) {
+                $query->wherePivot('user_id', $this->userId);
+            },
         ])
             ->findOrFail($this->examId);
 

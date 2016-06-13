@@ -110,8 +110,12 @@ class ExamController extends ApiController
     {
         $exam = Exam::with([
             'role',
-            'questions' => function (BelongsToMany $query) { $query->getBaseQuery()->select(['id', 'uuid', 'title']); },
-            'users' => function (BelongsToMany $query) { $query->getBaseQuery()->select(['id', 'username', 'nickname']); },
+            'questions' => function (BelongsToMany $query) {
+                $query->getBaseQuery()->select(['id', 'uuid', 'title']);
+            },
+            'users' => function (BelongsToMany $query) {
+                $query->getBaseQuery()->select(['id', 'username', 'nickname']);
+            },
         ])->findOrFail($id);
 
         $this->authorize($exam);
@@ -171,8 +175,12 @@ class ExamController extends ApiController
                     $query->getBaseQuery()->where('user_id', $this->user->getKey());
                 }
             },
-            'submissions.user' => function (BelongsTo $query) { $query->getBaseQuery()->select(['id', 'username', 'nickname']); },
-            'submissions.question' => function (BelongsTo $query) { $query->getBaseQuery()->select(['id', 'uuid', 'title']); },
+            'submissions.user' => function (BelongsTo $query) {
+                $query->getBaseQuery()->select(['id', 'username', 'nickname']);
+            },
+            'submissions.question' => function (BelongsTo $query) {
+                $query->getBaseQuery()->select(['id', 'uuid', 'title']);
+            },
         ]);
 
         return $exam->getRelation('submissions');
