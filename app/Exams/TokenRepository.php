@@ -30,14 +30,16 @@ class TokenRepository
     /**
      * Get the data according to the token.
      *
-     * @return array
+     * @param string $token
+     *
+     * @return array|null
      */
     public static function getData($token)
     {
         try {
             return JWTAuth::decode(JWTAuth::setToken($token)->getToken())->toArray();
         } catch (JWTException $e) {
-            return;
+            return null;
         }
     }
 

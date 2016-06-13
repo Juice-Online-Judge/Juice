@@ -25,42 +25,41 @@ class ExamController extends ApiController
      */
     public function __construct()
     {
-        $this->middleware('auth');
-
         $this->middleware('role:admin', ['only' => ['store']]);
     }
 
     /**
      * Get the exam list.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function index()
     {
         $exams = Exam::with(['role'])->where('ended_at', '>=', Carbon::now());
 
-        if (! request_user()->hasRole(['admin'])) {
+        if (! $this->user-hasRole(['admin'])) {
             $exams = $exams->whereHas('users', function (Builder $query) {
-                $query->where('user_id', request_user(true));
+                $query->where('user_id', $this->user->getKey());
             });
         }
 
         $exams = $exams->paginate();
 
-        return $this->setData($exams)->responseOk();
+        return $exams;
     }
 
     /**
      * Create a new exam.
      *
      * @param ExamRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function store(ExamRequest $request)
     {
         $exam = new Exam($request->only(['name']));
 
-        $exam->setAttribute('user_id', request_user(true))
+        $exam->setAttribute('user_id', $this->user->getKey())
             ->setAttribute('role_id', $request->has('role_id') ? $request->input('role_id') : null)
             ->setAttribute('began_at', Carbon::parse($request->input('began_at'))->timezone('Asia/Taipei'))
             ->setAttribute('ended_at', Carbon::parse($request->input('ended_at'))->timezone('Asia/Taipei'));
@@ -73,13 +72,14 @@ class ExamController extends ApiController
 
         $exam->users()->sync($request->input('user', []));
 
-        return $this->setData($exam->fresh())->responseCreated();
+        return $this->response->created(null, $exam->fresh());
     }
 
     /**
      * Get the question input from request.
      *
      * @param Request $request
+     *
      * @return array
      */
     protected function getQuestionFromRequest(Request $request)
@@ -103,7 +103,8 @@ class ExamController extends ApiController
      * Get exam info.
      *
      * @param int $id
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function show($id)
     {
@@ -126,14 +127,15 @@ class ExamController extends ApiController
 
         remove_pivot($exam->getRelation('users'));
 
-        return $this->setData($exam)->responseOk();
+        return $exam;
     }
 
     /**
      * Get the exam questions.
      *
      * @param int $id
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function questions($id)
     {
@@ -145,14 +147,15 @@ class ExamController extends ApiController
 
         move_up_pivot_attributes($exam->getRelation('questions'), ['info']);
 
-        return $this->setData($exam->getRelation('questions'))->responseOk();
+        return $exam->getRelation('questions');
     }
 
     /**
      * Get the exam submissions record.
      *
      * @param int $id
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function submissions($id)
     {
@@ -165,14 +168,14 @@ class ExamController extends ApiController
                 $query->getBaseQuery()->latest('submitted_at');
 
                 if (! Gate::allows('isManager', $exam)) {
-                    $query->getBaseQuery()->where('user_id', request_user(true));
+                    $query->getBaseQuery()->where('user_id', $this->user->getKey());
                 }
             },
             'submissions.user' => function (BelongsTo $query) { $query->getBaseQuery()->select(['id', 'username', 'nickname']); },
             'submissions.question' => function (BelongsTo $query) { $query->getBaseQuery()->select(['id', 'uuid', 'title']); },
         ]);
 
-        return $this->setData($exam->getRelation('submissions'))->responseOk();
+        return $exam->getRelation('submissions');
     }
 
     /**
@@ -180,7 +183,7 @@ class ExamController extends ApiController
      *
      * @param $id
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function scores($id)
     {
@@ -190,7 +193,7 @@ class ExamController extends ApiController
 
         $exam->load(['users' => function (BelongsToMany $query) use ($exam) {
             if (! Gate::allows('isManager', $exam)) {
-                $query->wherePivot('user_id', request_user(true));
+                $query->wherePivot('user_id', $this->user->getKey());
             }
 
             $query->getBaseQuery()->select(['id', 'username', 'nickname']);
@@ -198,7 +201,7 @@ class ExamController extends ApiController
 
         move_up_pivot_attributes($exam->getRelation('users'), ['score']);
 
-        return $this->setData($exam->getRelation('users'))->responseOk();
+        return $exam->getRelation('users');
     }
 
     /**
@@ -206,7 +209,8 @@ class ExamController extends ApiController
      *
      * @param ExamRequest $request
      * @param int $id
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function update(ExamRequest $request, $id)
     {
@@ -230,7 +234,7 @@ class ExamController extends ApiController
 
         $exam->users()->sync($request->input('user', []));
 
-        return $this->setData($exam->fresh())->responseOk();
+        return $exam->fresh();
     }
 
     /**
@@ -238,12 +242,13 @@ class ExamController extends ApiController
      *
      * @param int $id
      * @param TokenRepository $repository
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function token($id, TokenRepository $repository)
     {
         try {
-            $token = $repository->getToken($id, request_user(true));
+            $token = $repository->getToken($id, $this->user->getKey());
         } catch (ModelNotFoundException $e) {
             return $this->setMessages(['The exam is not exists.'])->responseNotFound();
         } catch (AccessDeniedException $e) {
@@ -252,6 +257,6 @@ class ExamController extends ApiController
             return $this->setMessages(['The exam is not available.'])->responseForbidden();
         }
 
-        return $this->setData($token)->responseOk();
+        return $token;
     }
 }

@@ -23,13 +23,14 @@ class SubmissionController extends ApiController
      *
      * @param SubmissionRequest $request
      * @param string $uuid
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function storeUsingWeb(SubmissionRequest $request, $uuid)
     {
         return $this->store(
             $uuid,
-            request_user(true),
+            $this->user->getKey(),
             [
                 'exam_id'  => $request->input('exam_id'),
                 'language' => $request->input('language'),
@@ -43,16 +44,17 @@ class SubmissionController extends ApiController
      *
      * @param CliSubmissionRequest $request
      * @param string $uuid
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function storeUsingCli(CliSubmissionRequest $request, $uuid)
     {
         $data = TokenRepository::getData($request->input('token'));
 
         if (is_null($data)) {
-            return $this->setMessages(['Token mismatch.'])->responseUnauthorized();
+            $this->response->errorUnauthorized('Token mismatch.');
         } elseif (! in_array($uuid, $data['questions'])) {
-            return $this->setMessages(['Exam question not found.'])->responseNotFound();
+            $this->response->errorNotFound('Exam question not found.');
         }
 
         return $this->store(
@@ -72,7 +74,8 @@ class SubmissionController extends ApiController
      * @param string $uuid
      * @param int $userId
      * @param array $input
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return \Dingo\Api\Http\Response
      */
     protected function store($uuid, $userId, array $input)
     {
@@ -83,9 +86,10 @@ class SubmissionController extends ApiController
                 ->exists();
 
             if (! $exam) {
-                return $this->responseForbidden();
+                $this->response->errorForbidden();
             }
         }
+
         $question = Question::where('uuid', $uuid)->firstOrFail(['id']);
 
         $submission = $question->submissions()->save(new Submission([
@@ -96,12 +100,12 @@ class SubmissionController extends ApiController
         ]));
 
         if (false === $submission || ! $this->storeCode($submission, $input['code'])) {
-            return $this->responseUnknownError();
+            $this->response->errorInternal();
         }
 
         event(new CodeSubmitted());
 
-        return $this->setData($submission->fresh())->responseCreated();
+        return $this->response->created(null, $submission->fresh());
     }
 
     /**
@@ -109,6 +113,7 @@ class SubmissionController extends ApiController
      *
      * @param Submission $submission
      * @param $code
+     *
      * @return bool
      */
     protected function storeCode(Submission $submission, $code)
@@ -128,7 +133,8 @@ class SubmissionController extends ApiController
      * Get submission and judge info.
      *
      * @param int $submissionId
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function show($submissionId)
     {
@@ -138,7 +144,7 @@ class SubmissionController extends ApiController
 
         $this->authorize($submission);
 
-        return $this->setData($submission)->responseOk();
+        return $submission;
     }
 
     /**
@@ -146,7 +152,8 @@ class SubmissionController extends ApiController
      *
      * @param Request $request
      * @param int $id
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function update(Request $request, $id)
     {
@@ -161,13 +168,13 @@ class SubmissionController extends ApiController
             ]);
         }
 
-        return $this->setData($submission->fresh())->responseOk();
+        return $submission;
     }
 
     /**
      * Get the recent submit records.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function recent()
     {
@@ -178,14 +185,15 @@ class SubmissionController extends ApiController
             ->orderBy('submitted_at', 'desc')
             ->paginate(5);
 
-        return $this->setData($submissions)->responseOk();
+        return $submissions;
     }
 
     /**
      * Get the submission code.
      *
      * @param int $submissionId
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function code($submissionId)
     {
@@ -199,6 +207,6 @@ class SubmissionController extends ApiController
             return $this->responseUnknownError();
         }
 
-        return $this->setData($code)->responseOk();
+        return $code;
     }
 }

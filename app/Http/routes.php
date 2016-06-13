@@ -25,6 +25,26 @@ $api->group(['version' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
         $api->get('{uuid}', 'QuestionController@show');
     });
 
+    $api->group(['prefix' => 'submissions'], function (ApiRouter $api) {
+        $api->group(['middleware' => ['auth']], function (ApiRouter $api) {
+            $api->get('recent', 'SubmissionController@recent');
+            $api->post('{uuid}', 'SubmissionController@storeUsingWeb');
+            $api->get('{id}', 'SubmissionController@show');
+            $api->patch('{id}', 'SubmissionController@update');
+            $api->get('{id}/code', 'SubmissionController@code');
+        });
+
+        $api->post('{uuid}/cli', 'SubmissionController@storeUsingCli');
+    });
+
+    $api->group(['prefix' => 'exams/{exams}', 'middleware' => ['api.auth']], function (ApiRouter $api) {
+        $api->get('questions', 'ExamController@questions');
+        $api->get('submissions', 'ExamController@submissions');
+        $api->get('scores', 'ExamController@scores');
+        $api->get('token', 'ExamController@token');
+    });
+    $api->resource('exams', 'ExamController', ['middleware' => ['api.auth'], 'except' => ['create', 'edit']]);
+
     $api->group(['prefix' => 'configs'], function (ApiRouter $api) {
         $api->get('/', 'ConfigController@index')->middleware(['role:admin']);
         $api->get('{key}', 'ConfigController@show');
@@ -39,29 +59,5 @@ $api->group(['version' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
 
 $router->get('oauth/{driver}', 'Api\V1\OAuthController@oauthRedirect');
 $router->get('oauth/{driver}/callback', 'Api\V1\OAuthController@oauthCallback');
-
-$router->group(['prefix' => 'api', 'namespace' => 'Api'], function (Router $router) {
-    $router->group(['prefix' => 'v1', 'namespace' => 'V1'], function (Router $router) {
-        $router->group(['prefix' => 'submissions'], function (Router $router) {
-            $router->group(['middleware' => ['auth']], function (Router $router) {
-                $router->get('recent', 'SubmissionController@recent');
-                $router->post('{uuid}', 'SubmissionController@storeUsingWeb');
-                $router->get('{id}', 'SubmissionController@show');
-                $router->patch('{id}', 'SubmissionController@update');
-                $router->get('{id}/code', 'SubmissionController@code');
-            });
-
-            $router->post('{uuid}/cli', 'SubmissionController@storeUsingCli');
-        });
-
-        $router->group(['prefix' => 'exams/{exams}'], function (Router $router) {
-            $router->get('questions', 'ExamController@questions');
-            $router->get('submissions', 'ExamController@submissions');
-            $router->get('scores', 'ExamController@scores');
-            $router->get('token', 'ExamController@token');
-        });
-        $router->resource('exams', 'ExamController', ['except' => ['create', 'edit']]);
-    });
-});
 
 $router->get('{redirect?}', ['as' => 'home', 'uses' => 'HomeController@home'])->where('redirect', '.*');
