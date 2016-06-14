@@ -1,3 +1,5 @@
+import { takeEvery } from 'redux-saga';
+import { select, put, call } from 'redux-saga/effects';
 import { createAction, handleActions } from 'redux-actions';
 import { Record, Map, List } from 'immutable';
 import { normalize, arrayOf } from 'normalizr';
@@ -25,6 +27,10 @@ const initialState = new ExamStatus();
 export const SET_EXAM = 'SET_EXAM';
 export const SET_EXAM_TOKEN = 'SET_EXAM_TOKEN';
 export const CLEAR_EXAM = 'CLEAR_EXAM';
+export const FETCH_EXAMS = 'FETCH_EXAMS';
+export const ADD_EXAM = 'ADD_EXAM';
+export const FETCH_EXAM_QUESTION = 'FETCH_EXAM_QUESTION';
+export const FETCH_EXAM_TOKEN = 'FETCH_EXAM_TOKEN';
 
 export const setExam = createAction(SET_EXAM, ({ page, total, data }) => ({
   page,
@@ -34,9 +40,13 @@ export const setExam = createAction(SET_EXAM, ({ page, total, data }) => ({
 
 export const setExamToken = createAction(SET_EXAM_TOKEN);
 export const clearExam = createAction(CLEAR_EXAM);
+export const fetchExams = createAction(FETCH_EXAMS, (query, opts) => ({ query, opts }));
+export const addExam = createAction(ADD_EXAM);
+export const fetchExamQuestion = createAction(FETCH_EXAM_QUESTION);
+export const fetchExamToken = createAction(FETCH_EXAM_TOKEN);
 
-export const fetchExams = (query, opts = { force: false }) => (dispatch, getState) => {
-  const { app, account, exam } = getState();
+export function* fetchExamsFlow({ payload: { query, opts = { force: false } } }) {
+  const { app, account, exam } = yield select();
   const page = exam.get('page');
   query = query || { page };
 
@@ -52,22 +62,24 @@ export const fetchExams = (query, opts = { force: false }) => (dispatch, getStat
     return;
   }
 
-  dispatch(request({
+  const { error, entity } = yield call(request, {
     path: 'exams',
     params: query
-  }, (entity) => {
-    dispatch(setExam({ page: query.page, total: entity.total, data: entity.data }));
-  }));
+  });
+
+  if (!error) {
+    yield put(setExam({ page: query.page, total: entity.total, data: entity.data }));
+  }
 };
 
-export const addExam = (data) => (dispatch) => {
+export function* addExamFlow({ payload }) {
   const examData = {
-    name: data.name,
-    role_id: data.roleId,
-    began_at: data.beganTime,
-    ended_at: data.endedTime,
-    user: data.users,
-    question: map(data.questions, (val, key) => ({
+    name: payload.name,
+    role_id: payload.roleId,
+    began_at: payload.beganTime,
+    ended_at: payload.endedTime,
+    user: payload.users,
+    question: map(payload.questions, (val, key) => ({
       uuid: key,
       info: JSON.stringify(renameKeys(val, {
         readFrom: 'read_from',
@@ -79,57 +91,72 @@ export const addExam = (data) => (dispatch) => {
   // No need to check login state here
   // Because of we check it when access add exam page
 
-  return dispatch(request({
+  const { error } = yield call(request, {
     path: 'exams',
     entity: examData
-  }, () => {
-    dispatch(showMessage('Add success'));
-  }, () => {
-    dispatch(showMessage('Add fail'));
-  }));
+  });
+
+  if (!error) {
+    yield put(showMessage('Add success'));
+  } else {
+    yield put(showMessage('Add fail'));
+  }
 };
 
-export const fetchExamQuestion = (examId) => (dispatch, getState) => {
-  const { account } = getState();
+export function* fetchExamQuestionFlow({ payload }) {
+  const account = yield select((state) => state.account);
 
   if (!isLogin(account)) {
     return;
   }
 
-  dispatch(request({
+  const { error, entity } = yield call(request, {
     path: 'exams/{id}/questions',
     params: {
-      id: examId
+      id: payload
     }
-  }, (entity) => {
-    dispatch(setQuestion({
+  });
+
+  if (!error) {
+    yield put(setQuestion({
       total: entity.length,
       page: 1,
       data: entity,
       detail: true
     }));
-  }));
+  }
 };
 
-export const fetchExamToken = (examId) => (dispatch, getState) => {
-  const { account } = getState();
+export function* fetchExamTokenFlow({ payload }) {
+  const account = yield select((state) => state.account);
 
   if (!isLogin(account)) {
     return;
   }
 
-  dispatch(request({
+  const { error, entity } = yield call(request, {
     path: 'exams/{id}/token',
     params: {
-      id: examId
+      id: payload
     }
-  }, (entity) => {
-    dispatch(setExamToken({
-      id: examId,
+  });
+
+  if (!error) {
+    yield put(setExamToken({
+      id: payload,
       token: entity
     }));
-  }));
+  }
 };
+
+export function* watcher() {
+  yield [
+    takeEvery(FETCH_EXAMS, fetchExamsFlow),
+    takeEvery(ADD_EXAM, addExamFlow),
+    takeEvery(FETCH_EXAM_QUESTION, fetchExamQuestionFlow),
+    takeEvery(FETCH_EXAM_TOKEN, fetchExamTokenFlow)
+  ];
+}
 
 export const actions = {
   setExam,
