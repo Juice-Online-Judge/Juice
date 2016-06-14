@@ -1,3 +1,5 @@
+import { takeEvery } from 'redux-saga';
+import { select, put, call } from 'redux-saga/effects';
 import { createAction, handleActions } from 'redux-actions';
 import { fromJS, Record, List, Map } from 'immutable';
 import { normalize, arrayOf } from 'normalizr';
@@ -23,6 +25,9 @@ const initialState = new QuestionState();
 const SET_QUESTION = 'SET_QUESTION';
 const SET_QUESTION_DETAIL = 'SET_QUESTION_DETAIL';
 const CLEAR_QUESTION = 'CLEAR_QUESTION';
+export const FETCH_QUESTION = 'FETCH_QUESTION';
+export const FETCH_QUESTION_DETIAL = 'FETCH_QUESTION_DETIAL';
+export const ADD_QUESTION = 'ADD_QUESTION';
 
 const markDetail = (question) => ({
   detail: true,
@@ -49,9 +54,12 @@ export const setQuestionDetail = createAction(SET_QUESTION_DETAIL, (payload) => 
 });
 
 export const clearQuestion = createAction(CLEAR_QUESTION);
+export const fetchQuestion = createAction(FETCH_QUESTION, (query, opts) => ({ query, opts }));
+export const fetchQuestionDetail = createAction(FETCH_QUESTION_DETIAL, (query, opts) => ({ query, opts }));
+export const addQuestion = createAction(ADD_QUESTION);
 
-export const fetchQuestion = (query = { page: 1 }, opts = { force: false }) => (dispatch, getState) => {
-  const { app, question } = getState();
+export function* fetchQuestionFlow({ payload: { query = { page: 1 }, opts = { force: false } } }) {
+  const { app, question } = yield select();
   const page = question.get('page');
   const uuids = question.get('result');
 
@@ -61,55 +69,60 @@ export const fetchQuestion = (query = { page: 1 }, opts = { force: false }) => (
     }
   }
 
-  dispatch(request({
+  const { error, entity } = yield call(request, {
     path: 'questions',
     params: query
-  }, (entity) => {
-    dispatch(setQuestion({
+  });
+
+  if (!error) {
+    yield put(setQuestion({
       data: entity.data,
       page: query.page,
       total: entity.total
     }));
-  }));
-};
+  }
+}
 
-export const fetchQuestionDetail = (uuid, opts = { force: false }) => (dispatch, getState) => {
-  const entities = getState().question.get('entities');
+export function* fetchQuestionDetailFlow({ payload: { uuid, opts = { force: false } } }) {
+  const entities = yield select((state) => state.question.get('entities'));
 
   if (entities.has(uuid) && entities.getIn([uuid, 'detail']) && !opts.force) {
     return;
   }
 
-  dispatch(request({
+  const { error, entity } = yield call(request, {
     path: 'questions/{uuid}',
     params: {
       uuid
     }
-  }, (entity) => {
-    dispatch(setQuestionDetail(entity));
-  }));
-};
+  });
 
-export const addQuestion = (data) => (dispatch) => {
-  data = createFormDataDeep(data);
+  if (!error) {
+    yield put(setQuestionDetail(entity));
+  }
+}
+
+export function* addQuestionFlow({ payload }) {
+  const data = createFormDataDeep(payload);
   if (!data.uuid) {
     delete data.uuid;
   }
 
-  return dispatch(request({
+  const { error, entity } = yield call(request, {
     path: 'questions',
     methods: 'POST',
     headers: {
       'Content-Type': 'multipart/form-data'
     },
     entity: data
-  }, (entity) => {
-    dispatch(setQuestionDetail(entity));
-    dispatch(showMessage('Add success'));
-  }, () => {
-    dispatch(showMessage('Add fail'));
-  }));
-};
+  });
+  if (!error) {
+    yield put(setQuestionDetail(entity));
+    yield put(showMessage('Add success'));
+  } else {
+    yield put(showMessage('Add fail'));
+  }
+}
 
 // Selector
 
@@ -119,6 +132,14 @@ export const questionSelector = createSelector(
   [questionUuidSelector],
   (ques) => ques
 );
+
+export function* watcher() {
+  yield [
+    takeEvery(FETCH_QUESTION, fetchQuestionFlow),
+    takeEvery(FETCH_QUESTION_DETIAL, fetchQuestionDetailFlow),
+    takeEvery(ADD_QUESTION, addQuestionFlow)
+  ];
+}
 
 export const actions = {
   fetchQuestion,
