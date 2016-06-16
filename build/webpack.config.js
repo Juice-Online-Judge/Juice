@@ -137,8 +137,7 @@ webpackConfig.module.loaders = [{
     ],
     presets
   }
-},
-{
+}, {
   test: /\.json$/,
   loader: 'json'
 }]
