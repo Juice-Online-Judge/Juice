@@ -19,7 +19,7 @@ class Toast extends Component {
   static propTypes = {
     children: PropTypes.node,
     style: PropTypes.object.isRequired,
-    timeout: PropTypes.number,
+    timeout: PropTypes.number.isRequired,
     onRequestClose: PropTypes.func.isRequired,
     id: PropTypes.any.isRequired
   }
