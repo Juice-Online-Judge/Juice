@@ -19,12 +19,6 @@ class Toasts extends Component {
   renderSubtree(props) {
     const { messages } = props
 
-    const defaultStyles = messages.map((msg) => ({
-      key: msg,
-      style: styles.toast
-    }))
-    console.log(defaultStyles)
-
     const transitionStyles = messages.map((msg) => ({
       key: msg,
       style: {
@@ -32,7 +26,6 @@ class Toasts extends Component {
         marginTop: spring(10)
       }
     }))
-    console.log(transitionStyles)
 
     const child = (
       <TransitionMotion
