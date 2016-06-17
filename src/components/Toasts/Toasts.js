@@ -80,7 +80,7 @@ class Toasts extends Component {
   }
 
   static propTypes = {
-    messages: PropTypes.arrayOf(PropTypes.string)
+    children: PropTypes.arrayOf(PropTypes.element)
   }
 }
 
