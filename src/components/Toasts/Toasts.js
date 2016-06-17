@@ -1,8 +1,8 @@
-import React, { PropTypes, Component } from 'react'
+import React, { PropTypes, Children, Component } from 'react'
 import ReactDOM from 'react-dom'
 import { TransitionMotion, spring } from 'react-motion'
 
-import Toast from './Toast'
+import Toast from './internal/Toast'
 
 class Toasts extends Component {
   componentDidMount() {
@@ -21,10 +21,14 @@ class Toasts extends Component {
   }
 
   renderSubtree(props) {
-    const { messages } = props
+    const { children } = props
 
-    const transitionStyles = messages.map((msg) => ({
-      key: msg,
+    const transitionStyles = Children.map(children, (toast) => ({
+      key: toast.key,
+      data: {
+        id: toast.props.id ? toast.props.id : toast.key,
+        props: toast.props
+      },
       style: {
         opacity: spring(1),
         marginTop: spring(10)
@@ -42,12 +46,10 @@ class Toasts extends Component {
               {
                 configs.map((config) => (
                   <Toast
-                    id={ config.key }
                     key={ config.key }
-                    style={ { ...styles.toast, ...config.style } }
-                    onRequestClose={ this.props.onRequestClose } >
-                    { config.key }
-                  </Toast>
+                    id={ config.data.id }
+                    { ...config.data.props }
+                    style={ { ...config.style, ...styles.toast } } />
                 ))
               }
             </div>
@@ -78,8 +80,7 @@ class Toasts extends Component {
   }
 
   static propTypes = {
-    messages: PropTypes.arrayOf(PropTypes.string),
-    onRequestClose: PropTypes.func.isRequired
+    messages: PropTypes.arrayOf(PropTypes.string)
   }
 }
 
