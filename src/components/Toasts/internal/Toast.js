@@ -23,10 +23,6 @@ class Toast extends Component {
     onRequestClose: PropTypes.func.isRequired,
     id: PropTypes.any.isRequired
   }
-
-  static defaultProps = {
-    timeout: 3000
-  }
 }
 
 export default Toast
