@@ -16,6 +16,10 @@ class Toasts extends Component {
     this.renderSubtree(nextProps)
   }
 
+  componentWillUnmount() {
+    document.body.removeChild(this.container)
+  }
+
   renderSubtree(props) {
     const { messages } = props
 
@@ -91,6 +95,7 @@ const styles = {
   },
   toast: {
     top: '0px',
+    right: '0px',
     backgroundColor: '#323232',
     color: 'white',
     display: 'flex',
@@ -98,7 +103,6 @@ const styles = {
     alignItem: 'center',
     padding: '10px 25px',
     maxWidth: '100%',
-    minHeight: '48px',
-    float: 'right'
+    minHeight: '48px'
   }
 }
