@@ -27,14 +27,17 @@ class Toasts extends Component {
 
     const transitionStyles = messages.map((msg) => ({
       key: msg,
-      style: { top: spring(0), opacity: spring(1) }
+      style: {
+        opacity: spring(1),
+        marginTop: spring(10)
+      }
     }))
     console.log(transitionStyles)
 
     const child = (
       <TransitionMotion
-        defaultStyles={ defaultStyles }
         styles={ transitionStyles }
+        willEnter={ this.willEnter }
         willLeave={ this.willLeave } >
         {
           (configs) => (
@@ -44,7 +47,7 @@ class Toasts extends Component {
                   <Toast
                     id={ config.key }
                     key={ config.key }
-                    style={ config.style }
+                    style={ { ...styles.toast, ...config.style } }
                     onRequestClose={ this.props.onRequestClose } >
                     { config.key }
                   </Toast>
@@ -59,9 +62,16 @@ class Toasts extends Component {
     ReactDOM.unstable_renderSubtreeIntoContainer(this, child, this.container)
   }
 
+  willEnter() {
+    return {
+      opacity: 0,
+      marginTop: 20
+    }
+  }
+
   willLeave() {
     return {
-      top: spring(-1),
+      marginTop: spring(0),
       opacity: spring(0)
     }
   }
@@ -87,9 +97,7 @@ const styles = {
     zIndex: 100000
   },
   toast: {
-    opacity: 0,
-    top: 1,
-    marginTop: '10px',
+    top: '0px',
     backgroundColor: '#323232',
     color: 'white',
     display: 'flex',
