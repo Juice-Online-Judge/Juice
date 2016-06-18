@@ -2,6 +2,10 @@ import React, { Component, PropTypes } from 'react'
 import { bind } from 'decko'
 
 import TextField from 'material-ui/TextField'
+import DropDownMenu from 'material-ui/DropDownMenu'
+import MenuItem from 'material-ui/MenuItem'
+
+import Label from 'components/Label'
 
 export class RestrictionTab extends Component {
   componentDidMount() {
@@ -23,10 +27,26 @@ export class RestrictionTab extends Component {
     this.handleChange({ time: event.target.value })
   }
 
+  @bind
+  handleStrategyChange(_event, _key, value) {
+    this.setState({ strategy: value })
+    this.emitChange({
+      ...this.data,
+      strategy: value
+    })
+  }
+
   handleChange(data = {}) {
     // Fire change event
     this.setData(data)
-    this.props.onChange({ restriction: this.data })
+    this.emitChange({
+      ...this.data,
+      strategy: this.state.strategy
+    })
+  }
+
+  emitChange(data) {
+    this.props.onChange({ restriction: data })
   }
 
   setData(data) {
@@ -34,8 +54,17 @@ export class RestrictionTab extends Component {
   }
 
   render() {
+    const { strategy } = this.state
+
     return (
       <div>
+        <div>
+          <Label> Strategy </Label>
+          <DropDownMenu value={ strategy } onChange={ this.handleStrategyChange } >
+            <MenuItem primaryText='Normal' value='normal' />
+            <MenuItem primaryText='Tolerance newline' value='tolerance_nl' />
+          </DropDownMenu>
+        </div>
         <div>
           <TextField floatingLabelText='Time limit' onChange={ this.handleTimeChange } />
         </div>
@@ -54,6 +83,10 @@ export class RestrictionTab extends Component {
     file: null,
     memory: null
   };
+
+  state = {
+    strategy: 'normal'
+  }
 
   static propTypes = {
     onChange: PropTypes.func.isRequired
