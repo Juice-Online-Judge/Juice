@@ -112,7 +112,7 @@ export default compose(
   connect(null, { login })
 )(SignInView)
 
-let styles = {
+const styles = {
   action: {
     width: '80%'
   },
