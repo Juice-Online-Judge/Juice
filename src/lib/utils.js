@@ -7,7 +7,7 @@ import noop from 'lodash/noop'
 import compose from 'lodash/fp/compose'
 import pick from 'lodash/fp/pick'
 import values from 'lodash/values'
-import { isPromiseLike } from 'when'
+import Promise from 'bluebird'
 
 export const prefixKeys = (object, prefix) => {
   return mapKeys(object, (_value, key) => {
@@ -53,11 +53,7 @@ export const createFormDataDeep = (object) => {
 }
 
 export const silencePromise = (promise) => {
-  if (isPromiseLike(promise)) {
-    return promise.then(noop, noop)
-  } else {
-    return promise
-  }
+  return Promise.try(promise).then(noop, noop)
 }
 
 export const valuesAt = (array, indexes) => compose(
