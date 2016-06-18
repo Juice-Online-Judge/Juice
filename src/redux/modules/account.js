@@ -19,7 +19,10 @@ export const SET_USER_INFO = 'SET_USER_INFO'
 export const CLEAR_USER = 'CLEAR_USER'
 
 export const setLoginState = createAction(SET_LOGIN_STATE, (state = false) => state)
-export const setUserInfo = createAction(SET_USER_INFO)
+export const setUserInfo = createAction(SET_USER_INFO, (payload) => {
+  payload.roles = payload.roles.map((role) => role.name)
+  return payload
+})
 export const clearUser = createAction(CLEAR_USER)
 
 export const login = (username, password) => (dispatch) => {
