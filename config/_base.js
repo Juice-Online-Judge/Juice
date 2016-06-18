@@ -39,6 +39,7 @@ const config = {
   },
   compiler_vendor : [
     'babel-polyfill',
+    'bluebird',
     'classnames',
     'codemirror',
     'decko',
@@ -67,8 +68,7 @@ const config = {
     'radium',
     'rest',
     'store',
-    'validate.js',
-    'when'
+    'validate.js'
   ],
 
   // ----------------------------------
