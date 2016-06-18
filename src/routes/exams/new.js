@@ -9,7 +9,7 @@ export default {
       'lib/redirectNotAdmin'
     ], () => {
       require.ensure('views/ExamNewView/ExamNewView', () => {
-        cb(null, require('views/ExamNewView/ExamNewView').default)
+        cb(null, require('views/ExamNewView/ExamNewView'))
       })
     })
   }
