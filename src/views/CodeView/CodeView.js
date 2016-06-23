@@ -67,5 +67,5 @@ export default connect((state, props) => ({
   code: codeSelector(state),
   submission: submissionSelector(state, props),
   admin: isAdminSelector(state),
-  needReview: needReviewSelector(state, props) }),
-  { fetchCode, fetchSubmission, patchSubmissionCorrectness })(CodeView)
+  needReview: needReviewSelector(state, props)
+}), { fetchCode, fetchSubmission, patchSubmissionCorrectness })(CodeView)
