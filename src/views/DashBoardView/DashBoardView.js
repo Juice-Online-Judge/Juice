@@ -1,11 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export class DashBoard extends Component {
-  render() {
-    return (
-      <div />
-    )
-  }
-}
+const DashBoard = () => (
+  <div></div>
+)
 
 export default DashBoard
