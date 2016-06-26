@@ -95,7 +95,7 @@ Edit at Your Own Risk
 // ------------------------------------
 // N.B.: globals added here must _also_ be added to .eslintrc
 
-const apiSubtree = process.env.API_STANDARDS_TREE
+const apiSubtree = config.env === 'production' ? 'vnd' : 'x'
 const apiSubtype = process.env.API_SUBTYPE
 const apiVersion = process.env.API_VERSION
 const apiHeader = `application/${apiSubtree}.${apiSubtype}.${apiVersion}+json`
