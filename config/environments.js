@@ -3,7 +3,6 @@
 export default {
   production: (config) => ({
     compiler_output_name     : '[name].[hash].js',
-    compiler_fail_on_warning : false,
     compiler_hash_type       : 'chunkhash',
     compiler_devtool         : null,
     compiler_stats           : {
