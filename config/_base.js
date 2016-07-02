@@ -137,7 +137,7 @@ config.utils_paths = (() => {
   const resolve = path.resolve
 
   const base = (...args) =>
-    resolve.apply(resolve, [config.path_base, ...args])
+    Reflect.apply(resolve, null, [config.path_base, ...args])
 
   return {
     base   : base,
