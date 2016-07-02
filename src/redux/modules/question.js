@@ -93,7 +93,7 @@ export const fetchQuestionDetail = (uuid, opts = { force: false }) => (dispatch,
 export const addQuestion = (data) => (dispatch) => {
   data = createFormDataDeep(data)
   if (!data.uuid) {
-    delete data.uuid
+    Reflect.deleteProperty(data, 'uuid')
   }
 
   return dispatch(request({
