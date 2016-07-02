@@ -1,5 +1,5 @@
 import { applyMiddleware, compose, createStore } from 'redux'
-import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux'
+import { routerMiddleware } from 'react-router-redux'
 import thunk from 'redux-thunk'
 import rootReducer from './rootReducer'
 
@@ -15,8 +15,7 @@ export default function configureStore({ initialState = {}, browserHistory }) {
   }
 
   // Create final store and subscribe router in debug env ie. for devtools
-  const store = middleware(createStore)(rootReducer, initialState)
-  const history = syncHistoryWithStore(browserHistory, store)
+  const store = createStore(rootReducer, initialState, middleware)
 
-  return { store, history }
+  return store
 }
