@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
 
 import { Link } from 'react-router'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
@@ -7,22 +6,18 @@ import AddIcon from 'material-ui/svg-icons/content/add'
 import Inset from 'layouts/Inset'
 import ExamCard from 'components/ExamCard'
 import Pagination from 'components/Pagination'
-import redirectNotAuth from 'lib/redirectNotAuth'
 
 import styles from 'lib/styles'
-import { actions as examActions } from 'redux/modules/exam'
-import { createIsAdminSelector } from 'redux/modules/account'
-import createMaxPageSelector from 'redux/selectors/maxPageSelector'
 
 class ExamListView extends Component {
   componentDidMount() {
-    const { query } = this.props.location
+    const { query } = this.props
     this.fetchExams(query, { force: true })
   }
 
   componentWillReceiveProps(newProps) {
-    const { query } = newProps.location
-    if (query.page !== this.props.location.query.page) {
+    const { query } = newProps
+    if (query.page !== this.props.query.page) {
       this.fetchExams(query)
     }
   }
@@ -70,18 +65,11 @@ class ExamListView extends Component {
 
   static propTypes = {
     maxPage: PropTypes.number.isRequired,
-    location: PropTypes.object.isRequired,
+    query: PropTypes.object.isRequired,
     exam: PropTypes.object.isRequired,
     admin: PropTypes.bool.isRequired,
     fetchExams: PropTypes.func.isRequired
   };
 }
 
-const maxPageSelector = createMaxPageSelector()
-const isAdminSelector = createIsAdminSelector()
-
-export default redirectNotAuth(connect((state) => ({
-  exam: state.exam,
-  maxPage: maxPageSelector(state.exam),
-  admin: isAdminSelector(state)
-}), examActions)(ExamListView))
+export default ExamListView
