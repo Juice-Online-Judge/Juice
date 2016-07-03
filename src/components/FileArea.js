@@ -17,8 +17,8 @@ export class FileArea extends Component {
   componentWillReceiveProps(nextProps) {
     if (__DEV__) {
       invariant(
-        this.props.multiple !== nextProps.multiple ||
-        this.props.mode !== nextProps.mode,
+        this.props.multiple === nextProps.multiple &&
+        this.props.mode === nextProps.mode,
         'Component <FileArea /> not allow change props `multiple` or `mode` on the fly'
       )
     }
