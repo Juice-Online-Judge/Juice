@@ -1,4 +1,4 @@
-import NotFoundView from 'views/NotFoundView/NotFoundView'
+import NotFoundView from './components/NotFoundView'
 
 export default {
   path: '/page-not-found',
