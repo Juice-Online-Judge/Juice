@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Accounts\Role;
+use App\Http\Controllers\Api\ApiController;
 
 class RoleController extends ApiController
 {

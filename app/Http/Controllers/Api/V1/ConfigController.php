@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Configs\Config;
+use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\V1\ConfigRequest;
 
 class ConfigController extends ApiController

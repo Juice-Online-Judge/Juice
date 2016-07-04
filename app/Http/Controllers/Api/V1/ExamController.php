@@ -6,6 +6,7 @@ use App\Exams\Exam;
 use App\Exams\Exception\AccessDeniedException;
 use App\Exams\Exception\UnavailableException;
 use App\Exams\TokenRepository;
+use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\V1\ExamRequest;
 use App\Questions\Question;
 use Carbon\Carbon;

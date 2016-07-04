@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Events\V1\CodeSubmitted;
 use App\Exams\Exam;
 use App\Exams\TokenRepository;
+use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\V1\Cli\SubmissionRequest as CliSubmissionRequest;
 use App\Http\Requests\Api\V1\SubmissionRequest;
 use App\Questions\Question;
