@@ -8,7 +8,7 @@ import useScroll from 'react-router-scroll'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { Router, applyRouterMiddleware, useRouterHistory } from 'react-router'
 import { createHistory } from 'history'
-import routes from './routes'
+import routesFactory from './routes'
 import configureStore from './redux/configureStore'
 
 const historyConfig = { basename: __BASENAME__ }
@@ -25,6 +25,8 @@ injectTapEventPlugin()
 if (__PROD__) {
   require('offline-plugin/runtime').install()
 }
+
+const routes = routesFactory(store)
 
 const Root = (
   <Provider store={ store }>
