@@ -30,7 +30,7 @@ class SignUpValidateController extends ApiController
      */
     public function verify(Request $request)
     {
-        if (! key_exists($request->input('field'), $this->rules)) {
+        if (! array_key_exists($request->input('field'), $this->rules)) {
             $this->response->errorMethodNotAllowed();
         }
 
