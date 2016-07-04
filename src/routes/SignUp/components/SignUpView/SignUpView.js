@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bind } from 'decko'
 import compose from 'recompose/compose'
 
-import { registerUser } from '../../redux/modules/account'
+import { registerUser } from 'redux/modules/account'
 
 import Paper from 'material-ui/Paper'
 import Card from 'material-ui/Card/Card'

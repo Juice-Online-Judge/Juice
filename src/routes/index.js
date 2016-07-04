@@ -8,8 +8,8 @@ export default {
   getChildRoutes(_location, next) {
     require.ensure([], (require) => {
       next(null, [
-        require('./sign-in'),
-        require('./sign-up'),
+        require('./SignIn'),
+        require('./SignUp'),
         require('./Question'),
         require('./Code'),
         require('./submissions'),
