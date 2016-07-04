@@ -1,6 +1,6 @@
 export default {
-  path: 'questions/new',
-  getComponent(_state, cb) {
+  path: 'new',
+  getComponent(_location, next) {
     require.ensure([
       'material-ui/RaisedButton',
       'material-ui/Stepper/Step',
@@ -8,8 +8,8 @@ export default {
       'material-ui/Stepper/StepLabel',
       'lib/redirectNotAdmin'
     ], () => {
-      require.ensure('views/QuestionNewView/QuestionNewView', () => {
-        cb(null, require('views/QuestionNewView/QuestionNewView'))
+      require.ensure('./components/QuestionNewView', () => {
+        next(null, require('./components/QuestionNewView'))
       })
     })
   }

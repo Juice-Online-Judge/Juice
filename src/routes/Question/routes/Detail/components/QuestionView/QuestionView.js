@@ -8,11 +8,14 @@ import redirectNotFound from 'lib/redirectNotFound'
 
 export const QuestionView = setPropTypes({
   params: PropTypes.shape({
+    examId: PropTypes.string,
     uuid: PropTypes.string.isRequired
   }).isRequired
-})(({ params: { uuid } }) => (
+})(({ params: { examId, uuid } }) => (
   <Inset>
-    <Question uuid={ uuid } />
+    <Question
+      examId={ examId }
+      uuid={ uuid } />
   </Inset>
 ))
 

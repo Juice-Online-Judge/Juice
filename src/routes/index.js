@@ -10,14 +10,11 @@ export default {
       next(null, [
         require('./sign-in'),
         require('./sign-up'),
-        require('./questions'),
-        require('./questions/new'),
-        require('./questions/detail'),
+        require('./Question'),
         require('./Code'),
         require('./submissions'),
         require('./Exam'),
         require('./dashboard'),
-        require('./exams/question-detail.js'),
         require('./PermissionDenied'),
         require('./NotFound'),
         redirect('/page-not-found')
