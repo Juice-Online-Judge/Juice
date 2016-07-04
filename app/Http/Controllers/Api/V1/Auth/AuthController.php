@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Accounts\User;
+use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\V1\SignUpRequest;
 use Illuminate\Http\Request;
 use JWTAuth;
@@ -21,7 +22,7 @@ class AuthController extends ApiController
         $token = JWTAuth::attempt($request->only(['username', 'password']));
 
         if (! $token) {
-            $this->response->error('These credentials do not match our records.', 422);
+            $this->response->error(trans('auth.failed'), 422);
         }
 
         return $token;
