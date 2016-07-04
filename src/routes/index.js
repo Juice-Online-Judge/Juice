@@ -20,7 +20,7 @@ export default {
         require('./exams/detail'),
         require('./dashboard'),
         require('./exams/question-detail.js'),
-        require('./permission-denied'),
+        require('./PermissionDenied'),
         require('./NotFound'),
         redirect('/page-not-found')
       ])
