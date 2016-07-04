@@ -183,7 +183,7 @@ return [
     */
 
     'throttling' => [
-
+        Dingo\Api\Http\RateLimit\Throttle\Route::class,
     ],
 
     /*

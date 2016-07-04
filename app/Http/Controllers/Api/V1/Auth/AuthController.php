@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Accounts\User;
 use App\Http\Controllers\Api\ApiController;
@@ -57,6 +57,6 @@ class AuthController extends ApiController
             $this->response->errorInternal();
         }
 
-        return $this->response->created(null, JWTAuth::fromUser($user));
+        return JWTAuth::fromUser($user);
     }
 }

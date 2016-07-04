@@ -8,10 +8,11 @@ use Illuminate\Routing\Router;
 $api = app('Dingo\Api\Routing\Router');
 
 $api->group(['version' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function (ApiRouter $api) {
-    $api->group(['prefix' => 'auth'], function (ApiRouter $api) {
-        $api->post('sign-in', 'AuthController@signIn');
-        $api->get('sign-out', 'AuthController@signOut');
-        $api->post('sign-up', 'AuthController@signUp');
+    $api->group(['prefix' => 'auth', 'namespace' => 'Auth'], function (ApiRouter $api) {
+        $api->post('sign-in', ['middleware' => 'api.throttle', 'limit' => 5, 'expires' => 1, 'uses' => 'AuthController@signIn']);
+        $api->get('sign-out', ['middleware' => 'api.auth', 'uses' => 'AuthController@signOut']);
+        $api->post('sign-up', ['uses' => 'AuthController@signUp']);
+        $api->get('sign-up/validate', ['uses' => 'SignUpValidateController@verify']);
     });
 
     $api->group(['prefix' => 'account'], function (ApiRouter $api) {

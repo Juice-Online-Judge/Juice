@@ -158,6 +158,7 @@ return [
         App\Providers\ValidationProvider::class,
 
         Dingo\Api\Provider\LaravelServiceProvider::class,
+        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
 

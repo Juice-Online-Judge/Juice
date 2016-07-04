@@ -14,12 +14,11 @@ class SignUpRequest extends Request
     public function rules()
     {
         return [
-            'username' => [
-                'bail', 'required', 'string', 'regex:/^\w{5,32}$/', 'unique:users,username',
-            ],
+            'username' => 'bail|required|string|between:5,32|alpha_num|unique:users,username',
             'password' => 'required|string|min:6',
-            'nickname' => 'required|string|min:3|max:16',
-            'email'    => 'required|string|email|max:48|unique:users,email',
+            'nickname' => 'required|string|between:3,16',
+            'email'    => 'bail|required|string|email|max:48|unique:users,email',
+            'g-recaptcha-response' => 'bail|required|recaptcha',
         ];
     }
 }

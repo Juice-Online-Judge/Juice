@@ -25,7 +25,7 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
      *
      * @var array
      */
-    protected $fillable = ['username', 'password', 'nickname', 'email'];
+    protected $fillable = ['username', 'nickname', 'email'];
 
     /**
      * 使用者所屬群組.
