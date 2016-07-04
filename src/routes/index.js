@@ -12,9 +12,9 @@ export default {
         require('./SignUp'),
         require('./Question'),
         require('./Code'),
-        require('./submissions'),
+        require('./Submission'),
         require('./Exam'),
-        require('./dashboard'),
+        require('./DashBoard'),
         require('./PermissionDenied'),
         require('./NotFound'),
         redirect('/page-not-found')
