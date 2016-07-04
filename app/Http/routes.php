@@ -15,8 +15,10 @@ $api->group(['version' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
         $api->get('sign-up/validate', ['uses' => 'SignUpValidateController@verify']);
     });
 
-    $api->group(['prefix' => 'account'], function (ApiRouter $api) {
+    $api->group(['prefix' => 'account', 'middleware' => ['api.auth']], function (ApiRouter $api) {
         $api->get('profile', 'AccountController@profile');
+        $api->patch('profile', 'AccountController@update');
+        $api->patch('password', 'AccountController@password');
         $api->get('submissions', 'AccountController@submissions');
     });
 

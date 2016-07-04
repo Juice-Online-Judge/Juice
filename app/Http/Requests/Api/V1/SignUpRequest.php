@@ -15,7 +15,7 @@ class SignUpRequest extends Request
     {
         return [
             'username' => 'bail|required|string|between:5,32|alpha_num|unique:users,username',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:6|different:username|confirmed',
             'nickname' => 'required|string|between:3,16',
             'email'    => 'bail|required|string|email|max:48|unique:users,email',
             'g-recaptcha-response' => 'bail|required|recaptcha',

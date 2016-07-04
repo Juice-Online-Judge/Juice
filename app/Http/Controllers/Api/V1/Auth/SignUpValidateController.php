@@ -16,7 +16,7 @@ class SignUpValidateController extends ApiController
      */
     protected $rules = [
         'username' => 'bail|required|string|between:5,32|alpha_num|unique:users,username',
-        'password' => 'bail|required|string|min:6',
+        'password' => 'bail|required|string|min:6|different:username',
         'nickname' => 'bail|required|string|between:3,16',
         'email'    => 'bail|required|string|email|max:48|unique:users,email',
     ];
