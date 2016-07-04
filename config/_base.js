@@ -47,7 +47,6 @@ const config = {
     'history',
     'highlight.js',
     'immutable',
-    'lodash',
     'normalizr',
     'qwery',
     'react',
