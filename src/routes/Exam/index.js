@@ -13,7 +13,8 @@ export default {
   getChildRoutes(_location, next) {
     require.ensure([], (require) => {
       next(null, [
-        require('./routes/New')
+        require('./routes/New'),
+        require('./routes/Detail')
       ])
     })
   }

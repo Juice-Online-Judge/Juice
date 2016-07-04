@@ -16,8 +16,6 @@ export default {
         require('./Code'),
         require('./submissions'),
         require('./Exam'),
-        redirect('exams/:id', 'exams/:id/questions'),
-        require('./exams/detail'),
         require('./dashboard'),
         require('./exams/question-detail.js'),
         require('./PermissionDenied'),

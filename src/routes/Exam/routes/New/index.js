@@ -8,7 +8,7 @@ export default {
       'material-ui/Stepper/StepLabel',
       'lib/redirectNotAdmin'
     ], () => {
-      require.ensure('./components/ExamNewView', () => {
+      require.ensure(['./components/ExamNewView'], () => {
         next(null, require('./components/ExamNewView'))
       })
     })
