@@ -17,7 +17,7 @@ import UserTab from './UserTab'
 import redirectNotAdmin from 'lib/redirectNotAdmin'
 import MessageContainer from 'containers/MessageContainer'
 
-import { addExam } from 'redux/modules/exam'
+import { addExam } from 'routes/Exam/modules/exam'
 import { clearCache } from 'redux/modules/app'
 
 export class ExamNewView extends Component {

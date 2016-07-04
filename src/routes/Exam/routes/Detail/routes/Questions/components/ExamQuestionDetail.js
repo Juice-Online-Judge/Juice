@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import QuestionList from 'components/QuestionList'
-import { fetchExamQuestion } from 'redux/modules/exam'
+import { fetchExamQuestion } from 'routes/Exam/modules/exam'
 
 class ExamQuestionDetail extends Component {
   componentDidMount() {

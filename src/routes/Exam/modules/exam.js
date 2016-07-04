@@ -8,10 +8,10 @@ import { replace } from 'react-router-redux'
 import examSchema from 'schema/exam'
 import isRequesting from 'lib/isRequesting'
 import { renameKeys } from 'lib/utils'
-import { request } from './app'
-import { setQuestion } from './question'
-import { isLogin } from './account'
-import { showMessage } from './message'
+import { request } from 'redux/modules/app'
+import { setQuestion } from 'redux/modules/question'
+import { isLogin } from 'redux/modules/account'
+import { showMessage } from 'redux/modules/message'
 
 const ExamStatus = new Record({
   result: new List(),
@@ -141,9 +141,11 @@ export const actions = {
   addExam
 }
 
-export default handleActions({
+export const reducer = handleActions({
   [SET_EXAM]: (state, { payload }) => state.merge(omit(payload, 'entities'))
     .mergeDeep({ entities: payload.entities }),
   [SET_EXAM_TOKEN]: (state, { payload }) => state.setIn(['tokens', `${payload.id}`], payload.token),
   [CLEAR_EXAM]: () => new ExamStatus()
 }, initialState)
+
+export default reducer

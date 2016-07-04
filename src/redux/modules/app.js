@@ -3,7 +3,6 @@ import { createSelector } from 'reselect'
 import { fromJS, Record } from 'immutable'
 
 import { RequestStatus } from 'lib/const'
-import { clearExam } from './exam'
 import { clearQuestion } from './question'
 import { clearSubmissions } from './submission'
 import { clearUsers } from './users'
@@ -31,7 +30,6 @@ export const request = (config, handleSuccess, handleError) => (dispatch) => {
 }
 
 export const clearCache = () => (dispatch) => {
-  dispatch(clearExam())
   dispatch(clearQuestion())
   dispatch(clearSubmissions())
   dispatch(clearUsers())

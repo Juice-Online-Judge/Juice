@@ -10,7 +10,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton'
 import FlipToFrontIcon from 'material-ui/svg-icons/action/flip-to-front'
 import CopyButton from 'components/CopyButton'
 import { Row, Col } from 'react-flexbox-grid'
-import { fetchExamToken } from 'redux/modules/exam'
+import { fetchExamToken } from 'routes/Exam/modules/exam'
 import { filterStringify, parseFilter, addFilter, clearFilter } from 'redux/modules/submissionFilter'
 import styles from 'lib/styles'
 
