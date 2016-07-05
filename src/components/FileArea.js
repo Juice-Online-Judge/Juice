@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react'
-import { bind, memoize } from 'decko'
+import { bind } from 'decko'
 import uniqueId from 'lodash/uniqueId'
 import toArray from 'lodash/toArray'
-import invariant from 'invariant'
 
 import TextField from 'material-ui/TextField'
 import RadioButton from 'material-ui/RadioButton/RadioButton'
@@ -14,16 +13,6 @@ import FileButton from './FileButton'
 import styles from 'lib/styles'
 
 export class FileArea extends Component {
-  componentWillReceiveProps(nextProps) {
-    if (__DEV__) {
-      invariant(
-        this.props.multiple === nextProps.multiple &&
-        this.props.mode === nextProps.mode,
-        'Component <FileArea /> not allow change props `multiple` or `mode` on the fly'
-      )
-    }
-  }
-
   @bind
   handleFileChange(fileList) {
     const content = {}
@@ -97,7 +86,6 @@ export class FileArea extends Component {
     }
   }
 
-  @memoize
   areaContent(type) {
     const { label } = this.props
 
