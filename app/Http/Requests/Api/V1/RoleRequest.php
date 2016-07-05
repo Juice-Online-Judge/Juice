@@ -17,7 +17,11 @@ class RoleRequest extends Request
             'name'   => ['bail', 'required', 'string', 'max:32', 'regex:/^custom-.+/', 'unique:roles,name'],
             'remark' => 'string|max:190',
         ];
-        
+
+        if ($this->isMethod('PATCH')) {
+            $rules[count($rules)-1] .= ','.$this->route('roles').',id';
+        }
+
         return $rules;
     }
 
