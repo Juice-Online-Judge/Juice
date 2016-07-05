@@ -6,55 +6,89 @@ use File;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class JudgeRepository extends Repository
+class JudgeRepository
 {
+    /**
+     * Http Request
+     *
+     * @var Request
+     */
     protected $request;
 
+    /**
+     * Question input files path.
+     *
+     * @var array
+     */
     private $input;
 
+    /**
+     * Question output result files path.
+     *
+     * @var array
+     */
     private $output;
 
+    /**
+     * The arguments that should append when execute the program.
+     *
+     * @var array
+     */
     private $argument;
 
+    /**
+     * The restrictions of the question.
+     *
+     * @var array
+     */
     private $restriction;
 
     /**
      * Create a new question repository instance.
      *
-     * @param Request|null $request
-     * @param int|null $questionId
+     * @param Request $request
      */
-    public function __construct(Request $request = null, $questionId = null)
+    public function __construct(Request $request)
     {
-        parent::__construct();
-
         $this->request = $request;
-
-        $this->getBasePath($questionId);
     }
 
     /**
-     * Remove input and output files according to the given question id.
+     * Remove input and output files according to the given question key.
      *
-     * @param int|null $questionId
+     * @param int $questionKey
+     *
      * @return bool
      */
-    public function removeFiles($questionId = null)
+    public static function cleanDirectory($questionKey)
     {
-        return File::cleanDirectory($this->getBasePath($questionId));
+        return File::cleanDirectory(static::basePath($questionKey));
+    }
+
+    /**
+     * Get judge config from request using given question key.
+     *
+     * @param $questionKey
+     * @param Request|null $request
+     *
+     * @return mixed
+     */
+    public static function fromRequest($questionKey, Request $request = null)
+    {
+        static::basePath($questionKey);
+
+        $judge = new static(is_null($request) ? \Request::instance() : $request);
+
+        return $judge->getJudge();
     }
 
     /**
      * Get judge info.
      *
-     * @return array|void
+     * @return array
      */
     public function getJudge()
     {
-        if (is_null($this->request) || is_null($this->getBasePath())) {
-            return;
-        }
-
         return [
             'input'       => $this->getInput(),
             'output'      => $this->getOutput(),
@@ -87,6 +121,7 @@ class JudgeRepository extends Repository
      * Input and output getter.
      *
      * @param string $type
+     *
      * @return array
      */
     private function getIO($type)
@@ -96,7 +131,7 @@ class JudgeRepository extends Repository
         }
 
         $this->$type = [
-            'basePath' => $this->getBasePath(),
+            'basePath' => $this->basePath(),
             'files'    => $this->request->hasFile("{$type}.file")
                 ? $this->ioUsingFiles($type, $this->request->file("{$type}.file"))
                 : $this->ioUsingTextarea($type, $this->request->input("{$type}.textarea")),
@@ -110,19 +145,20 @@ class JudgeRepository extends Repository
      *
      * @param string $type
      * @param array $files
+     *
      * @return array
      */
     private function ioUsingFiles($type, array $files)
     {
         return $this->storeIo($type, $files, function (UploadedFile $file, $index) use ($type) {
-            if ($file->isValid()) {
-                file_put_contents(
-                    file_build_path($this->getBasePath(), "{$type}_{$index}"),
-                    $this->normalizeNewLine(file_get_contents($file->getRealPath()))
-                );
+            if (! $file->isValid()) {
+                return false;
             }
 
-            return "{$type}_{$index}";
+            return File::put(
+                file_build_path($this->basePath(), "{$type}_{$index}"),
+                $this->normalizeNewLine(file_get_contents($file->getRealPath()))
+            );
         });
     }
 
@@ -131,13 +167,14 @@ class JudgeRepository extends Repository
      *
      * @param string $type
      * @param array $textarea
+     *
      * @return array
      */
     private function ioUsingTextarea($type, array $textarea)
     {
         return $this->storeIo($type, $textarea, function ($text, $index) use ($type) {
             return File::put(
-                file_build_path($this->getBasePath(), "{$type}_{$index}"),
+                file_build_path($this->basePath(), "{$type}_{$index}"),
                 $this->normalizeNewLine($text)
             );
         });
@@ -149,6 +186,7 @@ class JudgeRepository extends Repository
      * @param string $type
      * @param array $data
      * @param callable $callback
+     *
      * @return array
      */
     private function storeIo($type, array $data, callable $callback)
@@ -156,7 +194,7 @@ class JudgeRepository extends Repository
         $index = 0;
 
         foreach ($data as $datum) {
-            if ($callback($datum, $index)) {
+            if (false !== $callback($datum, $index)) {
                 $result[] = "{$type}_{$index}";
             }
 
@@ -189,7 +227,7 @@ class JudgeRepository extends Repository
             return $this->argument;
         }
 
-        $this->argument = $this->request->input('argument');
+        $this->argument = $this->request->input('argument', []);
 
         return $this->argument;
     }
@@ -215,28 +253,43 @@ class JudgeRepository extends Repository
     }
 
     /**
-     * Set request.
+     * Get the base directory path for the question.
      *
-     * @param Request $request
-     * @return $this
+     * @param int|null $questionKey
+     *
+     * @return string
      */
-    public function setRequest(Request $request)
+    public static function basePath($questionKey = null)
     {
-        $this->request = $request;
+        static $basePath = null;
 
-        return $this;
+        if (! is_null($basePath) && is_null($questionKey)) {
+            return $basePath;
+        }
+
+        $basePath = file_build_path(
+            config('filesystems.disks.local.root'),
+            'questions',
+            intval(floor($questionKey / 1000)),
+            $questionKey
+        );
+
+        return static::makeDirectoryIfNotExists($basePath);
     }
 
     /**
-     * Use question id to set base path.
+     * Make the target directory recursively if it does not exist.
      *
-     * @param int $questionId
-     * @return $this
+     * @param string $dir
+     *
+     * @return string
      */
-    public function setQuestionId($questionId)
+    protected static function makeDirectoryIfNotExists($dir)
     {
-        $this->getBasePath($questionId);
+        if (! File::exists($dir)) {
+            File::makeDirectory($dir, 493, true);
+        }
 
-        return $this;
+        return $dir;
     }
 }

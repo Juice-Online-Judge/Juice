@@ -5,9 +5,15 @@ namespace App\Questions;
 use App\Core\Entity;
 use App\Submissions\Submission;
 use App\Tags\Tag;
+use Dingo\Api\Facade\API;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Ramsey\Uuid\Uuid;
+use Request;
 
 class Question extends Entity
 {
+    use SoftDeletes;
+
     /**
      * The model's attributes.
      *
@@ -22,14 +28,14 @@ class Question extends Entity
      *
      * @var array
      */
-    protected $hidden = ['id', 'user_id', 'public'];
+    protected $hidden = ['id', 'user_id', 'public', 'deleted_at'];
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['title', 'description', 'public'];
+    protected $fillable = ['uuid', 'title', 'description', 'public'];
 
     /**
      * The attributes that should be cast to native types.
@@ -42,31 +48,11 @@ class Question extends Entity
     ];
 
     /**
-     * Get the judge info.
+     * The relations to eager load on every query.
      *
-     * @param  string  $value
-     * @return array
+     * @var array
      */
-    public function getJudgeAttribute($value)
-    {
-        $judge = json_decode($value, true);
-
-        unset($judge['input'], $judge['output']);
-
-        return $judge;
-    }
-
-    /**
-     * Scope a query to only include questions of a given type.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param bool $public
-     * @return $this
-     */
-    public function scopeIsPublic($query, $public = true)
-    {
-        return $query->where('public', $public);
-    }
+    protected $with = ['tags'];
 
     /**
      * 取得該題所有 submit 紀錄.
@@ -85,6 +71,85 @@ class Question extends Entity
      */
     public function tags()
     {
-        return $this->morphToMany(Tag::class, 'taggable');
+        $relation = $this->morphToMany(Tag::class, 'taggable');
+
+        $relation->getBaseQuery()->select(['id', 'name']);
+
+        return $relation;
+    }
+
+    /**
+     * Scope a query to only include public questions if the user is not manager.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeMayPublic($query)
+    {
+        $user = API::user();
+
+        if (is_null($user) || ! $user->hasRole(['teacher', 'ta'])) {
+            return $query->where('public', true);
+        }
+
+        return $query;
+    }
+
+    /**
+     * Get the judge info.
+     *
+     * @param  string  $value
+     * @return array
+     */
+    public function getJudgeAttribute($value)
+    {
+        $judge = json_decode($value, true);
+
+        unset($judge['input'], $judge['output']);
+
+        return $judge;
+    }
+
+    /**
+     * Set the question uuid.
+     *
+     * @param  string|null  $value
+     *
+     * @return string
+     */
+    public function setUuidAttribute($value)
+    {
+        if (is_null($value)) {
+            $value = Uuid::uuid4()->toString();
+        }
+
+        $this->attributes['uuid'] = $value;
+
+        return $this;
+    }
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function (self $question) {
+            $question->setAttribute('user_id', API::user()->getKey());
+        });
+
+        static::saved(function (self $question) {
+            static $saved = false;
+
+            if (Request::has('tag') && ! $saved) {
+                $question->tags()->sync(Request::input('tag'));
+
+                $saved = true;
+            }
+        });
     }
 }

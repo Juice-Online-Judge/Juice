@@ -36,13 +36,9 @@ class QuestionController extends ApiController
             $this->response->errorInternal();
         }
 
-        $question->setAttribute('judge', (new JudgeRepository($request, $question->getKey()))->getJudge());
+        $question->setAttribute('judge', JudgeRepository::fromRequest($question->getKey()));
 
         $question->save();
-
-        if ($request->has('tag')) {
-            $question->tags()->sync($request->input('tag'));
-        }
 
         return $question->fresh();
     }
@@ -56,6 +52,14 @@ class QuestionController extends ApiController
      */
     public function show($uuid)
     {
-        return Question::where('uuid', $uuid)->mayPublic()->firstOrFail();
+        $question = Question::where('uuid', $uuid)
+            ->mayPublic()
+            ->first(['id', 'uuid', 'title', 'description', 'judge', 'created_at', 'updated_at']);
+
+        if (is_null($question)) {
+            $this->response->errorNotFound();
+        }
+
+        return $question;
     }
 }

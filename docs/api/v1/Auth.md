@@ -4,6 +4,7 @@
 
 - Method: Post
 - Authorized: False
+- Role: None
 - Rate Limit: 5 req/m
 - Parameters
   - username: required
@@ -15,22 +16,24 @@
   - Failed
     - Code: 422
     - Content: {message: string, status_code: integer}
-    
+
 ### /api/auth/sign-out
 
 - Method: Get
 - Authorized: True
+- Role: None
 - Rate Limit: None
 - Parameters: None
 - Response
   - Success
     - Code: 204
     - Content: None
-    
+
 ### /api/auth/sign-up
 
 - Method: Post
 - Authorized: False
+- Role: None
 - Rate Limit: None
 - Parameters
   - username: required, string(alpha and num), length between 5 to 32
@@ -52,6 +55,7 @@
 
 - Method: Get
 - Authorized: False
+- Role: None
 - Rate Limit: None
 - Parameters
   - field: required

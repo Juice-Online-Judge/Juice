@@ -4,6 +4,7 @@
 
 - Method: Get
 - Authorized: True
+- Role: None
 - Rate Limit: None
 - Parameters: None
 - Response
@@ -11,11 +12,12 @@
     - Code: 200
     - Content: {id: integer, username: string, nickname: string, email: string, roles: array}
       - roles: {id: integer, name: string, pivot: object}
-    
+
 ### /api/account/profile
 
 - Method: Patch
 - Authorized: True
+- Role: None
 - Rate Limit: None
 - Parameters
   - nickname: required, string, length between 3 to 16
@@ -29,6 +31,7 @@
 
 - Method: Patch
 - Authorized: True
+- Role: None
 - Rate Limit: None
 - Parameters
   - old_password: required, string, min length 6
@@ -46,11 +49,12 @@
   - Error
     - Code: 500
     - Content: {message: string, status_code: integer}
-        
+
 ### /api/account/submissions
 
 - Method: Get
 - Authorized: True
+- Role: None
 - Rate Limit: None
 - Parameters: None
 - Response
