@@ -55,7 +55,9 @@ $api->group(['version' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     });
 
     $api->get('users', 'UserController@index')->middleware(['role:admin']);
-    $api->get('roles', 'RoleController@index')->middleware(['role:admin']);
+
+    $api->get('roles/search', 'RoleController@search');
+    $api->resource('roles', 'RoleController', ['only' => ['index', 'store', 'update']]);
 
     $api->resource('tags', 'TagController', ['except' => ['create', 'edit']]);
 });

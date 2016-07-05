@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class JudgeRepository
 {
     /**
-     * Http Request
+     * Http Request.
      *
      * @var Request
      */

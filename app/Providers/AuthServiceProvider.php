@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Accounts\Role;
 use App\Exams\Exam;
 use App\Policies\Api\V1\ExamPolicy;
 use App\Policies\Api\V1\QuestionPolicy;
+use App\Policies\Api\V1\RolePolicy;
 use App\Policies\Api\V1\SubmissionPolicy;
 use App\Questions\Question;
 use App\Submissions\Submission;
@@ -21,6 +23,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         Exam::class       => ExamPolicy::class,
         Question::class   => QuestionPolicy::class,
+        Role::class       => RolePolicy::class,
         Submission::class => SubmissionPolicy::class,
     ];
 

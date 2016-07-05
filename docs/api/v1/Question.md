@@ -64,10 +64,10 @@
 - Response
   - Success
     - Code: 200
-    - Content: {uuid: string, title: string, description: string, judge: object, created_at: string, updated_at: string, tags: array}
+    - Content: {question: {uuid: string, title: string, description: string, judge: object, created_at: string, updated_at: string, tags: array}}
       - judge: {restriction: object}
       - tags: {id: integer, name: string, pivot: object}
-  - Error
+  - Failed
     - Code: 404
     - Content: {message: string, status_code: integer}
 

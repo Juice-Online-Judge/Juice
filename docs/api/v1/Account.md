@@ -10,7 +10,7 @@
 - Response
   - Success
     - Code: 200
-    - Content: {id: integer, username: string, nickname: string, email: string, roles: array}
+    - Content: {user: {id: integer, username: string, nickname: string, email: string, roles: array}}
       - roles: {id: integer, name: string, pivot: object}
 
 ### /api/account/profile
@@ -25,7 +25,7 @@
 - Response
   - Success
     - Code: 200
-    - Content: {id: integer, username: string, nickname: string, email: string}
+    - Content: {user: {id: integer, username: string, nickname: string, email: string}}
 
 ### /api/account/password
 
@@ -41,11 +41,11 @@
     - Code: 204
     - Content: None
   - Failed
-    - Code: 422
-    - Content: {errors: object, message: string, status_code: integer}
-  - Failed
     - Code: 412
     - Content: {message: string, status_code: integer}
+  - Failed
+    - Code: 422
+    - Content: {errors: object, message: string, status_code: integer}
   - Error
     - Code: 500
     - Content: {message: string, status_code: integer}

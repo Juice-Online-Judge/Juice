@@ -64,11 +64,11 @@
   - Success
     - Code: 202
     - Content: None
-  - Failed
-    - Code: 422
-    - Content: {errors: object, message: string, status_code: integer}
   - Error
     - Code: 405
     - Content: {message: string, status_code: integer}
+  - Failed
+    - Code: 422
+    - Content: {errors: object, message: string, status_code: integer}
 
 #### Last Update: 2016/07/04
