@@ -1,7 +1,7 @@
 import BaseLayout from 'layouts/BaseLayout'
 
 export default {
-  path: '(/exams/:examId/)questions',
+  path: 'questions',
   component: BaseLayout,
   getIndexRoute(_location, next) {
     require.ensure('./components/QuestionListView', (require) => {
@@ -11,7 +11,8 @@ export default {
   getChildRoutes(_location, next) {
     require.ensure([], (require) => {
       next(null, [
-        require('./routes/New')
+        require('./routes/New'),
+        require('./routes/Detail')
       ])
     })
   }
