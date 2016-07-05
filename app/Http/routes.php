@@ -28,36 +28,36 @@ $api->group(['version' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
         $api->get('{uuid}', 'QuestionController@show');
     });
 
-//    $api->group(['prefix' => 'submissions'], function (ApiRouter $api) {
-//        $api->group(['middleware' => ['auth']], function (ApiRouter $api) {
-//            $api->get('recent', 'SubmissionController@recent');
-//            $api->post('{uuid}', 'SubmissionController@storeUsingWeb');
-//            $api->get('{id}', 'SubmissionController@show');
-//            $api->patch('{id}', 'SubmissionController@update');
-//            $api->get('{id}/code', 'SubmissionController@code');
-//        });
-//
-//        $api->post('{uuid}/cli', 'SubmissionController@storeUsingCli');
-//    });
-//
-//    $api->group(['prefix' => 'exams/{exams}', 'middleware' => ['api.auth']], function (ApiRouter $api) {
-//        $api->get('questions', 'ExamController@questions');
-//        $api->get('submissions', 'ExamController@submissions');
-//        $api->get('scores', 'ExamController@scores');
-//        $api->get('token', 'ExamController@token');
-//    });
-//    $api->resource('exams', 'ExamController', ['middleware' => ['api.auth'], 'except' => ['create', 'edit']]);
-//
-//    $api->group(['prefix' => 'configs'], function (ApiRouter $api) {
-//        $api->get('/', 'ConfigController@index')->middleware(['role:admin']);
-//        $api->get('{key}', 'ConfigController@show');
-//        $api->patch('{key}', 'ConfigController@update')->middleware(['role:admin']);
-//    });
-//
-//    $api->get('users', 'UserController@index')->middleware(['role:admin']);
-//    $api->get('roles', 'RoleController@index')->middleware(['role:admin']);
-//
-//    $api->resource('tags', 'TagController', ['except' => ['create', 'edit']]);
+    $api->group(['prefix' => 'submissions'], function (ApiRouter $api) {
+        $api->group(['middleware' => ['auth']], function (ApiRouter $api) {
+            $api->get('recent', 'SubmissionController@recent');
+            $api->post('{uuid}', 'SubmissionController@storeUsingWeb');
+            $api->get('{id}', 'SubmissionController@show');
+            $api->patch('{id}', 'SubmissionController@update');
+            $api->get('{id}/code', 'SubmissionController@code');
+        });
+
+        $api->post('{uuid}/cli', 'SubmissionController@storeUsingCli');
+    });
+
+    $api->group(['prefix' => 'exams/{exams}', 'middleware' => ['api.auth']], function (ApiRouter $api) {
+        $api->get('questions', 'ExamController@questions');
+        $api->get('submissions', 'ExamController@submissions');
+        $api->get('scores', 'ExamController@scores');
+        $api->get('token', 'ExamController@token');
+    });
+    $api->resource('exams', 'ExamController', ['middleware' => ['api.auth'], 'except' => ['create', 'edit']]);
+
+    $api->group(['prefix' => 'configs'], function (ApiRouter $api) {
+        $api->get('/', 'ConfigController@index')->middleware(['role:admin']);
+        $api->get('{key}', 'ConfigController@show');
+        $api->patch('{key}', 'ConfigController@update')->middleware(['role:admin']);
+    });
+
+    $api->get('users', 'UserController@index')->middleware(['role:admin']);
+    $api->get('roles', 'RoleController@index')->middleware(['role:admin']);
+
+    $api->resource('tags', 'TagController', ['except' => ['create', 'edit']]);
 });
 
 $router->get('oauth/{driver}', 'Api\V1\OAuthController@oauthRedirect');
