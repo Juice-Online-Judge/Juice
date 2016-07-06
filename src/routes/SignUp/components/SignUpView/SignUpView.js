@@ -40,6 +40,11 @@ export class SignUpView extends React.Component {
     }
   }
 
+  @bind
+  handleVerify(response) {
+    this.setData({ 'g-recaptcha-response': response })
+  }
+
   setData(newData) {
     this.data = { ...this.data, ...newData }
   }
@@ -98,6 +103,7 @@ export class SignUpView extends React.Component {
               <Recaptcha
                 render='explicit'
                 onloadCallback={ noop }
+                verifyCallback={ this.handleVerify }
                 sitekey='6LdEMSQTAAAAAG87oN7PFNRmqg755R9kUloibvY4' />
             </CardActions>
             <CardActions>
