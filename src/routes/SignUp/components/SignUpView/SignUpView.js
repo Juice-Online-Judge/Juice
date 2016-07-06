@@ -2,9 +2,11 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bind } from 'decko'
 import compose from 'recompose/compose'
+import noop from 'lodash/noop'
 
 import { registerUser } from 'redux/modules/account'
 
+import Recaptcha from 'react-recaptcha'
 import Paper from 'material-ui/Paper'
 import Card from 'material-ui/Card/Card'
 import CardTitle from 'material-ui/Card/CardTitle'
@@ -91,6 +93,12 @@ export class SignUpView extends React.Component {
                 onKeyDown={ this.handleKeyDown }
                 errorText={ message.get('passwordConfirm') }
                 floatingLabelText='PasswordConfirm' />
+            </CardActions>
+            <CardActions>
+              <Recaptcha
+                render='explicit'
+                onloadCallback={ noop }
+                sitekey='6LdEMSQTAAAAAG87oN7PFNRmqg755R9kUloibvY4' />
             </CardActions>
             <CardActions>
               <FlatButton label='Signup' primary onClick={ this.signup } />
