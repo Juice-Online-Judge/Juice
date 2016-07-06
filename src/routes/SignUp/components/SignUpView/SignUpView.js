@@ -31,6 +31,13 @@ export class SignUpView extends React.Component {
     this.props.registerUser(this.data)
   }
 
+  @bind
+  handleKeyDown(event) {
+    if (event.keyCode === 13) {
+      this.signup(event)
+    }
+  }
+
   setData(newData) {
     this.data = { ...this.data, ...newData }
   }
@@ -81,6 +88,7 @@ export class SignUpView extends React.Component {
                 style={ styles.action }
                 type='password'
                 onChange={ this.handleChange }
+                onKeyDown={ this.handleKeyDown }
                 errorText={ message.get('passwordConfirm') }
                 floatingLabelText='PasswordConfirm' />
             </CardActions>
