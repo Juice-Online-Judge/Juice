@@ -24,7 +24,7 @@ export const DownloadButton = compose(
 
   const url = `data:text/plain;base64,${btoa(text)}`
   return (
-    <FlatButton linkButton href={ url } label={ label } download={ filename } />
+    <FlatButton href={ url } label={ label } download={ filename } />
   )
 })
 
