@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react'
 import { bind } from 'decko'
-import concat from 'lodash/concat'
 import without from 'lodash/without'
 
 import ExamQuestion from 'components/ExamQuestion'
@@ -10,7 +9,7 @@ class ExamQuestionList extends Component {
   handleQuestionCheck(selected, uuid) {
     const { selectedQuestion } = this.props
     if (selected) {
-      this.props.onChange(concat(selectedQuestion, uuid), uuid)
+      this.props.onChange(selectedQuestion.concat(uuid), uuid)
     } else {
       this.props.onChange(without(selectedQuestion, uuid), uuid)
     }

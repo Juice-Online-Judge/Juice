@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import { replace } from 'react-router-redux'
-import concat from 'lodash/concat'
 import setDisplayName from 'recompose/setDisplayName'
 import wrapDisplayName from 'recompose/wrapDisplayName'
 import lifecycle from 'recompose/lifecycle'
@@ -33,7 +32,7 @@ export const redirectComponent = (name, mapStateToProp, shouldRedirectPath, opti
     })
 
     if (options.omitProps) {
-      omitPropsName = concat(omitPropsName, options.omitProps)
+      omitPropsName = omitPropsName.concat(options.omitProps)
     }
 
     return compose(
