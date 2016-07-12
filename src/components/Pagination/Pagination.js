@@ -33,8 +33,8 @@ export class Pagination extends Component {
 
   get pagination() {
     const { baseUrl, current, maxPage } = this.props
-    var min = current - 4
-    var max
+    let min = current - 4
+    let max
     // Calculate min page
     min = Math.max(min, 1)
     // Calculate max page

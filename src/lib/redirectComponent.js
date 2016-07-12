@@ -8,7 +8,7 @@ import omitProps from './omitProps'
 
 export const redirectComponent = (name, mapStateToProp, shouldRedirectPath, options) =>
   (WrappedComponent) => {
-    var omitPropsName = ['replace']
+    let omitPropsName = ['replace']
     const actions = options.actions ? { ...options.actions, replace } : { replace }
     const redirectComponentHoc = lifecycle({
       componentWillMount() {
