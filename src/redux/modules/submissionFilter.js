@@ -25,17 +25,16 @@ export const filterSubmissionSelector = createSelector(
     const question = submissionFilter.get('question')
     const filterResult = submission.get('result').filter((id) => {
       const data = submission.getIn(['entities', 'submission', `${id}`])
-      var take = true
 
       if (user && user !== data.getIn(['user', 'id'])) {
-        take = false
+        return false
       }
 
       if (question && question !== data.getIn(['question', 'uuid'])) {
-        take = false
+        return false
       }
 
-      return take
+      return true
     })
     return submission.set('result', filterResult)
   }
