@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { bind } from 'decko'
 import uniqueId from 'lodash/uniqueId'
-import toArray from 'lodash/toArray'
 
 import TextField from 'material-ui/TextField'
 import RadioButton from 'material-ui/RadioButton/RadioButton'
@@ -17,7 +16,7 @@ export class FileArea extends Component {
   handleFileChange(fileList) {
     const content = {}
     const { multiple } = this.props
-    const files = toArray(fileList)
+    const files = Array.from(fileList)
 
     content[this.props.textKey] = null
     content[this.props.fileKey] = multiple ? files : files[0]
