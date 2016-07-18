@@ -19,16 +19,19 @@ import ErrorMessage from './ErrorMessage'
 
 class CodeView extends Component {
   componentWillMount() {
-    const { id } = this.props.params
+    const { id } = this.props
     this.props.fetchSubmission(id)
     this.props.fetchCode(id)
   }
 
   render() {
-    const { id, examId } = this.props.params
+    const { id, examId } = this.props
     const { admin, submission, code, needReview, patchSubmissionCorrectness } = this.props
     const lang = submission.get('language')
     const ext = lang === 'c++' ? 'cpp' : lang
+    const isFail = submission.getIn(['judge', 'result'], 'AC') !== 'AC'
+    const judgeMessage = submission.getIn(['judge', 'judge_message'])
+
     return (
       <Inset>
         <Row middle='md' end='md'>
@@ -42,7 +45,9 @@ class CodeView extends Component {
             <DownloadButton label='Download Code' text={ code } filename={ `submission${id}.${ext}` } />
           </Col>
         </Row>
-        <ErrorMessage submission={ submission } />
+        <ErrorMessage
+          isFail={ isFail }
+          judgeMessage={ judgeMessage } />
         <div>Code:</div>
         <CodePane code={ code } lang={ lang } />
       </Inset>
@@ -50,7 +55,8 @@ class CodeView extends Component {
   }
 
   static propTypes = {
-    params: PropTypes.object.isRequired,
+    id: PropTypes.string.isRequired,
+    examId: PropTypes.string,
     admin: PropTypes.bool.isRequired,
     code: PropTypes.string.isRequired,
     submission: PropTypes.object.isRequired,
@@ -67,5 +73,7 @@ export default connect((state, props) => ({
   code: codeSelector(state),
   submission: submissionSelector(state, props),
   admin: isAdminSelector(state),
-  needReview: needReviewSelector(state, props)
+  needReview: needReviewSelector(state, props),
+  id: props.params.id,
+  examId: props.params.examId
 }), { fetchCode, fetchSubmission, patchSubmissionCorrectness })(CodeView)

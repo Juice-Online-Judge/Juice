@@ -8,17 +8,11 @@ import CodePane from 'components/CodePane'
 const ErrorMessage = compose(
   setDisplayName('ErrorMessage'),
   setPropTypes({
-    submission: PropTypes.object.isRequired
+    isFail: PropTypes.bool.isRequired,
+    judgeMessage: PropTypes.string
   })
-)(({ submission }) => {
-  const isFail = submission.getIn(['judge', 'result'], 'AC') !== 'AC'
-  if (!isFail) {
-    return null
-  }
-
-  const judgeMessage = submission.getIn(['judge', 'judge_message'])
-
-  return (
+)(({ isFail, judgeMessage }) => {
+  return isFail ? null : (
     <div>
       <div>Error message:</div>
       <CodePane code={ judgeMessage } lang='txt' />
