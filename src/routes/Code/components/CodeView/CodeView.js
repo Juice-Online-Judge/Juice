@@ -1,16 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
 
 import { Row, Col } from 'react-flexbox-grid'
-import {
-    fetchCode,
-    fetchSubmission,
-    codeSelector,
-    submissionSelector,
-    needReviewSelector,
-    patchSubmissionCorrectness
- } from 'redux/modules/submission'
-import { createIsAdminSelector } from 'redux/modules/account'
 import Inset from 'layouts/Inset'
 import CodePane from 'components/CodePane'
 import DownloadButton from 'components/DownloadButton'
@@ -67,13 +57,4 @@ class CodeView extends Component {
   };
 }
 
-const isAdminSelector = createIsAdminSelector()
-
-export default connect((state, props) => ({
-  code: codeSelector(state),
-  submission: submissionSelector(state, props),
-  admin: isAdminSelector(state),
-  needReview: needReviewSelector(state, props),
-  id: props.params.id,
-  examId: props.params.examId
-}), { fetchCode, fetchSubmission, patchSubmissionCorrectness })(CodeView)
+export default CodeView
