@@ -1,7 +1,7 @@
 :global {
   @import 'base';
-  @import 'vendor/normalize';
-  @import 'vendor/_monokai-bright';
+  @import '~ress';
+  @import 'vendor/monokai-bright';
 
   // Some best-practice CSS that's useful for most apps
   // Just remove them if they're not what you want
@@ -9,20 +9,14 @@
     box-sizing: border-box;
   }
 
-  .markdown-body pre {
-    background-color: #141414;
+  .markdown-body {
+    pre {
+      background-color: $code-background;
+    }
   }
 
   html,
   body {
-    margin: 0;
-    padding: 0;
     height: 100%;
-  }
-
-  *,
-  *:before,
-  *:after {
-    box-sizing: inherit;
   }
 }
