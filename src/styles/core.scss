@@ -3,20 +3,14 @@
   @import '~ress';
   @import 'vendor/monokai-bright';
 
-  // Some best-practice CSS that's useful for most apps
-  // Just remove them if they're not what you want
-  html {
-    box-sizing: border-box;
+  html,
+  body {
+    height: 100%;
   }
 
   .markdown-body {
     pre {
       background-color: $code-background;
     }
-  }
-
-  html,
-  body {
-    height: 100%;
   }
 }
