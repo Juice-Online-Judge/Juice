@@ -32,19 +32,24 @@
       }
     },
     "test": {
-      "command": "node -r dotenv/config ./node_modules/karma/bin/karma start bin/karma.js",
+      "command": "jest",
       "env": {
         "NODE_ENV": "test"
       }
     }
   },
   "jest": {
+    "modulePaths": [
+      "src"
+    ],
     "setupTestFrameworkScriptFile": "node_modules/jasmine-enzyme/lib/jest.js",
     "unmockedModulePathPatterns": [
       "react",
       "react-dom",
       "react-addons-test-utils",
-      "enzyme"
+      "enzyme",
+      "lodash",
+      "bluebird"
     ]
   },
   "repository": {
