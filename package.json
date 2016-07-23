@@ -49,7 +49,7 @@
     "setupFiles": [
       "./src/bootstrap.js"
     ],
-    "setupTestFrameworkScriptFile": "node_modules/jasmine-enzyme/lib/jest.js",
+    "setupTestFrameworkScriptFile": "tests/jest-env.js",
     "unmockedModulePathPatterns": [
       "react",
       "react-dom",
