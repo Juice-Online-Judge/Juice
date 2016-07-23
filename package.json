@@ -42,6 +42,9 @@
     "modulePaths": [
       "src"
     ],
+    "setupFiles": [
+      "./src/bootstrap.js"
+    ],
     "setupTestFrameworkScriptFile": "node_modules/jasmine-enzyme/lib/jest.js",
     "unmockedModulePathPatterns": [
       "react",
@@ -49,7 +52,9 @@
       "react-addons-test-utils",
       "enzyme",
       "lodash",
-      "bluebird"
+      "bluebird",
+      "core-js",
+      "material-ui"
     ]
   },
   "repository": {
