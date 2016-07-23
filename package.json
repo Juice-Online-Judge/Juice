@@ -54,7 +54,8 @@
       "lodash",
       "bluebird",
       "core-js",
-      "material-ui"
+      "material-ui",
+      "react-flexbox-grid"
     ]
   },
   "repository": {
