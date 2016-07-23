@@ -158,6 +158,7 @@
     "imports-loader": "^0.6.5",
     "isparta-loader": "^2.0.0",
     "jasmine-enzyme": "^1.1.0",
+    "jasmine-immutable-matchers": "^1.0.1",
     "jest-cli": "^13.2.3",
     "json-loader": "^0.5.4",
     "karma": "^1.1.1",
