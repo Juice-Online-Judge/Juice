@@ -91,7 +91,7 @@
     "history": "^2.1.2",
     "immutable": "^3.8.1",
     "invariant": "^2.2.1",
-    "lodash": "^4.13.1",
+    "lodash": "^4.14.0",
     "material-ui": "^0.15.2",
     "normalizr": "^2.2.1",
     "qwery": "^4.0.0",
@@ -121,7 +121,7 @@
     "validate.js": "^0.10.0"
   },
   "devDependencies": {
-    "@kadira/storybook": "^1.39.0",
+    "@kadira/storybook": "^1.41.0",
     "babel-core": "^6.11.4",
     "babel-eslint": "^6.1.2",
     "babel-jest": "^13.2.2",
@@ -172,7 +172,7 @@
     "karma-webpack-with-fast-source-maps": "^1.9.2",
     "mocha": "^2.5.3",
     "node-sass": "^3.8.0",
-    "nodemon": "^1.9.2",
+    "nodemon": "^1.10.0",
     "offline-plugin": "^3.4.2",
     "phantomjs-polyfill": "0.0.2",
     "phantomjs-prebuilt": "^2.1.7",
