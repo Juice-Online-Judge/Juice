@@ -58,10 +58,12 @@ describe('(Redux) app', () => {
 
       store.dispatch(app.clearCache())
 
-      expect(store.getActions()).toContain(clearExam())
-      expect(store.getActions()).toContain(clearQuestion())
-      expect(store.getActions()).toContain(clearUsers())
-      expect(store.getActions()).toContain(clearSubmissions())
+      expect(store.getActions()).toEqual(jasmine.arrayContaining([
+        clearExam(),
+        clearQuestion(),
+        clearUsers(),
+        clearSubmissions()
+      ]))
     })
   })
 
@@ -76,8 +78,10 @@ describe('(Redux) app', () => {
         return store.dispatch(app.request({ path: 'foo' }))
           .then((result) => {
             expect(result).toBe(true)
-            expect(store.getActions()).toContain(app.setStatus(RequestStatus.PENDING))
-            expect(store.getActions()).toContain(app.setStatus(RequestStatus.SUCCESS))
+            expect(store.getActions()).toEqual(jasmine.arrayContaining([
+              app.setStatus(RequestStatus.PENDING),
+              app.setStatus(RequestStatus.SUCCESS)
+            ]))
           })
       })
     })
@@ -95,8 +99,10 @@ describe('(Redux) app', () => {
         return store.dispatch(app.request({ path: 'foo' }))
           .then((result) => {
             expect(result).toBe(false)
-            expect(store.getActions()).toContain(app.setStatus(RequestStatus.PENDING))
-            expect(store.getActions()).toContain(app.setStatus(RequestStatus.FAIL))
+            expect(store.getActions()).toEqual(jasmine.arrayContaining([
+              app.setStatus(RequestStatus.PENDING),
+              app.setStatus(RequestStatus.FAIL)
+            ]))
           })
       })
     })
