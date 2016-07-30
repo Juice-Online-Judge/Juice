@@ -8,7 +8,7 @@ import _debug from 'debug'
 
 const debug = _debug('app:webpack:config')
 const paths = config.utils_paths
-const {__DEV__, __PROD__, __TEST__} = config.globals
+const { __DEV__, __PROD__ } = config.globals
 
 debug('Create configuration.')
 const webpackConfig = {
@@ -92,12 +92,9 @@ if (__PROD__) {
   )
 }
 
-// Don't split bundles during testing, since we only want import one bundle
-if (!__TEST__) {
-  webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
-    names: ['vendor']
-  }))
-}
+webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
+  names: ['vendor']
+}))
 
 // ------------------------------------
 // Pre-Loaders
