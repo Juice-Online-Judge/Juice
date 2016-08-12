@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react'
 import { Row, Col } from 'react-flexbox-grid'
-import pure from 'recompose/pure'
 import setPropTypes from 'recompose/setPropTypes'
 import setDisplayName from 'recompose/setDisplayName'
 import compose from 'recompose/compose'
@@ -24,4 +23,4 @@ export const CenterLoading = compose(
   )
 })
 
-export default pure(CenterLoading)
+export default CenterLoading

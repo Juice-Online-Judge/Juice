@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react'
-import { setDisplayName, setPropTypes, pure, compose } from 'recompose'
+import setPropTypes from 'recompose/setPropTypes'
+import setDisplayName from 'recompose/setDisplayName'
+import compose from 'recompose/compose'
 import { isNeedReviewScore } from 'redux/modules/submission'
 
 import Submission from './Submission'
 
 const SubmissionList = compose(
-  pure,
   setDisplayName('SubmissionList'),
   setPropTypes({
     submission: PropTypes.object.isRequired,
