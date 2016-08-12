@@ -2,6 +2,7 @@ jest.unmock('../Inset')
 
 import React from 'react'
 import { shallow } from 'enzyme'
+import jasmineEnzyme from 'jasmine-enzyme'
 import Inset from '../Inset'
 import { Grid, Row, Col } from 'react-flexbox-grid'
 
@@ -9,6 +10,7 @@ describe('(Layout) <Inset />', () => {
   let sut
 
   beforeEach(() => {
+    jasmineEnzyme()
     sut = shallow(<Inset />)
   })
 

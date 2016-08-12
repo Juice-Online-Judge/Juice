@@ -2,6 +2,7 @@ jest.unmock('../CenterLoading')
 
 import React from 'react'
 import { shallow } from 'enzyme'
+import jasmineEnzyme from 'jasmine-enzyme'
 import { CenterLoading } from '../CenterLoading'
 import { Row, Col } from 'react-flexbox-grid'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
@@ -10,6 +11,7 @@ describe('(Component) <CenterLoading />', () => {
   let sut
 
   beforeEach(() => {
+    jasmineEnzyme()
     sut = shallow(<CenterLoading loading={ false } left={ 10 } />)
   })
 
