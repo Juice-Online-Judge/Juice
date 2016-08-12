@@ -1,0 +1,6 @@
+exports[`(Component) <DownloadButton /> Render correct 1`] = `
+<Highlight
+  className="language-c">
+  foo
+</Highlight>
+`;
