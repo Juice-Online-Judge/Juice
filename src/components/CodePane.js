@@ -1,28 +1,29 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import Highlight from 'react-highlight'
-import pure from 'recompose/pure'
+import setStatic from 'recompose/setStatic'
+import setPropTypes from 'recompose/setPropTypes'
+import setDisplayName from 'recompose/setDisplayName'
+import compose from 'recompose/compose'
 
-export class CodePane extends Component {
-  render() {
-    const code = this.props.code || this.props.children || ''
-    const { lang } = this.props
-    const className = `language-${lang}`
-    return (
-      <Highlight className={ className } >
-        { code }
-      </Highlight>
-    )
-  }
-
-  static propTypes = {
+export const CodePane = compose(
+  setDisplayName('CodePane'),
+  setPropTypes({
     lang: PropTypes.oneOf(['c', 'cpp', 'txt']),
     code: PropTypes.string,
     children: PropTypes.node
-  };
-
-  static defaultProps = {
+  }),
+  setStatic('defaultProps', {
     lang: 'c'
-  };
-}
+  })
+)((props) => {
+  const code = props.code || props.children || ''
+  const { lang } = props
+  const className = `language-${lang}`
+  return (
+    <Highlight className={ className } >
+      { code }
+    </Highlight>
+  )
+})
 
-export default pure(CodePane)
+export default CodePane
