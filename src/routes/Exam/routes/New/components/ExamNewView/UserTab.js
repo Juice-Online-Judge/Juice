@@ -59,7 +59,7 @@ class UserTab extends Component {
             deselectOnClickaway={ false } >
             {
               users.get('result').map((id, idx) => (
-                <TableRow selected={ selectedRow.indexOf(idx) !== -1 } key={ id } >
+                <TableRow selected={ selectedRow.includes(idx) } key={ id } >
                   <TableRowColumn>
                     { users.getIn(['entities', 'user', `${id}`, 'username']) }
                   </TableRowColumn>

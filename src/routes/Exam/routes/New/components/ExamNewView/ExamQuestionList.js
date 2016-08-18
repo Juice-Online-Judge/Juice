@@ -30,7 +30,7 @@ class ExamQuestionList extends Component {
               <ExamQuestion
                 key={ uuid }
                 uuid={ uuid }
-                checked={ selectedQuestion.indexOf(uuid) !== -1 }
+                checked={ selectedQuestion.includes(uuid) }
                 onCheck={ this.handleQuestionCheck }
                 onRequestDetail={ this.handleRequestDetail } />
             )
