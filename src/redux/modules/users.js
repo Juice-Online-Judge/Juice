@@ -20,7 +20,7 @@ export const clearUsers = createAction(CLEAR_USERS)
 
 export const fetchUsers = () => (dispatch) => {
   dispatch(request({
-    path: 'users'
+    url: 'users'
   }, (entity) => {
     dispatch(setUsers(entity))
   }))

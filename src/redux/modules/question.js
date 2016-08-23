@@ -62,7 +62,7 @@ export const fetchQuestion = (query = { page: 1 }, opts = { force: false }) => (
   }
 
   dispatch(request({
-    path: 'questions',
+    url: 'questions',
     params: query
   }, (entity) => {
     dispatch(setQuestion({
@@ -81,10 +81,7 @@ export const fetchQuestionDetail = (uuid, opts = { force: false }) => (dispatch,
   }
 
   dispatch(request({
-    path: 'questions/{uuid}',
-    params: {
-      uuid
-    }
+    url: `questions/${uuid}`
   }, (entity) => {
     dispatch(setQuestionDetail(entity))
   }))
@@ -97,12 +94,12 @@ export const addQuestion = (data) => (dispatch) => {
   }
 
   return dispatch(request({
-    path: 'questions',
-    methods: 'POST',
+    method: 'POST',
+    url: 'questions',
     headers: {
       'Content-Type': 'multipart/form-data'
     },
-    entity: data
+    data
   }, (entity) => {
     dispatch(setQuestionDetail(entity))
     dispatch(showMessage('Add success'))

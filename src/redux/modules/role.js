@@ -20,7 +20,7 @@ export const clearRole = createAction(CLEAR_ROLE)
 
 export const fetchRole = () => (dispatch) => {
   dispatch(request({
-    path: 'roles'
+    url: 'roles'
   }, (entity) => {
     dispatch(setRole(entity))
   }))

@@ -55,7 +55,7 @@ export const fetchExams = (query, opts = { force: false }) => (dispatch, getStat
   }
 
   dispatch(request({
-    path: 'exams',
+    url: 'exams',
     params: query
   }, (entity) => {
     dispatch(setExam({ page: query.page, total: entity.total, data: entity.data }))
@@ -82,8 +82,9 @@ export const addExam = (data) => (dispatch) => {
   // Because of we check it when access add exam page
 
   return dispatch(request({
-    path: 'exams',
-    entity: examData
+    method: 'post',
+    url: 'exams',
+    data: examData
   }, () => {
     dispatch(showMessage('Add success'))
   }, () => {
@@ -99,10 +100,7 @@ export const fetchExamQuestion = (examId) => (dispatch, getState) => {
   }
 
   dispatch(request({
-    path: 'exams/{id}/questions',
-    params: {
-      id: examId
-    }
+    url: `exams/{$id}/questions`
   }, (entity) => {
     dispatch(setQuestion({
       total: entity.length,
@@ -121,10 +119,7 @@ export const fetchExamToken = (examId) => (dispatch, getState) => {
   }
 
   dispatch(request({
-    path: 'exams/{id}/token',
-    params: {
-      id: examId
-    }
+    path: `exams/${examId}/token`
   }, (entity) => {
     dispatch(setExamToken({
       id: examId,

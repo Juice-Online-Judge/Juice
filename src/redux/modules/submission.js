@@ -35,11 +35,9 @@ export const clearSubmissionCode = createAction(CLEAR_SUBMISSION_CODE)
 export const submitCode = (submitData) => (dispatch) => {
   const { uuid, examId, ...data } = submitData
   return dispatch(request({
-    path: 'submissions/{uuid}',
-    params: {
-      uuid
-    },
-    entity: createFormDataDeep(omitBy({ ...data, exam_id: examId }, isNil)),
+    method: 'post',
+    path: `submissions/${uuid}`,
+    data: createFormDataDeep(omitBy({ ...data, exam_id: examId }, isNil)),
     headers: {
       'Content-Type': 'multipart/form-data'
     }
@@ -62,7 +60,7 @@ export const fetchSubmissions = (opts = { force: false }) => (dispatch, getState
   }
 
   dispatch(request({
-    path: '/account/submissions'
+    url: '/account/submissions'
   }, (entity) => {
     dispatch(setSubmissions(entity))
   }))
@@ -70,10 +68,7 @@ export const fetchSubmissions = (opts = { force: false }) => (dispatch, getState
 
 export const fetchExamSubmissions = (id, opts = { force: false }) => (dispatch) => {
   dispatch(request({
-    path: '/exams/{id}/submissions',
-    params: {
-      id
-    }
+    url: `/exams/${id}/submissions`
   }, (entity) => {
     dispatch(setSubmissions(entity))
   }))
@@ -87,10 +82,7 @@ export const fetchSubmission = (id, opts = { force: false }) => (dispatch, getSt
   }
 
   dispatch(request({
-    path: '/submissions/{id}',
-    params: {
-      id
-    }
+    path: `/submissions/${id}`
   }, (entity) => {
     dispatch(setSubmission(entity))
   }))
@@ -99,10 +91,7 @@ export const fetchSubmission = (id, opts = { force: false }) => (dispatch, getSt
 export const fetchCode = (id) => (dispatch) => {
   dispatch(clearSubmissionCode())
   dispatch(request({
-    path: 'submissions/{id}/code',
-    params: {
-      id
-    }
+    path: `submissions/${id}/code`
   }, (entity) => {
     dispatch(setSubmissionCode(entity))
   }))
@@ -111,12 +100,9 @@ export const fetchCode = (id) => (dispatch) => {
 export const patchSubmissionCorrectness = (id, correctness) => (dispatch) => {
   correctness = parseInt(correctness || 0)
   dispatch(request({
-    method: 'PATCH',
-    path: 'submissions/{id}',
-    params: {
-      id
-    },
-    entity: {
+    method: 'patch',
+    path: `submissions/${id}`,
+    data: {
       correctness
     }
   }))

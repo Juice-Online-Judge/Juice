@@ -5,10 +5,10 @@ import handleRequestError from './handleRequestError'
 
 const guardRequest = (dispatch, reqOpts, handleResult, handleError) => {
   dispatch(setStatus(RequestStatus.PENDING))
-  return api(reqOpts)
-    .then(({ entity }) => {
+  return api.request(reqOpts)
+    .then(({ data }) => {
       if (handleResult) {
-        handleResult(entity)
+        handleResult(data)
       }
       dispatch(setStatus(RequestStatus.SUCCESS))
       return true

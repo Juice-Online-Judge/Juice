@@ -26,29 +26,30 @@ export const setUserInfo = createAction(SET_USER_INFO, (payload) => {
 export const clearUser = createAction(CLEAR_USER)
 
 export const login = (username, password) => (dispatch) => {
-  let body = { username, password }
+  let data = { username, password }
   return dispatch(request({
-    path: 'auth/sign-in',
-    entity: body
-  }, (entity) => {
-    store.set('juice-token', entity)
+    method: 'post',
+    url: 'auth/sign-in',
+    data
+  }, (data) => {
+    store.set('juice-token', data)
     dispatch(fetchUserInfo({ force: true }))
   }, (error) => {
     if (error instanceof Error) {
       throw error
     }
 
-    const { entity } = error
+    const { data } = error
 
-    if (entity && entity.message) {
-      dispatch(showMessage(entity.message))
+    if (data && data.message) {
+      dispatch(showMessage(data.message))
     }
   }))
 }
 
 export const logout = () => (dispatch) => {
   dispatch(request({
-    path: 'auth/sign-out'
+    url: 'auth/sign-out'
   }, () => {
     store.remove('juice-token')
     dispatch(clearUser())
@@ -68,9 +69,9 @@ export const fetchUserInfo = (options = { force: false }) => (dispatch, getState
   }
 
   dispatch(request({
-    path: 'account/profile'
-  }, (entity) => {
-    dispatch(setUserInfo(entity.user))
+    url: 'account/profile'
+  }, (data) => {
+    dispatch(setUserInfo(data.user))
   }, () => {
     // Token maybe expired here, remove it
     store.remove('juice-token')
@@ -86,10 +87,11 @@ export const registerUser = (info) => (dispatch) => {
   }
 
   return dispatch(request({
-    path: 'auth/sign-up',
-    entity: info
-  }, (entity) => {
-    store.set('juice-token', entity)
+    method: 'post',
+    url: 'auth/sign-up',
+    data: info
+  }, (data) => {
+    store.set('juice-token', data)
     dispatch(setUserInfo(info))
   }))
 }
