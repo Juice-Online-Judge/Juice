@@ -38,6 +38,7 @@ const config = {
     colors : true
   },
   compiler_vendor : [
+    'axios',
     'babel-polyfill',
     'bluebird',
     'classnames',
@@ -65,7 +66,6 @@ const config = {
     'reselect',
     'recompose',
     'radium',
-    'rest',
     'store',
     'validate.js'
   ],
