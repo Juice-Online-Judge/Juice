@@ -140,6 +140,7 @@
     "concurrently": "^2.2.0",
     "css-loader": "^0.23.1",
     "cssnano": "^3.7.4",
+    "cz-conventional-changelog": "^1.2.0",
     "enzyme": "^2.4.1",
     "eslint": "^3.3.1",
     "eslint-config-standard": "^5.3.5",
@@ -169,5 +170,10 @@
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
