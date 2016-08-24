@@ -18,11 +18,14 @@ const initialState = window.__INITIAL_STATE__
 const store = configureStore({ initialState, browserHistory })
 const history = syncHistoryWithStore(browserHistory, store)
 
-injectTapEventPlugin()
-
-if (__PROD__) {
-  require('offline-plugin/runtime').install()
+if (Reflect.has(navigator, 'serviceWorker')) {
+  navigator.serviceWorker.register('/sw.js')
+    .then((reg) => {
+      console.log('Service worker register succes at scope: ', reg.scope)
+    })
 }
+
+injectTapEventPlugin()
 
 const Root = (
   <Provider store={ store }>
