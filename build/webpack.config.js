@@ -2,7 +2,6 @@ import webpack from 'webpack'
 import cssnano from 'cssnano'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
-import OfflinePlugin from 'offline-plugin'
 import config from '../config'
 import _debug from 'debug'
 
@@ -25,10 +24,12 @@ const webpackConfig = {
 // Entry Points
 // ------------------------------------
 const APP_ENTRY_PATH = paths.base(config.dir_client) + '/main.js'
+const SW_ENTRY_PATH = paths.base(config.dir_client) + '/sw.js'
 
 webpackConfig.entry = {
   app: [APP_ENTRY_PATH],
-  vendor: config.compiler_vendor
+  vendor: config.compiler_vendor,
+  sw: SW_ENTRY_PATH
 }
 
 // ------------------------------------
@@ -46,6 +47,7 @@ webpackConfig.output = {
 webpackConfig.plugins = [
   new webpack.DefinePlugin(config.globals),
   new HtmlWebpackPlugin({
+    chunks: ['vendor', 'app'],
     template: paths.client('index.html'),
     hash: false,
     favicon: paths.dist('favicon.ico'),
@@ -71,29 +73,13 @@ if (__PROD__) {
       }
     }),
     new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
-    new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000}),
-    new OfflinePlugin({
-      caches: 'all',
-      updateStrategy: 'all',
-      version: 'v1',
-      externals: [
-        'index.html'
-      ],
-      excludes: [
-        '../resources/views/main.blade.php'
-      ],
-      ServiceWorker: {
-        output: 'sw.js'
-      },
-      AppCache: {
-        directory: 'appcache/'
-      }
-    })
+    new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000})
   )
 }
 
 webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
-  names: ['vendor']
+  names: ['vendor'],
+  chunks: ['app']
 }))
 
 // ------------------------------------
