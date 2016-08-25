@@ -65,14 +65,17 @@ class QuestionSetting extends Component {
   }
 
   emitChange(data) {
-    const mergeData = { ...pick(this.state, [
-      'score',
-      'type',
-      'readFrom',
-      'codeReview',
-      'goal',
-      'reward'
-    ]), ...data }
+    const mergeData = {
+      ...pick(this.state, [
+        'score',
+        'type',
+        'readFrom',
+        'codeReview',
+        'goal',
+        'reward'
+      ]),
+      ...data
+    }
     const { uuid } = this.props
     this.setState(data)
     if (mergeData.type === 'normal') {
