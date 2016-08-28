@@ -6,7 +6,7 @@ export const handleRequestError = (dispatch, error) => {
     throw error
   } else {
     let { code, text } = error.status
-    let { messages } = error.entity
+    let { messages } = error.data
 
     if (messages && !messages.length) {
       dispatch(setError({ code, messages: [text] }))
