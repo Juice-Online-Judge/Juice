@@ -2,14 +2,15 @@ import Promise from 'bluebird'
 import invariant from 'invariant'
 
 const fakeResponse = []
+const api = {}
 
-const api = jest.fn((request) => {
+api.request = jest.fn((request) => {
   let idx = null
   let res = null
-  for (const [i, { path, error, entity }] of fakeResponse.entries()) {
-    if (path === request.path) {
+  for (const [i, { url, error, data }] of fakeResponse.entries()) {
+    if (url === request.url) {
       idx = i
-      res = error ? Promise.reject({ status: error, entity: {} }) : Promise.resolve({ entity })
+      res = error ? Promise.reject({ status: error, data: {} }) : Promise.resolve({ data })
       break
     }
   }
