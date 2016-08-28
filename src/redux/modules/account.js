@@ -6,13 +6,27 @@ import { request } from './app'
 import { showMessage } from './message'
 import { validateForm } from './validation'
 
-export const AccountState = new Record({
+export const AccountRecord = new Record({
   valid: false,
   state: false,
   user: new Map()
 })
 
-export const initialState = new AccountState()
+export class Account extends AccountRecord {
+  isValid() {
+    return this.valid
+  }
+
+  isAdmin() {
+    return this.isValid() && this.getIn(['user', 'roles'], new List()).includes('admin')
+  }
+
+  isLogin() {
+    return this.isValid() && this.state
+  }
+}
+
+export const initialState = new Account()
 
 export const SET_LOGIN_STATE = 'SET_LOGIN_STATE'
 export const SET_USER_INFO = 'SET_USER_INFO'
@@ -98,23 +112,22 @@ export const registerUser = (info) => (dispatch) => {
 
 // Selectors
 
+export const accountSelector = (state) => state.account
 export const isValidSelector = (state) => state.account.get('valid')
-const accountRoleSelector = (state) => state.account.getIn(['user', 'roles'], new List())
-const accountStateSelector = (state) => state.account.get('state')
 
 export const createIsAdminSelector = () => createSelector(
-  [accountRoleSelector, isValidSelector],
-  (roles, valid) => valid && roles.includes('admin')
+  [accountSelector],
+  (account) => account.isAdmin()
 )
 
 export const isNotAdminSelector = createSelector(
-  [accountRoleSelector, isValidSelector],
-  (roles, valid) => valid && !roles.includes('admin')
+  [accountSelector],
+  (account) => !account.isAdmin()
 )
 
 export const isLoginSelector = createSelector(
-  [accountStateSelector, isValidSelector],
-  (state, valid) => valid && state
+  [accountSelector],
+  (account) => !account.isLogin()
 )
 
 // Helper function
