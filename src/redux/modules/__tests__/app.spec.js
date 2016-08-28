@@ -72,10 +72,10 @@ describe('(Redux) app', () => {
       it('Send request and set success status', () => {
         const store = mockStore({})
         api.addFakeResponse({
-          path: 'foo'
+          url: 'foo'
         })
 
-        return store.dispatch(app.request({ path: 'foo' }))
+        return store.dispatch(app.request({ url: 'foo' }))
           .then((result) => {
             expect(result).toBe(true)
             expect(store.getActions()).toEqual(jasmine.arrayContaining([
@@ -90,13 +90,13 @@ describe('(Redux) app', () => {
       it('Send request and set fail status', () => {
         const store = mockStore({})
         api.addFakeResponse({
-          path: 'foo',
+          url: 'foo',
           error: {
             code: 418
           }
         })
 
-        return store.dispatch(app.request({ path: 'foo' }))
+        return store.dispatch(app.request({ url: 'foo' }))
           .then((result) => {
             expect(result).toBe(false)
             expect(store.getActions()).toEqual(jasmine.arrayContaining([

@@ -64,22 +64,22 @@ describe('(Redux) account', () => {
     describe('When success', () => {
       it('Will set token', () => {
         const store = mockStore({
-          account: new account.AccountState()
+          account: new account.Account()
         })
         api.addFakeResponse({
-          path: 'auth/sign-in',
-          entity: 'token'
+          url: 'auth/sign-in',
+          data: 'token'
         })
         api.addFakeResponse({
-          path: 'account/profile',
-          entity: {
+          url: 'account/profile',
+          data: {
             username: 'foo'
           }
         })
 
         return store.dispatch(account.login('user', 'pass')).then((result) => {
           expect(result).toBe(true)
-          expect(api.mock.calls[0][0].entity).toEqual({ username: 'user', password: 'pass' })
+          expect(api.request.mock.calls[0][0].data).toEqual({ username: 'user', password: 'pass' })
         })
       })
     })
@@ -99,12 +99,12 @@ describe('(Redux) account', () => {
       expect(reducer(account.initialState, {
         type: account.SET_LOGIN_STATE,
         payload: true
-      })).toEqualImmutable(new account.AccountState({ valid: true, state: true }))
+      })).toEqualImmutable(new account.Account({ valid: true, state: true }))
 
       expect(reducer(account.initialState, {
         type: account.SET_LOGIN_STATE,
         payload: false
-      })).toEqualImmutable(new account.AccountState({ valid: true, state: false }))
+      })).toEqualImmutable(new account.Account({ valid: true, state: false }))
     })
   })
 })
