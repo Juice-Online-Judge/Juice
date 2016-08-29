@@ -113,7 +113,7 @@ describe('(Redux) app', () => {
   describe('(Selector) #isPendingSelector', () => {
     describe('When is pending', () => {
       it('Will return true', () => {
-        const initialState = new app.AppStatus({ status: RequestStatus.PENDING })
+        const initialState = new app.App({ status: RequestStatus.PENDING })
         const state = { app: initialState }
         expect(app.isPendingSelector(state)).toBe(true)
       })
@@ -121,7 +121,7 @@ describe('(Redux) app', () => {
 
     describe('When is not pending', () => {
       it('Will return false', () => {
-        const initialState = new app.AppStatus({ status: RequestStatus.NONE })
+        const initialState = new app.App({ status: RequestStatus.NONE })
         const state = { app: initialState }
         expect(app.isPendingSelector(state)).toBe(false)
       })
@@ -131,7 +131,7 @@ describe('(Redux) app', () => {
   describe('(Selector) #createIsErrorSelector', () => {
     describe('When is error', () => {
       it('Will return true', () => {
-        const initialState = new app.AppStatus({ status: RequestStatus.FAIL })
+        const initialState = new app.App({ status: RequestStatus.FAIL })
         const state = { app: initialState }
         const isErrorSelector = app.createIsErrorSelector()
         expect(isErrorSelector(state)).toBe(true)
@@ -140,7 +140,7 @@ describe('(Redux) app', () => {
 
     describe('When is not error', () => {
       it('Will return false', () => {
-        const initialState = new app.AppStatus({ status: RequestStatus.NONE })
+        const initialState = new app.App({ status: RequestStatus.NONE })
         const state = { app: initialState }
         const isErrorSelector = app.createIsErrorSelector()
         expect(isErrorSelector(state)).toBe(false)
@@ -151,7 +151,7 @@ describe('(Redux) app', () => {
   describe('(Selector) #createErrorSelector', () => {
     describe('When is error', () => {
       it('Will return error content', () => {
-        const initialState = new app.AppStatus({
+        const initialState = new app.App({
           status: RequestStatus.FAIL,
           error: fromJS({ messages: 'foo' })
         })
@@ -163,7 +163,7 @@ describe('(Redux) app', () => {
 
     describe('When is not error', () => {
       it('Will return null', () => {
-        const initialState = new app.AppStatus({
+        const initialState = new app.App({
           status: RequestStatus.NONE,
           error: fromJS({ messages: 'foo' })
         })
@@ -180,7 +180,7 @@ describe('(Redux) app', () => {
     })
 
     it('Handle setState action', () => {
-      const expectedState = app.AppStatus({
+      const expectedState = app.App({
         status: 'foo'
       })
 
@@ -191,10 +191,10 @@ describe('(Redux) app', () => {
     })
 
     it('Handle clearState action', () => {
-      const initialState = app.AppStatus({
+      const initialState = app.App({
         status: 'foo'
       })
-      const expectedState = app.AppStatus({
+      const expectedState = app.App({
         status: 'NONE'
       })
       const actualState = reducer(initialState, {
