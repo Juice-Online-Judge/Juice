@@ -9,12 +9,34 @@ import { clearSubmissions } from './submission'
 import { clearUsers } from './users'
 import guardRequest from '../utils/guardRequest'
 
-export const AppStatus = new Record({
+export const AppRecord = new Record({
   status: RequestStatus.NONE,
   error: null
 })
 
-export const initialState = new AppStatus()
+export class App extends AppRecord {
+  isPending() {
+    return this.status === RequestStatus.PENDING
+  }
+
+  isError() {
+    return this.status === RequestStatus.FAIL
+  }
+
+  get messages() {
+    return this.isError
+      ? this.getIn(['error', 'messages'])
+      : null
+  }
+
+  get errorCode() {
+    return this.isError
+      ? this.getIn(['error', 'code'])
+      : null
+  }
+}
+
+export const initialState = new App()
 
 export const SET_STATUS = 'SET_STATUS'
 export const SET_ERROR = 'SET_ERROR'
@@ -38,17 +60,18 @@ export const clearCache = () => (dispatch) => {
 }
 
 export const appStatusSelector = (state) => state.app.get('status')
-const appErrorSelector = (state) => state.app.getIn(['error', 'messages'])
-const appErrorCodeSelector = (state) => state.app.getIn(['error', 'code'])
+const appSelector = (state) => state.app
+const appErrorSelector = (state) => state.app.messages
+const appErrorCodeSelector = (state) => state.app.errorCode
 
 export const isPendingSelector = createSelector(
-  [appStatusSelector],
-  (status) => status === RequestStatus.PENDING
+  [appSelector],
+  (app) => app.isPending()
 )
 
 export const createIsErrorSelector = () => createSelector(
-  [appStatusSelector],
-  (status) => status === RequestStatus.FAIL
+  [appSelector],
+  (app) => app.isError()
 )
 
 export const errorCodeSelector = createSelector(
