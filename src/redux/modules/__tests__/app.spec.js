@@ -180,7 +180,7 @@ describe('(Redux) app', () => {
     })
 
     it('Handle setState action', () => {
-      const expectedState = app.App({
+      const expectedState = new app.App({
         status: 'foo'
       })
 
@@ -191,10 +191,10 @@ describe('(Redux) app', () => {
     })
 
     it('Handle clearState action', () => {
-      const initialState = app.App({
+      const initialState = new app.App({
         status: 'foo'
       })
-      const expectedState = app.App({
+      const expectedState = new app.App({
         status: 'NONE'
       })
       const actualState = reducer(initialState, {
