@@ -127,7 +127,7 @@ export const isNotAdminSelector = createSelector(
 
 export const isLoginSelector = createSelector(
   [accountSelector],
-  (account) => !account.isLogin()
+  (account) => account.isLogin()
 )
 
 // Helper function
