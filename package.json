@@ -52,24 +52,7 @@
     "setupFiles": [
       "./src/bootstrap.js"
     ],
-    "setupTestFrameworkScriptFile": "tests/jest-env.js",
-    "unmockedModulePathPatterns": [
-      "react",
-      "react-dom",
-      "react-addons-test-utils",
-      "react-test-renderer",
-      "enzyme",
-      "recompose",
-      "immutable",
-      "redux-mock-store",
-      "redux-actions",
-      "redux-thunk",
-      "lodash",
-      "bluebird",
-      "core-js",
-      "material-ui",
-      "react-flexbox-grid"
-    ]
+    "setupTestFrameworkScriptFile": "tests/jest-env.js"
   },
   "repository": {
     "type": "git",
