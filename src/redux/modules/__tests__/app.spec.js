@@ -1,6 +1,3 @@
-jest.disableAutomock()
-jest.mock('lib/api')
-
 import { fromJS } from 'immutable'
 import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
@@ -11,6 +8,8 @@ import { clearQuestion } from 'redux/modules/question'
 import { clearSubmissions } from 'redux/modules/submission'
 import { clearUsers } from 'redux/modules/users'
 import api from 'lib/api'
+
+jest.mock('lib/api')
 
 const middlewares = [thunk]
 const mockStore = configureStore(middlewares)
@@ -176,7 +175,7 @@ describe('(Redux) app', () => {
 
   describe('(Reducer)', () => {
     it('Configure initial state correct', () => {
-      expect(reducer(undefined, {})).toEqualImmutable(app.initialState)
+      expect(reducer(undefined, { type: 'foo' })).toEqualImmutable(app.initialState)
     })
 
     it('Handle setState action', () => {

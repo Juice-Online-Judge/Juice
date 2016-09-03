@@ -1,11 +1,10 @@
-jest.disableAutomock()
-jest.mock('lib/api')
-
 import localStore from 'store'
 import reducer, * as account from 'redux/modules/account'
 import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import api from 'lib/api'
+
+jest.mock('lib/api')
 
 const middlewares = [thunk]
 const mockStore = configureStore(middlewares)
@@ -92,7 +91,7 @@ describe('(Redux) account', () => {
 
   describe('(Reducer)', () => {
     it('Configure initialState correct', () => {
-      expect(reducer(undefined, {})).toBe(account.initialState)
+      expect(reducer(undefined, { type: 'foo' })).toBe(account.initialState)
     })
 
     it('Handle SET_LOGIN_STATE', () => {
