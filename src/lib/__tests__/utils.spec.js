@@ -1,5 +1,3 @@
-jest.unmock('../utils')
-
 import {
   prefixKeys,
   silencePromise,

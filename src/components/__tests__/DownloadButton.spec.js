@@ -1,5 +1,3 @@
-jest.unmock('../DownloadButton')
-
 import React from 'react'
 import { shallow } from 'enzyme'
 import jasmineEnzyme from 'jasmine-enzyme'
