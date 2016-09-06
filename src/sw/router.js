@@ -25,30 +25,33 @@ class Router {
 
     for (const regex of routes.keys()) {
       let m = path.match(regex)
-      if (m) {
-        const { keys, handlers } = routes.get(regex)
-        const request = {
-          path,
-          params: {}
-        }
 
-        keys.forEach((key, idx) => {
-          request.params[key.name] = m[idx + 1]
-        })
-
-        return handlers.reduce((res, route) => {
-          if (!route.method || route.method === method) {
-            return res
-              .then((value) => route.handler(request, value))
-          } else {
-            return res
-          }
-        }, Promise.resolve())
-          .then((response) => isResponse(response)
-            ? response
-            : networkOnly()
-          )
+      if (!m) {
+        continue
       }
+
+      const { keys, handlers } = routes.get(regex)
+      const request = {
+        path,
+        params: {}
+      }
+
+      keys.forEach((key, idx) => {
+        request.params[key.name] = m[idx + 1]
+      })
+
+      return handlers.reduce((res, route) => {
+        if (!route.method || route.method === method) {
+          return res
+            .then((value) => route.handler(request, value))
+        } else {
+          return res
+        }
+      }, Promise.resolve())
+        .then((response) => isResponse(response)
+          ? response
+          : networkOnly()
+        )
     }
 
     return networkOnly()
