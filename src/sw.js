@@ -35,7 +35,7 @@ self.addEventListener('fetch', (event) => {
     )
   } else if (url.pathname.startsWith('/api')) {
     event.respondWith(
-      apiHandler(request.method, url)
+      apiHandler(request)
     )
   } else {
     event.respondWith(
@@ -44,8 +44,8 @@ self.addEventListener('fetch', (event) => {
   }
 })
 
-function apiHandler(method, url) {
-  return router.dispatch(method.toLowerCase(), url)
+function apiHandler(request) {
+  return router.dispatch(request)
     .then((result) => typeof result === 'string'
       ? new Response(JSON.stringify(result), {
         status: 200,

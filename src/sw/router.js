@@ -20,8 +20,10 @@ class Router {
     this.routes.set(regex, routes)
   }
 
-  dispatch(method, path) {
+  dispatch(request) {
     const { routes } = this
+    const path = request.url
+    const method = request.method
 
     for (const regex of routes.keys()) {
       let m = path.match(regex)
@@ -50,11 +52,11 @@ class Router {
       }, Promise.resolve())
         .then((response) => isResponse(response)
           ? response
-          : networkOnly()
+          : networkOnly(request)
         )
     }
 
-    return networkOnly()
+    return networkOnly(request)
   }
 }
 
