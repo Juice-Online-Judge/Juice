@@ -13,4 +13,10 @@
       background-color: $code-background;
     }
   }
+
+  span {
+    &[type='button'] {
+      appearance: none;
+    }
+  }
 }
