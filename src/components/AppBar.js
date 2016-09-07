@@ -12,6 +12,7 @@ import MenuIcon from 'material-ui/svg-icons/navigation/menu'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 
 import LeftNav from './LeftNav'
+import MenuLinkItem from './MenuLinkItem'
 
 import { fetchUserInfo, logout } from 'redux/modules/account'
 import commonStyles from 'lib/styles'
@@ -61,9 +62,7 @@ export class AppBar extends React.Component {
             }
             targetOrigin={ styles.origin }
             anchorOrigin={ styles.origin } >
-            <Link style={ commonStyles.noUnderline } to='/submissions'>
-              <MenuItem primaryText='Submission' />
-            </Link>
+            <MenuLinkItem primaryText='Submission' to='/submissions' />
             <MenuItem primaryText='Logout' onTouchTap={ this.logout } />
           </IconMenu>
         </div>
