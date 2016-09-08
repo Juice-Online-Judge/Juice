@@ -1,24 +1,25 @@
 import {
   cacheFirst,
   networkFirst,
-  networkAndCache
+  networkAndCache,
+  preCache
 } from './sw/strategy'
 import router from './sw/routes.js'
 
 const location = new URL(self.registration.scope)
 
+const staticResource = [
+  '/',
+  '/app.js',
+  '/vendor.js',
+  '/vendor/fallback/fallback.min.js',
+  '/vendor/es5-shim/es5-shim.js',
+  '/vendor/es5-sham/es5-sham.js'
+]
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open('v1').then((cache) => {
-      return cache.addAll([
-        '/',
-        '/app.js',
-        '/vendor.js',
-        '/vendor/fallback/fallback.min.js',
-        '/vendor/es5-shim/es5-shim.js',
-        '/vendor/es5-sham/es5-sham.js'
-      ])
-    })
+    preCache(staticResource)
   )
 })
 

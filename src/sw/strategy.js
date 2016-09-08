@@ -1,3 +1,11 @@
+const CACHE_NAME = 'v1'
+
+export function preCache(list) {
+  return caches.open(CACHE_NAME).then((cache) => {
+    return cache.addAll(list)
+  })
+}
+
 export function cacheFirst(request) {
   return caches.match(request).then((response) => {
     const fetchPromise = fetchAndCache(request)
@@ -8,7 +16,7 @@ export function cacheFirst(request) {
 export function networkAndCache(request) {
   return fetch(request)
     .then((response) => {
-      caches.open('v1').then((cache) => {
+      caches.open(CACHE_NAME).then((cache) => {
         cache.put(request, response.clone())
       })
 
@@ -46,7 +54,7 @@ export function updateCache(request, response) {
     return response
   }
 
-  return Promise.resolve(caches.open('v1')).then((cache) => {
+  return Promise.resolve(caches.open(CACHE_NAME)).then((cache) => {
     return [cache, cache.match(request)]
   }).spread((cache, result) => {
     if (result) {
