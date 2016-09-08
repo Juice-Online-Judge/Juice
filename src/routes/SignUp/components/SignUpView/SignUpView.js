@@ -100,7 +100,7 @@ export class SignUpView extends React.Component {
                 floatingLabelText='PasswordConfirm' />
             </CardActions>
             <CardActions>
-              <div style={ styles.marginLeft } >
+              <div style={ styles.inline } >
                 <Recaptcha
                   render='explicit'
                   onloadCallback={ noop }
@@ -148,7 +148,8 @@ let styles = {
   marginTop: {
     marginTop: '20px'
   },
-  marginLeft: {
-    marginLeft: '10%'
+  inline: {
+    display: 'inline-block',
+    width: '80%'
   }
 }
