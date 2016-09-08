@@ -25,7 +25,12 @@ self.addEventListener('install', (event) => {
 self.addEventListener('fetch', (event) => {
   const { request } = event
   const url = new URL(request.url)
-  if (url.pathname.endsWith('.js') && url.host === location.host) {
+
+  if (url.host !== location.host) {
+    return
+  }
+
+  if (url.pathname.endsWith('.js')) {
     event.respondWith(
       networkAndCache(request)
     )
