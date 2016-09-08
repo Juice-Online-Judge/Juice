@@ -100,11 +100,13 @@ export class SignUpView extends React.Component {
                 floatingLabelText='PasswordConfirm' />
             </CardActions>
             <CardActions>
-              <Recaptcha
-                render='explicit'
-                onloadCallback={ noop }
-                verifyCallback={ this.handleVerify }
-                sitekey='6LdEMSQTAAAAAG87oN7PFNRmqg755R9kUloibvY4' />
+              <div style={ styles.marginLeft } >
+                <Recaptcha
+                  render='explicit'
+                  onloadCallback={ noop }
+                  verifyCallback={ this.handleVerify }
+                  sitekey='6LdEMSQTAAAAAG87oN7PFNRmqg755R9kUloibvY4' />
+              </div>
             </CardActions>
             <CardActions>
               <FlatButton label='Signup' primary onClick={ this.signup } />
@@ -145,5 +147,8 @@ let styles = {
   },
   marginTop: {
     marginTop: '20px'
+  },
+  marginLeft: {
+    marginLeft: '10%'
   }
 }
