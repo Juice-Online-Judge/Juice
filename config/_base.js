@@ -26,6 +26,7 @@ const config = {
   // Compiler Configuration
   // ----------------------------------
   compiler_output_name     : '[name].js',
+  compiler_chunk_name     : '[name].js',
   compiler_css_modules     : true,
   compiler_devtool         : 'source-map',
   compiler_hash_type       : 'hash',

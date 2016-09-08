@@ -37,6 +37,7 @@ webpackConfig.entry = {
 // ------------------------------------
 webpackConfig.output = {
   filename: config.compiler_output_name,
+  chunkFilename: config.compiler_chunk_name,
   path: paths.base(config.dir_dist),
   publicPath: config.compiler_public_path
 }
