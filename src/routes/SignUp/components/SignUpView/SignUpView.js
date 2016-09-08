@@ -11,13 +11,32 @@ import Paper from 'material-ui/Paper'
 import Card from 'material-ui/Card/Card'
 import CardTitle from 'material-ui/Card/CardTitle'
 import CardActions from 'material-ui/Card/CardActions'
-import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 
 import CenterBlock from 'layouts/CenterBlock'
+import InputAction from './InputAction'
 import rule from 'validation/register'
 import redirectOnLogin from 'lib/redirectOnLogin'
 import validateForm from 'lib/validateForm'
+
+const inputs = [{
+  name: 'username',
+  label: 'Username'
+}, {
+  name: 'email',
+  label: 'Email'
+}, {
+  name: 'nickname',
+  label: 'Nickname'
+}, {
+  name: 'password',
+  label: 'Password',
+  type: 'password'
+}, {
+  name: 'passwordConfirm',
+  label: 'PasswordConfirm',
+  type: 'password'
+}]
 
 export class SignUpView extends React.Component {
   @bind
@@ -35,7 +54,7 @@ export class SignUpView extends React.Component {
 
   @bind
   handleKeyDown(event) {
-    if (event.keyCode === 13) {
+    if (event.keyCode === 13 && event.target.name === 'passwordConfirm') {
       this.signup(event)
     }
   }
@@ -56,49 +75,18 @@ export class SignUpView extends React.Component {
         <Paper zDepth={ 3 } style={ styles.marginTop }>
           <Card>
             <CardTitle title='SignUp' />
-            <CardActions>
-              <TextField
-                name='username'
-                style={ styles.action }
-                onChange={ this.handleChange }
-                errorText={ message.get('username') }
-                floatingLabelText='Username' />
-            </CardActions>
-            <CardActions>
-              <TextField
-                name='email'
-                style={ styles.action }
-                onChange={ this.handleChange }
-                errorText={ message.get('email') }
-                floatingLabelText='Email' />
-            </CardActions>
-            <CardActions>
-              <TextField
-                name='nickname'
-                style={ styles.action }
-                onChange={ this.handleChange }
-                errorText={ message.get('nickname') }
-                floatingLabelText='Nickname' />
-            </CardActions>
-            <CardActions>
-              <TextField
-                name='password'
-                style={ styles.action }
-                type='password'
-                onChange={ this.handleChange }
-                errorText={ message.get('password') }
-                floatingLabelText='Password' />
-            </CardActions>
-            <CardActions>
-              <TextField
-                name='passwordConfirm'
-                style={ styles.action }
-                type='password'
-                onChange={ this.handleChange }
-                onKeyDown={ this.handleKeyDown }
-                errorText={ message.get('passwordConfirm') }
-                floatingLabelText='PasswordConfirm' />
-            </CardActions>
+            {
+              inputs.map(({ name, label, ...rest }) => (
+                <InputAction
+                  key={ name }
+                  name={ name }
+                  label={ label }
+                  message={ message }
+                  onChange={ this.handleChange }
+                  onKeyDown={ this.handleKeyDown }
+                  { ...rest } />
+              ))
+            }
             <CardActions>
               <div style={ styles.inline } >
                 <Recaptcha
@@ -142,9 +130,6 @@ export default compose(
 )(SignUpView)
 
 let styles = {
-  action: {
-    width: '80%'
-  },
   marginTop: {
     marginTop: '20px'
   },
