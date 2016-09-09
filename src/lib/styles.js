@@ -18,6 +18,15 @@ export const styles = {
   noUnderline: {
     textDecoration: 'none'
   },
+  marginTop20: {
+    marginTop: '20%'
+  },
+  inlineBlock: {
+    display: 'inline-block'
+  },
+  width80: {
+    width: '80%'
+  },
   floatBtn: {
     position: 'fixed',
     right: '30px',

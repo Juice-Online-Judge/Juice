@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bind } from 'decko'
 import compose from 'recompose/compose'
 import noop from 'lodash/noop'
+import Radium from 'radium'
 
 import { registerUser } from 'redux/modules/account'
 
@@ -14,10 +15,11 @@ import CardActions from 'material-ui/Card/CardActions'
 import FlatButton from 'material-ui/FlatButton'
 
 import CenterBlock from 'layouts/CenterBlock'
-import InputAction from './InputAction'
+import InputAction from 'components/InputAction'
 import rule from 'validation/register'
 import redirectOnLogin from 'lib/redirectOnLogin'
 import validateForm from 'lib/validateForm'
+import styles from 'lib/styles'
 
 const inputs = [{
   name: 'username',
@@ -72,7 +74,7 @@ export class SignUpView extends React.Component {
     const message = this.props.validation
     return (
       <CenterBlock>
-        <Paper zDepth={ 3 } style={ styles.marginTop }>
+        <Paper zDepth={ 3 } style={ styles.marginTop20 }>
           <Card>
             <CardTitle title='SignUp' />
             {
@@ -88,7 +90,7 @@ export class SignUpView extends React.Component {
               ))
             }
             <CardActions>
-              <div style={ styles.inline } >
+              <div style={ [styles.inlineBlock, styles.width80] } >
                 <Recaptcha
                   render='explicit'
                   onloadCallback={ noop }
@@ -126,15 +128,6 @@ export default compose(
     (state) => ({ loginState: state.account }),
     { registerUser }
   ),
-  validateForm(rule)
+  validateForm(rule),
+  Radium
 )(SignUpView)
-
-const styles = {
-  marginTop: {
-    marginTop: '20px'
-  },
-  inline: {
-    display: 'inline-block',
-    width: '80%'
-  }
-}

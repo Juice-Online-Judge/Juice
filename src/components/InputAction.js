@@ -9,24 +9,28 @@ import TextField from 'material-ui/TextField'
 const InputAction = compose(
   setPropTypes({
     name: PropTypes.string.isRequired,
-    message: PropTypes.object.isRequired,
+    message: PropTypes.object,
     onChange: PropTypes.func.isRequired,
     onKeyDown: PropTypes.func.isRequired,
     label: PropTypes.string.isRequired
   }),
   setDisplayName('InputAction')
-)(({ name, message, onChange, onKeyDown, label, ...rest }) => (
-  <CardActions>
-    <TextField
-      name={ name }
-      style={ styles.action }
-      onChange={ onChange }
-      onKeyDown={ onKeyDown }
-      errorText={ message.get(name) }
-      floatingLabelText={ label }
-      { ...rest } />
-  </CardActions>
-))
+)(({ message, label: floatingLabelText, ...rest }) => {
+  const props = {
+    floatingLabelText,
+    ...rest
+  }
+
+  props.errorText = message && message.get(name)
+
+  return (
+    <CardActions>
+      <TextField
+        style={ styles.action }
+        { ...props } />
+    </CardActions>
+  )
+})
 
 export default InputAction
 

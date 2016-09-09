@@ -10,13 +10,23 @@ import Paper from 'material-ui/Paper'
 import Card from 'material-ui/Card/Card'
 import CardTitle from 'material-ui/Card/CardTitle'
 import CardActions from 'material-ui/Card/CardActions'
-import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
-import IconButton from 'material-ui/IconButton'
 import { Row, Col } from 'react-flexbox-grid'
 
 import CenterBlock from 'layouts/CenterBlock'
 import MessageContainer from 'containers/MessageContainer'
+import InputAction from 'components/InputAction'
+import OAuthButtons from './OAuthButtons'
+import styles from 'lib/styles'
+
+const inputs = [{
+  name: 'username',
+  label: 'Username'
+}, {
+  name: 'password',
+  label: 'Password',
+  type: 'password'
+}]
 
 export class SignInView extends React.Component {
   @bind
@@ -35,7 +45,7 @@ export class SignInView extends React.Component {
 
   @bind
   handleKeyDown(event) {
-    if (event.keyCode === 13) {
+    if (event.keyCode === 13 && event.target.name === 'password') {
       this.login(event)
     }
   }
@@ -48,25 +58,20 @@ export class SignInView extends React.Component {
     return (
       <CenterBlock>
         <MessageContainer>
-          <Paper zDepth={ 3 } style={ styles.marginTop }>
+          <Paper zDepth={ 3 } style={ styles.marginTop20 }>
             <Card>
               <CardTitle title='Juice' />
-              <CardActions>
-                <TextField
-                  name='username'
-                  style={ styles.action }
-                  onChange={ this.handleChange }
-                  floatingLabelText='Username' />
-              </CardActions>
-              <CardActions>
-                <TextField
-                  name='password'
-                  style={ styles.action }
-                  type='password'
-                  onKeyDown={ this.handleKeyDown }
-                  onChange={ this.handleChange }
-                  floatingLabelText='Password' />
-              </CardActions>
+              {
+                inputs.map(({ name, label, ...rest }) => (
+                  <InputAction
+                    key={ name }
+                    name={ name }
+                    label={ label }
+                    onChange={ this.handleChange }
+                    onKeyDown={ this.handleKeyDown }
+                    { ...rest } />
+                ))
+              }
               <CardActions>
                 <Row>
                   <Col mdOffset={ 2 } md={ 8 } xs={ 12 }>
@@ -77,16 +82,7 @@ export class SignInView extends React.Component {
                     </Row>
                   </Col>
                   <Col md={ 2 } xs={ 12 }>
-                    <Row end='xs'>
-                      <Col>
-                        <a href='/api/v1/oauth/facebook'>
-                          <IconButton iconClassName='fa fa-facebook-square' />
-                        </a>
-                        <a href='/api/v1/oauth/github'>
-                          <IconButton iconClassName='fa fa-github' />
-                        </a>
-                      </Col>
-                    </Row>
+                    <OAuthButtons />
                   </Col>
                 </Row>
               </CardActions>
@@ -111,12 +107,3 @@ export default compose(
   redirectOnLogin,
   connect(null, { login })
 )(SignInView)
-
-const styles = {
-  action: {
-    width: '80%'
-  },
-  marginTop: {
-    marginTop: '20%'
-  }
-}
