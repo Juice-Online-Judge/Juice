@@ -68,10 +68,8 @@ export class QuestionListView extends Component {
 const maxPageSelector = createMaxPageSelector()
 const isAdminSelector = createIsAdminSelector()
 
-export default connect((state) => {
-  return {
-    question: state.question,
-    maxPage: maxPageSelector(state.question),
-    admin: isAdminSelector(state)
-  }
-}, { fetchQuestion })(QuestionListView)
+export default connect((state) => ({
+  question: state.question,
+  maxPage: maxPageSelector(state.question),
+  admin: isAdminSelector(state)
+}), { fetchQuestion })(QuestionListView)
