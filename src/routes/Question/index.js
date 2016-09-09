@@ -5,7 +5,9 @@ export default {
   component: BaseLayout,
   getIndexRoute(_location, next) {
     require.ensure('./components/QuestionListView', (require) => {
-      next(null, require('./components/QuestionListView'))
+      next(null, {
+        component: require('./components/QuestionListView')
+      })
     })
   },
   getChildRoutes(_location, next) {
