@@ -129,7 +129,7 @@ export default compose(
   validateForm(rule)
 )(SignUpView)
 
-let styles = {
+const styles = {
   marginTop: {
     marginTop: '20px'
   },

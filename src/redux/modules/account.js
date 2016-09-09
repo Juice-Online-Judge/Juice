@@ -40,7 +40,7 @@ export const setUserInfo = createAction(SET_USER_INFO, (payload) => {
 export const clearUser = createAction(CLEAR_USER)
 
 export const login = (username, password) => (dispatch) => {
-  let data = { username, password }
+  const data = { username, password }
   return dispatch(request({
     method: 'post',
     url: 'auth/sign-in',
@@ -72,7 +72,7 @@ export const logout = () => (dispatch) => {
 
 export const fetchUserInfo = (options = { force: false }) => (dispatch, getState) => {
   const { force } = options
-  let { account } = getState()
+  const { account } = getState()
   if (account.get('valid') && !force) {
     return
   }
@@ -136,7 +136,7 @@ export const isLogin = (account) => {
   return account.get('state') || store.has('juice-token')
 }
 
-export let actions = {
+export const actions = {
   login,
   setLoginState,
   setUserInfo,

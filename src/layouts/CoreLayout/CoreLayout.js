@@ -33,7 +33,7 @@ export const CoreLayout = compose(
 
 export default CoreLayout
 
-let styles = {
+const styles = {
   container: {
     height: '100%'
   }

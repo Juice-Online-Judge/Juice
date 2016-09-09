@@ -26,7 +26,7 @@ class Router {
     const method = request.method
 
     for (const regex of routes.keys()) {
-      let m = path.match(regex)
+      const m = path.match(regex)
 
       if (!m) {
         continue

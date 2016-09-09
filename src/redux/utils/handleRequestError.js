@@ -5,8 +5,8 @@ export const handleRequestError = (dispatch, error) => {
   if (error instanceof Error) {
     throw error
   } else {
-    let { code, text } = error.status
-    let { messages } = error.data
+    const { code, text } = error.status
+    const { messages } = error.data
 
     if (messages && !messages.length) {
       dispatch(setError({ code, messages: [text] }))

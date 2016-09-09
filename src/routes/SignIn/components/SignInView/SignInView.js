@@ -28,7 +28,7 @@ export class SignInView extends React.Component {
 
   @bind
   login(event) {
-    let { username, password } = this.data
+    const { username, password } = this.data
     event.preventDefault()
     this.props.login(username, password)
   }

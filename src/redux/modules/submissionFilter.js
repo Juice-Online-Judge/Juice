@@ -68,7 +68,7 @@ export const parseFilter = (filterString) => {
   }
 
   for (let i = 0; i < filters.length; i += 1) {
-    let filter = filters[i].split(':')
+    const filter = filters[i].split(':')
     if (parsedFilter[filter[0]] !== null) {
       return null
     }
