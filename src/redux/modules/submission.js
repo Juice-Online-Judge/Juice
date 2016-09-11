@@ -36,7 +36,7 @@ export const submitCode = (submitData) => (dispatch) => {
   const { uuid, examId, ...data } = submitData
   return dispatch(request({
     method: 'post',
-    path: `submissions/${uuid}`,
+    url: `submissions/${uuid}`,
     data: createFormDataDeep(omitBy({ ...data, exam_id: examId }, isNil)),
     headers: {
       'Content-Type': 'multipart/form-data'
@@ -82,7 +82,7 @@ export const fetchSubmission = (id, opts = { force: false }) => (dispatch, getSt
   }
 
   dispatch(request({
-    path: `/submissions/${id}`
+    url: `/submissions/${id}`
   }, (entity) => {
     dispatch(setSubmission(entity))
   }))
@@ -91,7 +91,7 @@ export const fetchSubmission = (id, opts = { force: false }) => (dispatch, getSt
 export const fetchCode = (id) => (dispatch) => {
   dispatch(clearSubmissionCode())
   dispatch(request({
-    path: `submissions/${id}/code`
+    url: `submissions/${id}/code`
   }, (entity) => {
     dispatch(setSubmissionCode(entity))
   }))
@@ -101,7 +101,7 @@ export const patchSubmissionCorrectness = (id, correctness) => (dispatch) => {
   correctness = parseInt(correctness || 0)
   dispatch(request({
     method: 'patch',
-    path: `submissions/${id}`,
+    url: `submissions/${id}`,
     data: {
       correctness
     }

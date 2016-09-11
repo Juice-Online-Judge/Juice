@@ -82,8 +82,8 @@ export const fetchQuestionDetail = (uuid, opts = { force: false }) => (dispatch,
 
   dispatch(request({
     url: `questions/${uuid}`
-  }, (entity) => {
-    dispatch(setQuestionDetail(entity))
+  }, ({ question }) => {
+    dispatch(setQuestionDetail(question))
   }))
 }
 
