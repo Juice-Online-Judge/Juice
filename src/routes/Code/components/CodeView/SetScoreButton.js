@@ -17,13 +17,12 @@ class SetScoreButton extends Component {
 
   @bind
   handleSetScore(event) {
-    const { id } = this.props
-    this.props.patchSubmissionCorrectness(id, this.correctness)
+    this.props.patchCorrectness(this.correctness)
   }
 
   render() {
-    const { examId, admin, needReview } = this.props
-    if (!examId || !admin || !needReview) {
+    const { needReview } = this.props
+    if (!needReview) {
       return null
     }
 
@@ -48,11 +47,8 @@ class SetScoreButton extends Component {
   correctness = '';
 
   static propTypes = {
-    id: PropTypes.string.isRequired,
-    examId: PropTypes.string,
-    admin: PropTypes.bool.isRequired,
     needReview: PropTypes.bool,
-    patchSubmissionCorrectness: PropTypes.func.isRequired
+    patchCorrectness: PropTypes.func.isRequired
   };
 }
 

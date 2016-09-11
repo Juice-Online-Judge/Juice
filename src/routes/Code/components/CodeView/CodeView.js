@@ -9,14 +9,12 @@ import ErrorMessage from './ErrorMessage'
 
 class CodeView extends Component {
   componentWillMount() {
-    const { id } = this.props
-    this.props.fetchSubmission(id)
-    this.props.fetchCode(id)
+    this.props.fetchCode()
   }
 
   render() {
-    const { id, examId } = this.props
-    const { admin, submission, code, needReview, patchSubmissionCorrectness } = this.props
+    const { id } = this.props
+    const { canReview, submission, code, needReview, patchCorrectness } = this.props
     const lang = submission.get('language')
     const ext = lang === 'c++' ? 'cpp' : lang
     const isFail = submission.getIn(['judge', 'result'], 'AC') !== 'AC'
@@ -26,13 +24,13 @@ class CodeView extends Component {
       <Inset>
         <Row middle='md' end='md'>
           <SetScoreButton
-            id={ id }
-            admin={ admin }
-            examId={ examId }
-            needReview={ needReview }
-            patchSubmissionCorrectness={ patchSubmissionCorrectness } />
+            needReview={ needReview && canReview }
+            patchCorrectness={ patchCorrectness } />
           <Col md={ 3 }>
-            <DownloadButton label='Download Code' text={ code } filename={ `submission${id}.${ext}` } />
+            <DownloadButton
+              label='Download Code'
+              text={ code }
+              filename={ `submission${id}.${ext}` } />
           </Col>
         </Row>
         <ErrorMessage
@@ -46,13 +44,11 @@ class CodeView extends Component {
 
   static propTypes = {
     id: PropTypes.string.isRequired,
-    examId: PropTypes.string,
-    admin: PropTypes.bool.isRequired,
     code: PropTypes.string.isRequired,
     submission: PropTypes.object.isRequired,
     needReview: PropTypes.bool.isRequired,
-    patchSubmissionCorrectness: PropTypes.func.isRequired,
-    fetchSubmission: PropTypes.func.isRequired,
+    canReview: PropTypes.bool.isRequired,
+    patchCorrectness: PropTypes.func.isRequired,
     fetchCode: PropTypes.func.isRequired
   };
 }

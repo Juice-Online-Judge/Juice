@@ -16,8 +16,25 @@ const isAdminSelector = createIsAdminSelector()
 export default connect((state, props) => ({
   code: codeSelector(state),
   submission: submissionSelector(state, props),
-  admin: isAdminSelector(state),
+  canReview: props.params.examId && isAdminSelector(state),
   needReview: needReviewSelector(state, props),
-  id: props.params.id,
-  examId: props.params.examId
-}), { fetchCode, fetchSubmission, patchSubmissionCorrectness })(CodeView)
+  id: props.params.id
+}), (dispatch) => ({
+  fetchCode(id) {
+    return () => {
+      dispatch(fetchCode(id))
+      dispatch(fetchSubmission(id))
+    }
+  },
+  patchCorrectness(id) {
+    return (correctness) => {
+      dispatch(patchSubmissionCorrectness(id, correctness))
+    }
+  }
+}), (stateProps, { fetchCode, patchCorrectness }, ownProps) => {
+  const dispatchProps = {
+    fetchCode: fetchCode(ownProps.id),
+    patchCorrectness: patchCorrectness(ownProps.id)
+  }
+  return Object.assign({}, ownProps, stateProps, dispatchProps)
+})(CodeView)
