@@ -100,12 +100,12 @@ export const fetchExamQuestion = (examId) => (dispatch, getState) => {
   }
 
   dispatch(request({
-    url: `exams/{$id}/questions`
-  }, (entity) => {
+    url: `exams/${examId}/questions`
+  }, ({ questions }) => {
     dispatch(setQuestion({
-      total: entity.length,
+      total: questions.length,
       page: 1,
-      data: entity,
+      data: questions,
       detail: true
     }))
   }))
@@ -119,7 +119,7 @@ export const fetchExamToken = (examId) => (dispatch, getState) => {
   }
 
   dispatch(request({
-    path: `exams/${examId}/token`
+    url: `exams/${examId}/token`
   }, (entity) => {
     dispatch(setExamToken({
       id: examId,
