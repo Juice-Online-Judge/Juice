@@ -51,7 +51,9 @@ export class AppBar extends React.Component {
     if (account.get('state')) {
       return (
         <div>
-          <span style={ commonStyles.whiteColor }>
+          <span style={
+            Object.assign({}, commonStyles.whiteColor, styles.verticalAlign)
+          }>
             { account.getIn(['user', 'nickname']) }
           </span>
           <IconMenu
@@ -115,5 +117,8 @@ const styles = {
   origin: {
     horizontal: 'right',
     vertical: 'top'
+  },
+  verticalAlign: {
+    verticalAlign: 'super'
   }
 }
