@@ -1,0 +1,16 @@
+{
+  "name": "Juice",
+  "short_name": "Juice",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Juice: Join use in code education",
+  "icons": [{
+    "src": "imgs/juice-icon144.png",
+    "sizes": "144x144",
+    "type": "image/png"
+  }],
+  "related_applications": [{
+    "platform": "web"
+  }]
+}
