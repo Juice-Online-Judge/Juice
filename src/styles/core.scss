@@ -1,6 +1,7 @@
 :global {
   @import 'base';
   @import '~ress';
+  @import '~prism-themes/themes/prism-xonokai';
   @import 'vendor/monokai-bright';
 
   html,
@@ -11,12 +12,20 @@
   .markdown-body {
     pre {
       background-color: $code-background;
+      font-size: 1.2em;
     }
   }
 
-  span {
-    &[type='button'] {
+  html {
+    [type='button'] {
       appearance: none;
     }
+
+    button {
+      &[type='button'] {
+        appearance: button;
+      }
+    }
   }
+
 }
