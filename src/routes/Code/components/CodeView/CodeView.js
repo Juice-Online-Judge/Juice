@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 
 import { Row, Col } from 'react-flexbox-grid'
 import Inset from 'layouts/Inset'
-import CodePane from 'components/CodePane'
+import Prism from 'components/Prism'
 import DownloadButton from 'components/DownloadButton'
 import SetScoreButton from './SetScoreButton'
 import ErrorMessage from './ErrorMessage'
@@ -37,7 +37,7 @@ class CodeView extends Component {
           isFail={ isFail }
           judgeMessage={ judgeMessage } />
         <div>Code:</div>
-        <CodePane code={ code } lang={ lang } />
+        <Prism code={ code } lang={ lang } />
       </Inset>
     )
   }
