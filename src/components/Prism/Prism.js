@@ -4,7 +4,7 @@ import setPropTypes from 'recompose/setPropTypes'
 import setDisplayName from 'recompose/setDisplayName'
 import compose from 'recompose/compose'
 import isNil from 'lodash/isNil'
-import highlight from './highlight'
+import { highlightReact } from 'lib/highlight'
 
 export const Prism = compose(
   setDisplayName('Prism'),
@@ -22,7 +22,7 @@ export const Prism = compose(
   return (
     <pre className={ `language-${lang}` }>
       <code className={ `language-${lang}` }>
-        { highlight(code, lang) }
+        { highlightReact(code, lang) }
       </code>
     </pre>
   )
