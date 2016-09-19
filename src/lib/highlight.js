@@ -37,7 +37,7 @@ function reactify(token, key) {
   )
 }
 
-function highlight(code, lang) {
+export function highlightReact(code, lang) {
   const grammer = getGrammer(lang)
 
   if (!grammer) {
@@ -45,8 +45,15 @@ function highlight(code, lang) {
   }
 
   const tokens = Prism.tokenize(code, grammer)
-  console.log(tokens)
   return reactify(tokens)
 }
 
-export default highlight
+export function highlightString(code, lang) {
+  const grammer = getGrammer(lang)
+
+  if (!grammer) {
+    return code
+  }
+
+  return Prism.highlight(code, grammer)
+}
