@@ -61,8 +61,8 @@ export const fetchSubmissions = (opts = { force: false }) => (dispatch, getState
 
   dispatch(request({
     url: '/account/submissions'
-  }, (entity) => {
-    dispatch(setSubmissions(entity))
+  }, ({ submissions }) => {
+    dispatch(setSubmissions(submissions))
   }))
 }
 
