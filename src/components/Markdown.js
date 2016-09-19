@@ -1,26 +1,18 @@
 import React from 'react'
 import Remarkable from 'react-remarkable'
-import hljs from 'highlight.js'
+import { highlightString } from 'lib/highlight'
 import setDisplayName from 'recompose/setDisplayName'
 
 const remarkableOpts = {
-  langPrefix: 'hljs language-',
+  langPrefix: 'language-',
   highlight(str, lang) {
     if (lang) {
       if (lang === 'txt' || lang === 'plain') {
         return ''
       }
 
-      if (hljs.getLanguage(lang)) {
-        try {
-          return hljs.highlight(lang, str).value
-        } catch (err) {}
-      }
+      return highlightString(str, lang)
     }
-
-    try {
-      return hljs.highlightAuto(str).value
-    } catch (err) {}
 
     return ''
   }
