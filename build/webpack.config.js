@@ -225,7 +225,7 @@ if (!__DEV__) {
   ).forEach(loader => {
     const [first, ...rest] = loader.loaders
     loader.loader = ExtractTextPlugin.extract(first, rest.join('!'))
-    delete loader.loaders
+    Reflect.deleteProperty(loader, 'loaders')
   })
 
   webpackConfig.plugins.push(
