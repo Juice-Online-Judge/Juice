@@ -1,4 +1,7 @@
-const path = require('path');
+require('babel-register')
+const path = require('path')
+const webpack = require('webpack')
+const config = require('../config')
 
 const cssLoader = [
     'css?modules',
@@ -34,5 +37,8 @@ module.exports = {
       test: /\.json$/,
       loader: 'json'
     }]
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin(config.globals),
+  ]
 };

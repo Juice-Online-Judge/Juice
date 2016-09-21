@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
-import CodePane from 'components/CodePane';
+import Prism from 'components/Prism';
 
 const cCode = `#include <stdio.h>
 
@@ -18,20 +18,20 @@ int main() {
 }
 `;
 
-storiesOf('CodePane', module)
+storiesOf('Prism', module)
 .add('C (props)', () => (
-  <CodePane lang='c' code={ cCode } />
+  <Prism lang='c' code={ cCode } />
 ))
 .add('C (children)', () => (
-  <CodePane lang='c'>
+  <Prism lang='c'>
     { cCode }
-  </CodePane>
+  </Prism>
 ))
 .add('C++ (prop)', () => (
-  <CodePane lang='cpp' code={ cppCode } />
+  <Prism lang='cpp' code={ cppCode } />
 ))
 .add('C++ (children)', () => (
-  <CodePane lang='cpp'>
+  <Prism lang='cpp'>
     { cppCode }
-  </CodePane>
+  </Prism>
 ));
