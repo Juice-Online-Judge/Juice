@@ -43,15 +43,15 @@ export class QuestionListView extends Component {
           baseUrl='/questions'
           maxPage={ maxPage }
           current={ page } />
-          {
-            admin ? (
-              <Link to='/questions/new'>
-                <FloatingActionButton style={ styles.floatBtn } >
-                  <AddIcon />
-                </FloatingActionButton>
-              </Link>
-            ) : null
-          }
+        {
+          admin ? (
+            <Link to='/questions/new'>
+              <FloatingActionButton style={ styles.floatBtn } >
+                <AddIcon />
+              </FloatingActionButton>
+            </Link>
+          ) : null
+        }
       </LoadingContainer>
     )
   }
