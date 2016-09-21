@@ -3,7 +3,7 @@ import setDisplayName from 'recompose/setDisplayName'
 import setPropTypes from 'recompose/setPropTypes'
 import compose from 'recompose/compose'
 
-import CodePane from 'components/CodePane'
+import Prism from 'components/Prism'
 
 const ErrorMessage = compose(
   setDisplayName('ErrorMessage'),
@@ -15,7 +15,7 @@ const ErrorMessage = compose(
   return isFail ? null : (
     <div>
       <div>Error message:</div>
-      <CodePane code={ judgeMessage } lang='txt' />
+      <Prism code={ judgeMessage } lang='txt' />
     </div>
   )
 })
