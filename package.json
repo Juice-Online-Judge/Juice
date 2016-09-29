@@ -135,7 +135,7 @@
     "eslint-plugin-promise": "^2.0.1",
     "eslint-plugin-react": "^6.3.0",
     "eslint-plugin-standard": "^2.0.1",
-    "extract-text-webpack-plugin": "^1.0.1",
+    "extract-text-webpack-plugin": "^2.0.0-beta.4",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.22.0",
     "identity-obj-proxy": "^3.0.0",
@@ -152,7 +152,7 @@
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.2"
+    "webpack": "^2.1.0-beta.25"
   },
   "config": {
     "commitizen": {
