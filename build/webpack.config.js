@@ -14,9 +14,13 @@ const webpackConfig = {
   name: 'client',
   target: 'web',
   devtool: config.compiler_devtool,
+  context: paths.base(config.dir_client),
   resolve: {
-    root: paths.base(config.dir_client),
-    extensions: ['', '.js', '.jsx', '.json']
+    modules: [
+      paths.base(config.dir_client),
+      'node_modules'
+    ],
+    extensions: ['.js', '.jsx', '.json']
   },
   module: {}
 }
@@ -47,6 +51,27 @@ webpackConfig.output = {
 // ------------------------------------
 webpackConfig.plugins = [
   new webpack.DefinePlugin(config.globals),
+  new webpack.LoaderOptionsPlugin({
+    options: {
+      postcss: [
+        cssnano({
+          sourcemap: true,
+          autoprefixer: {
+            add: true,
+            remove: true,
+            browsers: ['last 2 versions']
+          },
+          safe: true,
+          discardComments: {
+            removeAll: true
+          }
+        })
+      ],
+      sassLoader: {
+        includePaths: paths.client('styles')
+      }
+    }
+  }),
   new HtmlWebpackPlugin({
     chunks: ['vendor', 'app'],
     template: paths.client('index.html'),
@@ -84,35 +109,30 @@ webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
 }))
 
 // ------------------------------------
-// Pre-Loaders
-// ------------------------------------
-webpackConfig.module.preLoaders = [{
-  test: /\.(js|jsx)$/,
-  loader: 'eslint',
-  exclude: /node_modules/
-}]
-
-webpackConfig.eslint = {
-  configFile: paths.base('.eslintrc'),
-  emitWarning: __DEV__
-}
-
-// ------------------------------------
 // Loaders
 // ------------------------------------
 // JavaScript / JSON
 
-const presets = ['es2015', 'react', 'stage-0']
+const presets = [['es2015', { modules: false }], 'react', 'stage-0']
 
 if (__PROD__) {
   presets.push('react-optimize')
 }
 
-webpackConfig.module.loaders = [{
+webpackConfig.module.rules = [{
+  enforce: 'pre',
+  test: /\.(js|jsx)$/,
+  loader: 'eslint',
+  exclude: /node_modules/,
+  options: {
+    configFile: paths.base('.eslintrc'),
+    emitWarning: __DEV__
+  }
+}, {
   test: /\.(js|jsx)$/,
   exclude: /node_modules/,
   loader: 'babel',
-  query: {
+  options: {
     cacheDirectory: true,
     plugins: [
       'transform-runtime',
@@ -127,81 +147,86 @@ webpackConfig.module.loaders = [{
 }]
 
 // Styles
-const cssLoader = !config.compiler_css_modules
-  ? 'css?sourceMap'
-  : [
-    'css?modules',
-    'sourceMap',
-    'importLoaders=1',
-    'localIdentName=[name]__[local]___[hash:base64:5]'
-  ].join('&')
+const cssOptions = !config.compiler_css_modules
+  ? {
+    context: paths.base(config.dir_client),
+    sourceMap: true
+  }
+  : {
+    context: paths.base(config.dir_client),
+    modules: true,
+    sourceMap: true,
+    importLoaders: 1,
+    localIdentName: '[name]__[local]___[hash:base64:5]'
+  }
 
-webpackConfig.module.loaders.push({
+webpackConfig.module.rules.push({
   test: /\.scss$/,
   include: /(src|flexboxgrid)/,
-  loaders: [
-    'style',
-    cssLoader,
-    'postcss',
-    'sass'
-  ]
+  use: [{
+    loader: 'style'
+  }, {
+    loader: 'css',
+    options: cssOptions
+  }, {
+    loader: 'postcss'
+  }, {
+    loader: 'sass'
+  }]
 })
 
-webpackConfig.module.loaders.push({
+webpackConfig.module.rules.push({
   test: /\.css$/,
   include: /(src|flexboxgrid)/,
-  loaders: [
-    'style',
-    cssLoader,
-    'postcss'
-  ]
+  use: [{
+    loader: 'style'
+  }, {
+    loader: 'css',
+    options: cssOptions
+  }, {
+    loader: 'postcss'
+  }]
 })
 
 // Don't treat global SCSS as modules
-webpackConfig.module.loaders.push({
+webpackConfig.module.rules.push({
   test: /\.scss$/,
   exclude: /(src|flexboxgrid)/,
-  loaders: [
-    'style',
-    'css?sourceMap',
-    'postcss',
-    'sass'
-  ]
+  use: [{
+    loader: 'style'
+  }, {
+    loader: 'css',
+    options: {
+      context: paths.base(config.dir_client),
+      sourceMap: true
+    }
+  }, {
+    loader: 'postcss'
+  }, {
+    loader: 'sass'
+  }]
 })
 
 // Don't treat global, third-party CSS as modules
-webpackConfig.module.loaders.push({
+webpackConfig.module.rules.push({
   test: /\.css$/,
   exclude: /(src|flexboxgrid)/,
-  loaders: [
-    'style',
-    'css?sourceMap',
-    'postcss'
-  ]
-})
-
-webpackConfig.sassLoader = {
-  includePaths: paths.client('styles')
-}
-
-webpackConfig.postcss = [
-  cssnano({
-    sourcemap: true,
-    autoprefixer: {
-      add: true,
-      remove: true,
-      browsers: ['last 2 versions']
-    },
-    safe: true,
-    discardComments: {
-      removeAll: true
+  use: [{
+    loader: 'style'
+  }, {
+    loader: 'css',
+    options: {
+      context: paths.base(config.dir_client),
+      sourceMap: true
     }
-  })
-]
+  }, {
+    loader: 'postcss'
+  }]
+})
 
 // File loaders
 /* eslint-disable */
-webpackConfig.module.loaders.push(
+webpackConfig.module.rules.push(
   { test: /\.woff(\?.*)?$/,  loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff' },
   { test: /\.woff2(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2' },
   { test: /\.otf(\?.*)?$/,   loader: 'file?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype' },
@@ -220,16 +245,24 @@ webpackConfig.module.loaders.push(
 // http://stackoverflow.com/questions/34133808/webpack-ots-parsing-error-loading-fonts/34133809#34133809
 if (!__DEV__) {
   debug('Apply ExtractTextPlugin to CSS loaders.')
-  webpackConfig.module.loaders.filter(loader =>
-    loader.loaders && loader.loaders.find(name => /css/.test(name.split('?')[0]))
-  ).forEach(loader => {
-    const [first, ...rest] = loader.loaders
-    loader.loader = ExtractTextPlugin.extract(first, rest.join('!'))
-    Reflect.deleteProperty(loader, 'loaders')
+  webpackConfig.module.rules.filter(rule =>
+    rule.use && rule.use.find(r => /css/.test(r.loader))
+  ).forEach(rule => {
+    const [first, ...rest] = rule.use
+    rule.loader = ExtractTextPlugin.extract({
+      fallbackLoader: first.loader,
+      loader: rest.map((loader) => {
+        return loader.options
+          ? `${loader.loader}?${JSON.stringify(loader.options)}`
+          : loader.loader
+      }).join('!')
+    })
+    Reflect.deleteProperty(rule, 'use')
   })
 
   webpackConfig.plugins.push(
-    new ExtractTextPlugin('[name].[contenthash].css', {
+    new ExtractTextPlugin({
+      filename: '[name].[contenthash].css',
       allChunks: true
     })
   )
