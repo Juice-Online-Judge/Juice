@@ -87,7 +87,7 @@ webpackConfig.plugins = [
 ]
 
 if (__PROD__) {
-  debug('Enable plugins for production (OccurenceOrder, Dedupe, Offline, & UglifyJS).')
+  debug('Enable plugins for production (OccurenceOrder, Dedupe, & UglifyJS).')
   webpackConfig.plugins.push(
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
