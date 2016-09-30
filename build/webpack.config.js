@@ -74,7 +74,7 @@ webpackConfig.plugins = [
   }),
   new HtmlWebpackPlugin({
     chunks: ['vendor', 'app'],
-    template: paths.client('index.html'),
+    template: paths.client('index.pug'),
     hash: false,
     favicon: paths.dist('favicon.ico'),
     filename: '../resources/views/main.blade.php',
@@ -144,6 +144,9 @@ webpackConfig.module.rules = [{
 }, {
   test: /\.json$/,
   loader: 'json'
+}, {
+  test: /\.pug$/,
+  loader: 'pug'
 }]
 
 // Styles
