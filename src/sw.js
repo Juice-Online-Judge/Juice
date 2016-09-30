@@ -31,7 +31,7 @@ self.addEventListener('fetch', (event) => {
     return
   }
 
-  if (url.pathname.endsWith('.js')) {
+  if (url.pathname.endsWith('.js') || url.pathname.endsWith('.css')) {
     event.respondWith(
       networkAndCache(request)
     )
