@@ -5,16 +5,11 @@ export default {
   component: BaseLayout,
   indexRoute: {
     getComponent(_location, next) {
-      require.ensure(['./components/ExamQuestionDetail'], (require) => {
-        next(null, require('./components/ExamQuestionDetail'))
-      })
+      System.import('./components/ExamQuestionDetail')
+        .then((ExamQuestionDetail) => next(null, ExamQuestionDetail))
     }
   },
   getChildRoutes(_location, next) {
-    require.ensure([], (require) => {
-      next(null, [
-        require('./routes/Detail')
-      ])
-    })
+    System.import('./routes').then((routes) => next(null, routes))
   }
 }

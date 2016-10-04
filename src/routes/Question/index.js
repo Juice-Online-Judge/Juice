@@ -5,17 +5,11 @@ export default {
   component: BaseLayout,
   indexRoute: {
     getComponent(_location, next) {
-      require.ensure('./components/QuestionListView', (require) => {
-        next(null, require('./components/QuestionListView'))
-      })
+      System.import('./components/QuestionListView')
+        .then((QuestionListView) => next(null, QuestionListView))
     }
   },
   getChildRoutes(_location, next) {
-    require.ensure([], (require) => {
-      next(null, [
-        require('./routes/New'),
-        require('./routes/Detail')
-      ])
-    })
+    System.import('./routes').then((routes) => next(null, routes))
   }
 }

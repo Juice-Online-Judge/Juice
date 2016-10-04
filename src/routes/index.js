@@ -6,19 +6,7 @@ export default {
   component: CoreLayout,
   indexRoute: redirect('/exams'),
   getChildRoutes(_location, next) {
-    require.ensure([], (require) => {
-      next(null, [
-        require('./SignIn'),
-        require('./SignUp'),
-        require('./Question'),
-        require('./Code'),
-        require('./Submission'),
-        require('./Exam'),
-        require('./DashBoard'),
-        require('./PermissionDenied'),
-        require('./NotFound'),
-        redirect('/page-not-found')
-      ])
-    })
+    System.import('./routes')
+      .then((routes) => next(null, routes))
   }
 }

@@ -6,16 +6,10 @@ export default {
     }
   },
   getComponent(_location, next) {
-    require.ensure(['./components/ExamDetailView'], (require) => {
-      next(null, require('./components/ExamDetailView'))
-    })
+    System.import('./components/ExamDetailView')
+      .then((ExamDetailView) => next(null, ExamDetailView))
   },
   getChildRoutes(_location, next) {
-    require.ensure([], (require) => {
-      next(null, [
-        require('./routes/Questions'),
-        require('./routes/Submissions')
-      ])
-    })
+    System.import('./routes').then((routes) => next(null, routes))
   }
 }

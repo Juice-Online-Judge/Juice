@@ -1,8 +1,7 @@
 export default {
   path: 'submissions',
   getComponent(_location, next) {
-    require.ensure(['./components/SubmissionView'], (require) => {
-      next(null, require('./components/SubmissionView'))
-    })
+    System.import('./components/SubmissionView')
+      .then((SubmissionView) => next(null, SubmissionView))
   }
 }

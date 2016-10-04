@@ -1,8 +1,7 @@
 export default {
   path: 'submissions',
   getComponent(_location, next) {
-    require.ensure(['./components/ExamSubmissionDetail'], (require) => {
-      next(null, require('./components/ExamSubmissionDetail'))
-    })
+    System.import('./components/ExamSubmissionDetail')
+      .then((ExamSubmissionDetail) => next(null, ExamSubmissionDetail))
   }
 }

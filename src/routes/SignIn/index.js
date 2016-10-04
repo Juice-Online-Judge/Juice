@@ -1,8 +1,7 @@
 export default {
   path: 'sign-in',
   getComponent(_location, next) {
-    require.ensure(['./components/SignInView'], (require) => {
-      next(null, require('./components/SignInView'))
-    })
+    System.import('./components/SignInView')
+      .then((SignInView) => next(null, SignInView))
   }
 }
