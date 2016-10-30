@@ -82,7 +82,7 @@ webpackConfig.plugins = [
     inject: 'body',
     minify: {
       collapseWhitespace: true,
-      minifyJS: true
+      minifyJS: false
     }
   }),
   new ScriptExtHtmlWebpackPlugin({
