@@ -1,6 +1,5 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import jasmineEnzyme from 'jasmine-enzyme'
 import { DownloadButton } from '../DownloadButton'
 import FlatButton from 'material-ui/FlatButton'
 
@@ -8,7 +7,6 @@ describe('(Component) <DownloadButton />', () => {
   let sut
 
   beforeEach(() => {
-    jasmineEnzyme()
     sut = shallow(<DownloadButton label='test' />)
   })
 

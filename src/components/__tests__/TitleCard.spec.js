@@ -1,6 +1,5 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import jasmineEnzyme from 'jasmine-enzyme'
 import { TitleCard } from '../TitleCard'
 import Card from 'material-ui/Card/Card'
 import CardTitle from 'material-ui/Card/CardTitle'
@@ -9,7 +8,6 @@ describe('(Component) <TitleCard />', () => {
   let sut
 
   beforeEach(() => {
-    jasmineEnzyme()
     sut = shallow(<TitleCard />)
   })
 
