@@ -1,0 +1,12 @@
+---
+machine:
+  node:
+    version: 7.0.0
+dependencies:
+  pre:
+    - npm install -g npm@3
+    - npm install yarn
+  override:
+    - yarn
+  cache_directories:
+    - ~/.yarn-cache
