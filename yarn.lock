@@ -1321,9 +1321,9 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
-better-npm-run@0.0.11:
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/better-npm-run/-/better-npm-run-0.0.11.tgz#d956a6993fcbdb2ce9cdf14e9b4e5b5e74a31483"
+better-npm-run@0.0.13:
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/better-npm-run/-/better-npm-run-0.0.13.tgz#38a340d0546c831ce80bae66d4def19c5c7ee963"
   dependencies:
     dotenv "^2.0.0"
     object-assign "^4.0.1"
@@ -3212,6 +3212,24 @@ history@^2.1.2:
     invariant "^2.0.0"
     query-string "^3.0.0"
     warning "^2.0.0"
+
+history@^3.0.0:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/history/-/history-3.2.1.tgz#71c7497f4e6090363d19a6713bb52a1bfcdd99aa"
+  dependencies:
+    invariant "^2.2.1"
+    loose-envify "^1.2.0"
+    query-string "^4.2.2"
+    warning "^3.0.0"
+
+history@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/history/-/history-4.3.0.tgz#42bc1067c22760ac0b792d80264c93591ed3900b"
+  dependencies:
+    invariant "^2.2.1"
+    loose-envify "^1.2.0"
+    resolve-pathname "^2.0.0"
+    warning "^3.0.0"
 
 hoek@2.x.x:
   version "2.16.3"
@@ -5657,7 +5675,7 @@ query-string@^3.0.0:
   dependencies:
     strict-uri-encode "^1.0.0"
 
-query-string@^4.1.0:
+query-string@^4.1.0, query-string@^4.2.2:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/query-string/-/query-string-4.2.3.tgz#9f27273d207a25a8ee4c7b8c74dcd45d556db822"
   dependencies:
@@ -5843,11 +5861,11 @@ react-router-scroll@^0.3.2:
     scroll-behavior "^0.8.0"
     warning "^3.0.0"
 
-react-router@^2.8.1:
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/react-router/-/react-router-2.8.1.tgz#73e9491f6ceb316d0f779829081863e378ee4ed7"
+react-router@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-3.0.0.tgz#3f313e4dbaf57048c48dd0a8c3cac24d93667dff"
   dependencies:
-    history "^2.1.2"
+    history "^3.0.0"
     hoist-non-react-statics "^1.2.0"
     invariant "^2.2.1"
     loose-envify "^1.2.0"
@@ -6176,6 +6194,10 @@ reselect@^2.5.4:
 resolve-from@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-1.0.1.tgz#26cbfe935d1aeeeabb29bc3fe5aeb01e93d44226"
+
+resolve-pathname@^2.0.0:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/resolve-pathname/-/resolve-pathname-2.0.2.tgz#e55c016eb2e9df1de98e85002282bfb38c630436"
 
 resolve@^1.1.6, resolve@^1.1.7, resolve@1.1.7, resolve@1.1.x:
   version "1.1.7"
