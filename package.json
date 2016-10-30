@@ -141,6 +141,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jasmine-immutable-matchers": "^1.0.1",
     "jest-cli": "^16.0.1",
+    "jest-enzyme": "^2.0.0",
     "json-loader": "^0.5.4",
     "node-sass": "^3.10.1",
     "nodemon": "^1.11.0",
