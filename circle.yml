@@ -5,7 +5,7 @@ machine:
 dependencies:
   pre:
     - npm install -g npm@3
-    - npm install yarn
+    - npm install -g yarn
   override:
     - yarn
   cache_directories:
