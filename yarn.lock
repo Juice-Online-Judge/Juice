@@ -6224,6 +6224,10 @@ sax@^1.1.4, sax@~1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.1.tgz#7b8e656190b228e81a66aea748480d828cd2d37a"
 
+script-ext-html-webpack-plugin:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/script-ext-html-webpack-plugin/-/script-ext-html-webpack-plugin-1.3.2.tgz#ec88c7ff194f0ae699ffdf4cbd8d66d9c36ae60a"
+
 scroll-behavior@^0.8.0:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/scroll-behavior/-/scroll-behavior-0.8.2.tgz#ace13e40b001d8d4d007aec0e7fb668cf9043546"
