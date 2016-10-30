@@ -10,3 +10,6 @@ dependencies:
     - yarn
   cache_directories:
     - ~/.yarn-cache
+test:
+    override:
+      - yarn test
