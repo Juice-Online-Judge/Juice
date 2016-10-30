@@ -6,13 +6,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 import { Provider } from 'react-redux'
 import useScroll from 'react-router-scroll/lib/useScroll'
 import { syncHistoryWithStore } from 'react-router-redux'
-import { Router, applyRouterMiddleware, useRouterHistory } from 'react-router'
-import { createHistory } from 'history'
+import { Router, applyRouterMiddleware, browserHistory } from 'react-router'
 import routes from './routes'
 import configureStore from './redux/configureStore'
-
-const historyConfig = { basename: __BASENAME__ }
-const browserHistory = useRouterHistory(createHistory)(historyConfig)
 
 const initialState = window.__INITIAL_STATE__
 const store = configureStore({ initialState, browserHistory })
