@@ -1,6 +1,7 @@
 import webpack from 'webpack'
 import cssnano from 'cssnano'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import ScriptExtHtmlWebpackPlugin from 'script-ext-html-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import config from '../config'
 import _debug from 'debug'
@@ -83,6 +84,9 @@ webpackConfig.plugins = [
       collapseWhitespace: true,
       minifyJS: true
     }
+  }),
+  new ScriptExtHtmlWebpackPlugin({
+    defaultAttribute: 'defer'
   })
 ]
 
