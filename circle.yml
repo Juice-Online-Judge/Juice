@@ -17,6 +17,7 @@ deployment:
   juice:
     branch: master
     commands:
+      - cp .env.example .env
       - yarn run deploy
       - yarn global add bower
       - bower install
