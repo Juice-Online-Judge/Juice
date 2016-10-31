@@ -22,5 +22,13 @@ deployment:
       - yarn global add bower
       - bower install
       - ssh circleci@juice.cs.ccu.edu.tw
-      - 'scp -r public/*.js public/*.css public/*.map public/appcache public/vendor circleci_sftp@juice.cs.ccu.edu.tw:html/public'
-      - scp resources/views/main.blade.php circleci_sftp@juice.cs.ccu.edu.tw:html/resources/views
+      - |
+        sftp circleci_sftp@juice.cs.ccu.edu.tw <<EOF
+        cd /html/public
+        put public/*.js
+        put public/*.css
+        put public/*.map
+        put -r public/appcache
+        put -r public/vendor
+        cd /html/resources/views
+        put resources/views/main.blade.php
