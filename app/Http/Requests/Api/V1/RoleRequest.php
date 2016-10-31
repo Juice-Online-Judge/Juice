@@ -19,7 +19,7 @@ class RoleRequest extends Request
         ];
 
         if ($this->isMethod('PATCH')) {
-            $rules[count($rules)-1] .= ','.$this->route('roles').',id';
+            $rules[count($rules) - 1] .= ','.$this->route('roles').',id';
         }
 
         return $rules;
