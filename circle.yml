@@ -32,3 +32,4 @@ deployment:
         put -r public/vendor
         cd /html/resources/views
         put resources/views/main.blade.php
+        EOF
