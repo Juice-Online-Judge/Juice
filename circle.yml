@@ -17,8 +17,9 @@ deployment:
   juice:
     branch: master
     commands:
-      - bower install
       - yarn run deploy
+      - yarn global add bower
+      - bower install
       - ssh circleci@juice.cs.ccu.edu.tw
       - 'scp -r public/*.js public/*.css public/*.map public/appcache public/vendor circleci_sftp@juice.cs.ccu.edu.tw:html/public'
       - scp resources/views/main.blade.php circleci_sftp@juice.cs.ccu.edu.tw:html/resources/views
