@@ -2588,9 +2588,9 @@ eslint-plugin-standard@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-standard/-/eslint-plugin-standard-2.0.1.tgz#3589699ff9c917f2c25f76a916687f641c369ff3"
 
-eslint@^3.8.0:
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-3.9.0.tgz#68c8fa86b1e0a3f038040f3b5808b7508c128f8e"
+eslint@^3.9.1:
+  version "3.9.1"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-3.9.1.tgz#5a8597706fc6048bc6061ac754d4a211d28f4f5b"
   dependencies:
     babel-code-frame "^6.16.0"
     chalk "^1.1.3"
@@ -3267,9 +3267,9 @@ html-minifier@^3.1.0:
     relateurl "0.2.x"
     uglify-js "2.7.x"
 
-html-webpack-plugin@^2.22.0:
-  version "2.24.0"
-  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-2.24.0.tgz#53697cea79a9f3cd1f8c239ac71f949d5673cacb"
+html-webpack-plugin@^2.24.1:
+  version "2.24.1"
+  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-2.24.1.tgz#7f45fc678f66eac2d433f22336b4399da023b57e"
   dependencies:
     bluebird "^3.4.6"
     html-minifier "^3.1.0"
@@ -4370,6 +4370,10 @@ lodash.words@^3.0.0:
 lodash@^4.0.0, lodash@^4.11.2, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.16.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.5.1, lodash@~4.16.4, lodash@4.x.x:
   version "4.16.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.16.4.tgz#01ce306b9bad1319f2a5528674f88297aeb70127"
+
+lodash@^4.16.5:
+  version "4.16.6"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.16.6.tgz#d22c9ac660288f3843e16ba7d2b5d06cca27d777"
 
 longest@^1.0.1:
   version "1.0.1"
@@ -5740,9 +5744,9 @@ react-addons-transition-group@^15.0.0:
   version "15.3.2"
   resolved "https://registry.yarnpkg.com/react-addons-transition-group/-/react-addons-transition-group-15.3.2.tgz#64f758d18bd1e59128726b1c9a4db79127c4f1ed"
 
-react-clipboard.js@^0.2.5:
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/react-clipboard.js/-/react-clipboard.js-0.2.5.tgz#988d16242b9a2df3121d63d00eede86e571d6ce4"
+react-clipboard.js@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-clipboard.js/-/react-clipboard.js-1.0.0.tgz#b0bc6a1640086ce86bc024887349d8c6f5c4caac"
   dependencies:
     clipboard "^1.4.0"
 
