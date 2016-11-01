@@ -14,7 +14,7 @@ const staticResource = [
   '/vendor.js',
   '/vendor/fallback/fallback.min.js',
   '/vendor/es5-shim/es5-shim.js',
-  '/vendor/es5-sham/es5-sham.js'
+  '/vendor/es5-shim/es5-sham.js'
 ]
 
 self.addEventListener('install', (event) => {
