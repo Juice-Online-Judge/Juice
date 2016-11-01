@@ -3222,15 +3222,6 @@ history@^3.0.0:
     query-string "^4.2.2"
     warning "^3.0.0"
 
-history@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/history/-/history-4.3.0.tgz#42bc1067c22760ac0b792d80264c93591ed3900b"
-  dependencies:
-    invariant "^2.2.1"
-    loose-envify "^1.2.0"
-    resolve-pathname "^2.0.0"
-    warning "^3.0.0"
-
 hoek@2.x.x:
   version "2.16.3"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-2.16.3.tgz#20bb7403d3cea398e91dc4710a8ff1b8274a25ed"
@@ -6031,9 +6022,9 @@ reduce-reducers@^0.1.0:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/reduce-reducers/-/reduce-reducers-0.1.2.tgz#fa1b4718bc5292a71ddd1e5d839c9bea9770f14b"
 
-redux-actions@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/redux-actions/-/redux-actions-0.12.0.tgz#8a4f0114f1bde2e6b61d5b7205d4818004c67461"
+redux-actions@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/redux-actions/-/redux-actions-0.13.0.tgz#34bf77c5698e86d86b0edb533ea23a1c0658f4fe"
   dependencies:
     lodash "^4.13.1"
     reduce-reducers "^0.1.0"
@@ -6194,10 +6185,6 @@ reselect@^2.5.4:
 resolve-from@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-1.0.1.tgz#26cbfe935d1aeeeabb29bc3fe5aeb01e93d44226"
-
-resolve-pathname@^2.0.0:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/resolve-pathname/-/resolve-pathname-2.0.2.tgz#e55c016eb2e9df1de98e85002282bfb38c630436"
 
 resolve@^1.1.6, resolve@^1.1.7, resolve@1.1.7, resolve@1.1.x:
   version "1.1.7"
