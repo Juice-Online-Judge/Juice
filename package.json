@@ -74,7 +74,7 @@
     "github-markdown-css": "^2.4.1",
     "immutable": "^3.8.1",
     "invariant": "^2.2.1",
-    "lodash": "^4.16.4",
+    "lodash": "^4.16.5",
     "material-ui": "^0.16.0",
     "normalizr": "^2.2.1",
     "path-to-regexp": "^1.6.0",
