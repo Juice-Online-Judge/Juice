@@ -16,7 +16,7 @@
     "tymon/jwt-auth": "0.5.*"
   },
   "require-dev": {
-    "barryvdh/laravel-ide-helper": "^2.1",
+    "barryvdh/laravel-ide-helper": "^2.2",
     "barryvdh/laravel-debugbar": "^2.2",
     "fzaninotto/faker": "~1.4",
     "mockery/mockery": "0.9.*",
