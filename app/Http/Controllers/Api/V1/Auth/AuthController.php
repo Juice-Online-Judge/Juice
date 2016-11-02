@@ -15,7 +15,7 @@ class AuthController extends ApiController
      *
      * @param Request $request
      *
-     * @return \Dingo\Api\Http\Response
+     * @return string
      */
     public function signIn(Request $request)
     {

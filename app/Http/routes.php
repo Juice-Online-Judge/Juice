@@ -12,7 +12,7 @@ $api->group(['version' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
         $api->post('sign-in', ['middleware' => 'api.throttle', 'limit' => 5, 'expires' => 1, 'uses' => 'AuthController@signIn']);
         $api->get('sign-out', ['middleware' => 'api.auth', 'uses' => 'AuthController@signOut']);
         $api->post('sign-up', ['uses' => 'AuthController@signUp']);
-        $api->get('sign-up/validate', ['uses' => 'SignUpValidateController@verify']);
+        $api->post('sign-up/validate', ['uses' => 'SignUpValidateController@verify']);
     });
 
     $api->group(['prefix' => 'account', 'middleware' => ['api.auth']], function (ApiRouter $api) {
@@ -62,7 +62,7 @@ $api->group(['version' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     $api->resource('tags', 'TagController', ['except' => ['create', 'edit']]);
 });
 
-$router->get('oauth/{driver}', 'Api\V1\OAuthController@oauthRedirect');
-$router->get('oauth/{driver}/callback', 'Api\V1\OAuthController@oauthCallback');
+$router->get('oauth/{driver}', 'Api\V1\Auth\OAuthController@oauthRedirect');
+$router->get('oauth/{driver}/callback', 'Api\V1\Auth\OAuthController@oauthCallback');
 
 $router->get('{redirect?}', ['as' => 'home', 'uses' => 'HomeController@home'])->where('redirect', '.*');
