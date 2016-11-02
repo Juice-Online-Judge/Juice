@@ -79,8 +79,9 @@ class OAuthController extends Controller
      */
     protected function storeUser($user, $driver)
     {
-        $user = User::create([
+        $user = User::updateOrCreate([
             'username' => $driver.'-'.$user->getId(),
+        ], [
             'nickname' => $user->getName(),
             'email' => $user->getEmail(),
         ]);
