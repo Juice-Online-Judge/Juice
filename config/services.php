@@ -17,13 +17,13 @@ return [
     'facebook' => [
         'client_id' => env('FACEBOOK_APP_ID'),
         'client_secret' => env('FACEBOOK_APP_SECRET'),
-        'redirect' => env('APP_URL').'/api/v1/oauth/facebook/callback',
+        'redirect' => env('APP_URL').'/oauth/facebook/callback',
     ],
 
     'github' => [
         'client_id' => env('GITHUB_APP_ID'),
         'client_secret' => env('GITHUB_APP_SECRET'),
-        'redirect' => env('APP_URL').'/api/v1/oauth/github/callback',
+        'redirect' => env('APP_URL').'/oauth/github/callback',
     ],
 
 ];
