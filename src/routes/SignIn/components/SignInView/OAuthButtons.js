@@ -6,10 +6,10 @@ import { Row, Col } from 'react-flexbox-grid'
 export const OAuthButtons = () => (
   <Row end='xs'>
     <Col>
-      <a href='/api/v1/oauth/facebook'>
+      <a href='/api/oauth/facebook'>
         <IconButton iconClassName='fa fa-facebook-square' />
       </a>
-      <a href='/api/v1/oauth/github'>
+      <a href='/api/oauth/github'>
         <IconButton iconClassName='fa fa-github' />
       </a>
     </Col>
