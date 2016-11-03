@@ -76,6 +76,7 @@
     "invariant": "^2.2.1",
     "lodash": "^4.16.5",
     "material-ui": "^0.16.0",
+    "moment": "^2.15.2",
     "normalizr": "^2.2.1",
     "path-to-regexp": "^1.6.0",
     "prism-themes": "^1.0.0",
