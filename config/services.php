@@ -26,4 +26,10 @@ return [
         'redirect' => env('APP_URL').'/oauth/github/callback',
     ],
 
+    'google' => [
+        'client_id' => env('GOOGLE_APP_ID'),
+        'client_secret' => env('GOOGLE_APP_SECRET'),
+        'redirect' => env('APP_URL').'/oauth/google/callback',
+    ],
+
 ];

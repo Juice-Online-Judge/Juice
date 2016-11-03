@@ -11,8 +11,8 @@
     "doctrine/dbal": "^2.5",
     "greggilbert/recaptcha": "^2.1",
     "laravel/socialite": "^2.0",
-    "predis/predis": "^1.0",
-    "ramsey/uuid": "^3.3",
+    "predis/predis": "^1.1",
+    "ramsey/uuid": "^3.5",
     "tymon/jwt-auth": "0.5.*"
   },
   "require-dev": {

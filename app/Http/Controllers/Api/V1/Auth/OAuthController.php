@@ -20,9 +20,11 @@ class OAuthController extends Controller
      */
     public function oauthRedirect($driver)
     {
-        $this->ensureAvailableDriver($driver);
+        $this->exist($driver);
 
-        return Socialite::driver($driver)->stateless()->redirect();
+        return Socialite::driver($driver)
+            ->stateless()
+            ->redirect();
     }
 
     /**
@@ -34,21 +36,22 @@ class OAuthController extends Controller
      */
     public function oauthCallback($driver)
     {
-        $this->ensureAvailableDriver($driver);
+        $this->exist($driver);
 
         try {
-            $user = Socialite::driver($driver)->stateless()->user();
+            $token = $this->store(
+                Socialite::driver($driver)->stateless()->user(),
+                $driver
+            );
+
+            $redirect = (false === $token)
+                ? '/sign-up?oauth=server-error'
+                : '/sign-in?oauth='.$token;
         } catch (\Exception $e) {
-            return Redirect::route('home', ['redirect' => '/sign-up?oauth=failed']);
+            $redirect = '/sign-up?oauth=failed';
         }
 
-        $token = $this->storeUser($user, $driver);
-
-        if (false === $token) {
-            return Redirect::route('home', ['redirect' => '/sign-up?oauth=server-error']);
-        }
-
-        return Redirect::route('home', ['redirect' => '/?oauth='.$token]);
+        return Redirect::route('home', compact('redirect'));
     }
 
     /**
@@ -60,11 +63,11 @@ class OAuthController extends Controller
      *
      * @throws NotFoundHttpException
      */
-    protected function ensureAvailableDriver($driver)
+    protected function exist($driver)
     {
         $drivers = ['facebook', 'github', 'google'];
 
-        if (! in_array($driver, $drivers)) {
+        if (! in_array($driver, $drivers, true)) {
             throw new NotFoundHttpException;
         }
     }
@@ -77,7 +80,7 @@ class OAuthController extends Controller
      *
      * @return bool|string
      */
-    protected function storeUser($user, $driver)
+    protected function store($user, $driver)
     {
         $user = User::updateOrCreate([
             'username' => $driver.'-'.$user->getId(),
