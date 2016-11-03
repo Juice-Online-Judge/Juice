@@ -4604,7 +4604,7 @@ mobx@^2.3.4:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/mobx/-/mobx-2.6.0.tgz#0ae83a20488b92d10d4ca326e18fe78a5ab7cb36"
 
-moment@^2.11.2:
+moment, moment@^2.11.2:
   version "2.15.2"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.15.2.tgz#1bfdedf6a6e345f322fe956d5df5bd08a8ce84dc"
 
