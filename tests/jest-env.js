@@ -1,5 +1,5 @@
 import 'jest-enzyme/lib'
-import jasmineImmutable from 'jasmine-immutable-matchers'
+import * as jasmineImmutable from 'jasmine-immutable-matchers'
 
 beforeEach(() => {
   jasmine.addMatchers(jasmineImmutable)
