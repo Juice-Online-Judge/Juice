@@ -51,6 +51,9 @@ export class AppBar extends React.Component {
     if (account.get('state')) {
       return (
         <div>
+          <Link to='/about-us'>
+            <FlatButton labelStyle={ commonStyles.whiteColor } label='About us' />
+          </Link>
           <span style={
             Object.assign({}, commonStyles.whiteColor, styles.verticalAlign)
           }>
@@ -72,6 +75,9 @@ export class AppBar extends React.Component {
     } else {
       return (
         <div>
+          <Link to='/about-us'>
+            <FlatButton labelStyle={ commonStyles.whiteColor } label='About us' />
+          </Link>
           <Link to='/sign-up'>
             <FlatButton labelStyle={ commonStyles.whiteColor } label='Signup' />
           </Link>
