@@ -1,3 +1,4 @@
+import AboutUs from './AboutUs'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import Question from './Question'
@@ -10,6 +11,7 @@ import NotFound from './NotFound'
 import redirect from './utils/redirect'
 
 export default [
+  AboutUs,
   SignIn,
   SignUp,
   Question,
