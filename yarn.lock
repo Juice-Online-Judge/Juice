@@ -94,6 +94,10 @@
     webpack-dev-middleware "^1.6.0"
     webpack-hot-middleware "^2.10.0"
 
+"@types/jasmine@^2.5.37":
+  version "2.5.37"
+  resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.5.37.tgz#15f16040b1106941ec4aeefa3cd9c55342a0dcbb"
+
 abab@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.3.tgz#b81de5f7274ec4e756d797cd834f303642724e5d"
@@ -3792,9 +3796,11 @@ jasmine-check@^0.1.4:
   dependencies:
     testcheck "^0.1.0"
 
-jasmine-immutable-matchers@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/jasmine-immutable-matchers/-/jasmine-immutable-matchers-1.0.1.tgz#666bfbc0c0d89357692ef25898758e3483c52ccf"
+jasmine-immutable-matchers@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/jasmine-immutable-matchers/-/jasmine-immutable-matchers-1.1.2.tgz#8b1e7c4a25373ec26914ed063150f81e9dcb81db"
+  dependencies:
+    "@types/jasmine" "^2.5.37"
 
 jest-changed-files@^16.0.0:
   version "16.0.0"
