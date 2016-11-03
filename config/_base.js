@@ -46,7 +46,6 @@ const config = {
     'codemirror',
     'decko',
     'flexboxgrid',
-    'history',
     'immutable',
     'normalizr',
     'prismjs',
