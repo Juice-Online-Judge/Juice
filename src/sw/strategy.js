@@ -16,11 +16,11 @@ export function cacheFirst(request) {
 export function networkAndCache(request) {
   return fetch(request)
     .then((response) => {
-      caches.open(CACHE_NAME).then((cache) => {
-        cache.put(request, response.clone())
+      return caches.open(CACHE_NAME).then((cache) => {
+        return cache.put(request, response.clone())
+      }).then(() => {
+        return response
       })
-
-      return response
     })
     .catch(() => {
       return caches.match(request)
