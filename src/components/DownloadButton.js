@@ -1,30 +1,68 @@
-import React, { PropTypes } from 'react'
-import setPropTypes from 'recompose/setPropTypes'
-import setDisplayName from 'recompose/setDisplayName'
-import compose from 'recompose/compose'
+import React, { PropTypes, Component } from 'react'
 
 import FlatButton from 'material-ui/FlatButton'
 
-export const DownloadButton = compose(
-  setDisplayName('DownloadButton'),
-  setPropTypes({
+export class DownloadButton extends Component {
+  componentDidMount() {
+    const { text, disabled } = this.props
+    if (!disabled && text) {
+      this.createURL(text)
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.text && !nextProps.disabled && this.props.text !== nextProps.text) {
+      this.revokeURL()
+      this.createURL(nextProps.text)
+    }
+  }
+
+  componentWillUnmount() {
+    this.revokeURL()
+  }
+
+  createURL(text) {
+    const blob = new Blob([text], { type: 'text/plain' })
+    const url = URL.createObjectURL(blob)
+    this.setState({
+      url
+    })
+  }
+
+  revokeURL() {
+    const { url } = this.state
+    if (url) {
+      URL.revokeObjectURL(url)
+      this.setState({
+        url: null
+      })
+    }
+  }
+
+  render() {
+    const { label, filename } = this.props
+    const { url } = this.state
+    if (!url) {
+      return (
+        <FlatButton label={ label } disabled />
+      )
+    }
+
+    return (
+      <FlatButton href={ url } label={ label } download={ filename || 'download' } />
+    )
+  }
+
+  state = {
+    url: null
+  }
+
+  static propTypes = {
     text: PropTypes.string,
     label: PropTypes.string.isRequired,
     disabled: PropTypes.bool,
     filename: PropTypes.string
-  })
-)(({ text, disabled, label, filename }) => {
-  filename = filename || 'download'
-  if (disabled || !text) {
-    return (
-      <FlatButton label={ label } disabled />
-    )
   }
-
-  const url = `data:text/plain;base64,${btoa(text)}`
-  return (
-    <FlatButton href={ url } label={ label } download={ filename } />
-  )
-})
+}
 
 export default DownloadButton
