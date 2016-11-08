@@ -13,7 +13,7 @@ class AccountController extends ApiController
     /**
      * Get the user profile.
      *
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Auth\GenericUser|\Illuminate\Database\Eloquent\Model
      */
     public function profile()
     {
@@ -25,7 +25,7 @@ class AccountController extends ApiController
      *
      * @param ProfileUpdateRequest $request
      *
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Auth\GenericUser|\Illuminate\Database\Eloquent\Model
      */
     public function update(ProfileUpdateRequest $request)
     {

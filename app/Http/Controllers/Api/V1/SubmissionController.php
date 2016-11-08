@@ -135,7 +135,7 @@ class SubmissionController extends ApiController
      *
      * @param int $submissionId
      *
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
      */
     public function show($submissionId)
     {
@@ -154,7 +154,7 @@ class SubmissionController extends ApiController
      * @param Request $request
      * @param int $id
      *
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
      */
     public function update(Request $request, $id)
     {
@@ -194,7 +194,7 @@ class SubmissionController extends ApiController
      *
      * @param int $submissionId
      *
-     * @return \Dingo\Api\Http\Response
+     * @return string
      */
     public function code($submissionId)
     {
@@ -203,11 +203,9 @@ class SubmissionController extends ApiController
         $this->authorize($submission);
 
         try {
-            $code = File::get($submission->getAttribute('code'));
+            return File::get($submission->getAttribute('code'));
         } catch (FileNotFoundException $e) {
-            return $this->responseUnknownError();
+            $this->response->errorInternal();
         }
-
-        return $code;
     }
 }

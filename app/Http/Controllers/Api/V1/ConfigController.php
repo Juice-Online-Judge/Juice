@@ -11,7 +11,7 @@ class ConfigController extends ApiController
     /**
      * Get all configs.
      *
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function index()
     {
@@ -22,6 +22,7 @@ class ConfigController extends ApiController
      * Get config data.
      *
      * @param string $key
+     *
      * @return \Dingo\Api\Http\Response
      */
     public function show($key)
@@ -37,7 +38,7 @@ class ConfigController extends ApiController
      * @param ConfigRequest $request
      * @param string $key
      *
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
      */
     public function update(ConfigRequest $request, $key)
     {

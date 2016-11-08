@@ -54,7 +54,7 @@ class TagController extends ApiController
      *
      * @param int $id
      *
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
      */
     public function show($id)
     {
@@ -67,7 +67,7 @@ class TagController extends ApiController
      * @param TagRequest $request
      * @param int $id
      *
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
      */
     public function update(TagRequest $request, $id)
     {

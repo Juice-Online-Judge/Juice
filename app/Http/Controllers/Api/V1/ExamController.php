@@ -13,9 +13,7 @@ use Carbon\Carbon;
 use Gate;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
@@ -44,9 +42,7 @@ class ExamController extends ApiController
             });
         }
 
-        $exams = $exams->paginate();
-
-        return $exams;
+        return $exams->paginate();
     }
 
     /**
@@ -66,7 +62,7 @@ class ExamController extends ApiController
             ->setAttribute('ended_at', Carbon::parse($request->input('ended_at'))->timezone('Asia/Taipei'));
 
         if (! $exam->save()) {
-            return $this->responseUnknownError();
+            $this->response->errorInternal();
         }
 
         $exam->questions()->sync($this->getQuestionFromRequest($request));
@@ -105,17 +101,17 @@ class ExamController extends ApiController
      *
      * @param int $id
      *
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
      */
     public function show($id)
     {
         $exam = Exam::with([
             'role',
-            'questions' => function (BelongsToMany $query) {
-                $query->getBaseQuery()->select(['id', 'uuid', 'title']);
+            'questions' => function (Relation $query) {
+                $query->select(['id', 'uuid', 'title']);
             },
-            'users' => function (BelongsToMany $query) {
-                $query->getBaseQuery()->select(['id', 'username', 'nickname']);
+            'users' => function (Relation $query) {
+                $query->select(['id', 'username', 'nickname']);
             },
         ])->findOrFail($id);
 
@@ -144,8 +140,8 @@ class ExamController extends ApiController
      */
     public function questions($id)
     {
-        $exam = Exam::with(['questions' => function (BelongsToMany $query) {
-            $query->getBaseQuery()->select(['id', 'uuid', 'title', 'description', 'judge']);
+        $exam = Exam::with(['questions' => function (Relation $query) {
+            $query->select(['id', 'uuid', 'title', 'description', 'judge']);
         }])->findOrFail($id);
 
         $this->authorize($exam);
@@ -169,18 +165,18 @@ class ExamController extends ApiController
         $this->authorize($exam);
 
         $exam->load([
-            'submissions' => function (HasMany $query) use ($exam) {
-                $query->getBaseQuery()->latest('submitted_at');
+            'submissions' => function (Relation $query) use ($exam) {
+                $query->latest('submitted_at');
 
                 if (! Gate::allows('isManager', $exam)) {
-                    $query->getBaseQuery()->where('user_id', $this->user->getKey());
+                    $query->where('user_id', $this->user->getKey());
                 }
             },
-            'submissions.user' => function (BelongsTo $query) {
-                $query->getBaseQuery()->select(['id', 'username', 'nickname']);
+            'submissions.user' => function (Relation $query) {
+                $query->select(['id', 'username', 'nickname']);
             },
-            'submissions.question' => function (BelongsTo $query) {
-                $query->getBaseQuery()->select(['id', 'uuid', 'title']);
+            'submissions.question' => function (Relation $query) {
+                $query->select(['id', 'uuid', 'title']);
             },
         ]);
 
@@ -200,12 +196,12 @@ class ExamController extends ApiController
 
         $this->authorize($exam);
 
-        $exam->load(['users' => function (BelongsToMany $query) use ($exam) {
+        $exam->load(['users' => function (Relation $query) use ($exam) {
             if (! Gate::allows('isManager', $exam)) {
                 $query->wherePivot('user_id', $this->user->getKey());
             }
 
-            $query->getBaseQuery()->select(['id', 'username', 'nickname']);
+            $query->select(['id', 'username', 'nickname']);
         }]);
 
         move_up_pivot_attributes($exam->getRelation('users'), ['score']);
@@ -219,14 +215,14 @@ class ExamController extends ApiController
      * @param ExamRequest $request
      * @param int $id
      *
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
      */
     public function update(ExamRequest $request, $id)
     {
         $exam = Exam::findOrFail($id);
 
         if ($exam->getAttribute('ended_at') < Carbon::now()) {
-            return $this->setMessages(['The exam is ended.'])->responseNotFound();
+            $this->response->errorNotFound('The exam is ended.');
         }
 
         $exam->fill($request->only(['name', 'began_at', 'ended_at']));
@@ -236,7 +232,7 @@ class ExamController extends ApiController
         }
 
         if (! $exam->save()) {
-            return $this->responseUnknownError();
+            $this->response->errorInternal();
         }
 
         $exam->questions()->sync($request->input('question', []));
@@ -252,20 +248,18 @@ class ExamController extends ApiController
      * @param int $id
      * @param TokenRepository $repository
      *
-     * @return \Dingo\Api\Http\Response
+     * @return string
      */
     public function token($id, TokenRepository $repository)
     {
         try {
-            $token = $repository->getToken($id, $this->user->getKey());
+            return $repository->getToken($id, $this->user->getKey());
         } catch (ModelNotFoundException $e) {
-            return $this->setMessages(['The exam is not exists.'])->responseNotFound();
+            $this->response->errorNotFound('The exam is not exists.');
         } catch (AccessDeniedException $e) {
-            return $this->setMessages(['You are not the member of the exam.'])->responseForbidden();
+            $this->response->errorForbidden('You are not the member of the exam.');
         } catch (UnavailableException $e) {
-            return $this->setMessages(['The exam is not available.'])->responseForbidden();
+            $this->response->errorForbidden('The exam is not available.');
         }
-
-        return $token;
     }
 }

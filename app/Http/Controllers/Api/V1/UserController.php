@@ -10,7 +10,7 @@ class UserController extends ApiController
     /**
      * Get all users info.
      *
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function index()
     {

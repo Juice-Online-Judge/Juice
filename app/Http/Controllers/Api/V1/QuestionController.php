@@ -26,7 +26,7 @@ class QuestionController extends ApiController
      *
      * @param QuestionRequest $request
      *
-     * @return \Dingo\Api\Http\Response
+     * @return Question
      */
     public function store(QuestionRequest $request)
     {

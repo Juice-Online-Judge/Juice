@@ -12,7 +12,7 @@ class RoleController extends ApiController
     /**
      * Get all roles.
      *
-     * @return \Dingo\Api\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function index()
     {
@@ -24,7 +24,7 @@ class RoleController extends ApiController
      *
      * @param RoleRequest $request
      *
-     * @return \Dingo\Api\Http\Response
+     * @return Role
      */
     public function store(RoleRequest $request)
     {
@@ -43,7 +43,7 @@ class RoleController extends ApiController
      * @param RoleRequest $request
      * @param int $id
      *
-     * @return \Dingo\Api\Http\Response
+     * @return Role
      */
     public function update(RoleRequest $request, $id)
     {
