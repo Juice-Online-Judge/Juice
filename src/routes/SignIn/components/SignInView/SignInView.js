@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react'
 import { bind } from 'decko'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import compose from 'recompose/compose'
 
-import { login } from 'redux/modules/account'
+import { login, oauthLogin } from 'redux/modules/account'
 import redirectOnLogin from 'lib/redirectOnLogin'
 
 import Paper from 'material-ui/Paper'
@@ -99,11 +100,24 @@ export class SignInView extends React.Component {
   };
 
   static propTypes = {
-    login: PropTypes.func.isRequired
+    login: PropTypes.func.isRequired,
+    oauth: PropTypes.string
   };
 }
 
+const isOAuthError = (token) => token === 'server-error' || token === 'failed'
+
 export default compose(
   redirectOnLogin,
-  connect(null, { login })
+  connect((_state, { params: { oauth } }) => ({
+    oauth: oauth
+  }), (dispatch, { params: { oauth } }) => {
+    if (!isOAuthError(oauth)) {
+      dispatch(oauthLogin(oauth))
+    }
+
+    return bindActionCreators({
+      login
+    }, dispatch)
+  })
 )(SignInView)
