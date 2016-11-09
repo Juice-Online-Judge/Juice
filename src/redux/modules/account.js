@@ -61,6 +61,11 @@ export const login = (username, password) => (dispatch) => {
   }))
 }
 
+export const oauthLogin = (token) => (dispatch) => {
+  store.set('juice-token', token)
+  dispatch(fetchUserInfo({ force: true }))
+}
+
 export const logout = () => (dispatch) => {
   dispatch(request({
     url: 'auth/sign-out'
