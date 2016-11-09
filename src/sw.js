@@ -39,7 +39,7 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       networkFirst(request)
     )
-  } else if (url.pathname.startsWith('/api')) {
+  } else if (url.pathname.startsWith('/api') || url.pathname.startsWith('/oauth')) {
     event.respondWith(
       apiHandler(request)
     )
