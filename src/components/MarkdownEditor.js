@@ -9,6 +9,7 @@ import shallowEqual from 'fbjs/lib/shallowEqual'
 import Toolbar from 'material-ui/Toolbar/Toolbar'
 import ToolbarGroup from 'material-ui/Toolbar/ToolbarGroup'
 import ToolbarTitle from 'material-ui/Toolbar/ToolbarTitle'
+import FlatButton from 'material-ui/FlatButton'
 import IconButton from 'material-ui/IconButton'
 import TextField from 'material-ui/TextField'
 import Markdown from './Markdown'
@@ -140,11 +141,11 @@ class MarkdownEditor extends Component {
       <div>
         <Toolbar>
           <ToolbarGroup firstChild>
-            <IconButton
-              iconStyle={ preview ? styles.none : styles.active }
-              onTouchTap={ this.handlePreviewToggle }>
-              <EditIcon />
-            </IconButton>
+            <FlatButton
+              icon={ <EditIcon /> }
+              style={ preview ? styles.none : styles.active }
+              label={ preview ? 'Preview' : 'Edit' }
+              onTouchTap={ this.handlePreviewToggle } />
           </ToolbarGroup>
           <ToolbarGroup>
             <ToolbarTitle>
