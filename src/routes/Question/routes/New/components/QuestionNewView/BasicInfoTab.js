@@ -46,13 +46,13 @@ export class BasicInfoTab extends Component {
       <div>
         <div>
           <TextField
-            floatingLabelText='UUID (optional)'
+            floatingLabelText='題目代號 (optional)'
             fullWidth
             onChange={ this.handleUuidChange } />
         </div>
         <div>
           <TextField
-            floatingLabelText='Title'
+            floatingLabelText='題目名稱'
             fullWidth
             onChange={ this.handleTitleChange } />
         </div>
@@ -61,6 +61,7 @@ export class BasicInfoTab extends Component {
             onChange={ this.handleDescChange } />
         </div>
         <div>
+          <strong>考試題目請設為不公開</strong>
           <Toggle
             label='Public'
             labelPosition='right'
