@@ -66,10 +66,10 @@ export class RestrictionTab extends Component {
           </DropDownMenu>
         </div>
         <div>
-          <TextField floatingLabelText='Time limit' onChange={ this.handleTimeChange } />
+          <TextField floatingLabelText='Time limit(s)' onChange={ this.handleTimeChange } />
         </div>
         <div>
-          <TextField floatingLabelText='Memory limit' onChange={ this.handleMemoryChange } />
+          <TextField floatingLabelText='Memory limit(MB)' onChange={ this.handleMemoryChange } />
         </div>
         <div>
           <TextField floatingLabelText='File limit' onChange={ this.handleFileChange } />
