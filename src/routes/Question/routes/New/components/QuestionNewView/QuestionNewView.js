@@ -94,13 +94,13 @@ class QuestionNewView extends Component {
             <CardActions>
               <Stepper activeStep={ stepIndex }>
                 <Step>
-                  <StepLabel>Set basic info.</StepLabel>
+                  <StepLabel> 基本資訊 </StepLabel>
                 </Step>
                 <Step>
-                  <StepLabel>Set answer</StepLabel>
+                  <StepLabel> 答案 </StepLabel>
                 </Step>
                 <Step>
-                  <StepLabel>Set restriction</StepLabel>
+                  <StepLabel> 題目限制 </StepLabel>
                 </Step>
               </Stepper>
             </CardActions>
