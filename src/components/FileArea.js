@@ -110,12 +110,14 @@ export class FileArea extends Component {
             onChange={ this.handleTypeChange }>
             <RadioButton
               style={ styles.inlineRadio }
+              labelStyle={ styles.inlineRadioLabel }
               value='file'
               label='File' />
             <RadioButton
               style={ styles.inlineRadio }
+              labelStyle={ styles.inlineRadioLabel }
               value='textarea'
-              label='TextArea' />
+              label='直接輸入' />
           </RadioButtonGroup>
         </div>
         { this.areaContent(this.state.type) }
