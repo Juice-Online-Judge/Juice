@@ -63,19 +63,10 @@ class QuestionNewView extends Component {
   }
 
   stepContent(index) {
-    if (index === 0) {
-      return (
-        <BasicInfoTab onChange={ this.handleBasicInfoChange } />
-      )
-    } else if (index === 1) {
-      return (
-        <AnswerTab onChange={ this.handleAnswerChange } />
-      )
-    } else if (index === 2) {
-      return (
-        <RestrictionTab onChange={ this.handleRestrictionChange } />
-      )
-    }
+    const { Component, onChange } = this.stepComponents[index]
+    return (
+      <Component onChange={ onChange } />
+    )
   }
 
   @bind
@@ -128,6 +119,17 @@ class QuestionNewView extends Component {
   };
 
   data = {};
+
+  stepComponents = [{
+    Component: BasicInfoTab,
+    onChange: this.handleBasicInfoChange
+  }, {
+    Component: AnswerTab,
+    onChange: this.handleAnswerChange
+  }, {
+    Component: RestrictionTab,
+    onChange: this.handleRestrictionChange
+  }]
 
   static propTypes = {
     addQuestion: PropTypes.func.isRequired,
