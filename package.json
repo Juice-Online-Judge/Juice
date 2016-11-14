@@ -140,7 +140,7 @@
     "html-webpack-plugin": "^2.24.1",
     "identity-obj-proxy": "^3.0.0",
     "jasmine-immutable-matchers": "^1.1.2",
-    "jest-cli": "^16.0.1",
+    "jest-cli": "^17.0.1",
     "jest-enzyme": "^2.0.0",
     "json-loader": "^0.5.4",
     "node-sass": "^3.11.0",
