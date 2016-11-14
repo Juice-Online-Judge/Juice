@@ -15,6 +15,9 @@ export const styles = {
     width: 'auto',
     marginRight: '15px'
   },
+  inlineRadioLabel: {
+    width: 'auto'
+  },
   noUnderline: {
     textDecoration: 'none'
   },
