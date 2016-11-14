@@ -32,9 +32,11 @@ export class AnswerTab extends Component {
     return (
       <div>
         <div>
+          <h4> Input: </h4>
           <FileArea multiple onChange={ this.handleInputChange } />
         </div>
         <div>
+          <h4> Output: </h4>
           <FileArea multiple onChange={ this.handleOutputChange } />
         </div>
       </div>
