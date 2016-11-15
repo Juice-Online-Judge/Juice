@@ -1,6 +1,8 @@
 import 'jest-enzyme/lib'
+import path from 'path'
 import * as jasmineImmutable from 'jasmine-immutable-matchers'
 import mapValues from 'lodash/mapValues'
+import reporters from 'jasmine-reporters'
 
 const jestImmutable = mapValues(jasmineImmutable, (matcherFactory) => {
   const matcher = matcherFactory()
@@ -13,5 +15,14 @@ const jestImmutable = mapValues(jasmineImmutable, (matcherFactory) => {
     }
   }
 })
+
+if (process.env.NODE_ENV === 'test') {
+  const savePath = path.join(process.env.CIRCLE_TEST_REPORTS || __dirname, 'jest')
+  const junitReporter = new reporters.JUnitXmlReporter({
+    savePath,
+    consolidateAll: false
+  })
+  jasmine.getEnv().addReporter(junitReporter)
+}
 
 expect.extend(jestImmutable)
