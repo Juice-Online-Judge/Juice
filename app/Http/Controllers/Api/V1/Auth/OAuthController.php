@@ -82,17 +82,17 @@ class OAuthController extends Controller
      */
     protected function store($user, $driver)
     {
-        $user = User::updateOrCreate([
+        $model = User::updateOrCreate([
             'username' => $driver.'-'.$user->getId(),
         ], [
-            'nickname' => $user->getName(),
+            'nickname' => $user->getName() ?: $user->getNickname(),
             'email' => $user->getEmail(),
         ]);
 
-        if (! $user->exists) {
+        if (! $model->exists) {
             return false;
         }
 
-        return JWTAuth::fromUser($user);
+        return JWTAuth::fromUser($model);
     }
 }
