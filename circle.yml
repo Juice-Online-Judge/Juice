@@ -12,6 +12,7 @@ dependencies:
     - ~/.yarn-cache
 test:
     override:
+      - mkdir -p $CIRCLE_TEST_REPORTS/jest
       - yarn test
 deployment:
   juice:
