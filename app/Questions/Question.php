@@ -20,7 +20,7 @@ class Question extends Entity
      * @var array
      */
     protected $attributes = [
-        'judge' => [],
+        'judge' => '',
     ];
 
     /**

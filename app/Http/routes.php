@@ -46,7 +46,9 @@ $api->group(['version' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
         $api->get('scores', 'ExamController@scores');
         $api->get('token', 'ExamController@token');
     });
-    $api->resource('exams', 'ExamController', ['middleware' => ['api.auth'], 'except' => ['create', 'edit']]);
+    $api->group(['middleware' => ['api.auth']], function (ApiRouter $api) {
+        $api->resource('exams', 'ExamController', ['except' => ['create', 'edit']]);
+    });
 
     $api->group(['prefix' => 'configs'], function (ApiRouter $api) {
         $api->get('/', 'ConfigController@index')->middleware(['role:admin']);
