@@ -102,6 +102,15 @@ export const fetchExamQuestion = (examId) => (dispatch, getState) => {
   dispatch(request({
     url: `exams/${examId}/questions`
   }, ({ questions }) => {
+    questions.sort((a, b) => {
+      if (a.uuid > b.uuid) {
+        return 1
+      } else if (a.uuid < b.uud) {
+        return -1
+      }
+      return 0
+    })
+
     dispatch(setQuestion({
       total: questions.length,
       page: 1,
