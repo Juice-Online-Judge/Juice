@@ -1,8 +1,8 @@
 export default {
-  path: ':id',
+  path: ':examId',
   onEnter(state, replace) {
     if (state.routes.length === 3) {
-      replace(`/exams/${state.params.id}/questions`)
+      replace(`/exams/${state.params.examId}/questions`)
     }
   },
   getComponent(_location, next) {
