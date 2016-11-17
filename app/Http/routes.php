@@ -29,7 +29,7 @@ $api->group(['version' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     });
 
     $api->group(['prefix' => 'submissions'], function (ApiRouter $api) {
-        $api->group(['middleware' => ['auth']], function (ApiRouter $api) {
+        $api->group(['middleware' => ['api.auth']], function (ApiRouter $api) {
             $api->get('recent', 'SubmissionController@recent');
             $api->post('{uuid}', 'SubmissionController@storeUsingWeb');
             $api->get('{id}', 'SubmissionController@show');
