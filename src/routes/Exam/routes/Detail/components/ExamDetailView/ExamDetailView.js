@@ -16,9 +16,9 @@ import styles from 'lib/styles'
 
 class ExamDetailView extends Component {
   componentDidMount() {
-    const { id } = this.props.params
+    const { examId } = this.props.params
     const { submissionFilter } = this.props
-    this.props.fetchExamToken(id)
+    this.props.fetchExamToken(examId)
     this.setState({ filter: filterStringify(submissionFilter) })
   }
 
@@ -58,11 +58,12 @@ class ExamDetailView extends Component {
   }
 
   get switchButton() {
-    const { id } = this.props.params
-    const { path } = this.props.routes[2]
+    const { examId } = this.props.params
+    const { path } = this.props.routes[3]
+    console.log(path)
     const othFunc = path === 'questions' ? 'submissions' : 'questions'
     return (
-      <Link to={ `/exams/${id}/${othFunc}` }>
+      <Link to={ `/exams/${examId}/${othFunc}` }>
         <FloatingActionButton style={ styles.floatBtn } >
           <FlipToFrontIcon />
         </FloatingActionButton>
@@ -71,9 +72,9 @@ class ExamDetailView extends Component {
   }
 
   render() {
-    const { id } = this.props.params
+    const { examId } = this.props.params
     const { exam, children } = this.props
-    const token = exam.getIn(['tokens', `${id}`])
+    const token = exam.getIn(['tokens', `${examId}`])
     const { path } = this.props.routes[2]
     const isSubmission = path === 'submissions'
     return (
@@ -133,7 +134,7 @@ class ExamDetailView extends Component {
     submissionFilter: PropTypes.object.isRequired,
     routes: PropTypes.array.isRequired,
     params: PropTypes.shape({
-      id: PropTypes.string.isRequired
+      examId: PropTypes.string.isRequired
     }).isRequired,
     addFilter: PropTypes.func.isRequired,
     clearFilter: PropTypes.func.isRequired,

@@ -7,11 +7,11 @@ import { createIsAdminSelector } from 'redux/modules/account'
 
 class ExamSubmissionDetail extends Component {
   componentDidMount() {
-    const { id } = this.props.params
+    const { examId } = this.props.params
     const { fetchExamSubmissions } = this.props
-    fetchExamSubmissions(id)
+    fetchExamSubmissions(examId)
     this.interval = setInterval(() => {
-      fetchExamSubmissions(id)
+      fetchExamSubmissions(examId)
     }, 3000)
   }
 
@@ -20,14 +20,14 @@ class ExamSubmissionDetail extends Component {
   }
 
   render() {
-    const { id } = this.props.params
+    const { examId } = this.props.params
     const { submission, admin, addFilter } = this.props
     return (
       <div>
         <div>This page will update every few seconds</div>
         <SubmissionList
           submission={ submission }
-          examId={ id }
+          examId={ examId }
           addFilter={ admin ? addFilter : null } />
       </div>
     )

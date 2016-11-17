@@ -5,16 +5,16 @@ import { fetchExamQuestion } from 'redux/modules/exam'
 
 class ExamQuestionDetail extends Component {
   componentDidMount() {
-    const { id } = this.props.params
+    const { examId } = this.props.params
     const { fetchExamQuestion } = this.props
-    fetchExamQuestion(id)
+    fetchExamQuestion(examId)
   }
 
   render() {
-    const { id } = this.props.params
+    const { examId } = this.props.params
     const { question } = this.props
     return (
-      <QuestionList question={ question } examId={ id } />
+      <QuestionList question={ question } examId={ examId } />
     )
   }
 
