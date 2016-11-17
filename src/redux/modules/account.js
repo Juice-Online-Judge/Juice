@@ -106,7 +106,7 @@ export const registerUser = (info) => (dispatch) => {
     return
   }
 
-  const data = renameKey(info, 'passwordConfirm', 'password_confirm')
+  const data = renameKey(info, 'passwordConfirm', 'password_confirmation')
 
   return dispatch(request({
     method: 'post',
