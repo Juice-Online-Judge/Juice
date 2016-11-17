@@ -5,6 +5,7 @@ import { createSelector } from 'reselect'
 import { request } from './app'
 import { showMessage } from './message'
 import { validateForm } from './validation'
+import { renameKey } from 'lib/utils'
 
 export const AccountRecord = new Record({
   valid: false,
@@ -104,6 +105,8 @@ export const registerUser = (info) => (dispatch) => {
   if (!isValidation) {
     return
   }
+
+  renameKey(info, 'passwordConfirm', 'password_confirm')
 
   return dispatch(request({
     method: 'post',
