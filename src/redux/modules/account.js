@@ -106,12 +106,12 @@ export const registerUser = (info) => (dispatch) => {
     return
   }
 
-  renameKey(info, 'passwordConfirm', 'password_confirm')
+  const data = renameKey(info, 'passwordConfirm', 'password_confirm')
 
   return dispatch(request({
     method: 'post',
     url: 'auth/sign-up',
-    data: info
+    data
   }, (data) => {
     store.set('juice-token', data)
     dispatch(setUserInfo(info))
