@@ -60,7 +60,6 @@ class ExamDetailView extends Component {
   get switchButton() {
     const { examId } = this.props.params
     const { path } = this.props.routes[3]
-    console.log(path)
     const othFunc = path === 'questions' ? 'submissions' : 'questions'
     return (
       <Link to={ `/exams/${examId}/${othFunc}` }>
