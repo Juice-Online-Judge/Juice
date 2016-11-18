@@ -110,7 +110,7 @@ const isOAuthError = (token) => token === 'server-error' || token === 'failed'
 export default compose(
   redirectOnLogin,
   connect((_state, { params: { oauth } }) => ({
-    oauth: oauth
+    oauth
   }), (dispatch, { params: { oauth } }) => {
     if (!isOAuthError(oauth)) {
       dispatch(oauthLogin(oauth))

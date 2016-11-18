@@ -139,7 +139,7 @@ config.utils_paths = (() => {
     Reflect.apply(resolve, null, [config.path_base, ...args])
 
   return {
-    base   : base,
+    base,
     client : base.bind(null, config.dir_client),
     dist   : base.bind(null, config.dir_dist)
   }
