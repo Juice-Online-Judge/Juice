@@ -44,7 +44,7 @@ export const submitCode = (submitData) => (dispatch) => {
   }, () => {
     dispatch(showMessage('Submit success'))
   }, () => {
-    dispatch(showMessage('Submit fail. Please retry later.'))
+    dispatch(showMessage('Judge is not running. Please report this to TA.'))
   }))
 }
 
