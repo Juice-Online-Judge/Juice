@@ -57,10 +57,14 @@ class ExamDetailView extends Component {
     this.props.clearFilter()
   }
 
+  get isSubmission() {
+    const { path } = this.props.routes[3]
+    return path === 'submissions'
+  }
+
   get switchButton() {
     const { examId } = this.props.params
-    const { path } = this.props.routes[3]
-    const othFunc = path === 'questions' ? 'submissions' : 'questions'
+    const othFunc = this.isSubmission ? 'questions' : 'submissions'
     return (
       <Link to={ `/exams/${examId}/${othFunc}` }>
         <FloatingActionButton style={ styles.floatBtn } >
@@ -74,13 +78,11 @@ class ExamDetailView extends Component {
     const { examId } = this.props.params
     const { exam, children } = this.props
     const token = exam.getIn(['tokens', `${examId}`])
-    const { path } = this.props.routes[3]
-    const isSubmission = path === 'submissions'
     return (
       <Inset>
         <Row middle='md'>
           {
-            isSubmission ? (
+            this.isSubmission ? (
               <Col md={ 7 }>
                 <Row>
                   <Col md={ 8 }>
@@ -102,7 +104,7 @@ class ExamDetailView extends Component {
               </Col>
             ) : null
           }
-          <Col md={ 1 } mdOffset={ isSubmission ? 0 : 7 } >
+          <Col md={ 1 } mdOffset={ this.isSubmission ? 0 : 7 } >
             <span>Token: </span>
           </Col>
           <Col md={ 3 } >
