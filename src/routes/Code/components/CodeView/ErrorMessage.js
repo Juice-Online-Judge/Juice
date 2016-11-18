@@ -12,12 +12,12 @@ const ErrorMessage = compose(
     judgeMessage: PropTypes.string
   })
 )(({ isFail, judgeMessage }) => {
-  return isFail ? null : (
+  return isFail ? (
     <div>
       <div>Error message:</div>
       <Prism code={ judgeMessage } lang='txt' />
     </div>
-  )
+  ) : null
 })
 
 export default ErrorMessage
