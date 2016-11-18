@@ -74,7 +74,7 @@ class ExamDetailView extends Component {
     const { examId } = this.props.params
     const { exam, children } = this.props
     const token = exam.getIn(['tokens', `${examId}`])
-    const { path } = this.props.routes[2]
+    const { path } = this.props.routes[3]
     const isSubmission = path === 'submissions'
     return (
       <Inset>
