@@ -23,6 +23,7 @@
   },
   "rules": {
     "semi" : [2, "never"],
+    "object-shorthand": 2,
     "space-before-function-paren" : [2, "never"],
     "generator-star-spacing": [2, "after"],
     "yield-star-spacing": [2, "after"],
