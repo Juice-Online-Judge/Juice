@@ -1,0 +1,47 @@
+:global {
+  $linenumber-color: #999;
+
+  pre {
+    &.line-numbers {
+      counter-reset: linenumber;
+    }
+
+    & > code {
+      position: relative;
+    }
+  }
+
+  .line-numbers {
+    & > code {
+      margin-left: 3em;
+    }
+
+    .line-numbers-rows {
+      border-right: 1px solid $linenumber-color;
+      font-size: 100%;
+      left: -3.8em;
+      letter-spacing: -1px;
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      user-select: none;
+      width: 3em;
+    }
+  }
+
+  .line-numbers-rows {
+    & > span {
+      counter-increment: linenumber;
+      display: block;
+      pointer-events: none;
+
+      &::before {
+        color: $linenumber-color;
+        content: counter(linenumber);
+        display: block;
+        padding-right: .8em;
+        text-align: right;;
+      }
+    }
+  }
+}

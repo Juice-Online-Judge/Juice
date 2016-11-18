@@ -37,7 +37,7 @@ class CodeView extends Component {
           isFail={ isFail }
           judgeMessage={ judgeMessage } />
         <div>Code:</div>
-        <Prism code={ code } lang={ lang } />
+        <Prism linenumber code={ code } lang={ lang } />
       </Inset>
     )
   }
