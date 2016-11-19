@@ -14,6 +14,7 @@ import CodeIcon from 'material-ui/svg-icons/action/code'
 
 const PENDING = 'PENDING'
 const REVIEWING = 'AC (Reviewing)'
+const HIDE_CLASS = 'xs-hide sm-hide'
 
 const getResult = ({ result, needReview }) => {
   if (!result) {
@@ -71,7 +72,7 @@ export class Submission extends Component {
             <Col xs={ 1 }>
               { id }
             </Col>
-            <Col xs={ addFilter ? 4 : 5 }>
+            <Col xs={ addFilter ? 6 : 7 } md={ addFilter ? 4 : 5 } >
               <Link to={ quesUrl }>
                 { title }
               </Link>
@@ -79,18 +80,18 @@ export class Submission extends Component {
             <Col xs={ 1 }>
               { examId ? username : null }
             </Col>
-            <Col xs={ 1 }>
+            <Col xs={ 2 } md={ 1 } >
               <span style={ resultStyle }>
                 { result }
               </span>
             </Col>
-            <Col style={ styles.upperCase } xs={ 1 } md={ 1 }>
+            <Col className={ HIDE_CLASS } style={ styles.upperCase } md={ 1 }>
               { language }
             </Col>
-            <Col xs={ 1 }>
+            <Col className={ HIDE_CLASS } md={ 1 } >
               { time || 'N/A' } s
             </Col>
-            <Col xs={ 1 }>
+            <Col className={ HIDE_CLASS } md={ 1 } >
               { memory || 'N/A' } MB
             </Col>
             <Col xs={ 1 }>
