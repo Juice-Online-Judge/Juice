@@ -12,6 +12,20 @@ import MenuItem from 'material-ui/MenuItem'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import CodeIcon from 'material-ui/svg-icons/action/code'
 
+const PENDING = 'PENDING'
+const REVIEWING = 'AC (Reviewing)'
+
+const getResult = ({ result, needReview }) => {
+  if (!result) {
+    return PENDING
+  }
+  if (result === 'AC' && needReview) {
+    return REVIEWING
+  }
+
+  return result
+}
+
 export class Submission extends Component {
   @bind
   handleFilterQuestion() {
@@ -36,16 +50,16 @@ export class Submission extends Component {
     const {
       id,
       addFilter,
-      needReview,
       quesUuid,
       examId,
       title,
       language,
       username,
       time,
-      memory,
-      result
+      memory
     } = this.props
+    const result = getResult(this.props)
+    const resultStyle = { color: resultColor[result] || resultColor['fail'] }
     const origQuesUrl = `/questions/${quesUuid}`
     const quesUrl = examId ? `/exams/${examId}${origQuesUrl}` : origQuesUrl
     const origSubUrl = `/submissions/${id}/code`
@@ -66,11 +80,11 @@ export class Submission extends Component {
               { examId ? username : null }
             </Col>
             <Col xs={ 1 }>
-              <span style={ [result === 'AC' ? styles.pass : styles.noPass, styles.bold] }>
-                { result === 'AC' && needReview ? 'AC (need review)' : result || 'PENDING' }
+              <span style={ resultStyle }>
+                { result }
               </span>
             </Col>
-            <Col style={ styles.upperCase } xs={ 1 }>
+            <Col style={ styles.upperCase } xs={ 1 } md={ 1 }>
               { language }
             </Col>
             <Col xs={ 1 }>
@@ -127,18 +141,19 @@ export class Submission extends Component {
   };
 }
 
+const resultColor = {
+  'AC': '#008000',
+  [REVIEWING]: '#ffa500',
+  [PENDING]: '#444',
+  fail: '#ff0000'
+}
+
 const styles = {
   bold: {
     fontWeight: 'bold'
   },
   upperCase: {
     textTransform: 'uppercase'
-  },
-  pass: {
-    color: 'green'
-  },
-  noPass: {
-    color: 'red'
   },
   origin: {
     horizontal: 'left',
