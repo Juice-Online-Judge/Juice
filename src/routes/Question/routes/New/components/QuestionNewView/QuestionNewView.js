@@ -5,10 +5,8 @@ import compose from 'recompose/compose'
 
 import RaisedButton from 'material-ui/RaisedButton'
 import Card from 'material-ui/Card/Card'
+import CardTitle from 'material-ui/Card/CardTitle'
 import CardActions from 'material-ui/Card/CardActions'
-import Step from 'material-ui/Stepper/Step'
-import Stepper from 'material-ui/Stepper/Stepper'
-import StepLabel from 'material-ui/Stepper/StepLabel'
 import { Row, Col } from 'react-flexbox-grid'
 
 import redirectNotAdmin from 'lib/redirectNotAdmin'
@@ -45,19 +43,6 @@ class QuestionNewView extends Component {
   }
 
   @bind
-  handleNext() {
-    const { finished, stepIndex } = this.state
-    const nextStep = stepIndex + 1
-    if (finished) {
-      this.handleAddQuestion()
-    } else {
-      this.setState({
-        stepIndex: nextStep,
-        finished: nextStep > 1
-      })
-    }
-  }
-
   handleAddQuestion() {
     this.props.addQuestion(this.data)
   }
@@ -69,43 +54,36 @@ class QuestionNewView extends Component {
     )
   }
 
-  @bind
-  handleClose() {
-    this.setState({ open: false })
-  }
-
   render() {
-    const { stepIndex, finished } = this.state
-
     return (
       <MessageContainer>
         <Inset>
           <Card>
+            <CardTitle title='基本資訊' />
+            <CardActions>
+              <BasicInfoTab onChange={ this.handleBasicInfoChange } />
+            </CardActions>
+          </Card>
+          <Card>
+            <CardTitle title='答案' />
+            <CardActions>
+              <AnswerTab onChange={ this.handleAnswerChange } />
+            </CardActions>
+          </Card>
+          <Card>
+            <CardTitle title='題目限制' />
+            <CardActions>
+              <RestrictionTab onChange={ this.handleRestrictionChange } />
+            </CardActions>
             <CardActions>
               <Row end='xs'>
                 <Col md={ 2 } sm={ 6 }>
                   <RaisedButton
                     primary
-                    label={ finished ? 'Add' : 'Next' }
-                    onTouchTap={ this.handleNext } />
+                    label='Add'
+                    onTouchTap={ this.handleAddQuestion } />
                 </Col>
               </Row>
-            </CardActions>
-            <CardActions>
-              <Stepper activeStep={ stepIndex }>
-                <Step>
-                  <StepLabel> 基本資訊 </StepLabel>
-                </Step>
-                <Step>
-                  <StepLabel> 答案 </StepLabel>
-                </Step>
-                <Step>
-                  <StepLabel> 題目限制 </StepLabel>
-                </Step>
-              </Stepper>
-            </CardActions>
-            <CardActions>
-              { this.stepContent(stepIndex) }
             </CardActions>
           </Card>
         </Inset>
@@ -113,28 +91,12 @@ class QuestionNewView extends Component {
     )
   }
 
-  state = {
-    stepIndex: 0,
-    finished: false
-  };
-
   data = {};
-
-  stepComponents = [{
-    Component: BasicInfoTab,
-    onChange: this.handleBasicInfoChange
-  }, {
-    Component: AnswerTab,
-    onChange: this.handleAnswerChange
-  }, {
-    Component: RestrictionTab,
-    onChange: this.handleRestrictionChange
-  }]
 
   static propTypes = {
     addQuestion: PropTypes.func.isRequired,
     clearStatus: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default compose(
