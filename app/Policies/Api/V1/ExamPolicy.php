@@ -2,8 +2,8 @@
 
 namespace App\Policies\Api\V1;
 
-use App\Accounts\User;
 use App\Exams\Exam;
+use App\Accounts\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ExamPolicy

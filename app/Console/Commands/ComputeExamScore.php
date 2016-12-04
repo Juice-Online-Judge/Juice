@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Submissions\Submission;
 use DB;
+use App\Submissions\Submission;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\JoinClause;

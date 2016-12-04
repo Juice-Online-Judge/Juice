@@ -2,9 +2,9 @@
 
 namespace App\Tags;
 
+use DB;
 use App\Core\Entity;
 use App\Questions\Question;
-use DB;
 
 class Tag extends Entity
 {

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Questions\Question;
+use App\Questions\JudgeRepository;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\V1\QuestionRequest;
-use App\Questions\JudgeRepository;
-use App\Questions\Question;
 
 class QuestionController extends ApiController
 {

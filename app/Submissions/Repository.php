@@ -2,10 +2,10 @@
 
 namespace App\Submissions;
 
-use App\Core\BaseRepository;
 use File;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use App\Core\BaseRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class Repository extends BaseRepository
 {

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Api\ApiController;
-use App\Http\Requests\Api\V1\Account\PasswordUpdateRequest;
-use App\Http\Requests\Api\V1\Account\ProfileUpdateRequest;
 use Hash;
+use App\Http\Controllers\Api\ApiController;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use App\Http\Requests\Api\V1\Account\ProfileUpdateRequest;
+use App\Http\Requests\Api\V1\Account\PasswordUpdateRequest;
 
 class AccountController extends ApiController
 {

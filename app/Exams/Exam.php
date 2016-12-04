@@ -2,9 +2,9 @@
 
 namespace App\Exams;
 
+use App\Core\Entity;
 use App\Accounts\Role;
 use App\Accounts\User;
-use App\Core\Entity;
 use App\Questions\Question;
 use App\Submissions\Submission;
 

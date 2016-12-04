@@ -1,7 +1,7 @@
 <?php
 
-use App\Accounts\User;
 use App\Exams\Exam;
+use App\Accounts\User;
 use App\Questions\Question;
 use Illuminate\Database\Seeder;
 

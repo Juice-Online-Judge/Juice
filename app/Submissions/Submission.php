@@ -2,10 +2,10 @@
 
 namespace App\Submissions;
 
-use App\Accounts\User;
-use App\Core\Entity;
 use App\Exams\Exam;
+use App\Core\Entity;
 use App\Judges\Judge;
+use App\Accounts\User;
 use App\Questions\Question;
 
 class Submission extends Entity
