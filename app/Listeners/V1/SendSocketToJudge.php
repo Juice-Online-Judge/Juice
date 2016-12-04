@@ -2,8 +2,8 @@
 
 namespace App\Listeners\V1;
 
-use App\Events\V1\CodeSubmitted;
 use Log;
+use App\Events\V1\CodeSubmitted;
 
 class SendSocketToJudge
 {
