@@ -1,3 +1,3 @@
 #!/bin/bash
 
-composer install --no-dev -o
+php7 /usr/bin/composer install --no-dev -o
