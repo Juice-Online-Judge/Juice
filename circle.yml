@@ -40,4 +40,4 @@ deployment:
         cd /html/resources/views
         put resources/views/main.blade.php
         EOF
-      - tar -jcvf "$CIRCLE_ARTIFACTS/bundle.tar.bz2" public/*.js public/*.css public/*.map public/appcache public/vendor resources/view/main.blade.php
+      - tar -jcvf "$CIRCLE_ARTIFACTS/bundle.tar.bz2" public/*.js public/*.css public/*.map public/appcache public/vendor resources/views/main.blade.php
