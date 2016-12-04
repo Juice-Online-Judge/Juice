@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Accounts\Role;
-use App\Http\Controllers\Api\ApiController;
-use App\Http\Requests\Api\V1\RoleRequest;
 use Illuminate\Http\Request;
+use App\Http\Requests\Api\V1\RoleRequest;
+use App\Http\Controllers\Api\ApiController;
 
 class RoleController extends ApiController
 {

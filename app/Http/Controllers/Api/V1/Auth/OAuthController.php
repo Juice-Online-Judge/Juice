@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api\V1\Auth;
 
-use App\Accounts\User;
-use App\Http\Controllers\Controller;
 use JWTAuth;
 use Redirect;
 use Socialite;
+use App\Accounts\User;
+use App\Http\Controllers\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class OAuthController extends Controller

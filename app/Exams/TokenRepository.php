@@ -2,13 +2,13 @@
 
 namespace App\Exams;
 
-use App\Exams\Exception\AccessDeniedException;
-use App\Exams\Exception\UnavailableException;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use JWTAuth;
 use JWTFactory;
+use Carbon\Carbon;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Exams\Exception\UnavailableException;
+use App\Exams\Exception\AccessDeniedException;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class TokenRepository
 {

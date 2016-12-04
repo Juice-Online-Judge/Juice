@@ -2,10 +2,10 @@
 
 namespace App\Validators;
 
-use App\Exams\Exam;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Validation\Validator;
 use Request;
+use App\Exams\Exam;
+use Illuminate\Validation\Validator;
+use Illuminate\Database\Eloquent\Builder;
 
 class InExamValidator
 {

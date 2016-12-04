@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api\V1\Auth;
 
+use JWTAuth;
 use App\Accounts\User;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\V1\SignUpRequest;
-use Illuminate\Http\Request;
-use JWTAuth;
 
 class AuthController extends ApiController
 {

@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Exams\Exam;
-use App\Exams\Exception\AccessDeniedException;
-use App\Exams\Exception\UnavailableException;
-use App\Exams\TokenRepository;
-use App\Http\Controllers\Api\ApiController;
-use App\Http\Requests\Api\V1\ExamRequest;
-use App\Questions\Question;
-use Carbon\Carbon;
 use Gate;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\Eloquent\Relations\Relation;
+use Carbon\Carbon;
+use App\Exams\Exam;
+use App\Questions\Question;
 use Illuminate\Http\Request;
+use App\Exams\TokenRepository;
 use Illuminate\Support\Collection;
+use App\Http\Requests\Api\V1\ExamRequest;
+use Illuminate\Database\Eloquent\Builder;
+use App\Http\Controllers\Api\ApiController;
+use App\Exams\Exception\UnavailableException;
+use App\Exams\Exception\AccessDeniedException;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ExamController extends ApiController
 {

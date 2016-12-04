@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1\Auth;
 
+use Validator;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Api\ApiController;
 use Dingo\Api\Exception\ValidationHttpException;
-use Illuminate\Http\Request;
-use Validator;
 
 class SignUpValidateController extends ApiController
 {

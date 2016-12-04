@@ -2,13 +2,13 @@
 
 namespace App\Questions;
 
-use App\Core\Entity;
-use App\Submissions\Submission;
-use App\Tags\Tag;
-use Dingo\Api\Facade\API;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Ramsey\Uuid\Uuid;
 use Request;
+use App\Tags\Tag;
+use App\Core\Entity;
+use Ramsey\Uuid\Uuid;
+use Dingo\Api\Facade\API;
+use App\Submissions\Submission;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Question extends Entity
 {

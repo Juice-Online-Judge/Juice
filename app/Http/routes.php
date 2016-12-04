@@ -1,7 +1,7 @@
 <?php
 
-use Dingo\Api\Routing\Router as ApiRouter;
 use Illuminate\Routing\Router;
+use Dingo\Api\Routing\Router as ApiRouter;
 
 /* @var Router $router */
 
