@@ -1,7 +1,7 @@
 #!/bin/bash
 
-WORK_PATH=$(dirname "$0")
+WORK_PATH=$(realpath "$(dirname "$0")")
 cd "$WORK_PATH"
 
-docker run -v 'conf:/conf' "$@" dansnow/juice
+docker run -v "$WORK_PATH/conf:/conf" dansnow/juice
 
