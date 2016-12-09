@@ -6,6 +6,10 @@ import compose from 'recompose/compose'
 import CardActions from 'material-ui/Card/CardActions'
 import TextField from 'material-ui/TextField'
 
+const emptyMessage = {
+  first() {}
+}
+
 const InputAction = compose(
   setPropTypes({
     name: PropTypes.string.isRequired,
@@ -15,13 +19,14 @@ const InputAction = compose(
     label: PropTypes.string.isRequired
   }),
   setDisplayName('InputAction')
-)(({ message, label: floatingLabelText, ...rest }) => {
+)(({ message, name, label: floatingLabelText, ...rest }) => {
   const props = {
     floatingLabelText,
+    name,
     ...rest
   }
 
-  props.errorText = message && message.get(name)
+  props.errorText = message && message.get(name, emptyMessage).first()
 
   return (
     <CardActions>
