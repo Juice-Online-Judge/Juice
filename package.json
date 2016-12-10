@@ -145,7 +145,7 @@
     "jest-cli": "^17.0.2",
     "jest-enzyme": "^2.0.0",
     "json-loader": "^0.5.4",
-    "node-sass": "^3.11.0",
+    "node-sass": "^4.0.0",
     "nodemon": "^1.11.0",
     "postcss-loader": "^1.2.0",
     "pug": "^2.0.0-beta6",
