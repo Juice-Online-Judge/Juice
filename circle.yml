@@ -25,6 +25,7 @@ deployment:
     branch: master
     commands:
       - cp .env.example .env
+      - npm rebuild node-sass # Temp sol for https://github.com/sass/node-sass/issues/1804
       - yarn run deploy
       - yarn global add bower
       - bower install
