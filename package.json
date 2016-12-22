@@ -52,7 +52,7 @@
     "setupFiles": [
       "./src/bootstrap.js"
     ],
-    "setupTestFrameworkScriptFile": "tests/jest-env.js"
+    "setupTestFrameworkScriptFile": "./tests/jest-env.js"
   },
   "repository": {
     "type": "git",
