@@ -3,7 +3,7 @@ machine:
   node:
     version: 7.0.0
   environment:
-    YARN_VERSION: 0.16.1
+    YARN_VERSION: 0.17.10
     PATH: "${PATH}:${HOME}/.yarn/bin"
 dependencies:
   pre:
@@ -25,6 +25,7 @@ deployment:
     branch: master
     commands:
       - cp .env.example .env
+      - npm rebuild node-sass # Temp sol for https://github.com/sass/node-sass/issues/1804
       - yarn run deploy
       - yarn global add bower
       - bower install
