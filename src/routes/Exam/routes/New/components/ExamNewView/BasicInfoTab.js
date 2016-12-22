@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bind } from 'decko'
+import setSeconds from 'date-fns/set_seconds'
 
 import { Row, Col } from 'react-flexbox-grid'
 import TextField from 'material-ui/TextField'
@@ -143,8 +144,8 @@ export class BasicInfoTab extends Component {
 
   state = {
     name: '',
-    beganTime: new Date(new Date().setSeconds(0)),
-    endedTime: new Date(new Date().setSeconds(0))
+    beganTime: setSeconds(new Date(), 0),
+    endedTime: setSeconds(new Date(), 0)
   };
 
   static propTypes = {

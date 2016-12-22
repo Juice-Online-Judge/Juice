@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import axios from 'axios'
-import moment from 'moment'
+import parse from 'date-fns/parse'
+import distanceInWordsToNow from 'date-fns/distance_in_words_to_now'
 
 const fetchLastCommit = async (project) => {
   const { data: ref } = await axios
@@ -10,7 +11,7 @@ const fetchLastCommit = async (project) => {
     hash: commit.sha.substr(0, 7),
     url: commit.html_url,
     author: commit.author.name,
-    date: moment(commit.author.date).toNow(true)
+    date: distanceInWordsToNow(parse(commit.author.date))
   }
 }
 
