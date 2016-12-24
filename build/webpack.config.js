@@ -126,7 +126,7 @@ if (__PROD__) {
 webpackConfig.module.rules = [{
   enforce: 'pre',
   test: /\.(js|jsx)$/,
-  loader: 'eslint',
+  loader: 'eslint-loader',
   exclude: /node_modules/,
   options: {
     configFile: paths.base('.eslintrc'),
@@ -135,7 +135,7 @@ webpackConfig.module.rules = [{
 }, {
   test: /\.(js|jsx)$/,
   exclude: /node_modules/,
-  loader: 'babel',
+  loader: 'babel-loader',
   options: {
     cacheDirectory: true,
     plugins: [
@@ -147,10 +147,10 @@ webpackConfig.module.rules = [{
   }
 }, {
   test: /\.json$/,
-  loader: 'json'
+  loader: 'json-loader'
 }, {
   test: /\.pug$/,
-  loader: 'pug'
+  loader: 'pug-loader'
 }]
 
 // Styles
@@ -171,14 +171,14 @@ webpackConfig.module.rules.push({
   test: /\.scss$/,
   include: /(src|flexboxgrid)/,
   use: [{
-    loader: 'style'
+    loader: 'style-loader'
   }, {
-    loader: 'css',
+    loader: 'css-loader',
     options: cssOptions
   }, {
-    loader: 'postcss'
+    loader: 'postcss-loader'
   }, {
-    loader: 'sass'
+    loader: 'sass-loader'
   }]
 })
 
@@ -186,12 +186,12 @@ webpackConfig.module.rules.push({
   test: /\.css$/,
   include: /(src|flexboxgrid)/,
   use: [{
-    loader: 'style'
+    loader: 'style-loader'
   }, {
-    loader: 'css',
+    loader: 'css-loader',
     options: cssOptions
   }, {
-    loader: 'postcss'
+    loader: 'postcss-loader'
   }]
 })
 
@@ -200,17 +200,17 @@ webpackConfig.module.rules.push({
   test: /\.scss$/,
   exclude: /(src|flexboxgrid)/,
   use: [{
-    loader: 'style'
+    loader: 'style-loader'
   }, {
-    loader: 'css',
+    loader: 'css-loader',
     options: {
       context: paths.base(config.dir_client),
       sourceMap: true
     }
   }, {
-    loader: 'postcss'
+    loader: 'postcss-loader'
   }, {
-    loader: 'sass'
+    loader: 'sass-loader'
   }]
 })
 
@@ -219,28 +219,28 @@ webpackConfig.module.rules.push({
   test: /\.css$/,
   exclude: /(src|flexboxgrid)/,
   use: [{
-    loader: 'style'
+    loader: 'style-loader'
   }, {
-    loader: 'css',
+    loader: 'css-loader',
     options: {
       context: paths.base(config.dir_client),
       sourceMap: true
     }
   }, {
-    loader: 'postcss'
+    loader: 'postcss-loader'
   }]
 })
 
 // File loaders
 /* eslint-disable */
 webpackConfig.module.rules.push(
-  { test: /\.woff(\?.*)?$/,  loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff' },
-  { test: /\.woff2(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2' },
-  { test: /\.otf(\?.*)?$/,   loader: 'file?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype' },
-  { test: /\.ttf(\?.*)?$/,   loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream' },
-  { test: /\.eot(\?.*)?$/,   loader: 'file?prefix=fonts/&name=[path][name].[ext]' },
-  { test: /\.svg(\?.*)?$/,   loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml' },
-  { test: /\.(png|jpg)$/,    loader: 'url?limit=8192' }
+  { test: /\.woff(\?.*)?$/,  loader: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff' },
+  { test: /\.woff2(\?.*)?$/, loader: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2' },
+  { test: /\.otf(\?.*)?$/,   loader: 'file-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype' },
+  { test: /\.ttf(\?.*)?$/,   loader: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream' },
+  { test: /\.eot(\?.*)?$/,   loader: 'file-loader?prefix=fonts/&name=[path][name].[ext]' },
+  { test: /\.svg(\?.*)?$/,   loader: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml' },
+  { test: /\.(png|jpg)$/,    loader: 'url-loader?limit=8192' }
 )
 /* eslint-enable */
 
