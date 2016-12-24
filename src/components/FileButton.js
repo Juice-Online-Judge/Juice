@@ -47,6 +47,10 @@ export class FileButton extends Component {
     onChange: PropTypes.func.isRequired,
     multiple: PropTypes.bool
   };
+
+  static defaultProps = {
+    label: 'Select a file...'
+  }
 }
 
 export default FileButton

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { bind } from 'decko'
 
-import FileArea from 'components/FileArea'
+import FileButton from 'components/FileButton'
 
 export class AnswerTab extends Component {
   componentDidMount() {
@@ -9,13 +9,13 @@ export class AnswerTab extends Component {
   }
 
   @bind
-  handleInputChange(content) {
-    this.handleChange({ input: content })
+  handleInputChange(file) {
+    this.handleChange({ input: { file } })
   }
 
   @bind
-  handleOutputChange(content) {
-    this.handleChange({ output: content })
+  handleOutputChange(file) {
+    this.handleChange({ output: { file } })
   }
 
   handleChange(data = {}) {
@@ -33,11 +33,11 @@ export class AnswerTab extends Component {
       <div>
         <div>
           <h4> Input: </h4>
-          <FileArea multiple onChange={ this.handleInputChange } />
+          <FileButton multiple onChange={ this.handleInputChange } />
         </div>
         <div>
           <h4> Output: </h4>
-          <FileArea multiple onChange={ this.handleOutputChange } />
+          <FileButton multiple onChange={ this.handleOutputChange } />
         </div>
       </div>
     )
