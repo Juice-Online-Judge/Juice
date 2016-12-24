@@ -1359,6 +1359,10 @@ bluebird@^3.4.6:
   version "3.4.6"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.4.6.tgz#01da8d821d87813d158967e743d5fe6c62cf8c0f"
 
+bluebird@^3.4.7:
+  version "3.4.7"
+  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.4.7.tgz#f72d760be09b7f76d08ed8fae98b289a8d05fab3"
+
 bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.1.1, bn.js@^4.4.0:
   version "4.11.6"
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.6.tgz#53344adb14617a13f6e8dd2ce28905d1c0ba3215"
@@ -2388,15 +2392,14 @@ enzyme-matchers@^2.0.0:
   dependencies:
     deep-equal-ident "^1.1.1"
 
-enzyme@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/enzyme/-/enzyme-2.6.0.tgz#148d742b25e2565f7e80870a0c92aea9be1b90ea"
+enzyme@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/enzyme/-/enzyme-2.7.0.tgz#772477800547ca2514cc0af258e647c166aee899"
   dependencies:
     cheerio "^0.22.0"
     function.prototype.name "^1.0.0"
-    in-publish "^2.0.0"
     is-subset "^0.1.1"
-    lodash "^4.16.4"
+    lodash "^4.17.2"
     object-is "^1.0.1"
     object.assign "^4.0.4"
     object.entries "^1.0.3"
@@ -5932,9 +5935,9 @@ recompose@^0.20.2:
     hoist-non-react-statics "^1.0.0"
     symbol-observable "^0.2.4"
 
-recompose@^0.21.1:
-  version "0.21.1"
-  resolved "https://registry.yarnpkg.com/recompose/-/recompose-0.21.1.tgz#d46cc2ccc8966f438982289fdbc0a870b32233af"
+recompose@^0.21.2:
+  version "0.21.2"
+  resolved "https://registry.yarnpkg.com/recompose/-/recompose-0.21.2.tgz#ff3fbdb2397b1c77c47d451be2a63b9295d44681"
   dependencies:
     change-emitter "^0.1.2"
     fbjs "^0.8.1"
