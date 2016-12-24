@@ -1,5 +1,5 @@
 import React from 'react'
-import Remarkable from 'react-remarkable'
+import Remarkable from './Remarkable'
 import { highlightString } from 'lib/highlight'
 import setDisplayName from 'recompose/setDisplayName'
 
