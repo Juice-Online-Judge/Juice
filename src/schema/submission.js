@@ -1,5 +1,5 @@
-import { Schema } from 'normalizr'
+import { schema } from 'normalizr'
 
-const submission = new Schema('submission')
+const submission = new schema.Entity('submission')
 
 export default submission

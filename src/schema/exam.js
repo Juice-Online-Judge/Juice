@@ -1,5 +1,5 @@
-import { Schema } from 'normalizr'
+import { schema } from 'normalizr'
 
-const exam = new Schema('exam')
+const exam = new schema.Entity('exam')
 
 export default exam
