@@ -1,5 +1,5 @@
-import { Schema } from 'normalizr'
+import { schema } from 'normalizr'
 
-const role = new Schema('role')
+const role = new schema.Entity('role')
 
 export default role

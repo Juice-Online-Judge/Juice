@@ -1,5 +1,5 @@
-import { Schema } from 'normalizr'
+import { schema } from 'normalizr'
 
-const user = new Schema('user')
+const user = new schema.Entity('user')
 
 export default user

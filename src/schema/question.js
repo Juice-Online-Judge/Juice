@@ -1,5 +1,5 @@
-import { Schema } from 'normalizr'
+import { schema } from 'normalizr'
 
-const question = new Schema('question', { idAttribute: 'uuid' })
+const question = new schema.Entity('question', { idAttribute: 'uuid' })
 
 export default question
