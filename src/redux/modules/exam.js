@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions'
 import { Record, Map, List } from 'immutable'
-import { normalize, arrayOf } from 'normalizr'
+import { normalize } from 'normalizr'
 import omit from 'lodash/omit'
 import map from 'lodash/map'
 import { replace } from 'react-router-redux'
@@ -30,7 +30,7 @@ export const CLEAR_EXAM = 'CLEAR_EXAM'
 export const setExam = createAction(SET_EXAM, ({ page, total, data }) => ({
   page,
   total,
-  ...normalize(data, arrayOf(examSchema))
+  ...normalize(data, [examSchema])
 }))
 
 export const setExamToken = createAction(SET_EXAM_TOKEN)

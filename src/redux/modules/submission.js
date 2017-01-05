@@ -3,7 +3,7 @@ import { createSelector } from 'reselect'
 import { Record, Map } from 'immutable'
 import omitBy from 'lodash/omitBy'
 import isNil from 'lodash/isNil'
-import { normalize, arrayOf } from 'normalizr'
+import { normalize } from 'normalizr'
 import { replace } from 'react-router-redux'
 import { createFormDataDeep } from 'lib/utils'
 
@@ -26,7 +26,7 @@ const SET_SUBMISSION_CODE = 'SET_SUCMISSION_CODE'
 const CLEAR_SUBMISSIONS = 'CLEAR_SUBMISSIONS'
 const CLEAR_SUBMISSION_CODE = 'CLEAR_SUBMISSION_CODE'
 
-export const setSubmissions = createAction(SET_SUBMISSIONS, (data) => normalize(data, arrayOf(submissionSchema)))
+export const setSubmissions = createAction(SET_SUBMISSIONS, (data) => normalize(data, [submissionSchema]))
 export const setSubmission = createAction(SET_SUBMISSION, (data) => normalize(data, submissionSchema))
 export const setSubmissionCode = createAction(SET_SUBMISSION_CODE)
 export const clearSubmissions = createAction(CLEAR_SUBMISSIONS)

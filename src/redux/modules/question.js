@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions'
 import { fromJS, Record, List, Map } from 'immutable'
-import { normalize, arrayOf } from 'normalizr'
+import { normalize } from 'normalizr'
 import omit from 'lodash/omit'
 import mapValues from 'lodash/mapValues'
 import { createSelector } from 'reselect'
@@ -33,7 +33,7 @@ export const setQuestion = createAction(SET_QUESTION, ({ data, page, total, deta
   const payload = {
     page,
     total,
-    ...normalize(data, arrayOf(questionSchema))
+    ...normalize(data, [questionSchema])
   }
   const questions = payload.entities.question
 

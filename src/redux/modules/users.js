@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions'
 import { Record, List, Map } from 'immutable'
-import { normalize, arrayOf } from 'normalizr'
+import { normalize } from 'normalizr'
 import userSchema from 'schema/user'
 
 import { request } from './app'
@@ -15,7 +15,7 @@ const initialState = new UsersState()
 const SET_USERS = 'SET_USERS'
 const CLEAR_USERS = 'CLEAR_USERS'
 
-export const setUsers = createAction(SET_USERS, (data) => normalize(data, arrayOf(userSchema)))
+export const setUsers = createAction(SET_USERS, (data) => normalize(data, [userSchema]))
 export const clearUsers = createAction(CLEAR_USERS)
 
 export const fetchUsers = () => (dispatch) => {
