@@ -1,7 +1,6 @@
 import {
   cacheFirst,
   networkFirst,
-  networkAndCache,
   preCache
 } from './sw/strategy'
 import router from './sw/routes.js'
@@ -33,7 +32,7 @@ self.addEventListener('fetch', (event) => {
 
   if (url.pathname.endsWith('.js') || url.pathname.endsWith('.css')) {
     event.respondWith(
-      networkAndCache(request)
+      networkFirst(request)
     )
   } else if (url.pathname.includes('.')) {
     event.respondWith(
