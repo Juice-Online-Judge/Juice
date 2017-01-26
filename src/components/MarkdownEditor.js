@@ -1,7 +1,5 @@
 import React, { PropTypes, Component } from 'react'
-import { findDOMNode } from 'react-dom'
 import { bind } from 'decko'
-import qwery from 'qwery'
 import isUndefined from 'lodash/isUndefined'
 import styles from 'lib/styles'
 import shallowEqual from 'fbjs/lib/shallowEqual'
@@ -30,15 +28,14 @@ class MarkdownEditor extends Component {
   }
 
   @bind
-  getTextArea(textField) {
-    if (!textField) {
-      return
-    }
-    this.textarea = qwery('textarea:nth-child(2)', findDOMNode(textField))[0]
-    this.textarea.addEventListener('select', (event) => {
-      this.selectionStart = event.target.selectionStart
-      this.selectionEnd = event.target.selectionEnd
-    })
+  getTextField(textField) {
+    this.textField = textField
+  }
+
+  @bind
+  handleSelect(event) {
+    this.selectionStart = event.target.selectionStart
+    this.selectionEnd = event.target.selectionEnd
   }
 
   @bind
@@ -111,8 +108,8 @@ class MarkdownEditor extends Component {
       return
     }
 
-    this.textarea.setSelectionRange(pos, pos)
-    this.textarea.focus()
+    this.textField.getInputNode().setSelectionRange(pos, pos)
+    this.textField.focus()
   }
 
   isSelection() {
@@ -180,8 +177,9 @@ class MarkdownEditor extends Component {
             </div>
           ) : (
             <TextField
-              ref={ this.getTextArea }
+              ref={ this.getTextField }
               onChange={ this.handleChange }
+              onSelect={ this.handleSelect }
               value={ text }
               multiLine
               rows={ 10 }
