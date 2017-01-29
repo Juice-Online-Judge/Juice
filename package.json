@@ -54,6 +54,11 @@
     ],
     "setupTestFrameworkScriptFile": "./tests/jest-env.js"
   },
+  "greenkeeper": {
+    "ignore": [
+      "history"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Sunday-Without-God/Juice.git"
