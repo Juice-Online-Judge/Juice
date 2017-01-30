@@ -19,16 +19,6 @@ describe('(Component) <TitleCard />', () => {
     expect(sut.find(CardTitle).length).toBe(1)
   })
 
-  it('Render children when passed in', () => {
-    const sut = shallow(
-      <TitleCard>
-        <div className='child' />
-      </TitleCard>
-    )
-
-    expect(sut).toContainReact(<div className='child' />)
-  })
-
   describe('(Prop) title', () => {
     it('Pass to <CardTitle />', () => {
       const sut = shallow(<TitleCard title='foo' />)
