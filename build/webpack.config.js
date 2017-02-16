@@ -94,7 +94,6 @@ if (__PROD__) {
   debug('Enable plugins for production (OccurenceOrder, Dedupe, & UglifyJS).')
   webpackConfig.plugins.push(
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         unused: true,
@@ -257,8 +256,8 @@ if (!__DEV__) {
   ).forEach(rule => {
     const [first, ...rest] = rule.use
     rule.loader = ExtractTextPlugin.extract({
-      fallbackLoader: first.loader,
-      loader: rest.map((loader) => {
+      fallback: first.loader,
+      use: rest.map((loader) => {
         return loader.options
           ? `${loader.loader}?${JSON.stringify(loader.options)}`
           : loader.loader
