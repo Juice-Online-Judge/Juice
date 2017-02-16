@@ -7,7 +7,7 @@ import noop from 'lodash/noop'
 import compose from 'lodash/fp/compose'
 import pick from 'lodash/fp/pick'
 import values from 'lodash/values'
-import Promise from 'bluebird'
+import pTry from 'p-try'
 
 export const prefixKeys = (object, prefix) => {
   return mapKeys(object, (_value, key) => {
@@ -53,7 +53,7 @@ export const createFormDataDeep = (object) => {
 }
 
 export const silencePromise = (promise) => {
-  return Promise.try(promise).then(noop, noop)
+  return pTry(promise).then(noop, noop)
 }
 
 export const valuesAt = (array, indexes) => compose(

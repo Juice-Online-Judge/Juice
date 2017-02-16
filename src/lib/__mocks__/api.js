@@ -1,4 +1,4 @@
-import Promise from 'bluebird'
+import Promise from 'any-promise'
 import invariant from 'invariant'
 
 const fakeResponse = []

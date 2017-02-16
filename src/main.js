@@ -1,4 +1,5 @@
 import 'babel-polyfill'
+import 'any-promise/register/pinkie'
 import './bootstrap'
 import React from 'react'
 import ReactDOM from 'react-dom'

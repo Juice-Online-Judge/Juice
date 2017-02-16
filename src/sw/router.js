@@ -1,4 +1,4 @@
-import Promise from 'bluebird'
+import Promise from 'any-promise'
 import pathToRegexp from 'path-to-regexp'
 import { networkOnly } from './strategy'
 
