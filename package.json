@@ -46,7 +46,7 @@
       "^.+\\.(css|scss)$": "<rootDir>/tests/mocks/style-mock.js",
       "flexboxgrid": "<rootDir>/tests/mocks/style-mock.js"
     },
-    "testPathDirs": [
+    "roots": [
       "<rootDir>/src"
     ],
     "setupFiles": [
