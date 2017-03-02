@@ -7,7 +7,7 @@ import { isPendingSelector } from 'redux/modules/app'
 class LoadingContainer extends Component {
   componentDidMount() {
     this.setState({
-      left: this.refs.container.offsetWidth / 2 - 20
+      left: (this.refs.container.offsetWidth / 2) - 20
     })
   }
 
@@ -22,7 +22,7 @@ class LoadingContainer extends Component {
   }
 
   state = {
-    left: window.innerWidth / 2 - 20
+    left: (window.innerWidth / 2) - 20
   };
 
   static propTypes = {

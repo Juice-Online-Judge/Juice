@@ -10,7 +10,7 @@ api.request = jest.fn((request) => {
   for (const [i, { url, error, data }] of fakeResponse.entries()) {
     if (url === request.url) {
       idx = i
-      res = error ? Promise.reject({ status: error, data: {} }) : Promise.resolve({ data })
+      res = error ? Promise.reject({ status: error, data: {} }) : Promise.resolve({ data }) // eslint-disable-line
       break
     }
   }

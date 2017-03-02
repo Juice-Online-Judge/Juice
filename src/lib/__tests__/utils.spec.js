@@ -18,7 +18,7 @@ describe('utils', () => {
 
   describe('#silencePromise', () => {
     it('will make promise silence', () => {
-      const promise = Promise.reject('foo')
+      const promise = Promise.reject(new Error('foo'))
 
       return silencePromise(promise)
     })
