@@ -6,7 +6,7 @@
   },
   "scripts": {
     "storybook": "start-storybook -p 9001",
-    "clean": "rm -rf public/*.js public/*.map public/*.css",
+    "clean": "rm -rf public/*.js public/*.map public/*.css public/*.gz",
     "compile": "node -r dotenv/config -r babel-register --harmony bin/compile",
     "dev": "concurrently --kill-others 'yarn run watch' 'php artisan serve'",
     "dev:test": "concurrently --kill-others 'yarn run watch' 'php artisan serve' 'yarn run test:dev'",
