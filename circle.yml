@@ -3,7 +3,7 @@ machine:
   node:
     version: 7.0.0
   environment:
-    YARN_VERSION: 0.17.10
+    YARN_VERSION: 0.21.3
     PATH: "${PATH}:${HOME}/.yarn/bin"
 dependencies:
   pre:
