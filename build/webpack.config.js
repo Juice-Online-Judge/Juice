@@ -29,12 +29,10 @@ const webpackConfig = {
 // Entry Points
 // ------------------------------------
 const APP_ENTRY_PATH = paths.base(config.dir_client) + '/main.js'
-const SW_ENTRY_PATH = paths.base(config.dir_client) + '/sw.js'
 
 webpackConfig.entry = {
   app: [APP_ENTRY_PATH],
-  vendor: config.compiler_vendor,
-  sw: SW_ENTRY_PATH
+  vendor: config.compiler_vendor
 }
 
 // ------------------------------------

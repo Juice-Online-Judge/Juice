@@ -16,10 +16,11 @@ const store = configureStore({ initialState, browserHistory })
 const history = syncHistoryWithStore(browserHistory, store)
 
 if (Reflect.has(navigator, 'serviceWorker')) {
-  navigator.serviceWorker.register('/sw.js')
-    .then((reg) => {
-      console.log('Service worker register succes at scope: ', reg.scope)
-    })
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    for (const registration of registrations) {
+      registration.unregister()
+    }
+  })
 }
 
 injectTapEventPlugin()
