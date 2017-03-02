@@ -1,6 +1,7 @@
 import webpack from 'webpack'
 import cssnano from 'cssnano'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import CompressionPlugin from 'compression-webpack-plugin'
 import ScriptExtHtmlWebpackPlugin from 'script-ext-html-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import BabiliPlugin from 'babili-webpack-plugin'
@@ -90,14 +91,15 @@ webpackConfig.plugins = [
 ]
 
 if (__PROD__) {
-  debug('Enable plugins for production (OccurenceOrder, LimitChunkCount, MinChunkSize & Babili).')
+  debug('Enable plugins for production (OccurenceOrder, LimitChunkCount, MinChunkSize, Compression & Babili).')
   webpackConfig.plugins.push(
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
     new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000}),
     new BabiliPlugin({
       removeDebugger: true
-    })
+    }),
+    new CompressionPlugin()
   )
 }
 
