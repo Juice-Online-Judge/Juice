@@ -3,6 +3,7 @@ import cssnano from 'cssnano'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ScriptExtHtmlWebpackPlugin from 'script-ext-html-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import BabiliPlugin from 'babili-webpack-plugin'
 import config from '../config'
 import _debug from 'debug'
 
@@ -89,18 +90,14 @@ webpackConfig.plugins = [
 ]
 
 if (__PROD__) {
-  debug('Enable plugins for production (OccurenceOrder, Dedupe, & UglifyJS).')
+  debug('Enable plugins for production (OccurenceOrder, LimitChunkCount, MinChunkSize & Babili).')
   webpackConfig.plugins.push(
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        unused: true,
-        dead_code: true,
-        warnings: false
-      }
-    }),
     new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
-    new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000})
+    new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000}),
+    new BabiliPlugin({
+      removeDebugger: true
+    })
   )
 }
 
