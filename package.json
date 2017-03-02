@@ -8,25 +8,25 @@
     "storybook": "start-storybook -p 9001",
     "clean": "rm -rf public/*.js public/*.map public/*.css",
     "compile": "node -r dotenv/config -r babel-register --harmony bin/compile",
-    "dev": "concurrently --kill-others 'npm run watch' 'php artisan serve'",
-    "dev:test": "concurrently --kill-others 'npm run watch' 'php artisan serve' 'npm run test:dev'",
+    "dev": "concurrently --kill-others 'yarn run watch' 'php artisan serve'",
+    "dev:test": "concurrently --kill-others 'yarn run watch' 'php artisan serve' 'yarn run test:dev'",
     "deploy": "better-npm-run deploy",
     "deploy:dev": "better-npm-run deploy:dev",
-    "watch": "npm run clean && nodemon -x 'node -r dotenv/config -r babel-register --harmony' bin/watch.js",
+    "watch": "yarn run clean && nodemon -x 'node -r dotenv/config -r babel-register --harmony' bin/watch.js",
     "lint": "eslint . ./",
-    "lint:fix": "npm run lint -- --fix",
+    "lint:fix": "yarn run lint -- --fix",
     "test": "better-npm-run test",
-    "test:dev": "npm run test -- --watch"
+    "test:dev": "yarn run test -- --watch"
   },
   "betterScripts": {
     "deploy": {
-      "command": "npm run clean && npm run compile",
+      "command": "yarn run clean && yarn run compile",
       "env": {
         "NODE_ENV": "production"
       }
     },
     "deploy:dev": {
-      "command": "npm run clean && npm run compile",
+      "command": "yarn run clean && yarn run compile",
       "env": {
         "NODE_ENV": "development"
       }
