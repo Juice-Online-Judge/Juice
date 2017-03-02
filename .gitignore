@@ -11,5 +11,6 @@ public/appcache
 public/*.js
 public/*.map
 public/*.css
+public/*.gz
 /tests/jest
 *.log
