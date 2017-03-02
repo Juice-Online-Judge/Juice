@@ -114,7 +114,16 @@ webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
 // ------------------------------------
 // JavaScript / JSON
 
-const presets = [['es2015', { modules: false }], 'react', 'stage-0']
+const presets = [
+  ['env', {
+    targets: {
+      browsers: ['last 2 versions', 'safari >= 10']
+    },
+    modules: false
+  }],
+  'react',
+  'stage-0'
+]
 
 if (__PROD__) {
   presets.push('react-optimize')
