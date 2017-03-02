@@ -9,7 +9,8 @@
   "presets": [
     ["env", {
       "targets": {
-        "browsers": ["last 2 versions", "safari >= 10"]
+        "browsers": ["last 2 versions", "safari >= 10"],
+        "node": "current"
       }
     }],
     "react",
