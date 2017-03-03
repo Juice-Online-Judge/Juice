@@ -85,7 +85,7 @@ describe('(Redux) account', () => {
 
     afterEach(() => {
       api.clearFakeResponse()
-      localStore.clear()
+      localStore.clearAll()
     })
   })
 

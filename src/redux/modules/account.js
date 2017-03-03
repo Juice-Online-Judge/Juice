@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions'
 import { Record, Map, List } from 'immutable'
-import store from 'store'
+import store from 'store/dist/store.modern'
 import { createSelector } from 'reselect'
 import { request } from './app'
 import { showMessage } from './message'
@@ -83,7 +83,7 @@ export const fetchUserInfo = (options = { force: false }) => (dispatch, getState
     return
   }
 
-  if (!store.has('juice-token')) {
+  if (store.get('juice-token') === undefined) {
     dispatch(setLoginState(false))
     return
   }
@@ -141,7 +141,7 @@ export const isLoginSelector = createSelector(
 // Helper function
 
 export const isLogin = (account) => {
-  return account.get('state') || store.has('juice-token')
+  return account.get('state') || (store.get('juice-token') !== undefined)
 }
 
 export const actions = {
