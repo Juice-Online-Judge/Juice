@@ -1,7 +1,3 @@
-export default {
-  path: 'about-us',
-  getComponent(_location, next) {
-    System.import('./components/AboutUsView')
-      .then((AboutUsView) => next(null, AboutUsView))
-  }
-}
+import loadable from 'routes/utils/loadable'
+
+export default loadable(() => import('./components/AboutUsView'))

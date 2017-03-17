@@ -1,14 +1,13 @@
-import React, { PropTypes, PureComponent } from 'react'
-import { bind } from 'decko'
-import withRouter from 'react-router/lib/withRouter'
-import { routerShape } from 'react-router/lib/PropTypes'
+import React, {PropTypes, PureComponent} from 'react'
+import {connect} from 'react-redux'
+import {bind} from 'decko'
+import {push} from 'react-router-redux'
 
 import MenuItem from 'material-ui/MenuItem'
 
 export class MenuLinkItem extends PureComponent {
-  @bind
-  handleTouchTap() {
-    this.props.router.push(this.props.to)
+  @bind handleTouchTap() {
+    this.props.push(this.props.to)
   }
 
   render() {
@@ -17,17 +16,13 @@ export class MenuLinkItem extends PureComponent {
     Reflect.deleteProperty(props, 'to')
     Reflect.deleteProperty(props, 'router')
 
-    return (
-      <MenuItem
-        { ...props }
-        onTouchTap={ this.handleTouchTap } />
-    )
+    return <MenuItem { ...props } onTouchTap={ this.handleTouchTap } />
   }
 
   static propTypes = {
     to: PropTypes.string.isRequired,
-    router: routerShape
-  }
+    push: PropTypes.func.isRequired
+  };
 }
 
-export default withRouter(MenuLinkItem)
+export default connect(() => ({}), {push})(MenuLinkItem)

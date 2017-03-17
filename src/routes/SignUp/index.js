@@ -1,7 +1,3 @@
-export default {
-  path: 'sign-up',
-  getComponent(_location, next) {
-    System.import('./components/SignUpView')
-      .then((SignUpView) => next(null, SignUpView))
-  }
-}
+import loadable from 'routes/utils/loadable'
+
+export default loadable(() => import('./components/SignUpView'))

@@ -1,9 +1,9 @@
-import { applyMiddleware, compose, createStore } from 'redux'
-import { routerMiddleware } from 'react-router-redux'
+import {applyMiddleware, compose, createStore} from 'redux'
+import {routerMiddleware} from 'react-router-redux'
 import thunk from 'redux-thunk'
 import rootReducer from './rootReducer'
 
-export default function configureStore({ initialState = {}, browserHistory }) {
+export default function configureStore({initialState = {}, browserHistory}) {
   // Compose final middleware and use devtools in debug environment
   let middleware = applyMiddleware(thunk, routerMiddleware(browserHistory))
   if (__DEBUG__) {

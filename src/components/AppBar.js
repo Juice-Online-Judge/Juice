@@ -1,7 +1,7 @@
-import React, { PropTypes } from 'react'
-import { Link, IndexLink } from 'react-router'
-import { connect } from 'react-redux'
-import { bind } from 'decko'
+import React, {PropTypes} from 'react'
+import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {bind} from 'decko'
 
 import MuiAppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
@@ -14,7 +14,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import LeftNav from './LeftNav'
 import MenuLinkItem from './MenuLinkItem'
 
-import { fetchUserInfo, logout } from 'redux/modules/account'
+import {fetchUserInfo, logout} from 'redux/modules/account'
 import commonStyles from 'lib/styles'
 
 export class AppBar extends React.Component {
@@ -22,20 +22,17 @@ export class AppBar extends React.Component {
     this.props.fetchUserInfo()
   }
 
-  @bind
-  logout() {
+  @bind logout() {
     this.props.logout()
   }
 
-  @bind
-  handleClose() {
-    this.setState({ open: false })
+  @bind handleClose() {
+    this.setState({open: false})
   }
 
-  @bind
-  handleToggle() {
+  @bind handleToggle() {
     const open = !this.state.open
-    this.setState({ open })
+    this.setState({open})
   }
 
   get leftMenu() {
@@ -47,17 +44,20 @@ export class AppBar extends React.Component {
   }
 
   get rightMenu() {
-    const { account } = this.props
+    const {account} = this.props
     if (account.get('state')) {
       return (
         <div>
           <Link to='/about-us'>
             <FlatButton labelStyle={ commonStyles.whiteColor } label='About us' />
           </Link>
-          <span style={
-            Object.assign({}, commonStyles.whiteColor, styles.verticalAlign)
-          }>
-            { account.getIn(['user', 'nickname']) }
+          <span
+            style={ Object.assign(
+              {},
+              commonStyles.whiteColor,
+              styles.verticalAlign
+            ) }>
+            {account.getIn(['user', 'nickname'])}
           </span>
           <IconMenu
             iconButtonElement={
@@ -66,7 +66,7 @@ export class AppBar extends React.Component {
               </IconButton>
             }
             targetOrigin={ styles.origin }
-            anchorOrigin={ styles.origin } >
+            anchorOrigin={ styles.origin }>
             <MenuLinkItem primaryText='Submission' to='/submissions' />
             <MenuItem primaryText='Logout' onTouchTap={ this.logout } />
           </IconMenu>
@@ -93,12 +93,12 @@ export class AppBar extends React.Component {
     return (
       <MuiAppBar
         title={
-          <IndexLink style={ commonStyles.whiteLink } to='/'>
+          <Link style={ commonStyles.whiteLink } to='/'>
             Juice
-          </IndexLink>
+          </Link>
         }
         iconElementLeft={ this.leftMenu }
-        iconElementRight={ this.rightMenu } >
+        iconElementRight={ this.rightMenu }>
         <LeftNav open={ this.state.open } onRequestChange={ this.handleClose } />
       </MuiAppBar>
     )
@@ -115,9 +115,12 @@ export class AppBar extends React.Component {
   };
 }
 
-export default connect((state) => ({
-  account: state.account
-}), { fetchUserInfo, logout })(AppBar)
+export default connect(
+  state => ({
+    account: state.account
+  }),
+  {fetchUserInfo, logout}
+)(AppBar)
 
 const styles = {
   origin: {

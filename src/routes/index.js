@@ -1,12 +1,40 @@
-import CoreLayout from 'layouts/CoreLayout/CoreLayout'
-import redirect from './utils/redirect'
+import React from 'react'
+import {Route, Switch} from 'react-router-dom'
 
-export default {
-  path: '/',
-  component: CoreLayout,
-  indexRoute: redirect('/exams'),
-  getChildRoutes(_location, next) {
-    System.import('./routes')
-      .then((routes) => next(null, routes))
-  }
-}
+import redirect from './utils/redirect'
+import CoreLayout from 'layouts/CoreLayout/CoreLayout'
+import AboutUs from './AboutUs'
+import Code from './Code'
+import Exam from './Exam'
+import ExamNew from './ExamNew'
+import ExamDetail from './ExamDetail'
+import NotFound from './NotFound'
+import PermissionDenied from './PermissionDenied'
+import Question from './Question'
+import QuestionNew from './QuestionNew'
+import QuestionDetail from './QuestionDetail'
+import SignIn from './SignIn'
+import SignUp from './SignUp'
+import Submission from './Submission'
+
+export default () => (
+  <CoreLayout>
+    <Switch>
+      <Route exact path='/' component={ redirect('/exam') } />
+      <Route path='/about-us' component={ AboutUs } />
+      <Route path='(exams/:examId/)submissions/:id/code' component={ Code } />
+      <Route exact path='/exams' component={ Exam } />
+      <Route path='/exams/new' component={ ExamNew } />
+      <Route path='/exams/:examId/questions/:uuid' component={ QuestionDetail } />
+      <Route path='/exams/:examId/:func?' component={ ExamDetail } />
+      <Route path='/page-not-found' component={ NotFound } />
+      <Route path='/permission-denied' component={ PermissionDenied } />
+      <Route path='/questions' component={ Question } />
+      <Route path='/questions/new' component={ QuestionNew } />
+      <Route path='/questions/:uuid' component={ QuestionDetail } />
+      <Route path='/sign-in' component={ SignIn } />
+      <Route path='/sign-up' component={ SignUp } />
+      <Route path='submissions' component={ Submission } />
+    </Switch>
+  </CoreLayout>
+)
