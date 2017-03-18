@@ -98,7 +98,7 @@
     "react-codemirror": "^0.3.0",
     "react-dom": "^15.4.2",
     "react-flexbox-grid": "^0.10.2",
-    "react-loadable": "^2.0.3",
+    "react-loadable": "^3.0.1",
     "react-motion": "^0.4.5",
     "react-recaptcha": "^2.2.6",
     "react-redux": "^5.0.3",
