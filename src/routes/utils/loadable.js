@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react'
 import loadable from 'react-loadable'
 
-const Loading = ({isLoading, pastDelay, error}) => {
+const LoadingComponent = ({isLoading, pastDelay, error}) => {
   if (isLoading) {
     return pastDelay ? <div> Loading... </div> : null
   } else if (error) {
@@ -11,10 +11,13 @@ const Loading = ({isLoading, pastDelay, error}) => {
   }
 }
 
-Loading.propTypes = {
+LoadingComponent.propTypes = {
   isLoading: PropTypes.boolean,
   pastDelay: PropTypes.boolean,
   error: PropTypes.object
 }
 
-export default loader => loadable(loader, Loading)
+export default loader => loadable({
+  loader,
+  LoadingComponent
+})
