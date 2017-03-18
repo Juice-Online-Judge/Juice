@@ -59,7 +59,7 @@ class QuestionTab extends Component {
   }
 
   render() {
-    const { app, question, fetchQuestion } = this.props
+    const { app, question } = this.props
     const { selectedQuestion, detail, detailUuid, questionDetail } = this.state
     const total = question.get('total')
     return (
@@ -67,9 +67,7 @@ class QuestionTab extends Component {
         <ToggleDisplay hide={ detail }>
           <LoadingContainer loading={ app.get('status') === RequestStatus.PENDING }>
             <ExamQuestionList
-              app={ app }
               question={ question }
-              fetchQuestion={ fetchQuestion }
               selectedQuestion={ selectedQuestion }
               onChange={ this.handleQuestionChange }
               onRequestDetail={ this.handleRequestDetail } />

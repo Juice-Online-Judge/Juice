@@ -55,9 +55,11 @@ export class Submission extends Component {
       language,
       username,
       time,
-      memory
+      memory,
+      result,
+      needReview
     } = this.props
-    const result = getResult(this.props)
+    const resultText = getResult({result, needReview})
     const resultStyle = {color: resultColor[result] || resultColor['fail']}
     const origQuesUrl = `/questions/${quesUuid}`
     const quesUrl = examId ? `/exams/${examId}${origQuesUrl}` : origQuesUrl
@@ -80,7 +82,7 @@ export class Submission extends Component {
             </Col>
             <Col xs={ 2 } md={ 1 }>
               <span style={ resultStyle }>
-                {result}
+                {resultText}
               </span>
             </Col>
             <Col className={ HIDE_CLASS } style={ styles.upperCase } md={ 1 }>

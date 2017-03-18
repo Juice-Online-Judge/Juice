@@ -9,20 +9,19 @@ class Toasts extends Component {
     const container = document.createElement('div')
     document.body.appendChild(container)
     this.container = container
-    this.renderSubtree(this.props)
+    const {children} = this.props
+    this.renderSubtree(children)
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.renderSubtree(nextProps)
+  componentWillReceiveProps({children}) {
+    this.renderSubtree(children)
   }
 
   componentWillUnmount() {
     document.body.removeChild(this.container)
   }
 
-  renderSubtree(props) {
-    const { children } = props
-
+  renderSubtree(children) {
     const transitionStyles = Children.map(children, (toast) => ({
       key: toast.key,
       data: {

@@ -117,8 +117,7 @@ export class SignUpView extends React.Component {
 
   static propTypes = {
     validation: PropTypes.object.isRequired,
-    registerUser: PropTypes.func.isRequired,
-    validateForm: PropTypes.func.isRequired
+    registerUser: PropTypes.func.isRequired
   };
 }
 

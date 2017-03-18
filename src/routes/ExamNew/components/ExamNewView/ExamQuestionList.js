@@ -41,9 +41,7 @@ class ExamQuestionList extends Component {
   }
 
   static propTypes = {
-    app: PropTypes.object.isRequired,
     question: PropTypes.object.isRequired,
-    fetchQuestion: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
     onRequestDetail: PropTypes.func.isRequired,
     selectedQuestion: PropTypes.array.isRequired

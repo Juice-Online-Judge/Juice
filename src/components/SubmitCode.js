@@ -70,10 +70,8 @@ export class SubmitCode extends Component {
   static propTypes = {
     uuid: PropTypes.string.isRequired,
     examId: PropTypes.string,
-    submission: PropTypes.object.isRequired,
     submitCode: PropTypes.func.isRequired,
-    goBack: PropTypes.func.isRequired,
-    expanded: PropTypes.bool
+    goBack: PropTypes.func.isRequired
   };
 }
 
@@ -84,6 +82,4 @@ const styles = {
   }
 }
 
-export default connect((state) => ({
-  submission: state.submission
-}), { submitCode, goBack })(SubmitCode)
+export default connect(() => ({}), { submitCode, goBack })(SubmitCode)
