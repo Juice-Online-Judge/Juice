@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react'
+import React, { PropTypes } from 'react'
 import setPropTypes from 'recompose/setPropTypes'
 
 import Question from 'components/Question'
@@ -13,7 +13,7 @@ export const QuestionView = setPropTypes({
       uuid: PropTypes.string.isRequired
     }).isRequired
   })
-})(({match: {params: {examId, uuid}}}) => (
+})(({ match: { params: { examId, uuid } } }) => (
   <Inset>
     <Question examId={ examId } uuid={ uuid } />
   </Inset>

@@ -9,11 +9,11 @@ class Toast extends Component {
     children: PropTypes.node,
     timeout: PropTypes.number.isRequired,
     onRequestClose: PropTypes.func.isRequired
-  }
+  };
 
   static defaultProps = {
     timeout: 3000
-  }
+  };
 }
 
 export default Toast

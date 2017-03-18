@@ -1,6 +1,6 @@
 import createHistory from 'history/createBrowserHistory'
 import qhistory from 'qhistory'
-import {stringify, parse} from 'qs'
+import { stringify, parse } from 'qs'
 
 const history = createHistory()
 

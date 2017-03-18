@@ -18,14 +18,14 @@ const remarkableOpts = {
   }
 }
 
-const Markdown = setDisplayName('Markdown')((props) => {
+const Markdown = setDisplayName('Markdown')(props => {
   const { children, ...rest } = props
 
   if (children) {
     return (
       <span className='markdown-body'>
-        <Remarkable { ...rest } options={ remarkableOpts } >
-          { children }
+        <Remarkable { ...rest } options={ remarkableOpts }>
+          {children}
         </Remarkable>
       </span>
     )

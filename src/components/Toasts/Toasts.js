@@ -9,11 +9,11 @@ class Toasts extends Component {
     const container = document.createElement('div')
     document.body.appendChild(container)
     this.container = container
-    const {children} = this.props
+    const { children } = this.props
     this.renderSubtree(children)
   }
 
-  componentWillReceiveProps({children}) {
+  componentWillReceiveProps({ children }) {
     this.renderSubtree(children)
   }
 
@@ -22,7 +22,7 @@ class Toasts extends Component {
   }
 
   renderSubtree(children) {
-    const transitionStyles = Children.map(children, (toast) => ({
+    const transitionStyles = Children.map(children, toast => ({
       key: toast.key,
       data: {
         id: toast.props.id ? toast.props.id : toast.key,
@@ -38,22 +38,18 @@ class Toasts extends Component {
       <TransitionMotion
         styles={ transitionStyles }
         willEnter={ this.willEnter }
-        willLeave={ this.willLeave } >
-        {
-          (configs) => (
-            <div style={ styles.fullScreen }>
-              {
-                configs.map((config) => (
-                  <Toast
-                    key={ config.key }
-                    id={ config.data.id }
-                    { ...config.data.props }
-                    style={ { ...config.style, ...styles.toast } } />
-                ))
-              }
-            </div>
-          )
-        }
+        willLeave={ this.willLeave }>
+        {configs => (
+          <div style={ styles.fullScreen }>
+            {configs.map(config => (
+              <Toast
+                key={ config.key }
+                id={ config.data.id }
+                { ...config.data.props }
+                style={ { ...config.style, ...styles.toast } } />
+            ))}
+          </div>
+        )}
       </TransitionMotion>
     )
 
@@ -80,7 +76,7 @@ class Toasts extends Component {
 
   static propTypes = {
     children: PropTypes.arrayOf(PropTypes.element)
-  }
+  };
 }
 
 export default Toasts

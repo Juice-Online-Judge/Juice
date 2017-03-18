@@ -23,7 +23,7 @@ export const CoreLayout = compose(
       <div className='view-container' style={ styles.container }>
         <StyleRoot>
           <AppBar />
-          { children }
+          {children}
         </StyleRoot>
       </div>
     </div>

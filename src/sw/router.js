@@ -42,17 +42,19 @@ class Router {
         request.params[key.name] = m[idx + 1]
       })
 
-      return handlers.reduce((res, route) => {
-        if (!route.method || route.method === method) {
-          return res
-            .then((value) => route.handler(request, value))
-        } else {
-          return res
-        }
-      }, Promise.resolve())
-        .then((response) => isResponse(response)
-          ? response
-          : networkOnly(request)
+      return handlers
+        .reduce(
+          (res, route) => {
+            if (!route.method || route.method === method) {
+              return res.then(value => route.handler(request, value))
+            } else {
+              return res
+            }
+          },
+          Promise.resolve()
+        )
+        .then(
+          response => isResponse(response) ? response : networkOnly(request)
         )
     }
 
@@ -60,12 +62,7 @@ class Router {
   }
 }
 
-[
-  'get',
-  'post',
-  'put',
-  'delete'
-].forEach((method) => {
+['get', 'post', 'put', 'delete'].forEach(method => {
   Router.prototype[method] = function(path, handler) {
     this.addRoute(method, path, handler)
   }

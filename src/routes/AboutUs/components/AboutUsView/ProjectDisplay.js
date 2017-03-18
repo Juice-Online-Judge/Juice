@@ -11,9 +11,9 @@ const ProjectDisplay = compose(
   })
 )(({ desc, project }) => (
   <div>
-    { desc }:
+    {desc}:
     <BlankLink href={ `https://github.com/Sunday-Without-God/${project}` }>
-      { `https://github.com/Sunday-Without-God/${project}` }
+      {`https://github.com/Sunday-Without-God/${project}`}
     </BlankLink>
     <LastUpdateDisplay project={ project } />
   </div>

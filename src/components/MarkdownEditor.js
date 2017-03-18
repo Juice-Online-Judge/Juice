@@ -22,40 +22,33 @@ class MarkdownEditor extends Component {
     return !shallowEqual(this.state, nextState)
   }
 
-  @bind
-  handlePreviewToggle() {
+  @bind handlePreviewToggle() {
     this.setState({ preview: !this.state.preview })
   }
 
-  @bind
-  getTextField(textField) {
+  @bind getTextField(textField) {
     this.textField = textField
   }
 
-  @bind
-  handleSelect(event) {
+  @bind handleSelect(event) {
     this.selectionStart = event.target.selectionStart
     this.selectionEnd = event.target.selectionEnd
   }
 
-  @bind
-  handleBold() {
+  @bind handleBold() {
     this.appendOrWrapText('****')
   }
 
-  @bind
-  handleItalic() {
+  @bind handleItalic() {
     this.appendOrWrapText('__')
   }
 
-  @bind
-  handleBulleted() {
+  @bind handleBulleted() {
     const { text } = this.state
     this.appendText(text ? '\n- ' : '- ')
   }
 
-  @bind
-  handleNumbered() {
+  @bind handleNumbered() {
     const { text } = this.state
     this.appendText(text ? '\n1. ' : '1. ')
   }
@@ -76,11 +69,14 @@ class MarkdownEditor extends Component {
     const selectedText = text.substr(start, end)
     const selectedBefore = text.substr(0, start)
     const selectedEnd = text.substr(end)
-    this.setState({
-      text: `${selectedBefore}${wrappedText}${selectedText}${wrappedText}${selectedEnd}`
-    }, () => {
-      this.moveCursor(end + wrappedText.length)
-    })
+    this.setState(
+      {
+        text: `${selectedBefore}${wrappedText}${selectedText}${wrappedText}${selectedEnd}`
+      },
+      () => {
+        this.moveCursor(end + wrappedText.length)
+      }
+    )
   }
 
   appendTextAndMoveCursor(appendText) {
@@ -119,8 +115,7 @@ class MarkdownEditor extends Component {
     return this.selectionStart !== this.selectedEnd
   }
 
-  @bind
-  handleChange(event) {
+  @bind handleChange(event) {
     const { onChange } = this.props
     const { value } = event.target
     this.setState({
@@ -148,45 +143,33 @@ class MarkdownEditor extends Component {
             <ToolbarTitle>
               Markdown Editor
             </ToolbarTitle>
-            <IconButton
-              disabled={ preview }
-              onTouchTap={ this.handleBold }>
+            <IconButton disabled={ preview } onTouchTap={ this.handleBold }>
               <BoldIcon />
             </IconButton>
-            <IconButton
-              disabled={ preview }
-              onTouchTap={ this.handleItalic }>
+            <IconButton disabled={ preview } onTouchTap={ this.handleItalic }>
               <ItalicIcon />
             </IconButton>
-            <IconButton
-              disabled={ preview }
-              onTouchTap={ this.handleBulleted }>
+            <IconButton disabled={ preview } onTouchTap={ this.handleBulleted }>
               <BulletedIcon />
             </IconButton>
-            <IconButton
-              disabled={ preview }
-              onTouchTap={ this.handleNumbered }>
+            <IconButton disabled={ preview } onTouchTap={ this.handleNumbered }>
               <NumberedIcon />
             </IconButton>
           </ToolbarGroup>
         </Toolbar>
-        {
-          preview ? (
-            <div style={ { height: '15em' } }>
-              <Markdown source={ text || 'Nothing to preview' } />
-            </div>
-          ) : (
-            <TextField
-              ref={ this.getTextField }
-              onChange={ this.handleChange }
-              onSelect={ this.handleSelect }
-              value={ text }
-              multiLine
-              rows={ 10 }
-              hintText='Input here'
-              fullWidth />
-          )
-        }
+        {preview
+          ? <div style={ { height: '15em' } }>
+            <Markdown source={ text || 'Nothing to preview' } />
+          </div>
+          : <TextField
+            ref={ this.getTextField }
+            onChange={ this.handleChange }
+            onSelect={ this.handleSelect }
+            value={ text }
+            multiLine
+            rows={ 10 }
+            hintText='Input here'
+            fullWidth />}
       </div>
     )
   }

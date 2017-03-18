@@ -30,9 +30,7 @@ const InputAction = compose(
 
   return (
     <CardActions>
-      <TextField
-        style={ styles.action }
-        { ...props } />
+      <TextField style={ styles.action } { ...props } />
     </CardActions>
   )
 })

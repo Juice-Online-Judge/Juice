@@ -4,13 +4,15 @@ import invariant from 'invariant'
 const fakeResponse = []
 const api = {}
 
-api.request = jest.fn((request) => {
+api.request = jest.fn(request => {
   let idx = null
   let res = null
   for (const [i, { url, error, data }] of fakeResponse.entries()) {
     if (url === request.url) {
       idx = i
-      res = error ? Promise.reject({ status: error, data: {} }) : Promise.resolve({ data }) // eslint-disable-line
+      res = error
+        ? Promise.reject({ status: error, data: {} }) // eslint-disable-line
+        : Promise.resolve({ data })
       break
     }
   }
@@ -20,7 +22,7 @@ api.request = jest.fn((request) => {
   return res
 })
 
-api.addFakeResponse = (fakeRes) => {
+api.addFakeResponse = fakeRes => {
   fakeResponse.push(fakeRes)
 }
 

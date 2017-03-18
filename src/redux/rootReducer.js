@@ -1,5 +1,5 @@
-import {combineReducers} from 'redux'
-import {routerReducer as router} from 'react-router-redux'
+import { combineReducers } from 'redux'
+import { routerReducer as router } from 'react-router-redux'
 import app from './modules/app'
 import message from './modules/message'
 import account from './modules/account'

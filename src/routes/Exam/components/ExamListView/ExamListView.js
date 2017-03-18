@@ -1,6 +1,6 @@
-import React, {Component, PropTypes} from 'react'
+import React, { Component, PropTypes } from 'react'
 
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import AddIcon from 'material-ui/svg-icons/content/add'
 import Inset from 'layouts/Inset'
@@ -11,12 +11,12 @@ import styles from 'lib/styles'
 
 class ExamListView extends Component {
   componentDidMount() {
-    const {query} = this.props
-    this.fetchExams(query, {force: true})
+    const { query } = this.props
+    this.fetchExams(query, { force: true })
   }
 
   componentWillReceiveProps(newProps) {
-    const {query} = newProps
+    const { query } = newProps
     if (query.page !== this.props.query.page) {
       this.fetchExams(query)
     }
@@ -24,11 +24,11 @@ class ExamListView extends Component {
 
   fetchExams(query, opts) {
     const page = parseInt(query.page) || 1
-    this.props.fetchExams({page}, opts)
+    this.props.fetchExams({ page }, opts)
   }
 
   render() {
-    const {exam, maxPage, admin} = this.props
+    const { exam, maxPage, admin } = this.props
     const examData = exam.getIn(['entities', 'exam'])
     return (
       <div>

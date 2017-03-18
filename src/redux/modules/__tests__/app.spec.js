@@ -57,12 +57,14 @@ describe('(Redux) app', () => {
 
       store.dispatch(app.clearCache())
 
-      expect(store.getActions()).toEqual(jasmine.arrayContaining([
-        clearExam(),
-        clearQuestion(),
-        clearUsers(),
-        clearSubmissions()
-      ]))
+      expect(store.getActions()).toEqual(
+        jasmine.arrayContaining([
+          clearExam(),
+          clearQuestion(),
+          clearUsers(),
+          clearSubmissions()
+        ])
+      )
     })
   })
 
@@ -74,14 +76,15 @@ describe('(Redux) app', () => {
           url: 'foo'
         })
 
-        return store.dispatch(app.request({ url: 'foo' }))
-          .then((result) => {
-            expect(result).toBe(true)
-            expect(store.getActions()).toEqual(jasmine.arrayContaining([
+        return store.dispatch(app.request({ url: 'foo' })).then(result => {
+          expect(result).toBe(true)
+          expect(store.getActions()).toEqual(
+            jasmine.arrayContaining([
               app.setStatus(RequestStatus.PENDING),
               app.setStatus(RequestStatus.SUCCESS)
-            ]))
-          })
+            ])
+          )
+        })
       })
     })
 
@@ -95,14 +98,15 @@ describe('(Redux) app', () => {
           }
         })
 
-        return store.dispatch(app.request({ url: 'foo' }))
-          .then((result) => {
-            expect(result).toBe(false)
-            expect(store.getActions()).toEqual(jasmine.arrayContaining([
+        return store.dispatch(app.request({ url: 'foo' })).then(result => {
+          expect(result).toBe(false)
+          expect(store.getActions()).toEqual(
+            jasmine.arrayContaining([
               app.setStatus(RequestStatus.PENDING),
               app.setStatus(RequestStatus.FAIL)
-            ]))
-          })
+            ])
+          )
+        })
       })
     })
 
@@ -175,7 +179,9 @@ describe('(Redux) app', () => {
 
   describe('(Reducer)', () => {
     it('Configure initial state correct', () => {
-      expect(reducer(undefined, { type: 'foo' })).toEqualImmutable(app.initialState)
+      expect(reducer(undefined, { type: 'foo' })).toEqualImmutable(
+        app.initialState
+      )
     })
 
     it('Handle setState action', () => {
@@ -183,10 +189,12 @@ describe('(Redux) app', () => {
         status: 'foo'
       })
 
-      expect(reducer(app.initialState, {
-        type: app.SET_STATUS,
-        payload: 'foo'
-      })).toEqualImmutable(expectedState)
+      expect(
+        reducer(app.initialState, {
+          type: app.SET_STATUS,
+          payload: 'foo'
+        })
+      ).toEqualImmutable(expectedState)
     })
 
     it('Handle clearState action', () => {

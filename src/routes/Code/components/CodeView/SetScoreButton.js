@@ -10,13 +10,11 @@ class SetScoreButton extends Component {
     return nextProps.needReview !== this.props.needReview
   }
 
-  @bind
-  handleScoreChange({ target: { value } }) {
+  @bind handleScoreChange({ target: { value } }) {
     this.correctness = value
   }
 
-  @bind
-  handleSetScore(event) {
+  @bind handleSetScore(event) {
     this.props.patchCorrectness(this.correctness)
   }
 
@@ -35,9 +33,7 @@ class SetScoreButton extends Component {
               floatingLabelText='Score' />
           </Col>
           <Col md={ 6 }>
-            <FlatButton
-              label='Set score'
-              onTouchTap={ this.handleSetScore } />
+            <FlatButton label='Set score' onTouchTap={ this.handleSetScore } />
           </Col>
         </Row>
       </Col>

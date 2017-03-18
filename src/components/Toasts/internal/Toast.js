@@ -11,7 +11,7 @@ class Toast extends Component {
 
     return (
       <div style={ style }>
-        { children }
+        {children}
       </div>
     )
   }
@@ -22,7 +22,7 @@ class Toast extends Component {
     timeout: PropTypes.number.isRequired,
     onRequestClose: PropTypes.func.isRequired,
     id: PropTypes.any.isRequired
-  }
+  };
 }
 
 export default Toast

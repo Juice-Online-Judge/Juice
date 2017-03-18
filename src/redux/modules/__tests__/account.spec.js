@@ -33,18 +33,14 @@ describe('(Redux) account', () => {
     it('Create "Set user info" action', () => {
       const info = {
         username: 'foo',
-        roles: [
-          { id: 1, name: 'admin' }
-        ]
+        roles: [{ id: 1, name: 'admin' }]
       }
 
       expect(account.setUserInfo(info)).toEqual({
         type: account.SET_USER_INFO,
         payload: {
           username: 'foo',
-          roles: [
-            'admin'
-          ]
+          roles: ['admin']
         }
       })
     })
@@ -76,9 +72,12 @@ describe('(Redux) account', () => {
           }
         })
 
-        return store.dispatch(account.login('user', 'pass')).then((result) => {
+        return store.dispatch(account.login('user', 'pass')).then(result => {
           expect(result).toBe(true)
-          expect(api.request.mock.calls[0][0].data).toEqual({ username: 'user', password: 'pass' })
+          expect(api.request.mock.calls[0][0].data).toEqual({
+            username: 'user',
+            password: 'pass'
+          })
         })
       })
     })
@@ -95,15 +94,19 @@ describe('(Redux) account', () => {
     })
 
     it('Handle SET_LOGIN_STATE', () => {
-      expect(reducer(account.initialState, {
-        type: account.SET_LOGIN_STATE,
-        payload: true
-      })).toEqualImmutable(new account.Account({ valid: true, state: true }))
+      expect(
+        reducer(account.initialState, {
+          type: account.SET_LOGIN_STATE,
+          payload: true
+        })
+      ).toEqualImmutable(new account.Account({ valid: true, state: true }))
 
-      expect(reducer(account.initialState, {
-        type: account.SET_LOGIN_STATE,
-        payload: false
-      })).toEqualImmutable(new account.Account({ valid: true, state: false }))
+      expect(
+        reducer(account.initialState, {
+          type: account.SET_LOGIN_STATE,
+          payload: false
+        })
+      ).toEqualImmutable(new account.Account({ valid: true, state: false }))
     })
   })
 })

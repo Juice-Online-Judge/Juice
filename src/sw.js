@@ -1,8 +1,4 @@
-import {
-  cacheFirst,
-  networkFirst,
-  preCache
-} from './sw/strategy'
+import { cacheFirst, networkFirst, preCache } from './sw/strategy'
 import router from './sw/routes.js'
 
 const location = new URL(self.registration.scope)
@@ -16,13 +12,11 @@ const staticResource = [
   '/vendor/es5-shim/es5-sham.js'
 ]
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    preCache(staticResource)
-  )
+self.addEventListener('install', event => {
+  event.waitUntil(preCache(staticResource))
 })
 
-self.addEventListener('fetch', (event) => {
+self.addEventListener('fetch', event => {
   const { request } = event
   const url = new URL(request.url)
 
@@ -31,34 +25,29 @@ self.addEventListener('fetch', (event) => {
   }
 
   if (url.pathname.endsWith('.js') || url.pathname.endsWith('.css')) {
-    event.respondWith(
-      networkFirst(request)
-    )
+    event.respondWith(networkFirst(request))
   } else if (url.pathname.includes('.')) {
-    event.respondWith(
-      networkFirst(request)
-    )
-  } else if (url.pathname.startsWith('/api') || url.pathname.startsWith('/oauth')) {
-    event.respondWith(
-      apiHandler(request)
-    )
+    event.respondWith(networkFirst(request))
+  } else if (
+    url.pathname.startsWith('/api') || url.pathname.startsWith('/oauth')
+  ) {
+    event.respondWith(apiHandler(request))
   } else {
-    event.respondWith(
-      cacheFirst('/')
-    )
+    event.respondWith(cacheFirst('/'))
   }
 })
 
 function apiHandler(request) {
-  return router.dispatch(request)
-    .then((result) => typeof result === 'string'
-      ? new Response(JSON.stringify(result), {
-        status: 200,
-        statusText: 'OK',
-        headers: {
-          'Content-Type': 'applcation/json; charset=utf8'
-        }
-      })
-      : result
-    )
+  return router.dispatch(request).then(
+    result =>
+      typeof result === 'string'
+        ? new Response(JSON.stringify(result), {
+          status: 200,
+          statusText: 'OK',
+          headers: {
+            'Content-Type': 'applcation/json; charset=utf8'
+          }
+        })
+        : result
+  )
 }

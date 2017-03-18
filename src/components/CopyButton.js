@@ -8,8 +8,7 @@ import { setOpen } from 'redux/modules/message'
 import MessageContainer from '../containers/MessageContainer'
 
 export class CopyButton extends Component {
-  @bind
-  handleCopySuccess() {
+  @bind handleCopySuccess() {
     this.props.setOpen(true)
   }
 
@@ -20,7 +19,7 @@ export class CopyButton extends Component {
         <ClipboardButton
           component='a'
           data-clipboard-text={ text }
-          onSuccess={ this.handleCopySuccess } >
+          onSuccess={ this.handleCopySuccess }>
           <FlatButton label='Copy' primary disabled={ !text } />
         </ClipboardButton>
       </MessageContainer>

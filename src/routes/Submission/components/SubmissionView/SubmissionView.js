@@ -29,5 +29,6 @@ export class SubmissionView extends Component {
   };
 }
 
-export default connect((state) => ({ submission: state.submission }),
-  { fetchSubmissions })(SubmissionView)
+export default connect(state => ({ submission: state.submission }), {
+  fetchSubmissions
+})(SubmissionView)

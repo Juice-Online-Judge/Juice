@@ -6,8 +6,7 @@ import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 
 export class FileButton extends Component {
-  @bind
-  handleChange(event) {
+  @bind handleChange(event) {
     const files = event.target.files
     if (files.length) {
       const filename = map(files, 'name').join(', ')
@@ -24,11 +23,9 @@ export class FileButton extends Component {
   render() {
     return (
       <div>
-        <FlatButton
-          primary
-          label={ this.props.label }
-          labelPosition='before'>
-          <input type='file'
+        <FlatButton primary label={ this.props.label } labelPosition='before'>
+          <input
+            type='file'
             style={ styles.file }
             multiple={ this.props.multiple }
             onChange={ this.handleChange } />
@@ -50,7 +47,7 @@ export class FileButton extends Component {
 
   static defaultProps = {
     label: 'Select a file...'
-  }
+  };
 }
 
 export default FileButton

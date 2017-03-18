@@ -12,23 +12,19 @@ export class RestrictionTab extends Component {
     this.handleChange()
   }
 
-  @bind
-  handleFileChange(event) {
+  @bind handleFileChange(event) {
     this.handleChange({ file: event.target.value })
   }
 
-  @bind
-  handleMemoryChange(event) {
+  @bind handleMemoryChange(event) {
     this.handleChange({ memory: event.target.value })
   }
 
-  @bind
-  handleTimeChange(event) {
+  @bind handleTimeChange(event) {
     this.handleChange({ time: event.target.value })
   }
 
-  @bind
-  handleStrategyChange(_event, _key, value) {
+  @bind handleStrategyChange(_event, _key, value) {
     this.setState({ strategy: value })
     this.emitChange({
       ...this.data,
@@ -60,19 +56,25 @@ export class RestrictionTab extends Component {
       <div>
         <div>
           <Label> Strategy </Label>
-          <DropDownMenu value={ strategy } onChange={ this.handleStrategyChange } >
+          <DropDownMenu value={ strategy } onChange={ this.handleStrategyChange }>
             <MenuItem primaryText='Normal' value='normal' />
             <MenuItem primaryText='Tolerance newline' value='tolerance_nl' />
           </DropDownMenu>
         </div>
         <div>
-          <TextField floatingLabelText='Time limit(s)' onChange={ this.handleTimeChange } />
+          <TextField
+            floatingLabelText='Time limit(s)'
+            onChange={ this.handleTimeChange } />
         </div>
         <div>
-          <TextField floatingLabelText='Memory limit(MB)' onChange={ this.handleMemoryChange } />
+          <TextField
+            floatingLabelText='Memory limit(MB)'
+            onChange={ this.handleMemoryChange } />
         </div>
         <div>
-          <TextField floatingLabelText='File limit' onChange={ this.handleFileChange } />
+          <TextField
+            floatingLabelText='File limit'
+            onChange={ this.handleFileChange } />
         </div>
       </div>
     )
@@ -86,7 +88,7 @@ export class RestrictionTab extends Component {
 
   state = {
     strategy: 'normal'
-  }
+  };
 
   static propTypes = {
     onChange: PropTypes.func.isRequired

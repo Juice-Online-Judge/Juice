@@ -19,10 +19,7 @@ const webpackConfig = {
   devtool: config.compiler_devtool,
   context: paths.base(config.dir_client),
   resolve: {
-    modules: [
-      paths.base(config.dir_client),
-      'node_modules'
-    ],
+    modules: [paths.base(config.dir_client), 'node_modules'],
     extensions: ['.js', '.jsx', '.json']
   },
   module: {}
@@ -91,11 +88,13 @@ webpackConfig.plugins = [
 ]
 
 if (__PROD__) {
-  debug('Enable plugins for production (OccurenceOrder, LimitChunkCount, MinChunkSize, Compression & Babili).')
+  debug(
+    'Enable plugins for production (OccurenceOrder, LimitChunkCount, MinChunkSize, Compression & Babili).'
+  )
   webpackConfig.plugins.push(
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
-    new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000}),
+    new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 15 }),
+    new webpack.optimize.MinChunkSizePlugin({ minChunkSize: 10000 }),
     new BabiliPlugin({
       removeDebugger: true
     }),
@@ -103,10 +102,12 @@ if (__PROD__) {
   )
 }
 
-webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
-  names: ['vendor'],
-  chunks: ['app']
-}))
+webpackConfig.plugins.push(
+  new webpack.optimize.CommonsChunkPlugin({
+    names: ['vendor'],
+    chunks: ['app']
+  })
+)
 
 // ------------------------------------
 // Loaders
@@ -114,12 +115,15 @@ webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
 // JavaScript / JSON
 
 const presets = [
-  ['env', {
-    targets: {
-      browsers: ['last 2 versions', 'safari >= 10']
-    },
-    modules: false
-  }],
+  [
+    'env',
+    {
+      targets: {
+        browsers: ['last 2 versions', 'safari >= 10']
+      },
+      modules: false
+    }
+  ],
   'react',
   'stage-0'
 ]
@@ -128,35 +132,40 @@ if (__PROD__) {
   presets.push('react-optimize')
 }
 
-webpackConfig.module.rules = [{
-  enforce: 'pre',
-  test: /\.(js|jsx)$/,
-  loader: 'eslint-loader',
-  exclude: /node_modules/,
-  options: {
-    configFile: paths.base('.eslintrc'),
-    emitWarning: __DEV__
+webpackConfig.module.rules = [
+  {
+    enforce: 'pre',
+    test: /\.(js|jsx)$/,
+    loader: 'eslint-loader',
+    exclude: /node_modules/,
+    options: {
+      configFile: paths.base('.eslintrc'),
+      emitWarning: __DEV__
+    }
+  },
+  {
+    test: /\.(js|jsx)$/,
+    exclude: /node_modules/,
+    loader: 'babel-loader',
+    options: {
+      cacheDirectory: true,
+      plugins: [
+        'transform-runtime',
+        'add-module-exports',
+        'transform-decorators-legacy'
+      ],
+      presets
+    }
+  },
+  {
+    test: /\.json$/,
+    loader: 'json-loader'
+  },
+  {
+    test: /\.pug$/,
+    loader: 'pug-loader'
   }
-}, {
-  test: /\.(js|jsx)$/,
-  exclude: /node_modules/,
-  loader: 'babel-loader',
-  options: {
-    cacheDirectory: true,
-    plugins: [
-      'transform-runtime',
-      'add-module-exports',
-      'transform-decorators-legacy'
-    ],
-    presets
-  }
-}, {
-  test: /\.json$/,
-  loader: 'json-loader'
-}, {
-  test: /\.pug$/,
-  loader: 'pug-loader'
-}]
+]
 
 // Styles
 const cssOptions = !config.compiler_css_modules
@@ -175,78 +184,114 @@ const cssOptions = !config.compiler_css_modules
 webpackConfig.module.rules.push({
   test: /\.scss$/,
   include: /(src|flexboxgrid)/,
-  use: [{
-    loader: 'style-loader'
-  }, {
-    loader: 'css-loader',
-    options: cssOptions
-  }, {
-    loader: 'postcss-loader'
-  }, {
-    loader: 'sass-loader'
-  }]
+  use: [
+    {
+      loader: 'style-loader'
+    },
+    {
+      loader: 'css-loader',
+      options: cssOptions
+    },
+    {
+      loader: 'postcss-loader'
+    },
+    {
+      loader: 'sass-loader'
+    }
+  ]
 })
 
 webpackConfig.module.rules.push({
   test: /\.css$/,
   include: /(src|flexboxgrid)/,
-  use: [{
-    loader: 'style-loader'
-  }, {
-    loader: 'css-loader',
-    options: cssOptions
-  }, {
-    loader: 'postcss-loader'
-  }]
+  use: [
+    {
+      loader: 'style-loader'
+    },
+    {
+      loader: 'css-loader',
+      options: cssOptions
+    },
+    {
+      loader: 'postcss-loader'
+    }
+  ]
 })
 
 // Don't treat global SCSS as modules
 webpackConfig.module.rules.push({
   test: /\.scss$/,
   exclude: /(src|flexboxgrid)/,
-  use: [{
-    loader: 'style-loader'
-  }, {
-    loader: 'css-loader',
-    options: {
-      context: paths.base(config.dir_client),
-      sourceMap: true
+  use: [
+    {
+      loader: 'style-loader'
+    },
+    {
+      loader: 'css-loader',
+      options: {
+        context: paths.base(config.dir_client),
+        sourceMap: true
+      }
+    },
+    {
+      loader: 'postcss-loader'
+    },
+    {
+      loader: 'sass-loader'
     }
-  }, {
-    loader: 'postcss-loader'
-  }, {
-    loader: 'sass-loader'
-  }]
+  ]
 })
 
 // Don't treat global, third-party CSS as modules
 webpackConfig.module.rules.push({
   test: /\.css$/,
   exclude: /(src|flexboxgrid)/,
-  use: [{
-    loader: 'style-loader'
-  }, {
-    loader: 'css-loader',
-    options: {
-      context: paths.base(config.dir_client),
-      sourceMap: true
+  use: [
+    {
+      loader: 'style-loader'
+    },
+    {
+      loader: 'css-loader',
+      options: {
+        context: paths.base(config.dir_client),
+        sourceMap: true
+      }
+    },
+    {
+      loader: 'postcss-loader'
     }
-  }, {
-    loader: 'postcss-loader'
-  }]
+  ]
 })
 
 // File loaders
 /* eslint-disable */
 webpackConfig.module.rules.push(
-  { test: /\.woff(\?.*)?$/,  loader: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff' },
-  { test: /\.woff2(\?.*)?$/, loader: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2' },
-  { test: /\.otf(\?.*)?$/,   loader: 'file-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype' },
-  { test: /\.ttf(\?.*)?$/,   loader: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream' },
-  { test: /\.eot(\?.*)?$/,   loader: 'file-loader?prefix=fonts/&name=[path][name].[ext]' },
-  { test: /\.svg(\?.*)?$/,   loader: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml' },
-  { test: /\.(png|jpg)$/,    loader: 'url-loader?limit=8192' }
-)
+  {
+    test: /\.woff(\?.*)?$/,
+    loader: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff'
+  },
+  {
+    test: /\.woff2(\?.*)?$/,
+    loader: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2'
+  },
+  {
+    test: /\.otf(\?.*)?$/,
+    loader: 'file-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype'
+  },
+  {
+    test: /\.ttf(\?.*)?$/,
+    loader: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream'
+  },
+  {
+    test: /\.eot(\?.*)?$/,
+    loader: 'file-loader?prefix=fonts/&name=[path][name].[ext]'
+  },
+  {
+    test: /\.svg(\?.*)?$/,
+    loader: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml'
+  },
+  { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' }
+);
 /* eslint-enable */
 
 // ------------------------------------
@@ -257,20 +302,22 @@ webpackConfig.module.rules.push(
 // http://stackoverflow.com/questions/34133808/webpack-ots-parsing-error-loading-fonts/34133809#34133809
 if (!__DEV__) {
   debug('Apply ExtractTextPlugin to CSS loaders.')
-  webpackConfig.module.rules.filter(rule =>
-    rule.use && rule.use.find(r => /css/.test(r.loader))
-  ).forEach(rule => {
-    const [first, ...rest] = rule.use
-    rule.loader = ExtractTextPlugin.extract({
-      fallback: first.loader,
-      use: rest.map((loader) => {
-        return loader.options
-          ? `${loader.loader}?${JSON.stringify(loader.options)}`
-          : loader.loader
-      }).join('!')
+  webpackConfig.module.rules
+    .filter(rule => rule.use && rule.use.find(r => /css/.test(r.loader)))
+    .forEach(rule => {
+      const [first, ...rest] = rule.use
+      rule.loader = ExtractTextPlugin.extract({
+        fallback: first.loader,
+        use: rest
+          .map(loader => {
+            return loader.options
+              ? `${loader.loader}?${JSON.stringify(loader.options)}`
+              : loader.loader
+          })
+          .join('!')
+      })
+      Reflect.deleteProperty(rule, 'use')
     })
-    Reflect.deleteProperty(rule, 'use')
-  })
 
   webpackConfig.plugins.push(
     new ExtractTextPlugin({

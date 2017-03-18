@@ -16,11 +16,7 @@ const LineNumbers = compose(
   const lines = defaultTo(code.match(/\n(?!$)/g), emptyArray).length + 1
   return (
     <span aria-hidden='true' className='line-numbers-rows'>
-      {
-        times(lines, (idx) => (
-          <span key={ idx } />
-        ))
-      }
+      {times(lines, idx => <span key={ idx } />)}
     </span>
   )
 })

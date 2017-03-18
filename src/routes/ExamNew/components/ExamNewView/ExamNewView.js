@@ -29,23 +29,19 @@ export class ExamNewView extends Component {
     this.props.clearCache()
   }
 
-  @bind
-  handleBasicInfoChange(data) {
+  @bind handleBasicInfoChange(data) {
     this.setData({ ...data })
   }
 
-  @bind
-  handleQuestionChange(questions) {
+  @bind handleQuestionChange(questions) {
     this.setData({ questions })
   }
 
-  @bind
-  handleUsersChange(users) {
+  @bind handleUsersChange(users) {
     this.setData({ users })
   }
 
-  @bind
-  handleNext() {
+  @bind handleNext() {
     const { finished, stepIndex } = this.state
     const nextStep = stepIndex + 1
     if (finished) {
@@ -64,17 +60,11 @@ export class ExamNewView extends Component {
 
   stepContent(index) {
     if (index === 0) {
-      return (
-        <BasicInfoTab onChange={ this.handleBasicInfoChange } />
-      )
+      return <BasicInfoTab onChange={ this.handleBasicInfoChange } />
     } else if (index === 1) {
-      return (
-        <QuestionTab onChange={ this.handleQuestionChange } />
-      )
+      return <QuestionTab onChange={ this.handleQuestionChange } />
     } else if (index === 2) {
-      return (
-        <UserTab onChange={ this.handleUsersChange } />
-      )
+      return <UserTab onChange={ this.handleUsersChange } />
     }
   }
 
@@ -112,7 +102,7 @@ export class ExamNewView extends Component {
               </Stepper>
             </CardActions>
             <CardActions>
-              { this.stepContent(stepIndex) }
+              {this.stepContent(stepIndex)}
             </CardActions>
           </Card>
         </Inset>

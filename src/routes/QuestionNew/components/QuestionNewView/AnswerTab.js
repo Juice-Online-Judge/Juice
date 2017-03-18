@@ -8,13 +8,11 @@ export class AnswerTab extends Component {
     this.handleChange()
   }
 
-  @bind
-  handleInputChange(file) {
+  @bind handleInputChange(file) {
     this.handleChange({ input: { file } })
   }
 
-  @bind
-  handleOutputChange(file) {
+  @bind handleOutputChange(file) {
     this.handleChange({ output: { file } })
   }
 

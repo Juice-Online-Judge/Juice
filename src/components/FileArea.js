@@ -12,8 +12,7 @@ import FileButton from './FileButton'
 import styles from 'lib/styles'
 
 export class FileArea extends Component {
-  @bind
-  handleFileChange(fileList) {
+  @bind handleFileChange(fileList) {
     const content = {}
     const { multiple } = this.props
     const files = Array.from(fileList)
@@ -24,14 +23,12 @@ export class FileArea extends Component {
     this.handleChange(content)
   }
 
-  @bind
-  handleTextAreaChange(event) {
+  @bind handleTextAreaChange(event) {
     const { value } = event.target
     this.handleTextChange(value)
   }
 
-  @bind
-  handleTextChange(value) {
+  @bind handleTextChange(value) {
     const { multiple } = this.props
     const content = {}
 
@@ -54,8 +51,7 @@ export class FileArea extends Component {
     }
   }
 
-  @bind
-  handleTypeChange(event) {
+  @bind handleTypeChange(event) {
     const { value } = event.target
     this.setState({ type: value })
   }
@@ -120,7 +116,7 @@ export class FileArea extends Component {
               label='直接輸入' />
           </RadioButtonGroup>
         </div>
-        { this.areaContent(this.state.type) }
+        {this.areaContent(this.state.type)}
       </div>
     )
   }

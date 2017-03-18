@@ -21,48 +21,50 @@ import redirectOnLogin from 'lib/redirectOnLogin'
 import validateForm from 'lib/validateForm'
 import styles from 'lib/styles'
 
-const inputs = [{
-  name: 'username',
-  label: 'Username'
-}, {
-  name: 'email',
-  label: 'Email'
-}, {
-  name: 'nickname',
-  label: 'Nickname'
-}, {
-  name: 'password',
-  label: 'Password',
-  type: 'password'
-}, {
-  name: 'passwordConfirm',
-  label: 'PasswordConfirm',
-  type: 'password'
-}]
+const inputs = [
+  {
+    name: 'username',
+    label: 'Username'
+  },
+  {
+    name: 'email',
+    label: 'Email'
+  },
+  {
+    name: 'nickname',
+    label: 'Nickname'
+  },
+  {
+    name: 'password',
+    label: 'Password',
+    type: 'password'
+  },
+  {
+    name: 'passwordConfirm',
+    label: 'PasswordConfirm',
+    type: 'password'
+  }
+]
 
 export class SignUpView extends React.Component {
-  @bind
-  handleChange(event) {
+  @bind handleChange(event) {
     const newState = {}
     newState[event.target.name] = event.target.value
     this.setData(newState)
   }
 
-  @bind
-  signup(event) {
+  @bind signup(event) {
     event.preventDefault()
     this.props.registerUser(this.data)
   }
 
-  @bind
-  handleKeyDown(event) {
+  @bind handleKeyDown(event) {
     if (event.keyCode === 13 && event.target.name === 'passwordConfirm') {
       this.signup(event)
     }
   }
 
-  @bind
-  handleVerify(response) {
+  @bind handleVerify(response) {
     this.setData({ 'g-recaptcha-response': response })
   }
 
@@ -77,20 +79,18 @@ export class SignUpView extends React.Component {
         <Paper zDepth={ 3 } style={ styles.marginTop20 }>
           <Card>
             <CardTitle title='SignUp' />
-            {
-              inputs.map(({ name, label, ...rest }) => (
-                <InputAction
-                  key={ name }
-                  name={ name }
-                  label={ label }
-                  message={ message }
-                  onChange={ this.handleChange }
-                  onKeyDown={ this.handleKeyDown }
-                  { ...rest } />
-              ))
-            }
+            {inputs.map(({ name, label, ...rest }) => (
+              <InputAction
+                key={ name }
+                name={ name }
+                label={ label }
+                message={ message }
+                onChange={ this.handleChange }
+                onKeyDown={ this.handleKeyDown }
+                { ...rest } />
+            ))}
             <CardActions>
-              <div style={ [styles.inlineBlock, styles.width80] } >
+              <div style={ [styles.inlineBlock, styles.width80] }>
                 <Recaptcha
                   render='explicit'
                   onloadCallback={ noop }
@@ -123,10 +123,7 @@ export class SignUpView extends React.Component {
 
 export default compose(
   redirectOnLogin,
-  connect(
-    (state) => ({ loginState: state.account }),
-    { registerUser }
-  ),
+  connect(state => ({ loginState: state.account }), { registerUser }),
   validateForm(rule),
   Radium
 )(SignUpView)

@@ -7,10 +7,7 @@ import 'prismjs/components/prism-cpp'
 global.Prism = Prism
 
 function isCpp(lang) {
-  return (
-    lang === 'c++' ||
-    lang === 'cpp'
-  )
+  return lang === 'c++' || lang === 'cpp'
 }
 
 function getGrammer(lang) {
@@ -32,7 +29,7 @@ function reactify(token, key) {
 
   return (
     <span className={ `token ${token.type}` } key={ key }>
-      { reactify(token.content) }
+      {reactify(token.content)}
     </span>
   )
 }

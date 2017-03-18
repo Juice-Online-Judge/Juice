@@ -6,10 +6,17 @@ import lifecycle from 'recompose/lifecycle'
 import compose from 'recompose/compose'
 import omitProps from './omitProps'
 
-export const redirectComponent = (name, mapStateToProp, shouldRedirectPath, options) =>
-  (WrappedComponent) => {
+export const redirectComponent = (
+  name,
+  mapStateToProp,
+  shouldRedirectPath,
+  options
+) =>
+  WrappedComponent => {
     let omitPropsName = ['replace']
-    const actions = options.actions ? { ...options.actions, replace } : { replace }
+    const actions = options.actions
+      ? { ...options.actions, replace }
+      : { replace }
     const redirectComponentHoc = lifecycle({
       componentWillMount() {
         this.checkRedirect(this.props)

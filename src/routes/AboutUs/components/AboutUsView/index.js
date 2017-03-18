@@ -14,10 +14,19 @@ const AboutUsView = () => (
     </CardText>
     <CardText>
       Our team:
-      <MemberDisplay name='DanSnow' github='DanSnow' desc='Front-end Developer.' />
-      <MemberDisplay name='BePsvPT' github='BePsvPT' desc='Back-end Developer.' />
+      <MemberDisplay
+        name='DanSnow'
+        github='DanSnow'
+        desc='Front-end Developer.' />
+      <MemberDisplay
+        name='BePsvPT'
+        github='BePsvPT'
+        desc='Back-end Developer.' />
       <MemberDisplay name='silenttulips' github='silenttulips' desc='Judge.' />
-      <MemberDisplay name='HWLin' github='hwlin1414' desc='CLI client & Server Admin.' />
+      <MemberDisplay
+        name='HWLin'
+        github='hwlin1414'
+        desc='CLI client &amp; Server Admin.' />
     </CardText>
   </Card>
 )

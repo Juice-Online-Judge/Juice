@@ -19,32 +19,27 @@ class QuestionTab extends Component {
     this.props.fetchQuestion({ page }, { force: true })
   }
 
-  @bind
-  handleRequestDetail(uuid) {
+  @bind handleRequestDetail(uuid) {
     this.setState({ detail: true, detailUuid: uuid })
   }
 
-  @bind
-  handleSettingChange(uuid, setting) {
+  @bind handleSettingChange(uuid, setting) {
     const { questionDetail } = this.state
     questionDetail[uuid] = setting
     this.setState({ questionDetail })
     this.emitChange(questionDetail, this.state.selectedQuestion)
   }
 
-  @bind
-  handleBack() {
+  @bind handleBack() {
     this.setState({ detail: false, detailUuid: null })
   }
 
-  @bind
-  handlePageChange(page) {
+  @bind handlePageChange(page) {
     this.props.fetchQuestion({ page })
     this.setState({ page })
   }
 
-  @bind
-  handleQuestionChange(selectedQuestion, uuid) {
+  @bind handleQuestionChange(selectedQuestion, uuid) {
     const { questionDetail } = this.state
     const newState = { selectedQuestion, questionDetail }
     if (!has(questionDetail, uuid)) {
@@ -65,7 +60,8 @@ class QuestionTab extends Component {
     return (
       <div>
         <ToggleDisplay hide={ detail }>
-          <LoadingContainer loading={ app.get('status') === RequestStatus.PENDING }>
+          <LoadingContainer
+            loading={ app.get('status') === RequestStatus.PENDING }>
             <ExamQuestionList
               question={ question }
               selectedQuestion={ selectedQuestion }
@@ -106,8 +102,10 @@ class QuestionTab extends Component {
   };
 }
 
-export default connect((state) => ({ app: state.app, question: state.question }),
-  questionActions)(QuestionTab)
+export default connect(
+  state => ({ app: state.app, question: state.question }),
+  questionActions
+)(QuestionTab)
 
 const DEFAULT_DETAIL = {
   score: 100.0,

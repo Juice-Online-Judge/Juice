@@ -13,10 +13,13 @@ const isAdminSelector = createIsAdminSelector()
 
 export default compose(
   redirectNotAuth,
-  connect((state, props) => ({
-    exam: state.exam,
-    maxPage: maxPageSelector(state.exam),
-    admin: isAdminSelector(state),
-    query: props.location.query
-  }), { fetchExams })
+  connect(
+    (state, props) => ({
+      exam: state.exam,
+      maxPage: maxPageSelector(state.exam),
+      admin: isAdminSelector(state),
+      query: props.location.query
+    }),
+    { fetchExams }
+  )
 )(ExamListView)

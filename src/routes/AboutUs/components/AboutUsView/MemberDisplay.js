@@ -11,8 +11,8 @@ const MemberDisplay = compose(
   })
 )(({ name, github, desc }) => (
   <p>
-    <BlankLink href={ `https://github.com/${github}` }> { name } </BlankLink>:
-    { desc }
+    <BlankLink href={ `https://github.com/${github}` }> {name} </BlankLink>:
+    {desc}
   </p>
 ))
 

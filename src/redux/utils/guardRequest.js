@@ -5,7 +5,8 @@ import handleRequestError from './handleRequestError'
 
 const guardRequest = (dispatch, reqOpts, handleResult, handleError) => {
   dispatch(setStatus(RequestStatus.PENDING))
-  return api.request(reqOpts)
+  return api
+    .request(reqOpts)
     .then(({ data }) => {
       if (handleResult) {
         handleResult(data)
@@ -13,7 +14,7 @@ const guardRequest = (dispatch, reqOpts, handleResult, handleError) => {
       dispatch(setStatus(RequestStatus.SUCCESS))
       return true
     })
-    .catch((error) => {
+    .catch(error => {
       if (handleError) {
         handleError(error)
       }

@@ -37,12 +37,7 @@ export class Question extends Component {
   render() {
     const { uuid, examId, question } = this.props
 
-    return (
-      <QuestionCard
-        uuid={ uuid }
-        examId={ examId }
-        question={ question } />
-    )
+    return <QuestionCard uuid={ uuid } examId={ examId } question={ question } />
   }
 
   static propTypes = {
@@ -54,9 +49,12 @@ export class Question extends Component {
   };
 }
 
-export default connect((state, props) => ({
-  question: questionSelector(state, props)
-}), { fetchQuestionDetail, fetchExamQuestion })(Question)
+export default connect(
+  (state, props) => ({
+    question: questionSelector(state, props)
+  }),
+  { fetchQuestionDetail, fetchExamQuestion }
+)(Question)
 
 export const QuestionCard = compose(
   setDisplayName('QuestionCard'),
@@ -67,27 +65,23 @@ export const QuestionCard = compose(
   })
 )(({ uuid, examId, question }) => (
   <Card>
-    <CardTitle
-      title={ question.get('title') }
-      subtitle={ `uuid: ${uuid}` } />
+    <CardTitle title={ question.get('title') } subtitle={ `uuid: ${uuid}` } />
     <CardText>
       <div>
-        Time limit: { question.getIn(['judge', 'restriction', 'time']) } s
+        Time limit: {question.getIn(['judge', 'restriction', 'time'])} s
       </div>
       <div>
-        Memory limit: { question.getIn(['judge', 'restriction', 'memory']) } MB
+        Memory limit: {question.getIn(['judge', 'restriction', 'memory'])} MB
       </div>
       <div>
-        File limit: { question.getIn(['judge', 'restriction', 'file']) }
+        File limit: {question.getIn(['judge', 'restriction', 'file'])}
       </div>
     </CardText>
     <CardText>
       <Markdown source={ question.get('description', '') } />
     </CardText>
     <CardActions>
-      <SubmitCode
-        examId={ examId }
-        uuid={ uuid } />
+      <SubmitCode examId={ examId } uuid={ uuid } />
     </CardActions>
   </Card>
 ))

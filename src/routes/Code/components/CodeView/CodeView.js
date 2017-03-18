@@ -14,7 +14,13 @@ class CodeView extends Component {
 
   render() {
     const { id } = this.props
-    const { canReview, submission, code, needReview, patchCorrectness } = this.props
+    const {
+      canReview,
+      submission,
+      code,
+      needReview,
+      patchCorrectness
+    } = this.props
     const lang = submission.get('language')
     const ext = lang === 'c++' ? 'cpp' : lang
     const isFail = submission.getIn(['judge', 'result'], 'AC') !== 'AC'
@@ -33,9 +39,7 @@ class CodeView extends Component {
               filename={ `submission${id}.${ext}` } />
           </Col>
         </Row>
-        <ErrorMessage
-          isFail={ isFail }
-          judgeMessage={ judgeMessage } />
+        <ErrorMessage isFail={ isFail } judgeMessage={ judgeMessage } />
         <div>Code:</div>
         <Prism linenumber code={ code } lang={ lang } />
       </Inset>

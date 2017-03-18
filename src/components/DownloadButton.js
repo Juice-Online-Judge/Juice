@@ -11,7 +11,11 @@ export class DownloadButton extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.text && !nextProps.disabled && this.props.text !== nextProps.text) {
+    if (
+      nextProps.text &&
+      !nextProps.disabled &&
+      this.props.text !== nextProps.text
+    ) {
       this.revokeURL()
       this.createURL(nextProps.text)
     }
@@ -43,9 +47,7 @@ export class DownloadButton extends Component {
     const { label, filename } = this.props
     const { url } = this.state
     if (!url) {
-      return (
-        <FlatButton label={ label } disabled />
-      )
+      return <FlatButton label={ label } disabled />
     }
 
     return (
@@ -55,14 +57,14 @@ export class DownloadButton extends Component {
 
   state = {
     url: null
-  }
+  };
 
   static propTypes = {
     text: PropTypes.string,
     label: PropTypes.string.isRequired,
     disabled: PropTypes.bool,
     filename: PropTypes.string
-  }
+  };
 }
 
 export default DownloadButton

@@ -1,16 +1,16 @@
-import React, {PropTypes, Component} from 'react'
-import {connect} from 'react-redux'
+import React, { PropTypes, Component } from 'react'
+import { connect } from 'react-redux'
 import SubmissionList from 'components/SubmissionList'
-import {fetchExamSubmissions} from 'redux/modules/submission'
+import { fetchExamSubmissions } from 'redux/modules/submission'
 import {
   filterSubmissionSelector,
   addFilter
 } from 'redux/modules/submissionFilter'
-import {createIsAdminSelector} from 'redux/modules/account'
+import { createIsAdminSelector } from 'redux/modules/account'
 
 class ExamSubmissionDetail extends Component {
   componentDidMount() {
-    const {examId, fetchExamSubmissions} = this.props
+    const { examId, fetchExamSubmissions } = this.props
     fetchExamSubmissions(examId)
     this.interval = setInterval(
       () => {
@@ -25,7 +25,7 @@ class ExamSubmissionDetail extends Component {
   }
 
   render() {
-    const {examId, submission, admin, addFilter} = this.props
+    const { examId, submission, admin, addFilter } = this.props
     return (
       <div>
         <div>This page will update every few seconds</div>
@@ -49,10 +49,10 @@ class ExamSubmissionDetail extends Component {
 const isAdminSelector = createIsAdminSelector()
 
 export default connect(
-  (state, {match: {params: {examId}}}) => ({
+  (state, { match: { params: { examId } } }) => ({
     submission: filterSubmissionSelector(state),
     admin: isAdminSelector(state),
     examId
   }),
-  {fetchExamSubmissions, addFilter}
+  { fetchExamSubmissions, addFilter }
 )(ExamSubmissionDetail)

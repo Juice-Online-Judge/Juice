@@ -1,7 +1,7 @@
-import React, {PropTypes, Component} from 'react'
-import {bind} from 'decko'
-import {Route} from 'react-router-dom'
-import {Row, Col} from 'react-flexbox-grid'
+import React, { PropTypes, Component } from 'react'
+import { bind } from 'decko'
+import { Route } from 'react-router-dom'
+import { Row, Col } from 'react-flexbox-grid'
 
 import TextField from 'material-ui/TextField'
 import CopyButton from 'components/CopyButton'
@@ -19,7 +19,7 @@ class ExamDetailHeader extends Component {
   }
 
   render() {
-    const {token, isSubmission} = this.props
+    const { token, isSubmission } = this.props
     return (
       <Row middle='md'>
         <Route path='/exam/:examId/questions' component={ Filter } />

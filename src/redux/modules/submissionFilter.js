@@ -23,7 +23,7 @@ export const filterSubmissionSelector = createSelector(
   (submission, submissionFilter) => {
     const user = submissionFilter.get('user')
     const question = submissionFilter.get('question')
-    const filterResult = submission.get('result').filter((id) => {
+    const filterResult = submission.get('result').filter(id => {
       const data = submission.getIn(['entities', 'submission', `${id}`])
 
       if (user && user !== data.getIn(['user', 'id'])) {
@@ -42,7 +42,7 @@ export const filterSubmissionSelector = createSelector(
 
 // Helper function
 
-export const filterStringify = (filter) => {
+export const filterStringify = filter => {
   const user = filter.get('user')
   const question = filter.get('question')
   const result = []
@@ -56,7 +56,7 @@ export const filterStringify = (filter) => {
   return result.join(' ')
 }
 
-export const parseFilter = (filterString) => {
+export const parseFilter = filterString => {
   const filters = filterString.split(/\s+/)
   const parsedFilter = { user: null, question: null }
   if (filters.length > 2) {
@@ -72,13 +72,18 @@ export const parseFilter = (filterString) => {
     if (parsedFilter[filter[0]] !== null) {
       return null
     }
-    parsedFilter[filter[0]] = filter[0] === 'user' ? parseInt(filter[1]) : filter[1]
+    parsedFilter[filter[0]] = filter[0] === 'user'
+      ? parseInt(filter[1])
+      : filter[1]
   }
 
   return parsedFilter
 }
 
-export default handleActions({
-  [ADD_FILTER]: (state, { payload }) => state.merge(payload),
-  [CLEAR_FILTER]: () => initialState
-}, initialState)
+export default handleActions(
+  {
+    [ADD_FILTER]: (state, { payload }) => state.merge(payload),
+    [CLEAR_FILTER]: () => initialState
+  },
+  initialState
+)

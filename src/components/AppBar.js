@@ -1,7 +1,7 @@
-import React, {PropTypes} from 'react'
-import {Link} from 'react-router-dom'
-import {connect} from 'react-redux'
-import {bind} from 'decko'
+import React, { PropTypes } from 'react'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { bind } from 'decko'
 
 import MuiAppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
@@ -14,7 +14,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import LeftNav from './LeftNav'
 import MenuLinkItem from './MenuLinkItem'
 
-import {fetchUserInfo, logout} from 'redux/modules/account'
+import { fetchUserInfo, logout } from 'redux/modules/account'
 import commonStyles from 'lib/styles'
 
 export class AppBar extends React.Component {
@@ -27,12 +27,12 @@ export class AppBar extends React.Component {
   }
 
   @bind handleClose() {
-    this.setState({open: false})
+    this.setState({ open: false })
   }
 
   @bind handleToggle() {
     const open = !this.state.open
-    this.setState({open})
+    this.setState({ open })
   }
 
   get leftMenu() {
@@ -44,7 +44,7 @@ export class AppBar extends React.Component {
   }
 
   get rightMenu() {
-    const {account} = this.props
+    const { account } = this.props
     if (account.get('state')) {
       return (
         <div>
@@ -119,7 +119,7 @@ export default connect(
   state => ({
     account: state.account
   }),
-  {fetchUserInfo, logout}
+  { fetchUserInfo, logout }
 )(AppBar)
 
 const styles = {

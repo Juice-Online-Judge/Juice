@@ -1,6 +1,6 @@
 import store from 'store'
 
-const jwtAuth = (request) => {
+const jwtAuth = request => {
   const token = store.get('juice-token')
   if (token !== undefined) {
     request.headers = request.headers || {}

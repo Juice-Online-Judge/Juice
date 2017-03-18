@@ -24,15 +24,11 @@ export class App extends AppRecord {
   }
 
   get messages() {
-    return this.isError
-      ? this.getIn(['error', 'messages'])
-      : null
+    return this.isError ? this.getIn(['error', 'messages']) : null
   }
 
   get errorCode() {
-    return this.isError
-      ? this.getIn(['error', 'code'])
-      : null
+    return this.isError ? this.getIn(['error', 'code']) : null
   }
 }
 
@@ -48,41 +44,40 @@ export const setError = createAction(SET_ERROR)
 export const clearStatus = createAction(CLEAR_STATUS)
 export const clearError = createAction(CLEAR_ERROR)
 
-export const request = (config, handleSuccess, handleError) => (dispatch) => {
-  return guardRequest(dispatch, config, handleSuccess, handleError)
-}
+export const request = (config, handleSuccess, handleError) =>
+  dispatch => {
+    return guardRequest(dispatch, config, handleSuccess, handleError)
+  }
 
-export const clearCache = () => (dispatch) => {
-  dispatch(clearExam())
-  dispatch(clearQuestion())
-  dispatch(clearSubmissions())
-  dispatch(clearUsers())
-}
+export const clearCache = () =>
+  dispatch => {
+    dispatch(clearExam())
+    dispatch(clearQuestion())
+    dispatch(clearSubmissions())
+    dispatch(clearUsers())
+  }
 
-export const appStatusSelector = (state) => state.app.get('status')
-const appSelector = (state) => state.app
-const appErrorSelector = (state) => state.app.messages
-const appErrorCodeSelector = (state) => state.app.errorCode
+export const appStatusSelector = state => state.app.get('status')
+const appSelector = state => state.app
+const appErrorSelector = state => state.app.messages
+const appErrorCodeSelector = state => state.app.errorCode
 
-export const isPendingSelector = createSelector(
-  [appSelector],
-  (app) => app.isPending()
-)
+export const isPendingSelector = createSelector([appSelector], app =>
+  app.isPending())
 
-export const createIsErrorSelector = () => createSelector(
-  [appSelector],
-  (app) => app.isError()
-)
+export const createIsErrorSelector = () =>
+  createSelector([appSelector], app => app.isError())
 
 export const errorCodeSelector = createSelector(
   [createIsErrorSelector(), appErrorCodeSelector],
   (error, errorCode) => error ? errorCode : null
 )
 
-export const createErrorSelector = () => createSelector(
-  [createIsErrorSelector(), appErrorSelector],
-  (error, message) => error ? message : null
-)
+export const createErrorSelector = () =>
+  createSelector(
+    [createIsErrorSelector(), appErrorSelector],
+    (error, message) => error ? message : null
+  )
 
 export const actions = {
   setStatus,
@@ -92,9 +87,13 @@ export const actions = {
   clearCache
 }
 
-export default handleActions({
-  [SET_STATUS]: (state, { payload }) => state.set('status', payload),
-  [CLEAR_STATUS]: (state) => state.set('status', RequestStatus.NONE),
-  [SET_ERROR]: (state, { payload }) => state.set('error', fromJS(payload)),
-  [CLEAR_ERROR]: (state, { payload }) => state.set('error', null).set('status', RequestStatus.NONE)
-}, initialState)
+export default handleActions(
+  {
+    [SET_STATUS]: (state, { payload }) => state.set('status', payload),
+    [CLEAR_STATUS]: state => state.set('status', RequestStatus.NONE),
+    [SET_ERROR]: (state, { payload }) => state.set('error', fromJS(payload)),
+    [CLEAR_ERROR]: (state, { payload }) =>
+      state.set('error', null).set('status', RequestStatus.NONE)
+  },
+  initialState
+)

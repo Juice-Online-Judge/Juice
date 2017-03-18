@@ -9,7 +9,7 @@ const BlankLink = compose(
   })
 )(({ href, children }) => (
   <a href={ href } target='_blank' rel='noopener noreferrer'>
-    { children }
+    {children}
   </a>
 ))
 

@@ -11,7 +11,7 @@ export const Label = compose(
   })
 )(({ label, children }) => (
   <label style={ styles.label }>
-    { label || children }
+    {label || children}
   </label>
 ))
 

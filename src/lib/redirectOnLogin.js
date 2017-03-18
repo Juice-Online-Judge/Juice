@@ -3,8 +3,8 @@ import { isLoginSelector } from 'redux/modules/account'
 
 export const redirectOnLogin = redirectComponent(
   'RedirectOnLogin',
-  (state) => ({ isLogin: isLoginSelector(state) }),
-  ({ isLogin }) => (isLogin ? '/' : null),
+  state => ({ isLogin: isLoginSelector(state) }),
+  ({ isLogin }) => isLogin ? '/' : null,
   {
     omitProps: 'isLogin'
   }

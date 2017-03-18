@@ -39,12 +39,13 @@ export class Pagination extends Component {
     // Calculate max page
     const max = Math.min(min + 9, maxPage)
 
-    if (max - min < 9) { // If not enough for 10 page
+    if (max - min < 9) {
+      // If not enough for 10 page
       // Modify min page
       min = Math.max(1, max - 9)
     }
 
-    return times(max - min + 1, (i) => {
+    return times(max - min + 1, i => {
       const page = min + i
       return (
         <PageButton
@@ -63,9 +64,9 @@ export class Pagination extends Component {
     const { prevButton, pagination, nextButton } = this
     return (
       <CenterBlock fullwidth>
-        { prevButton }
-        { pagination }
-        { nextButton }
+        {prevButton}
+        {pagination}
+        {nextButton}
       </CenterBlock>
     )
   }

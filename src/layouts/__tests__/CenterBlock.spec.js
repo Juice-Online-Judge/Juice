@@ -40,9 +40,7 @@ describe('(Layout) <CenterBlock />', () => {
 
     describe('When fullwidth', () => {
       it('Render <Col /> with md={ 12 }', () => {
-        const sut = shallow(
-          <CenterBlock fullwidth />
-        )
+        const sut = shallow(<CenterBlock fullwidth />)
 
         expect(sut.find(Col).first()).toHaveProp('md', 12)
       })

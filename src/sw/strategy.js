@@ -1,13 +1,13 @@
 const CACHE_NAME = 'v1'
 
 export function preCache(list) {
-  return caches.open(CACHE_NAME).then((cache) => {
+  return caches.open(CACHE_NAME).then(cache => {
     return cache.addAll(list)
   })
 }
 
 export function cacheFirst(request) {
-  return caches.match(request).then((response) => {
+  return caches.match(request).then(response => {
     const fetchPromise = fetchAndCache(request)
     return response || fetchPromise
   })
@@ -15,12 +15,15 @@ export function cacheFirst(request) {
 
 export function networkAndCache(request) {
   return fetch(request)
-    .then((response) => {
-      return caches.open(CACHE_NAME).then((cache) => {
-        return cache.put(request, response.clone())
-      }).then(() => {
-        return response
-      })
+    .then(response => {
+      return caches
+        .open(CACHE_NAME)
+        .then(cache => {
+          return cache.put(request, response.clone())
+        })
+        .then(() => {
+          return response
+        })
     })
     .catch(() => {
       return caches.match(request)
@@ -29,7 +32,7 @@ export function networkAndCache(request) {
 
 export function networkFirst(request) {
   return fetch(request)
-    .then((response) => {
+    .then(response => {
       return updateCache(request, response)
     })
     .catch(() => {
@@ -42,9 +45,11 @@ export function networkOnly(request) {
 }
 
 export function fetchAndCache(request) {
-  return fetch(request).then((response) => {
-    return updateCache(request, response)
-  }).catch(() => null)
+  return fetch(request)
+    .then(response => {
+      return updateCache(request, response)
+    })
+    .catch(() => null)
 }
 
 export function updateCache(request, response) {
@@ -54,12 +59,14 @@ export function updateCache(request, response) {
     return response
   }
 
-  return Promise.resolve(caches.open(CACHE_NAME)).then((cache) => {
-    return [cache, cache.match(request)]
-  }).spread((cache, result) => {
-    if (result) {
-      cache.put(request, response.clone())
-    }
-    return response
-  })
+  return Promise.resolve(caches.open(CACHE_NAME))
+    .then(cache => {
+      return [cache, cache.match(request)]
+    })
+    .spread((cache, result) => {
+      if (result) {
+        cache.put(request, response.clone())
+      }
+      return response
+    })
 }

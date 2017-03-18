@@ -12,15 +12,15 @@ const QuestionList = compose(
   setDisplayName('QuestionList')
 )(({ question, examId }) => (
   <div>
-    {
-      question.get('result').map((uuid) => (
+    {question
+      .get('result')
+      .map(uuid => (
         <QuestionLink
           key={ uuid }
           title={ question.getIn(['entities', 'question', uuid, 'title']) }
           examId={ examId }
           uuid={ uuid } />
-      ))
-    }
+      ))}
   </div>
 ))
 

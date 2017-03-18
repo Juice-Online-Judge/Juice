@@ -13,7 +13,7 @@ import CardActions from 'material-ui/Card/CardActions'
 import ChevronLeft from 'material-ui/svg-icons/navigation/chevron-left'
 import Label from 'components/Label'
 
-const isNotPortion = (type) => type !== 'portion_num' && type !== 'portion_str'
+const isNotPortion = type => type !== 'portion_num' && type !== 'portion_str'
 
 class QuestionSetting extends Component {
   componentDidMount() {
@@ -36,31 +36,26 @@ class QuestionSetting extends Component {
     }
   }
 
-  @bind
-  handleScoreChange(event) {
+  @bind handleScoreChange(event) {
     this.emitChange({ score: parseFloat(event.target.value) })
   }
 
-  @bind
-  handleIntValChange(event) {
+  @bind handleIntValChange(event) {
     const { name, value } = event.target
     const newState = {}
     newState[name] = parseInt(value)
     this.emitChange(newState)
   }
 
-  @bind
-  handleTypeChange(_event, _idx, value) {
+  @bind handleTypeChange(_event, _idx, value) {
     this.emitChange({ type: value })
   }
 
-  @bind
-  handleReadFromChange(_event, _idx, value) {
+  @bind handleReadFromChange(_event, _idx, value) {
     this.emitChange({ readFrom: value })
   }
 
-  @bind
-  handleCodeReviewChange({ target: { checked } }) {
+  @bind handleCodeReviewChange({ target: { checked } }) {
     this.emitChange({ codeReview: checked })
   }
 
@@ -99,8 +94,17 @@ class QuestionSetting extends Component {
       <div>
         <Card>
           <CardTitle>
-            <FlatButton label='Back' onTouchTap={ this.props.onBack } icon={ <ChevronLeft /> } />
-            <span> Setting "{ question.getIn(['entities', 'question', uuid, 'title']) }" </span>
+            <FlatButton
+              label='Back'
+              onTouchTap={ this.props.onBack }
+              icon={ <ChevronLeft /> } />
+            <span>
+              {' '}
+              Setting "
+              {question.getIn(['entities', 'question', uuid, 'title'])}
+              "
+              {' '}
+            </span>
           </CardTitle>
           <CardActions>
             <TextField

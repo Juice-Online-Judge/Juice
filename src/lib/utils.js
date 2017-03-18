@@ -15,11 +15,11 @@ export const prefixKeys = (object, prefix) => {
   })
 }
 
-export const createFormDataDeep = (object) => {
+export const createFormDataDeep = object => {
   const formData = new FormData()
   const createFormData = (data, prefix) => {
     if (isArray(data)) {
-      forEach(data, (value) => {
+      forEach(data, value => {
         appendFormData(`${prefix}[]`, value)
       })
     } else if (isObject(data)) {
@@ -52,21 +52,19 @@ export const createFormDataDeep = (object) => {
   return formData
 }
 
-export const silencePromise = (promise) => {
+export const silencePromise = promise => {
   return pTry(promise).then(noop, noop)
 }
 
-export const valuesAt = (array, indexes) => compose(
-  pick(indexes),
-  values
-)(array)
+export const valuesAt = (array, indexes) =>
+  compose(pick(indexes), values)(array)
 
 export const renameKey = (object, oldKey, newKey) => {
-  return mapKeys(object, (_value, key) => (key === oldKey ? newKey : key))
+  return mapKeys(object, (_value, key) => key === oldKey ? newKey : key)
 }
 
 export const renameKeys = (object, keysMap) => {
-  return mapKeys(object, (_value, key) => (keysMap[key] ? keysMap[key] : key))
+  return mapKeys(object, (_value, key) => keysMap[key] ? keysMap[key] : key)
 }
 
 export default {

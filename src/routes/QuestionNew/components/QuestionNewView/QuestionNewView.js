@@ -23,18 +23,15 @@ class QuestionNewView extends Component {
     this.props.clearStatus()
   }
 
-  @bind
-  handleBasicInfoChange(data) {
+  @bind handleBasicInfoChange(data) {
     this.setData(data)
   }
 
-  @bind
-  handleAnswerChange(data) {
+  @bind handleAnswerChange(data) {
     this.setData(data)
   }
 
-  @bind
-  handleRestrictionChange(data) {
+  @bind handleRestrictionChange(data) {
     this.setData(data)
   }
 
@@ -42,16 +39,13 @@ class QuestionNewView extends Component {
     this.data = { ...this.data, ...data }
   }
 
-  @bind
-  handleAddQuestion() {
+  @bind handleAddQuestion() {
     this.props.addQuestion(this.data)
   }
 
   stepContent(index) {
     const { Component, onChange } = this.stepComponents[index]
-    return (
-      <Component onChange={ onChange } />
-    )
+    return <Component onChange={ onChange } />
   }
 
   render() {
@@ -96,7 +90,7 @@ class QuestionNewView extends Component {
   static propTypes = {
     addQuestion: PropTypes.func.isRequired,
     clearStatus: PropTypes.func.isRequired
-  }
+  };
 }
 
 export default compose(

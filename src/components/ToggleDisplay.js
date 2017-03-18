@@ -15,7 +15,7 @@ export const ToggleDisplay = compose(
   const style = (show || !hide) && show !== false ? styles.none : styles.hidden
   return (
     <div style={ style }>
-      { children }
+      {children}
     </div>
   )
 })

@@ -1,8 +1,4 @@
-import {
-  prefixKeys,
-  silencePromise,
-  renameKey
-} from '../utils'
+import { prefixKeys, silencePromise, renameKey } from '../utils'
 
 describe('utils', () => {
   describe('#prefixKeys', () => {

@@ -9,13 +9,11 @@ import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right'
 import TitleCard from './TitleCard'
 
 class ExamQuestion extends Component {
-  @bind
-  handleCheck(event) {
+  @bind handleCheck(event) {
     this.props.onCheck(event.target.checked, this.props.uuid)
   }
 
-  @bind
-  handleRequestDetail() {
+  @bind handleRequestDetail() {
     if (this.props.checked) {
       this.props.onRequestDetail(this.props.uuid)
     }
@@ -31,10 +29,12 @@ class ExamQuestion extends Component {
             <Checkbox checked={ checked } onCheck={ this.handleCheck } />
           </Col>
           <Col md={ 10 }>
-            { questionDetail.get('title') }
+            {questionDetail.get('title')}
           </Col>
           <Col>
-            <IconButton disabled={ !checked } onTouchTap={ this.handleRequestDetail }>
+            <IconButton
+              disabled={ !checked }
+              onTouchTap={ this.handleRequestDetail }>
               <ChevronRight />
             </IconButton>
           </Col>
@@ -52,7 +52,7 @@ class ExamQuestion extends Component {
   };
 }
 
-export default connect((state) => ({ question: state.question }))(ExamQuestion)
+export default connect(state => ({ question: state.question }))(ExamQuestion)
 
 const styles = {
   card: {

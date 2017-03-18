@@ -7,7 +7,7 @@ import { isPendingSelector } from 'redux/modules/app'
 class LoadingContainer extends Component {
   componentDidMount() {
     this.setState({
-      left: (this.refs.container.offsetWidth / 2) - 20
+      left: this.refs.container.offsetWidth / 2 - 20
     })
   }
 
@@ -16,13 +16,13 @@ class LoadingContainer extends Component {
     return (
       <div ref='container' style={ styles.container }>
         <CenterLoading left={ this.state.left } loading={ pending } />
-        { children }
+        {children}
       </div>
     )
   }
 
   state = {
-    left: (window.innerWidth / 2) - 20
+    left: window.innerWidth / 2 - 20
   };
 
   static propTypes = {
@@ -31,7 +31,9 @@ class LoadingContainer extends Component {
   };
 }
 
-export default connect((state) => ({ pending: isPendingSelector(state) }))(LoadingContainer)
+export default connect(state => ({ pending: isPendingSelector(state) }))(
+  LoadingContainer
+)
 
 const styles = {
   container: {

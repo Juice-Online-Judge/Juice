@@ -3,8 +3,14 @@ import { connect } from 'react-redux'
 import { bind } from 'decko'
 import range from 'lodash/range'
 
-import { Table, TableHeader, TableRow, TableBody, TableRowColumn, TableHeaderColumn }
-  from 'material-ui/Table'
+import {
+  Table,
+  TableHeader,
+  TableRow,
+  TableBody,
+  TableRowColumn,
+  TableHeaderColumn
+} from 'material-ui/Table'
 import LoadingContainer from 'containers/LoadingContainer'
 
 import { fetchUsers } from 'redux/modules/users'
@@ -14,13 +20,11 @@ class UserTab extends Component {
     this.props.fetchUsers()
   }
 
-  @bind
-  handlePageChange(page) {
+  @bind handlePageChange(page) {
     this.setState({ page })
   }
 
-  @bind
-  handleUserSelect(selectedRow) {
+  @bind handleUserSelect(selectedRow) {
     setImmediate(() => this.emitChange(selectedRow))
   }
 
@@ -29,7 +33,7 @@ class UserTab extends Component {
     if (selectedRow === 'all') {
       selectedRow = range(0, users.get('result').size)
     }
-    const result = selectedRow.map((idx) => users.getIn(['result', idx]))
+    const result = selectedRow.map(idx => users.getIn(['result', idx]))
     this.setState({ selectedRow })
     this.props.onChange(result)
   }
@@ -44,7 +48,7 @@ class UserTab extends Component {
           fixedHeader
           selectable
           multiSelectable
-          onRowSelection={ this.handleUserSelect } >
+          onRowSelection={ this.handleUserSelect }>
           <TableHeader>
             <TableRow>
               <TableHeaderColumn>
@@ -55,20 +59,17 @@ class UserTab extends Component {
               </TableHeaderColumn>
             </TableRow>
           </TableHeader>
-          <TableBody
-            deselectOnClickaway={ false } >
-            {
-              users.get('result').map((id, idx) => (
-                <TableRow selected={ selectedRow.includes(idx) } key={ id } >
-                  <TableRowColumn>
-                    { users.getIn(['entities', 'user', `${id}`, 'username']) }
-                  </TableRowColumn>
-                  <TableRowColumn>
-                    { users.getIn(['entities', 'user', `${id}`, 'nickname']) }
-                  </TableRowColumn>
-                </TableRow>
-              ))
-            }
+          <TableBody deselectOnClickaway={ false }>
+            {users.get('result').map((id, idx) => (
+              <TableRow selected={ selectedRow.includes(idx) } key={ id }>
+                <TableRowColumn>
+                  {users.getIn(['entities', 'user', `${id}`, 'username'])}
+                </TableRowColumn>
+                <TableRowColumn>
+                  {users.getIn(['entities', 'user', `${id}`, 'nickname'])}
+                </TableRowColumn>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </LoadingContainer>
@@ -86,4 +87,6 @@ class UserTab extends Component {
   };
 }
 
-export default connect((state) => ({ users: state.users }), { fetchUsers })(UserTab)
+export default connect(state => ({ users: state.users }), { fetchUsers })(
+  UserTab
+)
