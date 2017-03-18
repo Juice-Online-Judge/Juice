@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react'
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 
 import Inset from 'layouts/Inset'
@@ -38,15 +38,17 @@ class ExamDetailView extends Component {
     const {exam, examId, func} = this.props
     const token = exam.getIn(['tokens', `${examId}`])
 
+    if (!func) {
+      return <Redirect to={ `/exams/${examId}/questions` } />
+    }
+
     return (
       <Inset>
         <ExamDetailHeader token={ token } isSubmission={ func === 'submissions' } />
         <Switch>
-          <Route path='/exam/:examId/questions' component={ Questions } />
-          <Route path='/exam/:examId/submissions' component={ Submissions } />
-          <Route
-            path='/exam/:examId/:func'
-            component={ redirect(`/exam/${examId}/questions`) } />
+          <Route path='/exams/:examId/questions' component={ Questions } />
+          <Route path='/exams/:examId/submissions' component={ Submissions } />
+          <Route component={ redirect(`/exams/${examId}/questions`) } />
         </Switch>
         {this.switchButton}
       </Inset>
@@ -55,7 +57,7 @@ class ExamDetailView extends Component {
 
   static propTypes = {
     exam: PropTypes.object.isRequired,
-    func: PropTypes.string.isRequired,
+    func: PropTypes.string,
     examId: PropTypes.string.isRequired,
     fetchExamToken: PropTypes.func.isRequired
   };

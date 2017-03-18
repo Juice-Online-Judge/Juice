@@ -41,7 +41,7 @@ class ExamDetailHeader extends Component {
   }
 
   static propTypes = {
-    token: PropTypes.string.isRequired,
+    token: PropTypes.string,
     isSubmission: PropTypes.bool.isRequired
   };
 }

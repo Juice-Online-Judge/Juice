@@ -1,18 +1,23 @@
-import React, { PropTypes, Component } from 'react'
-import { connect } from 'react-redux'
+import React, {PropTypes, Component} from 'react'
+import {connect} from 'react-redux'
 import SubmissionList from 'components/SubmissionList'
-import { fetchExamSubmissions } from 'redux/modules/submission'
-import { filterSubmissionSelector, addFilter } from 'redux/modules/submissionFilter'
-import { createIsAdminSelector } from 'redux/modules/account'
+import {fetchExamSubmissions} from 'redux/modules/submission'
+import {
+  filterSubmissionSelector,
+  addFilter
+} from 'redux/modules/submissionFilter'
+import {createIsAdminSelector} from 'redux/modules/account'
 
 class ExamSubmissionDetail extends Component {
   componentDidMount() {
-    const { examId } = this.props.params
-    const { fetchExamSubmissions } = this.props
+    const {examId, fetchExamSubmissions} = this.props
     fetchExamSubmissions(examId)
-    this.interval = setInterval(() => {
-      fetchExamSubmissions(examId)
-    }, 3000)
+    this.interval = setInterval(
+      () => {
+        fetchExamSubmissions(examId)
+      },
+      3000
+    )
   }
 
   componentWillUnmount() {
@@ -20,8 +25,7 @@ class ExamSubmissionDetail extends Component {
   }
 
   render() {
-    const { examId } = this.props.params
-    const { submission, admin, addFilter } = this.props
+    const {examId, submission, admin, addFilter} = this.props
     return (
       <div>
         <div>This page will update every few seconds</div>
@@ -34,7 +38,7 @@ class ExamSubmissionDetail extends Component {
   }
 
   static propTypes = {
-    params: PropTypes.object.isRequired,
+    examId: PropTypes.string.isRequired,
     submission: PropTypes.object.isRequired,
     admin: PropTypes.bool.isRequired,
     fetchExamSubmissions: PropTypes.func.isRequired,
@@ -44,7 +48,11 @@ class ExamSubmissionDetail extends Component {
 
 const isAdminSelector = createIsAdminSelector()
 
-export default connect((state) => ({
-  submission: filterSubmissionSelector(state),
-  admin: isAdminSelector(state)
-}), { fetchExamSubmissions, addFilter })(ExamSubmissionDetail)
+export default connect(
+  (state, {match: {params: {examId}}}) => ({
+    submission: filterSubmissionSelector(state),
+    admin: isAdminSelector(state),
+    examId
+  }),
+  {fetchExamSubmissions, addFilter}
+)(ExamSubmissionDetail)
