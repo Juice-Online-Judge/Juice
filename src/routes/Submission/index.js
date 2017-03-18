@@ -1,7 +1,3 @@
-export default {
-  path: 'submissions',
-  getComponent(_location, next) {
-    System.import('./components/SubmissionView')
-      .then((SubmissionView) => next(null, SubmissionView))
-  }
-}
+import loadable from 'routes/utils/loadable'
+
+export default loadable(() => import('./components/SubmissionView'))

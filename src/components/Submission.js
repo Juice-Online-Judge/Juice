@@ -1,9 +1,9 @@
-import React, { Component, PropTypes } from 'react'
+import React, {Component, PropTypes} from 'react'
 import Radium from 'radium'
-import { bind } from 'decko'
+import {bind} from 'decko'
 
-import { Row, Col } from 'react-flexbox-grid'
-import { Link } from 'react-router'
+import {Row, Col} from 'react-flexbox-grid'
+import {Link} from 'react-router-dom'
 import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
 import IconButton from 'material-ui/IconButton'
@@ -16,7 +16,7 @@ const PENDING = 'PENDING'
 const REVIEWING = 'AC (Reviewing)'
 const HIDE_CLASS = 'xs-hide sm-hide'
 
-const getResult = ({ result, needReview }) => {
+const getResult = ({result, needReview}) => {
   if (!result) {
     return PENDING
   }
@@ -28,20 +28,18 @@ const getResult = ({ result, needReview }) => {
 }
 
 export class Submission extends Component {
-  @bind
-  handleFilterQuestion() {
-    const { quesUuid } = this.props
-    this.addFilter({ question: quesUuid })
+  @bind handleFilterQuestion() {
+    const {quesUuid} = this.props
+    this.addFilter({question: quesUuid})
   }
 
-  @bind
-  handleFilterUser() {
-    const { userId } = this.props
-    this.addFilter({ user: userId })
+  @bind handleFilterUser() {
+    const {userId} = this.props
+    this.addFilter({user: userId})
   }
 
   addFilter(filter) {
-    const { addFilter } = this.props
+    const {addFilter} = this.props
     if (addFilter) {
       addFilter(filter)
     }
@@ -60,7 +58,7 @@ export class Submission extends Component {
       memory
     } = this.props
     const result = getResult(this.props)
-    const resultStyle = { color: resultColor[result] || resultColor['fail'] }
+    const resultStyle = {color: resultColor[result] || resultColor['fail']}
     const origQuesUrl = `/questions/${quesUuid}`
     const quesUrl = examId ? `/exams/${examId}${origQuesUrl}` : origQuesUrl
     const origSubUrl = `/submissions/${id}/code`
@@ -70,29 +68,29 @@ export class Submission extends Component {
         <CardText style={ styles.padding }>
           <Row middle='xs'>
             <Col xs={ 1 }>
-              { id }
+              {id}
             </Col>
-            <Col xs={ addFilter ? 6 : 7 } md={ addFilter ? 4 : 5 } >
+            <Col xs={ addFilter ? 6 : 7 } md={ addFilter ? 4 : 5 }>
               <Link to={ quesUrl }>
-                { title }
+                {title}
               </Link>
             </Col>
             <Col xs={ 1 }>
-              { examId ? username : null }
+              {examId ? username : null}
             </Col>
-            <Col xs={ 2 } md={ 1 } >
+            <Col xs={ 2 } md={ 1 }>
               <span style={ resultStyle }>
-                { result }
+                {result}
               </span>
             </Col>
             <Col className={ HIDE_CLASS } style={ styles.upperCase } md={ 1 }>
-              { language }
+              {language}
             </Col>
-            <Col className={ HIDE_CLASS } md={ 1 } >
-              { time || 'N/A' } s
+            <Col className={ HIDE_CLASS } md={ 1 }>
+              {time || 'N/A'} s
             </Col>
-            <Col className={ HIDE_CLASS } md={ 1 } >
-              { memory || 'N/A' } MB
+            <Col className={ HIDE_CLASS } md={ 1 }>
+              {memory || 'N/A'} MB
             </Col>
             <Col xs={ 1 }>
               <Link to={ subUrl }>
@@ -101,25 +99,23 @@ export class Submission extends Component {
                 </IconButton>
               </Link>
             </Col>
-            {
-              addFilter ? (
-                <Col xs={ 1 }>
-                  <IconMenu
-                    iconButtonElement={
-                      <IconButton> <MoreVertIcon /> </IconButton>
+            {addFilter
+              ? <Col xs={ 1 }>
+                <IconMenu
+                  iconButtonElement={
+                    <IconButton> <MoreVertIcon /> </IconButton>
                     }
-                    anchorOrigin={ styles.origin }
-                    targetOrigin={ styles.origin } >
-                    <MenuItem
-                      primaryText='Filter by this question'
-                      onTouchTap={ this.handleFilterQuestion } />
-                    <MenuItem
-                      primaryText='Filter by this user'
-                      onTouchTap={ this.handleFilterUser } />
-                  </IconMenu>
-                </Col>
-              ) : null
-            }
+                  anchorOrigin={ styles.origin }
+                  targetOrigin={ styles.origin }>
+                  <MenuItem
+                    primaryText='Filter by this question'
+                    onTouchTap={ this.handleFilterQuestion } />
+                  <MenuItem
+                    primaryText='Filter by this user'
+                    onTouchTap={ this.handleFilterUser } />
+                </IconMenu>
+              </Col>
+              : null}
           </Row>
         </CardText>
       </Card>
@@ -143,7 +139,7 @@ export class Submission extends Component {
 }
 
 const resultColor = {
-  'AC': '#008000',
+  AC: '#008000',
   [REVIEWING]: '#ffa500',
   [PENDING]: '#444',
   fail: '#ff0000'

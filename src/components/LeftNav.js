@@ -1,9 +1,9 @@
-import React, { PropTypes } from 'react'
+import React, {PropTypes} from 'react'
 import setDisplayName from 'recompose/setDisplayName'
 import setPropTypes from 'recompose/setPropTypes'
 import compose from 'recompose/compose'
 
-import { Link } from 'react-router'
+import {Link} from 'react-router-dom'
 import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem'
 
@@ -14,19 +14,19 @@ const LeftNav = compose(
   setPropTypes({
     onRequestChange: PropTypes.func.isRequired
   })
-)((props) => (
+)(props => (
   <Drawer { ...props } docked={ false }>
-    <Link to='/exams' style={ styles.noUnderline } >
+    <Link to='/exams' style={ styles.noUnderline }>
       <MenuItem onTouchTap={ props.onRequestChange }>
         Exams
       </MenuItem>
     </Link>
-    <Link to='/questions' style={ styles.noUnderline } >
+    <Link to='/questions' style={ styles.noUnderline }>
       <MenuItem onTouchTap={ props.onRequestChange }>
         Question
       </MenuItem>
     </Link>
-    <Link to='/submissions' style={ styles.noUnderline } >
+    <Link to='/submissions' style={ styles.noUnderline }>
       <MenuItem onTouchTap={ props.onRequestChange }>
         Submission
       </MenuItem>

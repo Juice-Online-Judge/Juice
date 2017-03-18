@@ -1,13 +1,12 @@
-import React, { PropTypes, Component } from 'react'
-import { bind } from 'decko'
+import React, {PropTypes, Component} from 'react'
+import {bind} from 'decko'
 
-import { Link } from 'react-router'
+import {Link} from 'react-router-dom'
 import FlatButton from 'material-ui/FlatButton'
 
 class PageButton extends Component {
-  @bind
-  handleTouchTap() {
-    const { disabled, onTouchTap } = this.props
+  @bind handleTouchTap() {
+    const {disabled, onTouchTap} = this.props
     if (!disabled && onTouchTap) {
       onTouchTap(this.props.page)
     }
