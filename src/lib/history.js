@@ -1,13 +1,7 @@
 import createHistory from 'history/createBrowserHistory'
-import qs from 'qs'
+import qhistory from 'qhistory'
+import {stringify, parse} from 'qs'
 
 const history = createHistory()
 
-history.listen(() => {
-  history.location = {
-    ...history.location,
-    query: qs.parse(history.location.search.slice(1))
-  }
-})
-
-export default history
+export default qhistory(history, stringify, parse)
