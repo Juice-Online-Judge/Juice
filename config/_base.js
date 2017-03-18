@@ -48,7 +48,6 @@ const config = {
     'pinkie',
     'react',
     'react-redux',
-    'react-router',
     'react-router-dom',
     'redux',
     'redux-actions',
