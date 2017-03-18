@@ -20,7 +20,7 @@ import Submission from './Submission'
 export default () => (
   <CoreLayout>
     <Switch>
-      <Route exact path='/' component={ redirect('/exam') } />
+      <Route exact path='/' component={ redirect('/exams') } />
       <Route path='/about-us' component={ AboutUs } />
       <Route path='(exams/:examId/)submissions/:id/code' component={ Code } />
       <Route exact path='/exams' component={ Exam } />
@@ -29,12 +29,13 @@ export default () => (
       <Route path='/exams/:examId/:func?' component={ ExamDetail } />
       <Route path='/page-not-found' component={ NotFound } />
       <Route path='/permission-denied' component={ PermissionDenied } />
-      <Route path='/questions' component={ Question } />
+      <Route exact path='/questions' component={ Question } />
       <Route path='/questions/new' component={ QuestionNew } />
       <Route path='/questions/:uuid' component={ QuestionDetail } />
       <Route path='/sign-in' component={ SignIn } />
       <Route path='/sign-up' component={ SignUp } />
       <Route path='submissions' component={ Submission } />
+      <Route component={ redirect('/page-not-found') } />
     </Switch>
   </CoreLayout>
 )
