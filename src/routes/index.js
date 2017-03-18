@@ -34,7 +34,7 @@ export default () => (
       <Route path='/questions/:uuid' component={ QuestionDetail } />
       <Route path='/sign-in' component={ SignIn } />
       <Route path='/sign-up' component={ SignUp } />
-      <Route path='submissions' component={ Submission } />
+      <Route path='/submissions' component={ Submission } />
       <Route component={ redirect('/page-not-found') } />
     </Switch>
   </CoreLayout>
