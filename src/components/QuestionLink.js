@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react'
-import { Link } from 'react-router'
+import React, {PropTypes} from 'react'
+import {Link} from 'react-router-dom'
 import TitleCard from './TitleCard'
 import setDisplayName from 'recompose/setDisplayName'
 import setPropTypes from 'recompose/setPropTypes'
@@ -13,13 +13,12 @@ const QuestionLink = compose(
     title: PropTypes.string.isRequired
   }),
   setDisplayName('QuestionLink')
-)(({ examId, uuid, title }) => {
+)(({examId, uuid, title}) => {
   const quesUrl = `/questions/${uuid}`
   const url = examId ? `/exams/${examId}${quesUrl}` : quesUrl
   return (
     <Link style={ styles.noUnderline } to={ url }>
-      <TitleCard
-        title={ title } />
+      <TitleCard title={ title } />
     </Link>
   )
 })
