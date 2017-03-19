@@ -2414,9 +2414,13 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-date-fns@^1.23.0, date-fns@^1.28.0:
+date-fns@^1.23.0:
   version "1.28.0"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.28.0.tgz#3b12f54b66467807bb95e5930caf7bfb4170bc1a"
+
+date-fns@^1.28.1:
+  version "1.28.1"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.28.1.tgz#9e2325c77b1cb7da3a9fd9822ba52c188a4ce91b"
 
 date-now@^0.1.4:
   version "0.1.4"
@@ -3245,7 +3249,7 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
-flexboxgrid@^6.3.1:
+flexboxgrid@^6.3.0, flexboxgrid@^6.3.1:
   version "6.3.1"
   resolved "https://registry.yarnpkg.com/flexboxgrid/-/flexboxgrid-6.3.1.tgz#e99898afc07b7047722bb81a958a5fba4d4e20fd"
 
@@ -6198,9 +6202,11 @@ react-event-listener@^0.4.0:
     react-addons-shallow-compare "^15.4.2"
     warning "^3.0.0"
 
-react-flexbox-grid@^0.10.2:
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/react-flexbox-grid/-/react-flexbox-grid-0.10.2.tgz#9de9b5d0b065adbb3b3b7e26033515abf9a9a2b4"
+react-flexbox-grid@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-flexbox-grid/-/react-flexbox-grid-1.0.1.tgz#2ef40af58222e52df9f50be2549d018fd66efe8b"
+  dependencies:
+    flexboxgrid "^6.3.0"
 
 react-fuzzy@^0.3.3:
   version "0.3.3"
