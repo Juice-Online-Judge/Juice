@@ -452,15 +452,14 @@ babel-core@^6.0.0, babel-core@^6.11.4, babel-core@^6.23.1, babel-core@^6.24.0:
     slash "^1.0.0"
     source-map "^0.5.0"
 
-babel-eslint@^7.2.0:
-  version "7.2.0"
-  resolved "https://registry.yarnpkg.com/babel-eslint/-/babel-eslint-7.2.0.tgz#8941514b9dead06f0df71b29d5d5b193a92ee0ae"
+babel-eslint@^7.2.1:
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/babel-eslint/-/babel-eslint-7.2.1.tgz#079422eb73ba811e3ca0865ce87af29327f8c52f"
   dependencies:
     babel-code-frame "^6.22.0"
     babel-traverse "^6.23.1"
     babel-types "^6.23.0"
     babylon "^6.16.1"
-    lodash "^4.17.4"
 
 babel-generator@^6.18.0, babel-generator@^6.24.0:
   version "6.24.0"
@@ -2411,9 +2410,13 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-date-fns@^1.23.0, date-fns@^1.28.1:
+date-fns@^1.23.0:
   version "1.28.1"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.28.1.tgz#9e2325c77b1cb7da3a9fd9822ba52c188a4ce91b"
+
+date-fns@^1.28.2:
+  version "1.28.2"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.28.2.tgz#19e4192d68875c0bf7c9537e3f296a8ec64853ef"
 
 date-now@^0.1.4:
   version "0.1.4"
@@ -2735,9 +2738,9 @@ enzyme-to-json@^1.5.0:
     object-values "^1.0.0"
     object.entries "^1.0.3"
 
-enzyme@^2.7.1:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/enzyme/-/enzyme-2.7.1.tgz#76370e1d99e91f73091bb8c4314b7c128cc2d621"
+enzyme@^2.8.0:
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/enzyme/-/enzyme-2.8.0.tgz#86cc1fc96e5cbd7695766dd6e89deb13a0aead51"
   dependencies:
     cheerio "^0.22.0"
     function.prototype.name "^1.0.0"
@@ -2884,14 +2887,16 @@ eslint-config-standard@^7.0.1:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/eslint-config-standard/-/eslint-config-standard-7.1.0.tgz#47e769ea0739f5b2d5693b1a501c21c9650fafcf"
 
-eslint-loader@^1.6.3:
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/eslint-loader/-/eslint-loader-1.6.3.tgz#52fdcb32e9e8355108f8380dad4efe51a28986f9"
+eslint-loader@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/eslint-loader/-/eslint-loader-1.7.0.tgz#9813e77046730191ab399938732dff7960c639cb"
   dependencies:
     find-cache-dir "^0.1.1"
+    loader-fs-cache "^1.0.0"
     loader-utils "^1.0.2"
     object-assign "^4.0.1"
     object-hash "^1.1.4"
+    rimraf "^2.6.1"
 
 eslint-plugin-babel@^4.1.1:
   version "4.1.1"
@@ -3409,9 +3414,9 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
-github-markdown-css@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/github-markdown-css/-/github-markdown-css-2.4.1.tgz#b4736d84eea8367a03b3248cf546dda3e8dc55e3"
+github-markdown-css@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/github-markdown-css/-/github-markdown-css-2.5.0.tgz#e8fcd11993c7dcd2a1efaec5327c3043e476c454"
 
 glob-base@^0.3.0:
   version "0.3.0"
@@ -4542,6 +4547,13 @@ load-json-file@^1.0.0:
     pinkie-promise "^2.0.0"
     strip-bom "^2.0.0"
 
+loader-fs-cache@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/loader-fs-cache/-/loader-fs-cache-1.0.1.tgz#56e0bf08bd9708b26a765b68509840c8dec9fdbc"
+  dependencies:
+    find-cache-dir "^0.1.1"
+    mkdirp "0.5.1"
+
 loader-runner@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-2.3.0.tgz#f482aea82d543e07921700d5a46ef26fdac6b8a2"
@@ -4997,7 +5009,7 @@ mixin-object@^2.0.1:
     for-in "^0.1.3"
     is-extendable "^0.1.1"
 
-"mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkdirp@~0.5.1:
+mkdirp@0.5.1, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkdirp@~0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
@@ -5163,9 +5175,9 @@ node-pre-gyp@^0.6.29, node-pre-gyp@^0.6.4:
     tar "~2.2.1"
     tar-pack "~3.3.0"
 
-node-sass@^4.5.1:
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-4.5.1.tgz#e8e119fe3c8213ad7e56ca618dd231e9e8b30f5b"
+node-sass@^4.5.2:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-4.5.2.tgz#4012fa2bd129b1d6365117e88d9da0500d99da64"
   dependencies:
     async-foreach "^0.1.3"
     chalk "^1.1.1"
@@ -5862,9 +5874,9 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
-prettier-eslint-cli@^3.1.2:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/prettier-eslint-cli/-/prettier-eslint-cli-3.1.2.tgz#697d21f3ed8ffb41dee499961eb88f1e04f08e36"
+prettier-eslint-cli@^3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/prettier-eslint-cli/-/prettier-eslint-cli-3.1.3.tgz#7651bfabffd1392643c2deb3db9e185914387102"
   dependencies:
     arrify "^1.0.1"
     babel-runtime "^6.23.0"
@@ -6662,9 +6674,9 @@ require-uncached@^1.0.2:
     caller-path "^0.1.0"
     resolve-from "^1.0.0"
 
-reselect@^2.5.4:
-  version "2.5.4"
-  resolved "https://registry.yarnpkg.com/reselect/-/reselect-2.5.4.tgz#b7d23fdf00b83fa7ad0279546f8dbbbd765c7047"
+reselect@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/reselect/-/reselect-3.0.0.tgz#b2e35977f03048700028eaee3a8c0639e40e8f35"
 
 reserved-words@^0.1.1:
   version "0.1.1"
@@ -6928,9 +6940,9 @@ source-list-map@^0.1.7, source-list-map@~0.1.7:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-0.1.8.tgz#c550b2ab5427f6b3f21f5afead88c4f5587b2106"
 
-source-list-map@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-1.0.1.tgz#cc1fc17122ae0a51978024c2cc0f8c35659026b8"
+source-list-map@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-1.1.1.tgz#1a33ac210ca144d1e561f906ebccab5669ff4cb4"
 
 source-map-support@^0.4.2:
   version "0.4.13"
@@ -7125,9 +7137,9 @@ style-loader@0.13.1:
   dependencies:
     loader-utils "^0.2.7"
 
-style-loader@^0.15.0:
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/style-loader/-/style-loader-0.15.0.tgz#17ff9527ae109b94d8c53d253dc9333041438a2d"
+style-loader@^0.16.0:
+  version "0.16.1"
+  resolved "https://registry.yarnpkg.com/style-loader/-/style-loader-0.16.1.tgz#50e325258d4e78421dd9680636b41e8661595d10"
   dependencies:
     loader-utils "^1.0.2"
 
@@ -7560,11 +7572,11 @@ webpack-sources@^0.1.0, webpack-sources@^0.1.4:
     source-list-map "~0.1.7"
     source-map "~0.5.3"
 
-webpack-sources@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-0.2.0.tgz#fea93ba840f16cdd3f246f0ee95f88a9492c69fb"
+webpack-sources@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-0.2.3.tgz#17c62bfaf13c707f9d02c479e0dcdde8380697fb"
   dependencies:
-    source-list-map "^1.0.1"
+    source-list-map "^1.1.1"
     source-map "~0.5.3"
 
 webpack@^1.13.1:
@@ -7587,9 +7599,9 @@ webpack@^1.13.1:
     watchpack "^0.2.1"
     webpack-core "~0.6.9"
 
-webpack@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-2.3.0.tgz#0ae2d90350a7d48a44fddd7dd85c855642bc042e"
+webpack@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-2.3.2.tgz#7d521e6f0777a3a58985c69425263fdfe977b458"
   dependencies:
     acorn "^4.0.4"
     acorn-dynamic-import "^2.0.0"
@@ -7609,7 +7621,7 @@ webpack@^2.3.0:
     tapable "~0.2.5"
     uglify-js "^2.8.5"
     watchpack "^1.3.1"
-    webpack-sources "^0.2.0"
+    webpack-sources "^0.2.3"
     yargs "^6.0.0"
 
 whatwg-encoding@^1.0.1:
