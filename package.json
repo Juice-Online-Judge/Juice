@@ -140,7 +140,7 @@
     "cheerio": "^0.22.0",
     "compression-webpack-plugin": "^0.3.2",
     "concurrently": "^3.4.0",
-    "css-loader": "^0.27.1",
+    "css-loader": "^0.28.0",
     "cssnano": "^3.10.0",
     "enzyme": "^2.8.0",
     "eslint": "^3.17.1",
