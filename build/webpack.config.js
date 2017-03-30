@@ -124,8 +124,7 @@ const presets = [
       modules: false
     }
   ],
-  'react',
-  'stage-0'
+  'react'
 ]
 
 if (__PROD__) {
@@ -151,8 +150,12 @@ webpackConfig.module.rules = [
       cacheDirectory: true,
       plugins: [
         'transform-runtime',
-        'add-module-exports',
-        'transform-decorators-legacy'
+        'transform-decorators-legacy',
+        'transform-class-properties',
+        'transform-export-extensions',
+        'transform-object-rest-spread',
+        'syntax-dynamic-import',
+        'dev-expression'
       ],
       presets
     }

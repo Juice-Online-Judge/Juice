@@ -13,8 +13,15 @@
         "node": "current"
       }
     }],
-    "react",
-    "stage-0"
+    "react"
   ],
-  "plugins": ["transform-runtime", "add-module-exports", "transform-decorators-legacy"]
+  "plugins": [
+    "transform-runtime",
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    "transform-export-extensions",
+    "transform-object-rest-spread",
+    "syntax-dynamic-import",
+    "dev-expression"
+  ]
 }
