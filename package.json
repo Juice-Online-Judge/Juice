@@ -153,7 +153,7 @@
     "eslint-plugin-react": "^6.10.3",
     "eslint-plugin-standard": "^2.1.1",
     "extract-text-webpack-plugin": "^2.1.0",
-    "file-loader": "^0.10.1",
+    "file-loader": "^0.11.0",
     "html-webpack-plugin": "^2.26.0",
     "identity-obj-proxy": "^3.0.0",
     "jasmine-immutable-matchers": "^1.2.0",
