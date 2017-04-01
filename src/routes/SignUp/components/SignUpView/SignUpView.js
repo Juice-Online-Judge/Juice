@@ -52,15 +52,8 @@ export class SignUpView extends React.Component {
     this.setData(newState)
   }
 
-  @bind signup(event) {
-    event.preventDefault()
+  @bind signup() {
     this.props.registerUser(this.data)
-  }
-
-  @bind handleKeyDown(event) {
-    if (event.keyCode === 13 && event.target.name === 'passwordConfirm') {
-      this.signup(event)
-    }
   }
 
   @bind handleVerify(response) {
@@ -86,7 +79,6 @@ export class SignUpView extends React.Component {
                 label={ label }
                 message={ message }
                 onChange={ this.handleChange }
-                onKeyDown={ this.handleKeyDown }
                 { ...rest } />
             ))}
             <CardActions>
