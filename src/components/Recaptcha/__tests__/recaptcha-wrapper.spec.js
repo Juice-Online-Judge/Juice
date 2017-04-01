@@ -1,4 +1,4 @@
-import recaptcha, { createRecaptcha } from '../recaptcha-wrapper'
+import { createRecaptcha } from '../recaptcha-wrapper'
 
 const WIDGET_ID = 'widgetId'
 const recaptchaMock = {
@@ -23,16 +23,6 @@ describe('recaptcha', () => {
           }).toThrow()
         })
       })
-
-      describe('When ReCAPTCHA loaded', () => {
-        it('Not throw error', () => {
-          ins.setRecaptcha(recaptchaMock)
-
-          expect(() => {
-            ins.assertRecaptchaLoad()
-          }).not.toThrow()
-        })
-      })
     })
 
     describe('#checkRecaptchaLoad', () => {
@@ -42,21 +32,6 @@ describe('recaptcha', () => {
           expect(() => {
             ins.assertRecaptchaLoad()
           }).toThrow()
-        })
-      })
-
-      describe('When Recaptcha loaded', () => {
-        beforeEach(() => {
-          window.grecaptcha = recaptchaMock
-        })
-        afterEach(() => delete window.grecaptcha)
-
-        it('Load Recaptcha', () => {
-          ins.checkRecaptchaLoad()
-
-          expect(() => {
-            ins.assertRecaptchaLoad()
-          }).not.toThrow()
         })
       })
     })
@@ -97,64 +72,6 @@ describe('recaptcha', () => {
           expect(widgetId).toBe(WIDGET_ID)
         })
       })
-    })
-
-    describe('#reset', () => {
-      describe('When pass widget id', () => {
-        it('Reset ReCAPTCHA', () => {
-          ins.reset(WIDGET_ID)
-
-          expect(recaptchaMock.reset).toBeCalled()
-        })
-      })
-
-      describe('When not pass widget id', () => {
-        it('Do nothing', () => {
-          ins.reset()
-
-          expect(recaptchaMock.reset).not.toBeCalled()
-        })
-      })
-
-      beforeEach(() => {
-        jest.resetAllMocks()
-        ins.setRecaptcha(recaptchaMock)
-      })
-    })
-
-    describe('#execute', () => {
-      describe('When pass widget id', () => {
-        it('Execute ReCAPTCHA', () => {
-          ins.execute(WIDGET_ID)
-
-          expect(recaptchaMock.execute).toBeCalled()
-        })
-      })
-
-      describe('When not pass widget id', () => {
-        it('Do nothing', () => {
-          ins.execute()
-
-          expect(recaptchaMock.execute).not.toBeCalled()
-        })
-      })
-
-      beforeEach(() => {
-        jest.resetAllMocks()
-        ins.setRecaptcha(recaptchaMock)
-      })
-    })
-  })
-
-  describe('window.vueRecaptchaApiLoaded', () => {
-    beforeEach(() => {
-      window.grecaptcha = recaptchaMock
-    })
-    afterEach(() => delete window.grecaptcha)
-
-    it('Load grecaptcha', () => {
-      window.vueRecaptchaApiLoaded()
-      expect(() => recaptcha.assertRecaptchaLoad()).not.toThrow()
     })
   })
 })

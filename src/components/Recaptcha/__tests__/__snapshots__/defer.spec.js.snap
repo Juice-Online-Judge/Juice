@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`defer Return defer object 1`] = `
+Object {
+  "promise": Promise {
+    "_then": Array [],
+  },
+  "resolve": [Function],
+  "resolved": [Function],
+}
+`;
