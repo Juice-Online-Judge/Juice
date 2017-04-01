@@ -101,7 +101,6 @@
     "react-flexbox-grid": "^1.0.2",
     "react-loadable": "^3.1.0",
     "react-motion": "^0.4.5",
-    "react-recaptcha": "^2.2.6",
     "react-redux": "^5.0.3",
     "react-router-dom": "^4.0.0",
     "react-router-redux": "5.0.0-alpha.3",
