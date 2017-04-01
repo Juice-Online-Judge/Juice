@@ -52,12 +52,24 @@ export class SignUpView extends React.Component {
     this.setData(newState)
   }
 
-  @bind signup() {
+  signup() {
     this.props.registerUser(this.data)
   }
 
   @bind handleVerify(response) {
     this.setData({'g-recaptcha-response': response})
+    this.signup()
+  }
+
+  @bind handleExpired() {
+    Reflect.deleteProperty(this.data, 'g-recaptcha-response')
+  }
+
+  @bind handleClick(event) {
+    event.preventDefault()
+    if (!Reflect.has(this.data, 'g-recaptcha-response')) {
+      return
+    }
     this.signup()
   }
 
@@ -84,8 +96,9 @@ export class SignUpView extends React.Component {
             <CardActions>
               <Recaptcha
                 onVerify={ this.handleVerify }
+                onExpired={ this.handleExpired }
                 sitekey='6LeBKhsUAAAAAFfiapN0MqwR02A1Id-y2wFVuzZ7'>
-                <FlatButton label='Signup' primary />
+                <FlatButton label='Signup' primary onClick={ this.handleClick } />
               </Recaptcha>
             </CardActions>
           </Card>
