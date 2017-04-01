@@ -15,7 +15,7 @@ dependencies:
     - yarn
   cache_directories:
     - ~/.yarn
-    - ~/.yarn-cache
+    - ~/.cache/yarn
 test:
     override:
       - mkdir -p $CIRCLE_TEST_REPORTS/jest
