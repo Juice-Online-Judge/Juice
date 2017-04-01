@@ -92,7 +92,7 @@ export class SignUpView extends React.Component {
             <CardActions>
               <Recaptcha
                 onVerify={ this.handleVerify }
-                sitekey='6LdEMSQTAAAAAG87oN7PFNRmqg755R9kUloibvY4'>
+                sitekey='6LeBKhsUAAAAAFfiapN0MqwR02A1Id-y2wFVuzZ7'>
                 <FlatButton label='Signup' primary />
               </Recaptcha>
             </CardActions>
