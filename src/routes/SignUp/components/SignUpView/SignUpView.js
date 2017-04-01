@@ -1,13 +1,11 @@
-import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { bind } from 'decko'
+import React, {PropTypes} from 'react'
+import {connect} from 'react-redux'
+import {bind} from 'decko'
 import compose from 'recompose/compose'
-import noop from 'lodash/noop'
 import Radium from 'radium'
 
-import { registerUser } from 'redux/modules/account'
+import {registerUser} from 'redux/modules/account'
 
-import Recaptcha from 'react-recaptcha'
 import Paper from 'material-ui/Paper'
 import Card from 'material-ui/Card/Card'
 import CardTitle from 'material-ui/Card/CardTitle'
@@ -15,6 +13,7 @@ import CardActions from 'material-ui/Card/CardActions'
 import FlatButton from 'material-ui/FlatButton'
 
 import CenterBlock from 'layouts/CenterBlock'
+import Recaptcha from 'components/Recaptcha'
 import InputAction from 'components/InputAction'
 import rule from 'validation/register'
 import redirectOnLogin from 'lib/redirectOnLogin'
@@ -65,11 +64,12 @@ export class SignUpView extends React.Component {
   }
 
   @bind handleVerify(response) {
-    this.setData({ 'g-recaptcha-response': response })
+    this.setData({'g-recaptcha-response': response})
+    this.signup()
   }
 
   setData(newData) {
-    this.data = { ...this.data, ...newData }
+    this.data = {...this.data, ...newData}
   }
 
   render() {
@@ -79,7 +79,7 @@ export class SignUpView extends React.Component {
         <Paper zDepth={ 3 } style={ styles.marginTop20 }>
           <Card>
             <CardTitle title='SignUp' />
-            {inputs.map(({ name, label, ...rest }) => (
+            {inputs.map(({name, label, ...rest}) => (
               <InputAction
                 key={ name }
                 name={ name }
@@ -90,16 +90,11 @@ export class SignUpView extends React.Component {
                 { ...rest } />
             ))}
             <CardActions>
-              <div style={ [styles.inlineBlock, styles.width80] }>
-                <Recaptcha
-                  render='explicit'
-                  onloadCallback={ noop }
-                  verifyCallback={ this.handleVerify }
-                  sitekey='6LdEMSQTAAAAAG87oN7PFNRmqg755R9kUloibvY4' />
-              </div>
-            </CardActions>
-            <CardActions>
-              <FlatButton label='Signup' primary onClick={ this.signup } />
+              <Recaptcha
+                onVerify={ this.handleVerify }
+                sitekey='6LdEMSQTAAAAAG87oN7PFNRmqg755R9kUloibvY4'>
+                <FlatButton label='Signup' primary />
+              </Recaptcha>
             </CardActions>
           </Card>
         </Paper>
@@ -123,7 +118,7 @@ export class SignUpView extends React.Component {
 
 export default compose(
   redirectOnLogin,
-  connect(state => ({ loginState: state.account }), { registerUser }),
+  connect(state => ({loginState: state.account}), {registerUser}),
   validateForm(rule),
   Radium
 )(SignUpView)
