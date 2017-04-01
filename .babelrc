@@ -21,7 +21,6 @@
     "transform-class-properties",
     "transform-export-extensions",
     "transform-object-rest-spread",
-    "syntax-dynamic-import",
-    "dev-expression"
+    "syntax-dynamic-import"
   ]
 }
