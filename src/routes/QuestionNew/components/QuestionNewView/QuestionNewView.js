@@ -43,11 +43,6 @@ class QuestionNewView extends Component {
     this.props.addQuestion(this.data)
   }
 
-  stepContent(index) {
-    const { Component, onChange } = this.stepComponents[index]
-    return <Component onChange={ onChange } />
-  }
-
   render() {
     return (
       <MessageContainer>
