@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { bind } from 'decko'
-import has from 'lodash/has'
 import pick from 'lodash/pick'
 
 import { RequestStatus } from 'lib/const'
@@ -11,7 +9,7 @@ import LoadingContainer from 'containers/LoadingContainer'
 import ExamQuestionList from './ExamQuestionList'
 import QuestionSetting from './QuestionSetting'
 
-import { actions as questionActions } from 'redux/modules/question'
+import { fetchQuestion } from 'redux/modules/question'
 
 class QuestionTab extends Component {
   componentDidMount() {
@@ -19,34 +17,38 @@ class QuestionTab extends Component {
     this.props.fetchQuestion({ page }, { force: true })
   }
 
-  @bind handleRequestDetail(uuid) {
+  handleRequestDetail = (uuid) => {
     this.setState({ detail: true, detailUuid: uuid })
   }
 
-  @bind handleSettingChange(uuid, setting) {
-    const { questionDetail } = this.state
+  handleSettingChange = (uuid, setting) => {
+    const { questionDetail, selectedQuestion } = this.state
     questionDetail[uuid] = setting
     this.setState({ questionDetail })
-    this.emitChange(questionDetail, this.state.selectedQuestion)
+    this.emitChange(questionDetail, selectedQuestion)
   }
 
-  @bind handleBack() {
+  handleBack = () => {
     this.setState({ detail: false, detailUuid: null })
   }
 
-  @bind handlePageChange(page) {
+  handlePageChange = (page) => {
     this.props.fetchQuestion({ page })
     this.setState({ page })
   }
 
-  @bind handleQuestionChange(selectedQuestion, uuid) {
-    const { questionDetail } = this.state
-    const newState = { selectedQuestion, questionDetail }
-    if (!has(questionDetail, uuid)) {
-      newState.questionDetail[uuid] = Object.assign({}, DEFAULT_DETAIL)
-    }
-    this.emitChange(newState.questionDetail, selectedQuestion)
-    this.setState(newState)
+  handleQuestionChange = (selectedQuestion, uuid) => {
+    this.setState(({questionDetail}) => {
+      const state = ({
+        questionDetail: {
+          [uuid]: {...DEFAULT_DETAIL},
+          ...questionDetail
+        },
+        selectedQuestion
+      })
+      this.emitChange(state.questionDetail, selectedQuestion)
+      return state
+    })
   }
 
   emitChange(questionDetail, selectedQuestion) {
@@ -104,7 +106,7 @@ class QuestionTab extends Component {
 
 export default connect(
   state => ({ app: state.app, question: state.question }),
-  questionActions
+  {fetchQuestion}
 )(QuestionTab)
 
 const DEFAULT_DETAIL = {

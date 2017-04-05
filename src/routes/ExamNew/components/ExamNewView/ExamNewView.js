@@ -1,15 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { bind } from 'decko'
 import compose from 'recompose/compose'
 
-import { Row, Col } from 'react-flexbox-grid'
 import Card from 'material-ui/Card/Card'
+import CardTitle from 'material-ui/Card/CardTitle'
 import CardActions from 'material-ui/Card/CardActions'
-import RaisedButton from 'material-ui/RaisedButton'
-import Step from 'material-ui/Stepper/Step'
-import Stepper from 'material-ui/Stepper/Stepper'
-import StepLabel from 'material-ui/Stepper/StepLabel'
 import Inset from 'layouts/Inset'
 import BasicInfoTab from './BasicInfoTab'
 import QuestionTab from './QuestionTab'
@@ -29,43 +24,20 @@ export class ExamNewView extends Component {
     this.props.clearCache()
   }
 
-  @bind handleBasicInfoChange(data) {
+  handleBasicInfoChange = (data) => {
     this.setData({ ...data })
   }
 
-  @bind handleQuestionChange(questions) {
+  handleQuestionChange = (questions) => {
     this.setData({ questions })
   }
 
-  @bind handleUsersChange(users) {
+  handleUsersChange = (users) => {
     this.setData({ users })
-  }
-
-  @bind handleNext() {
-    const { finished, stepIndex } = this.state
-    const nextStep = stepIndex + 1
-    if (finished) {
-      this.handleAddExam()
-    } else {
-      this.setState({
-        stepIndex: nextStep,
-        finished: nextStep > 1
-      })
-    }
   }
 
   handleAddExam() {
     this.props.addExam(this.data)
-  }
-
-  stepContent(index) {
-    if (index === 0) {
-      return <BasicInfoTab onChange={ this.handleBasicInfoChange } />
-    } else if (index === 1) {
-      return <QuestionTab onChange={ this.handleQuestionChange } />
-    } else if (index === 2) {
-      return <UserTab onChange={ this.handleUsersChange } />
-    }
   }
 
   setData(newData) {
@@ -73,36 +45,25 @@ export class ExamNewView extends Component {
   }
 
   render() {
-    const { stepIndex, finished } = this.state
     return (
       <MessageContainer>
         <Inset>
           <Card>
+            <CardTitle title='基本資訊' />
             <CardActions>
-              <Row end='xs'>
-                <Col md={ 2 } sm={ 6 }>
-                  <RaisedButton
-                    primary
-                    label={ finished ? 'Add' : 'Next' }
-                    onTouchTap={ this.handleNext } />
-                </Col>
-              </Row>
+              <BasicInfoTab onChange={ this.handleBasicInfoChange } />
             </CardActions>
+          </Card>
+          <Card>
+            <CardTitle title='測驗問題' />
             <CardActions>
-              <Stepper activeStep={ stepIndex }>
-                <Step>
-                  <StepLabel>Set basic info.</StepLabel>
-                </Step>
-                <Step>
-                  <StepLabel>Add questions</StepLabel>
-                </Step>
-                <Step>
-                  <StepLabel>Add users</StepLabel>
-                </Step>
-              </Stepper>
+              <QuestionTab onChange={ this.handleQuestionChange } />
             </CardActions>
+          </Card>
+          <Card>
+            <CardTitle title='參加者' />
             <CardActions>
-              {this.stepContent(stepIndex)}
+              <UserTab onChange={ this.handleUsersChange } />
             </CardActions>
           </Card>
         </Inset>

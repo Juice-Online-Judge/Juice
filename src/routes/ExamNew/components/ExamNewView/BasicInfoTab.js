@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { bind } from 'decko'
+import isAfter from 'date-fns/is_after'
 import setSeconds from 'date-fns/set_seconds'
 
 import { Row, Col } from 'react-flexbox-grid'
@@ -30,39 +30,55 @@ export class BasicInfoTab extends Component {
     this.props.fetchRole()
   }
 
-  @bind handleNameChange(event) {
+  handleNameChange = (event) => {
     this.handleChange({ name: event.target.value })
   }
 
-  @bind handleRoleSelect(selectedRow) {
+  handleRoleSelect = (selectedRow) => {
     const { role } = this.props
     const selectedRole = selectedRow.map(idx => role.getIn(['result', idx]))
     setImmediate(() =>
       this.props.onChange({ ...this.state, role: selectedRole }))
   }
 
-  @bind handleBeganDateChange(_event, date) {
+  handleBeganDateChange = (_event, date) => {
     const newDate = copyDate(this.state.beganTime, date)
     this.handleChange({ beganTime: newDate })
+    this.checkTime(date, this.state.endedTime)
   }
 
-  @bind handleBeganTimeChange(_event, date) {
+  handleBeganTimeChange = (_event, date) => {
     this.handleChange({ beganTime: date })
+    this.checkTime(date, this.state.endedTime)
   }
 
-  @bind handleEndedDateChange(_event, date) {
+  handleEndedDateChange = (_event, date) => {
     const newDate = copyDate(this.state.endedTime, date)
     this.handleChange({ endedTime: newDate })
+    this.checkTime(this.state.beganTime, date)
   }
 
-  @bind handleEndedTimeChange(_event, date) {
+  handleEndedTimeChange = (_event, date) => {
     this.handleChange({ endedTime: date })
+    this.checkTime(this.state.beganTime, date)
   }
 
   handleChange(data = {}) {
     // Fire change event
     this.props.onChange({ ...this.state, ...data })
     this.setState(data)
+  }
+
+  checkTime(begin, end) {
+    if (isAfter(end, begin)) {
+      this.setState(() => ({
+        errorText: ''
+      }))
+      return
+    }
+    this.setState(() => ({
+      errorText: 'Ended time must after began time'
+    }))
   }
 
   render() {
@@ -72,7 +88,7 @@ export class BasicInfoTab extends Component {
       <div>
         <div>
           <TextField
-            floatingLabelText='Name'
+            floatingLabelText='測驗名稱'
             fullWidth
             onChange={ this.handleNameChange } />
         </div>
@@ -104,12 +120,14 @@ export class BasicInfoTab extends Component {
           <Col md={ 4 } xs={ 12 }>
             <DatePicker
               hintText='End Date'
+              errorText={ this.state.errorText }
               defaultDate={ now }
               onChange={ this.handleEndedDateChange } />
           </Col>
           <Col md={ 4 } xs={ 12 }>
             <TimePicker
               hintText='End Time'
+              errorText={ this.state.errorText }
               onChange={ this.handleEndedTimeChange }
               value={ this.state.endedTime } />
           </Col>
@@ -122,7 +140,7 @@ export class BasicInfoTab extends Component {
           <TableHeader enableSelectAll={ false }>
             <TableRow>
               <TableHeaderColumn>
-                Role
+                管理群組 (目前無法使用)
               </TableHeaderColumn>
             </TableRow>
           </TableHeader>
@@ -142,6 +160,7 @@ export class BasicInfoTab extends Component {
 
   state = {
     name: '',
+    errorText: '',
     beganTime: setSeconds(new Date(), 0),
     endedTime: setSeconds(new Date(), 0)
   };

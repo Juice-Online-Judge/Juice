@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { bind } from 'decko'
-import pick from 'lodash/pick'
+import pick from 'lodash/fp/pick'
 
 import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
@@ -13,7 +12,15 @@ import CardActions from 'material-ui/Card/CardActions'
 import ChevronLeft from 'material-ui/svg-icons/navigation/chevron-left'
 import Label from 'components/Label'
 
-const isNotPortion = type => type !== 'portion_num' && type !== 'portion_str'
+const isNotPortion = type => !type.startsWith('portion')
+const pickSettings = pick([
+  'score',
+  'type',
+  'readFrom',
+  'codeReview',
+  'goal',
+  'reward'
+])
 
 class QuestionSetting extends Component {
   componentDidMount() {
@@ -36,43 +43,37 @@ class QuestionSetting extends Component {
     }
   }
 
-  @bind handleScoreChange(event) {
+  handleScoreChange = (event) => {
     this.emitChange({ score: parseFloat(event.target.value) })
   }
 
-  @bind handleIntValChange(event) {
-    const { name, value } = event.target
+  handleIntValChange = ({target: {name, value}}) => {
     const newState = {}
     newState[name] = parseInt(value)
     this.emitChange(newState)
   }
 
-  @bind handleTypeChange(_event, _idx, value) {
+  handleTypeChange = (_event, _idx, value) => {
     this.emitChange({ type: value })
   }
 
-  @bind handleReadFromChange(_event, _idx, value) {
+  handleReadFromChange = (_event, _idx, value) => {
     this.emitChange({ readFrom: value })
   }
 
-  @bind handleCodeReviewChange({ target: { checked } }) {
+  handleCodeReviewChange = ({ target: { checked } }) => {
     this.emitChange({ codeReview: checked })
   }
 
   emitChange(data) {
     const mergeData = {
-      ...pick(this.state, [
-        'score',
-        'type',
-        'readFrom',
-        'codeReview',
-        'goal',
-        'reward'
-      ]),
+      ...pickSettings(this.state),
       ...data
     }
     const { uuid } = this.props
     this.setState(data)
+
+    // These proerty is not necessery when type is normal
     if (mergeData.type === 'normal') {
       mergeData.type = null
       mergeData.goal = null
@@ -109,21 +110,21 @@ class QuestionSetting extends Component {
           <CardActions>
             <TextField
               fullWidth
-              floatingLabelText='Score'
+              floatingLabelText='Score (%)'
               onChange={ this.handleScoreChange }
               value={ score } />
           </CardActions>
           <CardActions>
-            <Label> Type </Label>
+            <Label> 題目類型 </Label>
             <SelectField value={ type } onChange={ this.handleTypeChange }>
-              <MenuItem value='normal' primaryText='Normal' />
-              <MenuItem value='proportion' primaryText='Proportion' />
-              <MenuItem value='portion_num' primaryText='Portion (Number)' />
-              <MenuItem value='portion_str' primaryText='Portion (String)' />
+              <MenuItem value='normal' primaryText='一般' />
+              <MenuItem value='proportion' primaryText='部份給分' />
+              <MenuItem value='portion_num' primaryText='誤差容許 (數字)' />
+              <MenuItem value='portion_str' primaryText='誤差容許 (字串)' />
             </SelectField>
           </CardActions>
           <CardActions>
-            <Label> Read from </Label>
+            <Label> 測資來源 </Label>
             <SelectField value={ readFrom } onChange={ this.handleReadFromChange }>
               <MenuItem value='stdin' primaryText='stdin' />
               <MenuItem value='file' primaryText='file' />
@@ -133,7 +134,7 @@ class QuestionSetting extends Component {
             <Toggle
               label='Code review'
               labelPosition='right'
-              toggle={ codeReview }
+              toggled={ codeReview }
               onToggle={ this.handleCodeReviewChange } />
           </CardActions>
           <CardActions>

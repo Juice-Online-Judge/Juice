@@ -3,9 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router-dom'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import AddIcon from 'material-ui/svg-icons/content/add'
-import Inset from 'layouts/Inset'
-import ExamCard from 'components/ExamCard'
-import Pagination from 'components/Pagination'
+import ExamList from './ExamList'
 
 import styles from 'lib/styles'
 
@@ -29,25 +27,9 @@ class ExamListView extends Component {
 
   render() {
     const { exam, maxPage, admin } = this.props
-    const examData = exam.getIn(['entities', 'exam'])
     return (
       <div>
-        <Inset>
-          {exam.get('result').map(id => {
-            return (
-              <ExamCard
-                id={ id }
-                key={ id }
-                name={ examData.getIn([`${id}`, 'name']) }
-                beganTime={ examData.getIn([`${id}`, 'began_at']) }
-                endedTime={ examData.getIn([`${id}`, 'ended_at']) } />
-            )
-          })}
-        </Inset>
-        <Pagination
-          baseUrl='/exams'
-          current={ exam.get('page') }
-          maxPage={ maxPage } />
+        <ExamList exam={ exam } maxPage={ maxPage } />
         {admin
           ? <Link to='/exams/new'>
             <FloatingActionButton style={ styles.floatBtn }>
