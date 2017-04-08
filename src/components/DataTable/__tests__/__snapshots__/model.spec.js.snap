@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Model #constructor Build model 1`] = `
+Model {
+  "_events": Object {},
+  "_eventsCount": 0,
+  "_maxListeners": undefined,
+  "checked": Array [],
+  "currentPage": 1,
+  "data": Array [],
+  "domain": null,
+  "fetchKey": [Function],
+  "originalData": Array [],
+  "pageData": [Function],
+  "paginated": false,
+  "perPage": 10,
+  "search": "",
+  "totalPages": 1,
+}
+`;
