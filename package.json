@@ -84,7 +84,7 @@
     "invariant": "^2.2.2",
     "jest": "^19.0.2",
     "lodash": "^4.17.4",
-    "material-ui": "^0.17.0",
+    "material-ui": "^1.0.0-alpha.7",
     "normalizr": "^3.2.2",
     "p-tap": "^1.0.0",
     "p-try": "^1.0.0",
