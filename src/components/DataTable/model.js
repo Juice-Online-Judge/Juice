@@ -2,9 +2,9 @@ import min from 'lodash/min'
 import memoize from 'lodash/memoize'
 import EventEmitter from 'events'
 import search from './utils/search'
-import {DEFAULT_PER_PAGE} from './constants'
+import {DEFAULT_PER_PAGE, defaultFetchKey} from './constants'
 
-const DEFAULT_CONFIG = {paginated: false, data: [], search: ''}
+const DEFAULT_CONFIG = {paginated: false, data: [], search: '', fetchKey: defaultFetchKey}
 
 class Model extends EventEmitter {
   constructor(config) {
