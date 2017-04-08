@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React, {PropTypes} from 'react'
 import setPropTypes from 'recompose/setPropTypes'
 import setDisplayName from 'recompose/setDisplayName'
 import compose from 'recompose/compose'
@@ -19,7 +19,7 @@ const InputAction = compose(
     label: PropTypes.string.isRequired
   }),
   setDisplayName('InputAction')
-)(({ message, name, label: floatingLabelText, ...rest }) => {
+)(({message, name, label: floatingLabelText, ...rest}) => {
   const props = {
     floatingLabelText,
     name,

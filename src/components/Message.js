@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React, {PropTypes} from 'react'
 import setDisplayName from 'recompose/setDisplayName'
 import setPropTypes from 'recompose/setPropTypes'
 import compose from 'recompose/compose'
@@ -11,7 +11,7 @@ const Message = compose(
     onRequestClose: PropTypes.func.isRequired
   }),
   setDisplayName('Message')
-)(({ open, message, onRequestClose }) => (
+)(({open, message, onRequestClose}) => (
   <Snackbar
     open={ open }
     message={ message }

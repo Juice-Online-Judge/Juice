@@ -1,12 +1,12 @@
-import { createAction, handleActions } from 'redux-actions'
-import { createSelector } from 'reselect'
-import { fromJS, Record } from 'immutable'
+import {createAction, handleActions} from 'redux-actions'
+import {createSelector} from 'reselect'
+import {fromJS, Record} from 'immutable'
 
-import { RequestStatus } from 'lib/const'
-import { clearExam } from './exam'
-import { clearQuestion } from './question'
-import { clearSubmissions } from './submission'
-import { clearUsers } from './users'
+import {RequestStatus} from 'lib/const'
+import {clearExam} from './exam'
+import {clearQuestion} from './question'
+import {clearSubmissions} from './submission'
+import {clearUsers} from './users'
 import guardRequest from '../utils/guardRequest'
 
 export const AppRecord = new Record({
@@ -89,10 +89,10 @@ export const actions = {
 
 export default handleActions(
   {
-    [SET_STATUS]: (state, { payload }) => state.set('status', payload),
+    [SET_STATUS]: (state, {payload}) => state.set('status', payload),
     [CLEAR_STATUS]: state => state.set('status', RequestStatus.NONE),
-    [SET_ERROR]: (state, { payload }) => state.set('error', fromJS(payload)),
-    [CLEAR_ERROR]: (state, { payload }) =>
+    [SET_ERROR]: (state, {payload}) => state.set('error', fromJS(payload)),
+    [CLEAR_ERROR]: (state, {payload}) =>
       state.set('error', null).set('status', RequestStatus.NONE)
   },
   initialState

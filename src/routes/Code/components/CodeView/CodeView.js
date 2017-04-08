@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react'
+import React, {Component, PropTypes} from 'react'
 
-import { Row, Col } from 'react-flexbox-grid'
+import {Row, Col} from 'react-flexbox-grid'
 import Inset from 'layouts/Inset'
 import Prism from 'components/Prism'
 import DownloadButton from 'components/DownloadButton'
@@ -13,7 +13,7 @@ class CodeView extends Component {
   }
 
   render() {
-    const { id } = this.props
+    const {id} = this.props
     const {
       canReview,
       submission,

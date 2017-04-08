@@ -1,7 +1,7 @@
-import React, { PropTypes, PureComponent } from 'react'
-import { connect } from 'react-redux'
-import { bind } from 'decko'
-import { push } from 'react-router-redux'
+import React, {PropTypes, PureComponent} from 'react'
+import {connect} from 'react-redux'
+import {bind} from 'decko'
+import {push} from 'react-router-redux'
 
 import MenuItem from 'material-ui/MenuItem'
 
@@ -25,4 +25,4 @@ export class MenuLinkItem extends PureComponent {
   };
 }
 
-export default connect(() => ({}), { push })(MenuLinkItem)
+export default connect(() => ({}), {push})(MenuLinkItem)

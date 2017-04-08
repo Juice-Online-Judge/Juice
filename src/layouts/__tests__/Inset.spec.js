@@ -1,7 +1,7 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import {shallow} from 'enzyme'
 import Inset from '../Inset'
-import { Grid, Row, Col } from 'react-flexbox-grid'
+import {Grid, Row, Col} from 'react-flexbox-grid'
 
 describe('(Layout) <Inset />', () => {
   let sut

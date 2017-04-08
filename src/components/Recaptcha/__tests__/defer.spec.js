@@ -17,7 +17,7 @@ describe('defer', () => {
   })
 
   describe('#resolved', () => {
-    it('Return state', (done) => {
+    it('Return state', done => {
       const deferred = defer()
 
       expect(deferred.resolved()).toBe(false)

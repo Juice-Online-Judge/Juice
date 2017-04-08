@@ -10,7 +10,7 @@ import _debug from 'debug'
 
 const debug = _debug('app:webpack:config')
 const paths = config.utils_paths
-const { __DEV__, __PROD__ } = config.globals
+const {__DEV__, __PROD__} = config.globals
 
 debug('Create configuration.')
 const webpackConfig = {
@@ -93,8 +93,8 @@ if (__PROD__) {
   )
   webpackConfig.plugins.push(
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 15 }),
-    new webpack.optimize.MinChunkSizePlugin({ minChunkSize: 10000 }),
+    new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
+    new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000}),
     new BabiliPlugin({
       removeDebugger: true
     }),
@@ -293,7 +293,7 @@ webpackConfig.module.rules.push(
     test: /\.svg(\?.*)?$/,
     loader: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml'
   },
-  { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' }
+  {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'}
 );
 /* eslint-enable */
 

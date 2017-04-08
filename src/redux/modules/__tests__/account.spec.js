@@ -33,7 +33,7 @@ describe('(Redux) account', () => {
     it('Create "Set user info" action', () => {
       const info = {
         username: 'foo',
-        roles: [{ id: 1, name: 'admin' }]
+        roles: [{id: 1, name: 'admin'}]
       }
 
       expect(account.setUserInfo(info)).toEqual({
@@ -90,7 +90,7 @@ describe('(Redux) account', () => {
 
   describe('(Reducer)', () => {
     it('Configure initialState correct', () => {
-      expect(reducer(undefined, { type: 'foo' })).toBe(account.initialState)
+      expect(reducer(undefined, {type: 'foo'})).toBe(account.initialState)
     })
 
     it('Handle SET_LOGIN_STATE', () => {
@@ -99,14 +99,14 @@ describe('(Redux) account', () => {
           type: account.SET_LOGIN_STATE,
           payload: true
         })
-      ).toEqualImmutable(new account.Account({ valid: true, state: true }))
+      ).toEqualImmutable(new account.Account({valid: true, state: true}))
 
       expect(
         reducer(account.initialState, {
           type: account.SET_LOGIN_STATE,
           payload: false
         })
-      ).toEqualImmutable(new account.Account({ valid: true, state: false }))
+      ).toEqualImmutable(new account.Account({valid: true, state: false}))
     })
   })
 })

@@ -1,6 +1,6 @@
 import Promise from 'any-promise'
 import pathToRegexp from 'path-to-regexp'
-import { networkOnly } from './strategy'
+import {networkOnly} from './strategy'
 
 class Router {
   constructor(basePath = '') {
@@ -15,13 +15,13 @@ class Router {
   addRoute(method, path, handler) {
     const keys = []
     const regex = pathToRegexp(path, keys)
-    const routes = this.routes.get(regex) || { keys, handlers: [] }
-    routes.handlers.push({ handler, method })
+    const routes = this.routes.get(regex) || {keys, handlers: []}
+    routes.handlers.push({handler, method})
     this.routes.set(regex, routes)
   }
 
   dispatch(request) {
-    const { routes } = this
+    const {routes} = this
     const path = request.url
     const method = request.method
 
@@ -32,7 +32,7 @@ class Router {
         continue
       }
 
-      const { keys, handlers } = routes.get(regex)
+      const {keys, handlers} = routes.get(regex)
       const request = {
         path,
         params: {}

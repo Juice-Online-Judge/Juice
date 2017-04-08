@@ -1,6 +1,6 @@
-import React, { PropTypes, Children, Component } from 'react'
+import React, {PropTypes, Children, Component} from 'react'
 import ReactDOM from 'react-dom'
-import { TransitionMotion, spring } from 'react-motion'
+import {TransitionMotion, spring} from 'react-motion'
 
 import Toast from './internal/Toast'
 
@@ -9,11 +9,11 @@ class Toasts extends Component {
     const container = document.createElement('div')
     document.body.appendChild(container)
     this.container = container
-    const { children } = this.props
+    const {children} = this.props
     this.renderSubtree(children)
   }
 
-  componentWillReceiveProps({ children }) {
+  componentWillReceiveProps({children}) {
     this.renderSubtree(children)
   }
 
@@ -46,7 +46,7 @@ class Toasts extends Component {
                 key={ config.key }
                 id={ config.data.id }
                 { ...config.data.props }
-                style={ { ...config.style, ...styles.toast } } />
+                style={ {...config.style, ...styles.toast} } />
             ))}
           </div>
         )}

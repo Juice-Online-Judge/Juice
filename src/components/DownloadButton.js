@@ -1,10 +1,10 @@
-import React, { PropTypes, Component } from 'react'
+import React, {PropTypes, Component} from 'react'
 
 import FlatButton from 'material-ui/FlatButton'
 
 export class DownloadButton extends Component {
   componentDidMount() {
-    const { text, disabled } = this.props
+    const {text, disabled} = this.props
     if (!disabled && text) {
       this.createURL(text)
     }
@@ -26,7 +26,7 @@ export class DownloadButton extends Component {
   }
 
   createURL(text) {
-    const blob = new Blob([text], { type: 'text/plain' })
+    const blob = new Blob([text], {type: 'text/plain'})
     const url = URL.createObjectURL(blob)
     this.setState({
       url
@@ -34,7 +34,7 @@ export class DownloadButton extends Component {
   }
 
   revokeURL() {
-    const { url } = this.state
+    const {url} = this.state
     if (url) {
       URL.revokeObjectURL(url)
       this.setState({
@@ -44,8 +44,8 @@ export class DownloadButton extends Component {
   }
 
   render() {
-    const { label, filename } = this.props
-    const { url } = this.state
+    const {label, filename} = this.props
+    const {url} = this.state
     if (!url) {
       return <FlatButton label={ label } disabled />
     }

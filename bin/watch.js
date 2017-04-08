@@ -8,7 +8,7 @@ const debug = _debug('app:bin:watch');
   try {
     debug('Run compiler')
     const stats = await webpackCompiler(
-      Object.assign(webpackConfig, { watch: true })
+      Object.assign(webpackConfig, {watch: true})
     )
     if (stats.warnings.length && config.compiler_fail_on_warning) {
       debug('Config set to fail on warning, exiting with status code "1".')

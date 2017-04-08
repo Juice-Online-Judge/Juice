@@ -1,6 +1,6 @@
-import React, { PropTypes, Component } from 'react'
+import React, {PropTypes, Component} from 'react'
 import Markdown from 'remarkable'
-import { highlightString } from 'lib/highlight'
+import {highlightString} from 'lib/highlight'
 
 const options = {
   langPrefix: 'language-',
@@ -28,13 +28,13 @@ class Remarkable extends Component {
     if (this.props.source) {
       return (
         <span
-          dangerouslySetInnerHTML={ { __html: md.render(this.props.source) } } />
+          dangerouslySetInnerHTML={ {__html: md.render(this.props.source)} } />
       )
     }
 
     return React.Children.map(this.props.children, child => {
       if (typeof child === 'string') {
-        return <span dangerouslySetInnerHTML={ { __html: md.render(child) } } />
+        return <span dangerouslySetInnerHTML={ {__html: md.render(child)} } />
       } else {
         return child
       }

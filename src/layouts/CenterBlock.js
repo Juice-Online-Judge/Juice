@@ -1,8 +1,8 @@
-import React, { PropTypes } from 'react'
+import React, {PropTypes} from 'react'
 import setPropTypes from 'recompose/setPropTypes'
 import setDisplayName from 'recompose/setDisplayName'
 import compose from 'recompose/compose'
-import { Grid, Row, Col } from 'react-flexbox-grid'
+import {Grid, Row, Col} from 'react-flexbox-grid'
 
 export const CenterBlock = compose(
   setDisplayName('CenterBlock'),
@@ -10,7 +10,7 @@ export const CenterBlock = compose(
     fullwidth: PropTypes.bool,
     children: PropTypes.node
   })
-)(({ fullwidth, children }) => (
+)(({fullwidth, children}) => (
   <Grid>
     <Row center='xs' middle='md'>
       <Col md={ fullwidth ? 12 : 6 } xs={ 12 }>

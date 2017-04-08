@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
+import React, {Component, PropTypes} from 'react'
+import {connect} from 'react-redux'
 import compose from 'recompose/compose'
 
 import Card from 'material-ui/Card/Card'
@@ -12,8 +12,8 @@ import UserTab from './UserTab'
 import redirectNotAdmin from 'lib/redirectNotAdmin'
 import MessageContainer from 'containers/MessageContainer'
 
-import { addExam } from 'redux/modules/exam'
-import { clearCache } from 'redux/modules/app'
+import {addExam} from 'redux/modules/exam'
+import {clearCache} from 'redux/modules/app'
 
 export class ExamNewView extends Component {
   componentWillMount() {
@@ -24,24 +24,24 @@ export class ExamNewView extends Component {
     this.props.clearCache()
   }
 
-  handleBasicInfoChange = (data) => {
-    this.setData({ ...data })
-  }
+  handleBasicInfoChange = data => {
+    this.setData({...data})
+  };
 
-  handleQuestionChange = (questions) => {
-    this.setData({ questions })
-  }
+  handleQuestionChange = questions => {
+    this.setData({questions})
+  };
 
-  handleUsersChange = (users) => {
-    this.setData({ users })
-  }
+  handleUsersChange = users => {
+    this.setData({users})
+  };
 
   handleAddExam() {
     this.props.addExam(this.data)
   }
 
   setData(newData) {
-    this.data = { ...this.data, ...newData }
+    this.data = {...this.data, ...newData}
   }
 
   render() {
@@ -84,7 +84,6 @@ export class ExamNewView extends Component {
   };
 }
 
-export default compose(
-  redirectNotAdmin,
-  connect(null, { addExam, clearCache })
-)(ExamNewView)
+export default compose(redirectNotAdmin, connect(null, {addExam, clearCache}))(
+  ExamNewView
+)

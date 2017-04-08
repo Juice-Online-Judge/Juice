@@ -1,16 +1,16 @@
 import redirectComponent from './redirectComponent'
-import { clearError, errorCodeSelector } from 'redux/modules/app'
+import {clearError, errorCodeSelector} from 'redux/modules/app'
 
-const shouldRedirectPath = ({ errorCode }) =>
+const shouldRedirectPath = ({errorCode}) =>
   errorCode === 401 ? '/sign-in' : null
 
 export const redirectNotAuth = redirectComponent(
   'RedirectNotAuth',
-  state => ({ errorCode: errorCodeSelector(state) }),
+  state => ({errorCode: errorCodeSelector(state)}),
   shouldRedirectPath,
   {
-    actions: { clearError },
-    cleanUp: ({ clearError }) => clearError(),
+    actions: {clearError},
+    cleanUp: ({clearError}) => clearError(),
     omitProps: ['errorCode', 'clearError']
   }
 )

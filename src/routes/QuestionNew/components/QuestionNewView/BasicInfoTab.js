@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react'
-import { bind } from 'decko'
+import React, {Component, PropTypes} from 'react'
+import {bind} from 'decko'
 
 import TextField from 'material-ui/TextField'
 import Toggle from 'material-ui/Toggle'
@@ -12,19 +12,19 @@ export class BasicInfoTab extends Component {
   }
 
   @bind handleUuidChange(event) {
-    this.handleChange({ uuid: event.target.value })
+    this.handleChange({uuid: event.target.value})
   }
 
   @bind handleTitleChange(event) {
-    this.handleChange({ title: event.target.value })
+    this.handleChange({title: event.target.value})
   }
 
   @bind handleDescChange(text) {
-    this.handleChange({ description: text })
+    this.handleChange({description: text})
   }
 
   @bind handlePublicChange(event) {
-    this.handleChange({ public: event.target.checked })
+    this.handleChange({public: event.target.checked})
   }
 
   handleChange(data = {}) {
@@ -34,7 +34,7 @@ export class BasicInfoTab extends Component {
   }
 
   setData(data) {
-    this.data = { ...this.data, ...data }
+    this.data = {...this.data, ...data}
   }
 
   render() {

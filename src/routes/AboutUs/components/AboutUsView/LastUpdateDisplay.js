@@ -1,13 +1,13 @@
-import React, { PropTypes, Component } from 'react'
+import React, {PropTypes, Component} from 'react'
 import axios from 'axios'
 import parse from 'date-fns/parse'
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now'
 
 const fetchLastCommit = async project => {
-  const { data: ref } = await axios.get(
+  const {data: ref} = await axios.get(
     `https://api.github.com/repos/Sunday-Without-God/${project}/git/refs/heads/master`
   )
-  const { data: commit } = await axios.get(ref.object.url)
+  const {data: commit} = await axios.get(ref.object.url)
   return {
     hash: commit.sha.substr(0, 7),
     url: commit.html_url,
@@ -18,13 +18,13 @@ const fetchLastCommit = async project => {
 
 class LastUpdateDisplay extends Component {
   async componentDidMount() {
-    const { project } = this.props
+    const {project} = this.props
     const log = await fetchLastCommit(project)
-    this.setState({ log })
+    this.setState({log})
   }
 
   render() {
-    const { log } = this.state
+    const {log} = this.state
 
     return (
       <span style={ styles.marginLeft }>

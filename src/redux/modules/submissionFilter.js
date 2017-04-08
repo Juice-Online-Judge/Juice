@@ -1,6 +1,6 @@
-import { createAction, handleActions } from 'redux-actions'
-import { Record } from 'immutable'
-import { createSelector } from 'reselect'
+import {createAction, handleActions} from 'redux-actions'
+import {Record} from 'immutable'
+import {createSelector} from 'reselect'
 
 const SubmissionFilterState = new Record({
   user: null,
@@ -15,8 +15,8 @@ const CLEAR_FILTER = 'CLEAR_FILTER'
 export const addFilter = createAction(ADD_FILTER)
 export const clearFilter = createAction(CLEAR_FILTER)
 
-const submissionSelector = ({ submission }) => submission
-const submissionFilterSelector = ({ submissionFilter }) => submissionFilter
+const submissionSelector = ({submission}) => submission
+const submissionFilterSelector = ({submissionFilter}) => submissionFilter
 
 export const filterSubmissionSelector = createSelector(
   [submissionSelector, submissionFilterSelector],
@@ -58,7 +58,7 @@ export const filterStringify = filter => {
 
 export const parseFilter = filterString => {
   const filters = filterString.split(/\s+/)
-  const parsedFilter = { user: null, question: null }
+  const parsedFilter = {user: null, question: null}
   if (filters.length > 2) {
     return null
   }
@@ -82,7 +82,7 @@ export const parseFilter = filterString => {
 
 export default handleActions(
   {
-    [ADD_FILTER]: (state, { payload }) => state.merge(payload),
+    [ADD_FILTER]: (state, {payload}) => state.merge(payload),
     [CLEAR_FILTER]: () => initialState
   },
   initialState

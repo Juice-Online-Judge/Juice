@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react'
-import { bind } from 'decko'
+import React, {Component, PropTypes} from 'react'
+import {bind} from 'decko'
 import map from 'lodash/map'
 
 import FlatButton from 'material-ui/FlatButton'
@@ -10,9 +10,9 @@ export class FileButton extends Component {
     const files = event.target.files
     if (files.length) {
       const filename = map(files, 'name').join(', ')
-      this.setState({ filename })
+      this.setState({filename})
     } else {
-      this.setState({ filename: null })
+      this.setState({filename: null})
     }
 
     if (this.props.onChange) {

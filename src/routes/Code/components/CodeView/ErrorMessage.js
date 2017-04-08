@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React, {PropTypes} from 'react'
 import setDisplayName from 'recompose/setDisplayName'
 import setPropTypes from 'recompose/setPropTypes'
 import compose from 'recompose/compose'
@@ -11,7 +11,7 @@ const ErrorMessage = compose(
     isFail: PropTypes.bool.isRequired,
     judgeMessage: PropTypes.string
   })
-)(({ isFail, judgeMessage }) => {
+)(({isFail, judgeMessage}) => {
   return isFail
     ? <div>
       <div>Error message:</div>

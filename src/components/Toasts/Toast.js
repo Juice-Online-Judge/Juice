@@ -1,4 +1,4 @@
-import { PropTypes, Component } from 'react'
+import {PropTypes, Component} from 'react'
 
 class Toast extends Component {
   render() {

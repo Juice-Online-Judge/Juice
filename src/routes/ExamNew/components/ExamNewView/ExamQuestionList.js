@@ -1,12 +1,12 @@
-import React, { PropTypes, Component } from 'react'
-import { bind } from 'decko'
+import React, {PropTypes, Component} from 'react'
+import {bind} from 'decko'
 import without from 'lodash/without'
 
 import ExamQuestion from 'components/ExamQuestion'
 
 class ExamQuestionList extends Component {
   @bind handleQuestionCheck(selected, uuid) {
-    const { selectedQuestion } = this.props
+    const {selectedQuestion} = this.props
     if (selected) {
       this.props.onChange(selectedQuestion.concat(uuid), uuid)
     } else {
@@ -19,7 +19,7 @@ class ExamQuestionList extends Component {
   }
 
   render() {
-    const { question, selectedQuestion } = this.props
+    const {question, selectedQuestion} = this.props
     return (
       <div>
         {question.get('result').map(uuid => {

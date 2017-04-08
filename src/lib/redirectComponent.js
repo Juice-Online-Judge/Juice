@@ -1,5 +1,5 @@
-import { connect } from 'react-redux'
-import { replace } from 'react-router-redux'
+import {connect} from 'react-redux'
+import {replace} from 'react-router-redux'
 import setDisplayName from 'recompose/setDisplayName'
 import wrapDisplayName from 'recompose/wrapDisplayName'
 import lifecycle from 'recompose/lifecycle'
@@ -14,9 +14,7 @@ export const redirectComponent = (
 ) =>
   WrappedComponent => {
     let omitPropsName = ['replace']
-    const actions = options.actions
-      ? { ...options.actions, replace }
-      : { replace }
+    const actions = options.actions ? {...options.actions, replace} : {replace}
     const redirectComponentHoc = lifecycle({
       componentWillMount() {
         this.checkRedirect(this.props)
@@ -25,7 +23,7 @@ export const redirectComponent = (
         this.checkRedirect(nextProps)
       },
       checkRedirect(props) {
-        const { replace } = props
+        const {replace} = props
         const redirectPath = shouldRedirectPath(props)
 
         if (options.cleanUp) {

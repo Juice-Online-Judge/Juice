@@ -1,5 +1,5 @@
 import CodeView from '../../components/CodeView'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 
 import {
   fetchCode,
@@ -9,7 +9,7 @@ import {
   needReviewSelector,
   patchSubmissionCorrectness
 } from 'redux/modules/submission'
-import { createIsAdminSelector } from 'redux/modules/account'
+import {createIsAdminSelector} from 'redux/modules/account'
 
 const isAdminSelector = createIsAdminSelector()
 
@@ -34,7 +34,7 @@ export default connect(
       }
     }
   }),
-  (stateProps, { fetchCode, patchCorrectness }, ownProps) => {
+  (stateProps, {fetchCode, patchCorrectness}, ownProps) => {
     const dispatchProps = {
       fetchCode: fetchCode(stateProps.id),
       patchCorrectness: patchCorrectness(stateProps.id)

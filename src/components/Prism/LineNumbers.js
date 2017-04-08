@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React, {PropTypes} from 'react'
 import setPropTypes from 'recompose/setPropTypes'
 import setDisplayName from 'recompose/setDisplayName'
 import compose from 'recompose/compose'
@@ -12,7 +12,7 @@ const LineNumbers = compose(
     code: PropTypes.string.isRequired
   }),
   setDisplayName('LineNumbers')
-)(({ code }) => {
+)(({code}) => {
   const lines = defaultTo(code.match(/\n(?!$)/g), emptyArray).length + 1
   return (
     <span aria-hidden='true' className='line-numbers-rows'>

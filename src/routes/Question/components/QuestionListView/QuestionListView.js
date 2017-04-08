@@ -1,10 +1,10 @@
-import React, { PropTypes, Component } from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import React, {PropTypes, Component} from 'react'
+import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
-import { fetchQuestion } from 'redux/modules/question'
+import {fetchQuestion} from 'redux/modules/question'
 import createMaxPageSelector from 'redux/selectors/maxPageSelector'
-import { createIsAdminSelector } from 'redux/modules/account'
+import {createIsAdminSelector} from 'redux/modules/account'
 
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import AddIcon from 'material-ui/svg-icons/content/add'
@@ -17,12 +17,12 @@ import styles from 'lib/styles'
 
 export class QuestionListView extends Component {
   componentDidMount() {
-    const { query } = this.props.location
-    this.props.fetchQuestion(query, { force: true })
+    const {query} = this.props.location
+    this.props.fetchQuestion(query, {force: true})
   }
 
   componentWillReceiveProps(newProps) {
-    const { query } = newProps.location
+    const {query} = newProps.location
 
     if (query.page !== this.props.location.query.page) {
       this.props.fetchQuestion(query)
@@ -30,8 +30,8 @@ export class QuestionListView extends Component {
   }
 
   render() {
-    const { maxPage, admin, question } = this.props
-    const { query } = this.props.location
+    const {maxPage, admin, question} = this.props
+    const {query} = this.props.location
     const page = parseInt(query.page || 1)
 
     return (
@@ -69,5 +69,5 @@ export default connect(
     maxPage: maxPageSelector(state.question),
     admin: isAdminSelector(state)
   }),
-  { fetchQuestion }
+  {fetchQuestion}
 )(QuestionListView)

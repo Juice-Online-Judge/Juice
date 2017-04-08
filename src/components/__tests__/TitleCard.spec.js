@@ -1,6 +1,6 @@
 import React from 'react'
-import { shallow } from 'enzyme'
-import { TitleCard } from '../TitleCard'
+import {shallow} from 'enzyme'
+import {TitleCard} from '../TitleCard'
 import Card from 'material-ui/Card/Card'
 import CardTitle from 'material-ui/Card/CardTitle'
 
@@ -37,7 +37,7 @@ describe('(Component) <TitleCard />', () => {
 
   describe('(Prop) style', () => {
     it('Pass to <CardTitle />', () => {
-      const style = { foo: 'bar' }
+      const style = {foo: 'bar'}
       const sut = shallow(<TitleCard style={ style } />)
 
       expect(sut.find(CardTitle)).toHaveProp('style', style)

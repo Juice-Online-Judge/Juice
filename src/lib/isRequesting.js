@@ -1,4 +1,4 @@
-import { RequestStatus } from './const'
+import {RequestStatus} from './const'
 
 export const isRequesting = app => {
   const status = app.get('status')

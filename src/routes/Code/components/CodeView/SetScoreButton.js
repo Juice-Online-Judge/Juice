@@ -1,7 +1,7 @@
-import React, { PropTypes, Component } from 'react'
-import { bind } from 'decko'
+import React, {PropTypes, Component} from 'react'
+import {bind} from 'decko'
 
-import { Row, Col } from 'react-flexbox-grid'
+import {Row, Col} from 'react-flexbox-grid'
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 
@@ -10,7 +10,7 @@ class SetScoreButton extends Component {
     return nextProps.needReview !== this.props.needReview
   }
 
-  @bind handleScoreChange({ target: { value } }) {
+  @bind handleScoreChange({target: {value}}) {
     this.correctness = value
   }
 
@@ -19,7 +19,7 @@ class SetScoreButton extends Component {
   }
 
   render() {
-    const { needReview } = this.props
+    const {needReview} = this.props
     if (!needReview) {
       return null
     }

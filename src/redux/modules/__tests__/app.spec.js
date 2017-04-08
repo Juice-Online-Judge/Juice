@@ -1,12 +1,12 @@
-import { fromJS } from 'immutable'
+import {fromJS} from 'immutable'
 import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import { RequestStatus } from 'lib/const'
+import {RequestStatus} from 'lib/const'
 import reducer, * as app from '../app'
-import { clearExam } from 'redux/modules/exam'
-import { clearQuestion } from 'redux/modules/question'
-import { clearSubmissions } from 'redux/modules/submission'
-import { clearUsers } from 'redux/modules/users'
+import {clearExam} from 'redux/modules/exam'
+import {clearQuestion} from 'redux/modules/question'
+import {clearSubmissions} from 'redux/modules/submission'
+import {clearUsers} from 'redux/modules/users'
 import api from 'lib/api'
 
 jest.mock('lib/api')
@@ -76,7 +76,7 @@ describe('(Redux) app', () => {
           url: 'foo'
         })
 
-        return store.dispatch(app.request({ url: 'foo' })).then(result => {
+        return store.dispatch(app.request({url: 'foo'})).then(result => {
           expect(result).toBe(true)
           expect(store.getActions()).toEqual(
             jasmine.arrayContaining([
@@ -98,7 +98,7 @@ describe('(Redux) app', () => {
           }
         })
 
-        return store.dispatch(app.request({ url: 'foo' })).then(result => {
+        return store.dispatch(app.request({url: 'foo'})).then(result => {
           expect(result).toBe(false)
           expect(store.getActions()).toEqual(
             jasmine.arrayContaining([
@@ -116,16 +116,16 @@ describe('(Redux) app', () => {
   describe('(Selector) #isPendingSelector', () => {
     describe('When is pending', () => {
       it('Will return true', () => {
-        const initialState = new app.App({ status: RequestStatus.PENDING })
-        const state = { app: initialState }
+        const initialState = new app.App({status: RequestStatus.PENDING})
+        const state = {app: initialState}
         expect(app.isPendingSelector(state)).toBe(true)
       })
     })
 
     describe('When is not pending', () => {
       it('Will return false', () => {
-        const initialState = new app.App({ status: RequestStatus.NONE })
-        const state = { app: initialState }
+        const initialState = new app.App({status: RequestStatus.NONE})
+        const state = {app: initialState}
         expect(app.isPendingSelector(state)).toBe(false)
       })
     })
@@ -134,8 +134,8 @@ describe('(Redux) app', () => {
   describe('(Selector) #createIsErrorSelector', () => {
     describe('When is error', () => {
       it('Will return true', () => {
-        const initialState = new app.App({ status: RequestStatus.FAIL })
-        const state = { app: initialState }
+        const initialState = new app.App({status: RequestStatus.FAIL})
+        const state = {app: initialState}
         const isErrorSelector = app.createIsErrorSelector()
         expect(isErrorSelector(state)).toBe(true)
       })
@@ -143,8 +143,8 @@ describe('(Redux) app', () => {
 
     describe('When is not error', () => {
       it('Will return false', () => {
-        const initialState = new app.App({ status: RequestStatus.NONE })
-        const state = { app: initialState }
+        const initialState = new app.App({status: RequestStatus.NONE})
+        const state = {app: initialState}
         const isErrorSelector = app.createIsErrorSelector()
         expect(isErrorSelector(state)).toBe(false)
       })
@@ -156,9 +156,9 @@ describe('(Redux) app', () => {
       it('Will return error content', () => {
         const initialState = new app.App({
           status: RequestStatus.FAIL,
-          error: fromJS({ messages: 'foo' })
+          error: fromJS({messages: 'foo'})
         })
-        const state = { app: initialState }
+        const state = {app: initialState}
         const errorSelector = app.createErrorSelector()
         expect(errorSelector(state)).toEqual('foo')
       })
@@ -168,9 +168,9 @@ describe('(Redux) app', () => {
       it('Will return null', () => {
         const initialState = new app.App({
           status: RequestStatus.NONE,
-          error: fromJS({ messages: 'foo' })
+          error: fromJS({messages: 'foo'})
         })
-        const state = { app: initialState }
+        const state = {app: initialState}
         const errorSelector = app.createErrorSelector()
         expect(errorSelector(state)).toBeNull()
       })
@@ -179,7 +179,7 @@ describe('(Redux) app', () => {
 
   describe('(Reducer)', () => {
     it('Configure initial state correct', () => {
-      expect(reducer(undefined, { type: 'foo' })).toEqualImmutable(
+      expect(reducer(undefined, {type: 'foo'})).toEqualImmutable(
         app.initialState
       )
     })

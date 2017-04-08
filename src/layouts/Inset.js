@@ -1,10 +1,10 @@
-import React, { PropTypes } from 'react'
-import { Grid, Row, Col } from 'react-flexbox-grid'
+import React, {PropTypes} from 'react'
+import {Grid, Row, Col} from 'react-flexbox-grid'
 import setPropTypes from 'recompose/setPropTypes'
 
 export const Inset = setPropTypes({
   children: PropTypes.node
-})(({ children }) => (
+})(({children}) => (
   <Grid>
     <Row>
       <Col xs={ 12 }>

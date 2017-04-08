@@ -1,4 +1,4 @@
-import { cacheFirst, networkFirst, preCache } from './sw/strategy'
+import {cacheFirst, networkFirst, preCache} from './sw/strategy'
 import router from './sw/routes.js'
 
 const location = new URL(self.registration.scope)
@@ -17,7 +17,7 @@ self.addEventListener('install', event => {
 })
 
 self.addEventListener('fetch', event => {
-  const { request } = event
+  const {request} = event
   const url = new URL(request.url)
 
   if (url.host !== location.host) {

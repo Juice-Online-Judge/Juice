@@ -1,6 +1,6 @@
 import React from 'react'
-import { shallow } from 'enzyme'
-import { DownloadButton } from '../DownloadButton'
+import {shallow} from 'enzyme'
+import {DownloadButton} from '../DownloadButton'
 import FlatButton from 'material-ui/FlatButton'
 
 describe('(Component) <DownloadButton />', () => {

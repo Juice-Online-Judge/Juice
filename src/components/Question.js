@@ -1,8 +1,8 @@
-import React, { Component, PropTypes } from 'react'
+import React, {Component, PropTypes} from 'react'
 import setDisplayName from 'recompose/setDisplayName'
 import setPropTypes from 'recompose/setPropTypes'
 import compose from 'recompose/compose'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 
 import Card from 'material-ui/Card/Card'
 import CardTitle from 'material-ui/Card/CardTitle'
@@ -12,8 +12,8 @@ import Markdown from './Markdown'
 
 import SubmitCode from './SubmitCode'
 
-import { fetchQuestionDetail, questionSelector } from 'redux/modules/question'
-import { fetchExamQuestion } from 'redux/modules/exam'
+import {fetchQuestionDetail, questionSelector} from 'redux/modules/question'
+import {fetchExamQuestion} from 'redux/modules/exam'
 
 export class Question extends Component {
   componentDidMount() {
@@ -21,7 +21,7 @@ export class Question extends Component {
   }
 
   fetchQuestionDetail() {
-    const { question, uuid, examId } = this.props
+    const {question, uuid, examId} = this.props
     if (question && question.get('detail')) {
       return
     }
@@ -30,12 +30,12 @@ export class Question extends Component {
       // It an exam's question.
       this.props.fetchExamQuestion(examId)
     } else {
-      this.props.fetchQuestionDetail(uuid, { force: true })
+      this.props.fetchQuestionDetail(uuid, {force: true})
     }
   }
 
   render() {
-    const { uuid, examId, question } = this.props
+    const {uuid, examId, question} = this.props
 
     return <QuestionCard uuid={ uuid } examId={ examId } question={ question } />
   }
@@ -53,7 +53,7 @@ export default connect(
   (state, props) => ({
     question: questionSelector(state, props)
   }),
-  { fetchQuestionDetail, fetchExamQuestion }
+  {fetchQuestionDetail, fetchExamQuestion}
 )(Question)
 
 export const QuestionCard = compose(
@@ -63,7 +63,7 @@ export const QuestionCard = compose(
     examId: PropTypes.string,
     question: PropTypes.object.isRequired
   })
-)(({ uuid, examId, question }) => (
+)(({uuid, examId, question}) => (
   <Card>
     <CardTitle title={ question.get('title') } subtitle={ `uuid: ${uuid}` } />
     <CardText>

@@ -1,6 +1,6 @@
 import React from 'react'
-import { shallow } from 'enzyme'
-import { ToggleDisplay } from '../ToggleDisplay'
+import {shallow} from 'enzyme'
+import {ToggleDisplay} from '../ToggleDisplay'
 
 describe('(Component) <ToggleDisplay />', () => {
   it('Render a <div />', () => {

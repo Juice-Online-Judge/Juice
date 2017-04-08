@@ -1,9 +1,9 @@
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import compose from 'recompose/compose'
 
 import redirectNotAuth from 'lib/redirectNotAuth'
-import { fetchExams } from 'redux/modules/exam'
-import { createIsAdminSelector } from 'redux/modules/account'
+import {fetchExams} from 'redux/modules/exam'
+import {createIsAdminSelector} from 'redux/modules/account'
 import createMaxPageSelector from 'redux/selectors/maxPageSelector'
 
 import ExamListView from '../components/ExamListView'
@@ -20,6 +20,6 @@ export default compose(
       admin: isAdminSelector(state),
       query: props.location.query
     }),
-    { fetchExams }
+    {fetchExams}
   )
 )(ExamListView)

@@ -1,9 +1,9 @@
-import { prefixKeys, silencePromise, renameKey } from '../utils'
+import {prefixKeys, silencePromise, renameKey} from '../utils'
 
 describe('utils', () => {
   describe('#prefixKeys', () => {
     it('will return object that keys have prefix', () => {
-      const obj = { foo: 'foo', bar: 'bar' }
+      const obj = {foo: 'foo', bar: 'bar'}
       const prefixedObj = prefixKeys(obj, 'baz')
       expect(prefixedObj).toEqual({
         bazfoo: 'foo',
@@ -26,7 +26,7 @@ describe('utils', () => {
 
   describe('#renameKey', () => {
     it('will rename obj key', () => {
-      const obj = { foo: 'foo', bar: 'bar' }
+      const obj = {foo: 'foo', bar: 'bar'}
       const renamedObj = renameKey(obj, 'foo', 'baz')
 
       expect(renamedObj).toEqual({

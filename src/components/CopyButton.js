@@ -1,10 +1,10 @@
-import React, { PropTypes, Component } from 'react'
-import { bind } from 'decko'
-import { connect } from 'react-redux'
+import React, {PropTypes, Component} from 'react'
+import {bind} from 'decko'
+import {connect} from 'react-redux'
 import FlatButton from 'material-ui/FlatButton'
 import ClipboardButton from 'react-clipboard.js'
 
-import { setOpen } from 'redux/modules/message'
+import {setOpen} from 'redux/modules/message'
 import MessageContainer from '../containers/MessageContainer'
 
 export class CopyButton extends Component {
@@ -13,7 +13,7 @@ export class CopyButton extends Component {
   }
 
   render() {
-    const { text } = this.props
+    const {text} = this.props
     return (
       <MessageContainer message='Copy success'>
         <ClipboardButton
@@ -32,4 +32,4 @@ export class CopyButton extends Component {
   };
 }
 
-export default connect(null, { setOpen })(CopyButton)
+export default connect(null, {setOpen})(CopyButton)

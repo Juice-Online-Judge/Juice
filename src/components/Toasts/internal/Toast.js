@@ -1,13 +1,13 @@
-import React, { PropTypes, Component } from 'react'
+import React, {PropTypes, Component} from 'react'
 
 class Toast extends Component {
   componentDidMount() {
-    const { id, timeout, onRequestClose } = this.props
+    const {id, timeout, onRequestClose} = this.props
     setTimeout(() => onRequestClose(id), timeout)
   }
 
   render() {
-    const { children, style } = this.props
+    const {children, style} = this.props
 
     return (
       <div style={ style }>

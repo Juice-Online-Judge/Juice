@@ -1,10 +1,10 @@
-import React, { PropTypes } from 'react'
-import { bind } from 'decko'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import React, {PropTypes} from 'react'
+import {bind} from 'decko'
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
 import compose from 'recompose/compose'
 
-import { login, oauthLogin } from 'redux/modules/account'
+import {login, oauthLogin} from 'redux/modules/account'
 import redirectOnLogin from 'lib/redirectOnLogin'
 
 import Paper from 'material-ui/Paper'
@@ -12,7 +12,7 @@ import Card from 'material-ui/Card/Card'
 import CardTitle from 'material-ui/Card/CardTitle'
 import CardActions from 'material-ui/Card/CardActions'
 import FlatButton from 'material-ui/FlatButton'
-import { Row, Col } from 'react-flexbox-grid'
+import {Row, Col} from 'react-flexbox-grid'
 
 import CenterBlock from 'layouts/CenterBlock'
 import MessageContainer from 'containers/MessageContainer'
@@ -40,7 +40,7 @@ export class SignInView extends React.Component {
   }
 
   @bind login(event) {
-    const { username, password } = this.data
+    const {username, password} = this.data
     event.preventDefault()
     this.props.login(username, password)
   }
@@ -52,7 +52,7 @@ export class SignInView extends React.Component {
   }
 
   setData(newData) {
-    this.data = { ...this.data, ...newData }
+    this.data = {...this.data, ...newData}
   }
 
   render() {
@@ -62,7 +62,7 @@ export class SignInView extends React.Component {
           <Paper zDepth={ 3 } style={ styles.marginTop20 }>
             <Card>
               <CardTitle title='Juice' />
-              {inputs.map(({ name, label, ...rest }) => (
+              {inputs.map(({name, label, ...rest}) => (
                 <InputAction
                   key={ name }
                   name={ name }
@@ -111,7 +111,7 @@ export default compose(
   redirectOnLogin,
   connect(
     () => ({}),
-    (dispatch, { location: { query: { oauth } } }) => {
+    (dispatch, {location: {query: {oauth}}}) => {
       if (!isOAuthError(oauth)) {
         dispatch(oauthLogin(oauth))
       }

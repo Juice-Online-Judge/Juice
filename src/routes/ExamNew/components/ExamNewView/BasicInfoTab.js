@@ -1,9 +1,9 @@
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
+import React, {Component, PropTypes} from 'react'
+import {connect} from 'react-redux'
 import isAfter from 'date-fns/is_after'
 import setSeconds from 'date-fns/set_seconds'
 
-import { Row, Col } from 'react-flexbox-grid'
+import {Row, Col} from 'react-flexbox-grid'
 import TextField from 'material-ui/TextField'
 import DatePicker from 'material-ui/DatePicker'
 import TimePicker from 'material-ui/TimePicker'
@@ -16,7 +16,7 @@ import {
   TableHeaderColumn
 } from 'material-ui/Table'
 import Label from 'components/Label'
-import { fetchRole } from 'redux/modules/role'
+import {fetchRole} from 'redux/modules/role'
 
 const now = new Date()
 const copyDate = (origDate, date) => {
@@ -30,42 +30,42 @@ export class BasicInfoTab extends Component {
     this.props.fetchRole()
   }
 
-  handleNameChange = (event) => {
-    this.handleChange({ name: event.target.value })
-  }
+  handleNameChange = event => {
+    this.handleChange({name: event.target.value})
+  };
 
-  handleRoleSelect = (selectedRow) => {
-    const { role } = this.props
+  handleRoleSelect = selectedRow => {
+    const {role} = this.props
     const selectedRole = selectedRow.map(idx => role.getIn(['result', idx]))
     setImmediate(() =>
-      this.props.onChange({ ...this.state, role: selectedRole }))
-  }
+      this.props.onChange({...this.state, role: selectedRole}))
+  };
 
   handleBeganDateChange = (_event, date) => {
     const newDate = copyDate(this.state.beganTime, date)
-    this.handleChange({ beganTime: newDate })
+    this.handleChange({beganTime: newDate})
     this.checkTime(date, this.state.endedTime)
-  }
+  };
 
   handleBeganTimeChange = (_event, date) => {
-    this.handleChange({ beganTime: date })
+    this.handleChange({beganTime: date})
     this.checkTime(date, this.state.endedTime)
-  }
+  };
 
   handleEndedDateChange = (_event, date) => {
     const newDate = copyDate(this.state.endedTime, date)
-    this.handleChange({ endedTime: newDate })
+    this.handleChange({endedTime: newDate})
     this.checkTime(this.state.beganTime, date)
-  }
+  };
 
   handleEndedTimeChange = (_event, date) => {
-    this.handleChange({ endedTime: date })
+    this.handleChange({endedTime: date})
     this.checkTime(this.state.beganTime, date)
-  }
+  };
 
   handleChange(data = {}) {
     // Fire change event
-    this.props.onChange({ ...this.state, ...data })
+    this.props.onChange({...this.state, ...data})
     this.setState(data)
   }
 
@@ -82,7 +82,7 @@ export class BasicInfoTab extends Component {
   }
 
   render() {
-    const { role } = this.props
+    const {role} = this.props
 
     return (
       <div>
@@ -172,6 +172,6 @@ export class BasicInfoTab extends Component {
   };
 }
 
-export default connect(state => ({ role: state.role }), { fetchRole })(
+export default connect(state => ({role: state.role}), {fetchRole})(
   BasicInfoTab
 )

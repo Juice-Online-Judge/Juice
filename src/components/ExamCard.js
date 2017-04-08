@@ -1,6 +1,6 @@
-import React, { PropTypes } from 'react'
+import React, {PropTypes} from 'react'
 
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import setDisplayName from 'recompose/setDisplayName'
 import setPropTypes from 'recompose/setPropTypes'
 import compose from 'recompose/compose'
@@ -16,7 +16,7 @@ const ExamCard = compose(
     endedTime: PropTypes.string.isRequired
   }),
   setDisplayName('ExamCard')
-)(({ id, name, beganTime, endedTime }) => (
+)(({id, name, beganTime, endedTime}) => (
   <Link to={ `/exams/${id}` } style={ styles.noUnderline }>
     <TitleCard title={ name } subtitle={ `${beganTime} ~ ${endedTime}` } />
   </Link>

@@ -1,6 +1,6 @@
 import React from 'react'
-import { setDisplayName } from 'recompose'
-import { Link } from 'react-router-dom'
+import {setDisplayName} from 'recompose'
+import {Link} from 'react-router-dom'
 
 export const NotFoundView = setDisplayName('NotFoundView')(() => (
   <div>

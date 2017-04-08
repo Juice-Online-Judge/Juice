@@ -1,7 +1,7 @@
 import React from 'react'
 
 import IconButton from 'material-ui/IconButton'
-import { Row, Col } from 'react-flexbox-grid'
+import {Row, Col} from 'react-flexbox-grid'
 
 export const OAuthButtons = () => (
   <Row end='xs'>

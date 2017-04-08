@@ -1,8 +1,8 @@
-import React, { PropTypes, Component } from 'react'
-import { connect } from 'react-redux'
-import { bind } from 'decko'
+import React, {PropTypes, Component} from 'react'
+import {connect} from 'react-redux'
+import {bind} from 'decko'
 import Message from 'components/Message'
-import { setOpen } from 'redux/modules/message'
+import {setOpen} from 'redux/modules/message'
 
 export class MessageContainer extends Component {
   @bind handleClose() {
@@ -13,7 +13,7 @@ export class MessageContainer extends Component {
   }
 
   render() {
-    const { children, messageStore, message } = this.props
+    const {children, messageStore, message} = this.props
     return (
       <div>
         {children}
@@ -34,6 +34,6 @@ export class MessageContainer extends Component {
   };
 }
 
-export default connect(state => ({ messageStore: state.message }), { setOpen })(
+export default connect(state => ({messageStore: state.message}), {setOpen})(
   MessageContainer
 )

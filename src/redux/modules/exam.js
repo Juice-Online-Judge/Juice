@@ -1,17 +1,17 @@
-import { createAction, handleActions } from 'redux-actions'
-import { Record, Map, List } from 'immutable'
-import { normalize } from 'normalizr'
+import {createAction, handleActions} from 'redux-actions'
+import {Record, Map, List} from 'immutable'
+import {normalize} from 'normalizr'
 import omit from 'lodash/omit'
 import map from 'lodash/map'
-import { replace } from 'react-router-redux'
+import {replace} from 'react-router-redux'
 
 import examSchema from 'schema/exam'
 import isRequesting from 'lib/isRequesting'
-import { renameKeys } from 'lib/utils'
-import { request } from './app'
-import { setQuestion } from './question'
-import { isLogin } from './account'
-import { showMessage } from './message'
+import {renameKeys} from 'lib/utils'
+import {request} from './app'
+import {setQuestion} from './question'
+import {isLogin} from './account'
+import {showMessage} from './message'
 
 const ExamStatus = new Record({
   result: new List(),
@@ -27,7 +27,7 @@ export const SET_EXAM = 'SET_EXAM'
 export const SET_EXAM_TOKEN = 'SET_EXAM_TOKEN'
 export const CLEAR_EXAM = 'CLEAR_EXAM'
 
-export const setExam = createAction(SET_EXAM, ({ page, total, data }) => ({
+export const setExam = createAction(SET_EXAM, ({page, total, data}) => ({
   page,
   total,
   ...normalize(data, [examSchema])
@@ -36,11 +36,11 @@ export const setExam = createAction(SET_EXAM, ({ page, total, data }) => ({
 export const setExamToken = createAction(SET_EXAM_TOKEN)
 export const clearExam = createAction(CLEAR_EXAM)
 
-export const fetchExams = (query, opts = { force: false }) =>
+export const fetchExams = (query, opts = {force: false}) =>
   (dispatch, getState) => {
-    const { app, account, exam } = getState()
+    const {app, account, exam} = getState()
     const page = exam.get('page')
-    query = query || { page }
+    query = query || {page}
 
     if (isRequesting(app) && !opts.force) {
       return
@@ -115,7 +115,7 @@ export const addExam = data =>
 
 export const fetchExamQuestion = examId =>
   (dispatch, getState) => {
-    const { account } = getState()
+    const {account} = getState()
 
     if (!isLogin(account)) {
       return
@@ -126,7 +126,7 @@ export const fetchExamQuestion = examId =>
         {
           url: `exams/${examId}/questions`
         },
-        ({ questions }) => {
+        ({questions}) => {
           questions.sort((a, b) => {
             if (a.uuid > b.uuid) {
               return 1
@@ -151,7 +151,7 @@ export const fetchExamQuestion = examId =>
 
 export const fetchExamToken = examId =>
   (dispatch, getState) => {
-    const { account } = getState()
+    const {account} = getState()
 
     if (!isLogin(account)) {
       return
@@ -184,11 +184,11 @@ export const actions = {
 
 export default handleActions(
   {
-    [SET_EXAM]: (state, { payload }) =>
+    [SET_EXAM]: (state, {payload}) =>
       state
         .merge(omit(payload, 'entities'))
-        .mergeDeep({ entities: payload.entities }),
-    [SET_EXAM_TOKEN]: (state, { payload }) =>
+        .mergeDeep({entities: payload.entities}),
+    [SET_EXAM_TOKEN]: (state, {payload}) =>
       state.setIn(['tokens', `${payload.id}`], payload.token),
     [CLEAR_EXAM]: () => new ExamStatus()
   },

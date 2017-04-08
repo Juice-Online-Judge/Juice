@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react'
-import { bind } from 'decko'
+import React, {Component, PropTypes} from 'react'
+import {bind} from 'decko'
 
 import TextField from 'material-ui/TextField'
 import DropDownMenu from 'material-ui/DropDownMenu'
@@ -13,19 +13,19 @@ export class RestrictionTab extends Component {
   }
 
   @bind handleFileChange(event) {
-    this.handleChange({ file: event.target.value })
+    this.handleChange({file: event.target.value})
   }
 
   @bind handleMemoryChange(event) {
-    this.handleChange({ memory: event.target.value })
+    this.handleChange({memory: event.target.value})
   }
 
   @bind handleTimeChange(event) {
-    this.handleChange({ time: event.target.value })
+    this.handleChange({time: event.target.value})
   }
 
   @bind handleStrategyChange(_event, _key, value) {
-    this.setState({ strategy: value })
+    this.setState({strategy: value})
     this.emitChange({
       ...this.data,
       strategy: value
@@ -42,15 +42,15 @@ export class RestrictionTab extends Component {
   }
 
   emitChange(data) {
-    this.props.onChange({ restriction: data })
+    this.props.onChange({restriction: data})
   }
 
   setData(data) {
-    this.data = { ...this.data, ...data }
+    this.data = {...this.data, ...data}
   }
 
   render() {
-    const { strategy } = this.state
+    const {strategy} = this.state
 
     return (
       <div>

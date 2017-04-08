@@ -1,5 +1,5 @@
-import React, { PropTypes, Component } from 'react'
-import { bind } from 'decko'
+import React, {PropTypes, Component} from 'react'
+import {bind} from 'decko'
 import isUndefined from 'lodash/isUndefined'
 import styles from 'lib/styles'
 import shallowEqual from 'fbjs/lib/shallowEqual'
@@ -23,7 +23,7 @@ class MarkdownEditor extends Component {
   }
 
   @bind handlePreviewToggle() {
-    this.setState({ preview: !this.state.preview })
+    this.setState({preview: !this.state.preview})
   }
 
   @bind getTextField(textField) {
@@ -44,12 +44,12 @@ class MarkdownEditor extends Component {
   }
 
   @bind handleBulleted() {
-    const { text } = this.state
+    const {text} = this.state
     this.appendText(text ? '\n- ' : '- ')
   }
 
   @bind handleNumbered() {
-    const { text } = this.state
+    const {text} = this.state
     this.appendText(text ? '\n1. ' : '1. ')
   }
 
@@ -65,7 +65,7 @@ class MarkdownEditor extends Component {
     wrappedText = wrappedText.substr(0, wrappedText.length / 2)
     const start = this.selectionStart
     const end = this.selectionEnd
-    const { text } = this.state
+    const {text} = this.state
     const selectedText = text.substr(start, end)
     const selectedBefore = text.substr(0, start)
     const selectedEnd = text.substr(end)
@@ -80,26 +80,26 @@ class MarkdownEditor extends Component {
   }
 
   appendTextAndMoveCursor(appendText) {
-    const { text } = this.state
-    this.setState({ text: `${text}${appendText}` }, () => {
+    const {text} = this.state
+    this.setState({text: `${text}${appendText}`}, () => {
       this.moveCursorBack(appendText.length / 2)
     })
   }
 
   appendText(appendText) {
-    const { text } = this.state
-    this.setState({ text: `${text}${appendText}` }, () => {
+    const {text} = this.state
+    this.setState({text: `${text}${appendText}`}, () => {
       this.moveCursorBack(0)
     })
   }
 
   moveCursorBack(count) {
-    const { text } = this.state
+    const {text} = this.state
     this.moveCursor(text.length - count)
   }
 
   moveCursor(pos) {
-    const { preview } = this.state
+    const {preview} = this.state
     if (preview) {
       return
     }
@@ -116,8 +116,8 @@ class MarkdownEditor extends Component {
   }
 
   @bind handleChange(event) {
-    const { onChange } = this.props
-    const { value } = event.target
+    const {onChange} = this.props
+    const {value} = event.target
     this.setState({
       text: value
     })
@@ -128,7 +128,7 @@ class MarkdownEditor extends Component {
   }
 
   render() {
-    const { preview, text } = this.state
+    const {preview, text} = this.state
     return (
       <div>
         <Toolbar>
@@ -158,7 +158,7 @@ class MarkdownEditor extends Component {
           </ToolbarGroup>
         </Toolbar>
         {preview
-          ? <div style={ { height: '15em' } }>
+          ? <div style={ {height: '15em'} }>
             <Markdown source={ text || 'Nothing to preview' } />
           </div>
           : <TextField

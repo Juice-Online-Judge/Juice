@@ -1,8 +1,8 @@
-import React, { PropTypes } from 'react'
+import React, {PropTypes} from 'react'
 import setPropTypes from 'recompose/setPropTypes'
 import setDisplayName from 'recompose/setDisplayName'
 import compose from 'recompose/compose'
-import { isNeedReviewScore } from 'redux/modules/submission'
+import {isNeedReviewScore} from 'redux/modules/submission'
 
 import Submission from './Submission'
 
@@ -13,7 +13,7 @@ const SubmissionList = compose(
     addFilter: PropTypes.func,
     examId: PropTypes.string
   })
-)(({ submission, examId, addFilter }) => {
+)(({submission, examId, addFilter}) => {
   const entities = submission.getIn(['entities', 'submission'])
   return (
     <div>

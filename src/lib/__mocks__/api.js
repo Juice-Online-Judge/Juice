@@ -7,12 +7,12 @@ const api = {}
 api.request = jest.fn(request => {
   let idx = null
   let res = null
-  for (const [i, { url, error, data }] of fakeResponse.entries()) {
+  for (const [i, {url, error, data}] of fakeResponse.entries()) {
     if (url === request.url) {
       idx = i
       res = error
-        ? Promise.reject({ status: error, data: {} }) // eslint-disable-line
-        : Promise.resolve({ data })
+        ? Promise.reject({status: error, data: {}}) // eslint-disable-line
+        : Promise.resolve({data})
       break
     }
   }

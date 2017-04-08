@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react'
-import { bind } from 'decko'
+import React, {Component, PropTypes} from 'react'
+import {bind} from 'decko'
 
 import FileButton from 'components/FileButton'
 
@@ -9,11 +9,11 @@ export class AnswerTab extends Component {
   }
 
   @bind handleInputChange(file) {
-    this.handleChange({ input: { file } })
+    this.handleChange({input: {file}})
   }
 
   @bind handleOutputChange(file) {
-    this.handleChange({ output: { file } })
+    this.handleChange({output: {file}})
   }
 
   handleChange(data = {}) {
@@ -23,7 +23,7 @@ export class AnswerTab extends Component {
   }
 
   setData(data) {
-    this.data = { ...this.data, ...data }
+    this.data = {...this.data, ...data}
   }
 
   render() {

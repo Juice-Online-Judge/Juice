@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react'
-import { Row, Col } from 'react-flexbox-grid'
+import React, {PropTypes} from 'react'
+import {Row, Col} from 'react-flexbox-grid'
 import setPropTypes from 'recompose/setPropTypes'
 import setDisplayName from 'recompose/setDisplayName'
 import compose from 'recompose/compose'
@@ -12,7 +12,7 @@ export const CenterLoading = compose(
     left: PropTypes.number.isRequired,
     loading: PropTypes.bool
   })
-)(({ left, loading }) => {
+)(({left, loading}) => {
   const status = loading ? 'loading' : 'hide'
   return (
     <Row center='xs'>

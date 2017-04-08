@@ -16,10 +16,7 @@ const emptyHint = () => (
 
 export default compose(
   withProps(({exam}) => ({empty: exam.get('result').isEmpty()})),
-  branch(
-    ({empty}) => empty,
-    renderComponent(emptyHint)
-  )
+  branch(({empty}) => empty, renderComponent(emptyHint))
 )(({exam, maxPage}) => {
   const examData = exam.getIn(examKey)
   return (

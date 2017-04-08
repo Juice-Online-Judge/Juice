@@ -1,15 +1,15 @@
-import { createAction, handleActions } from 'redux-actions'
-import { createSelector } from 'reselect'
-import { Record, Map } from 'immutable'
+import {createAction, handleActions} from 'redux-actions'
+import {createSelector} from 'reselect'
+import {Record, Map} from 'immutable'
 import omitBy from 'lodash/omitBy'
 import isNil from 'lodash/isNil'
-import { normalize } from 'normalizr'
-import { replace } from 'react-router-redux'
-import { createFormDataDeep } from 'lib/utils'
+import {normalize} from 'normalizr'
+import {replace} from 'react-router-redux'
+import {createFormDataDeep} from 'lib/utils'
 
-import { request } from './app'
-import { isLogin } from './account'
-import { showMessage } from './message'
+import {request} from './app'
+import {isLogin} from './account'
+import {showMessage} from './message'
 import submissionSchema from 'schema/submission'
 
 const SubmissionState = new Record({
@@ -36,13 +36,13 @@ export const clearSubmissionCode = createAction(CLEAR_SUBMISSION_CODE)
 
 export const submitCode = submitData =>
   dispatch => {
-    const { uuid, examId, ...data } = submitData
+    const {uuid, examId, ...data} = submitData
     return dispatch(
       request(
         {
           method: 'post',
           url: `submissions/${uuid}`,
-          data: createFormDataDeep(omitBy({ ...data, exam_id: examId }, isNil)),
+          data: createFormDataDeep(omitBy({...data, exam_id: examId}, isNil)),
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -59,9 +59,9 @@ export const submitCode = submitData =>
     )
   }
 
-export const fetchSubmissions = (opts = { force: false }) =>
+export const fetchSubmissions = (opts = {force: false}) =>
   (dispatch, getState) => {
-    const { submission, account } = getState()
+    const {submission, account} = getState()
     if (submission.get('result').size && !opts.force) {
       return
     }
@@ -76,30 +76,30 @@ export const fetchSubmissions = (opts = { force: false }) =>
         {
           url: '/account/submissions'
         },
-        ({ submissions }) => {
+        ({submissions}) => {
           dispatch(setSubmissions(submissions))
         }
       )
     )
   }
 
-export const fetchExamSubmissions = (id, opts = { force: false }) =>
+export const fetchExamSubmissions = (id, opts = {force: false}) =>
   dispatch => {
     dispatch(
       request(
         {
           url: `/exams/${id}/submissions`
         },
-        ({ submissions }) => {
+        ({submissions}) => {
           dispatch(setSubmissions(submissions))
         }
       )
     )
   }
 
-export const fetchSubmission = (id, opts = { force: false }) =>
+export const fetchSubmission = (id, opts = {force: false}) =>
   (dispatch, getState) => {
-    const { submission } = getState()
+    const {submission} = getState()
     id = `${id}`
     if (submission.hasIn(['entities', 'submission', id]) && !opts.force) {
       return
@@ -148,8 +148,8 @@ export const patchSubmissionCorrectness = (id, correctness) =>
 
 export const isNeedReviewScore = score => score === null || score === -1
 
-const getSubmission = ({ submission }) => submission
-const getSubmissionWithId = ({ submission }, { params: { id } }) =>
+const getSubmission = ({submission}) => submission
+const getSubmissionWithId = ({submission}, {params: {id}}) =>
   submission.getIn(['entities', 'submission', id], new Map())
 
 export const codeSelector = createSelector([getSubmission], submission =>
@@ -177,10 +177,10 @@ export const actions = {
 
 export default handleActions(
   {
-    [SET_SUBMISSIONS]: (state, { payload }) => state.merge(payload),
-    [SET_SUBMISSION]: (state, { payload }) => state.merge(payload),
+    [SET_SUBMISSIONS]: (state, {payload}) => state.merge(payload),
+    [SET_SUBMISSION]: (state, {payload}) => state.merge(payload),
     [CLEAR_SUBMISSIONS]: () => new SubmissionState(),
-    [SET_SUBMISSION_CODE]: (state, { payload }) => state.set('code', payload),
+    [SET_SUBMISSION_CODE]: (state, {payload}) => state.set('code', payload),
     [CLEAR_SUBMISSION_CODE]: state => state.set('code', '')
   },
   initialState

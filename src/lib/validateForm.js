@@ -1,4 +1,4 @@
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import lifecycle from 'recompose/lifecycle'
 import withHandlers from 'recompose/withHandlers'
 import setDisplayName from 'recompose/setDisplayName'
@@ -16,7 +16,7 @@ import {
 const validateFormHoc = validateRule =>
   WrappedComponent => {
     const componentName = getDisplayName(WrappedComponent)
-    const mapStates = state => ({ validation: getComponentMessage(state) })
+    const mapStates = state => ({validation: getComponentMessage(state)})
 
     return compose(
       connect(mapStates, {

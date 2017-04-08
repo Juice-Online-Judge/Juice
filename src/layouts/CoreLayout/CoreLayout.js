@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react'
-import { StyleRoot } from 'radium'
+import React, {PropTypes} from 'react'
+import {StyleRoot} from 'radium'
 import setPropTypes from 'recompose/setPropTypes'
 import setDisplayName from 'recompose/setDisplayName'
 import compose from 'recompose/compose'
@@ -17,7 +17,7 @@ export const CoreLayout = compose(
   setPropTypes({
     children: PropTypes.element
   })
-)(({ children }) => (
+)(({children}) => (
   <MuiThemeProvider muiTheme={ theme }>
     <div className='page-container' style={ styles.container }>
       <div className='view-container' style={ styles.container }>

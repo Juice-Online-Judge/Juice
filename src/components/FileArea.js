@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react'
-import { bind } from 'decko'
+import React, {Component, PropTypes} from 'react'
+import {bind} from 'decko'
 import uniqueId from 'lodash/uniqueId'
 
 import TextField from 'material-ui/TextField'
@@ -14,7 +14,7 @@ import styles from 'lib/styles'
 export class FileArea extends Component {
   @bind handleFileChange(fileList) {
     const content = {}
-    const { multiple } = this.props
+    const {multiple} = this.props
     const files = Array.from(fileList)
 
     content[this.props.textKey] = null
@@ -24,12 +24,12 @@ export class FileArea extends Component {
   }
 
   @bind handleTextAreaChange(event) {
-    const { value } = event.target
+    const {value} = event.target
     this.handleTextChange(value)
   }
 
   @bind handleTextChange(value) {
-    const { multiple } = this.props
+    const {multiple} = this.props
     const content = {}
 
     content[this.props.fileKey] = null
@@ -52,12 +52,12 @@ export class FileArea extends Component {
   }
 
   @bind handleTypeChange(event) {
-    const { value } = event.target
-    this.setState({ type: value })
+    const {value} = event.target
+    this.setState({type: value})
   }
 
   get textareas() {
-    const { rows, mode } = this.props
+    const {rows, mode} = this.props
     const options = {
       mode: 'clike',
       theme: 'monokai-bright'
@@ -82,7 +82,7 @@ export class FileArea extends Component {
   }
 
   areaContent(type) {
-    const { label } = this.props
+    const {label} = this.props
 
     if (type === 'file') {
       return (

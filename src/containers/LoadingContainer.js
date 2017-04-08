@@ -1,8 +1,8 @@
-import React, { PropTypes, Component } from 'react'
-import { connect } from 'react-redux'
+import React, {PropTypes, Component} from 'react'
+import {connect} from 'react-redux'
 
 import CenterLoading from 'components/CenterLoading'
-import { isPendingSelector } from 'redux/modules/app'
+import {isPendingSelector} from 'redux/modules/app'
 
 class LoadingContainer extends Component {
   componentDidMount() {
@@ -12,7 +12,7 @@ class LoadingContainer extends Component {
   }
 
   render() {
-    const { pending, children } = this.props
+    const {pending, children} = this.props
     return (
       <div ref='container' style={ styles.container }>
         <CenterLoading left={ this.state.left } loading={ pending } />
@@ -31,7 +31,7 @@ class LoadingContainer extends Component {
   };
 }
 
-export default connect(state => ({ pending: isPendingSelector(state) }))(
+export default connect(state => ({pending: isPendingSelector(state)}))(
   LoadingContainer
 )
 

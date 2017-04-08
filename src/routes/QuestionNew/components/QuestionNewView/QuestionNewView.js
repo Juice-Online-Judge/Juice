@@ -1,17 +1,17 @@
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { bind } from 'decko'
+import React, {Component, PropTypes} from 'react'
+import {connect} from 'react-redux'
+import {bind} from 'decko'
 import compose from 'recompose/compose'
 
 import RaisedButton from 'material-ui/RaisedButton'
 import Card from 'material-ui/Card/Card'
 import CardTitle from 'material-ui/Card/CardTitle'
 import CardActions from 'material-ui/Card/CardActions'
-import { Row, Col } from 'react-flexbox-grid'
+import {Row, Col} from 'react-flexbox-grid'
 
 import redirectNotAdmin from 'lib/redirectNotAdmin'
-import { addQuestion } from 'redux/modules/question'
-import { clearStatus } from 'redux/modules/app'
+import {addQuestion} from 'redux/modules/question'
+import {clearStatus} from 'redux/modules/app'
 import BasicInfoTab from './BasicInfoTab'
 import AnswerTab from './AnswerTab'
 import RestrictionTab from './RestrictionTab'
@@ -36,7 +36,7 @@ class QuestionNewView extends Component {
   }
 
   setData(data) {
-    this.data = { ...this.data, ...data }
+    this.data = {...this.data, ...data}
   }
 
   @bind handleAddQuestion() {
@@ -90,5 +90,5 @@ class QuestionNewView extends Component {
 
 export default compose(
   redirectNotAdmin,
-  connect(null, { addQuestion, clearStatus })
+  connect(null, {addQuestion, clearStatus})
 )(QuestionNewView)

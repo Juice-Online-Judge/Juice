@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React, {PropTypes} from 'react'
 import setDisplayName from 'recompose/setDisplayName'
 import setPropTypes from 'recompose/setPropTypes'
 import compose from 'recompose/compose'
@@ -11,7 +11,7 @@ export const ToggleDisplay = compose(
     children: PropTypes.node
   }),
   setDisplayName('ToggleDisplay')
-)(({ show, hide, children }) => {
+)(({show, hide, children}) => {
   const style = (show || !hide) && show !== false ? styles.none : styles.hidden
   return (
     <div style={ style }>

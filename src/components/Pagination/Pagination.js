@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, {Component, PropTypes} from 'react'
 import times from 'lodash/times'
 
 import CenterBlock from 'layouts/CenterBlock'
@@ -6,7 +6,7 @@ import PageButton from './PageButton'
 
 export class Pagination extends Component {
   get prevButton() {
-    const { baseUrl, current } = this.props
+    const {baseUrl, current} = this.props
 
     return (
       <PageButton
@@ -19,7 +19,7 @@ export class Pagination extends Component {
   }
 
   get nextButton() {
-    const { baseUrl, current, maxPage } = this.props
+    const {baseUrl, current, maxPage} = this.props
 
     return (
       <PageButton
@@ -32,7 +32,7 @@ export class Pagination extends Component {
   }
 
   get pagination() {
-    const { baseUrl, current, maxPage } = this.props
+    const {baseUrl, current, maxPage} = this.props
     let min = current - 4
     // Calculate min page
     min = Math.max(min, 1)
@@ -61,7 +61,7 @@ export class Pagination extends Component {
   }
 
   render() {
-    const { prevButton, pagination, nextButton } = this
+    const {prevButton, pagination, nextButton} = this
     return (
       <CenterBlock fullwidth>
         {prevButton}

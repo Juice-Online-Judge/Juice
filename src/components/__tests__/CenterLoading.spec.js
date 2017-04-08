@@ -1,7 +1,7 @@
 import React from 'react'
-import { shallow } from 'enzyme'
-import { CenterLoading } from '../CenterLoading'
-import { Row, Col } from 'react-flexbox-grid'
+import {shallow} from 'enzyme'
+import {CenterLoading} from '../CenterLoading'
+import {Row, Col} from 'react-flexbox-grid'
 import RefreshIndicator from 'material-ui/RefreshIndicator'
 
 describe('(Component) <CenterLoading />', () => {
@@ -43,7 +43,7 @@ describe('(Component) <CenterLoading />', () => {
     it('Pass to <RefreshIndicator />', () => {
       expect(sut.find(RefreshIndicator)).toHaveProp('left', 10)
 
-      sut.setProps({ left: 20 })
+      sut.setProps({left: 20})
       expect(sut.find(RefreshIndicator)).toHaveProp('left', 20)
     })
   })

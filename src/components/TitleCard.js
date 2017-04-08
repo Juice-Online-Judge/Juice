@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React, {PropTypes} from 'react'
 import setDisplayName from 'recompose/setDisplayName'
 import setPropTypes from 'recompose/setPropTypes'
 import compose from 'recompose/compose'
@@ -14,7 +14,7 @@ export const TitleCard = compose(
     subtitle: PropTypes.string
   }),
   setDisplayName('TitleCard')
-)(({ style, title, subtitle, children }) => (
+)(({style, title, subtitle, children}) => (
   <Card>
     <CardTitle style={ style } title={ title } subtitle={ subtitle }>
       {children}

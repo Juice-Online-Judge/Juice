@@ -1,13 +1,13 @@
-import { createAction, handleActions } from 'redux-actions'
-import { fromJS, Record, List, Map } from 'immutable'
-import { normalize } from 'normalizr'
+import {createAction, handleActions} from 'redux-actions'
+import {fromJS, Record, List, Map} from 'immutable'
+import {normalize} from 'normalizr'
 import omit from 'lodash/omit'
 import mapValues from 'lodash/mapValues'
-import { createSelector } from 'reselect'
+import {createSelector} from 'reselect'
 
-import { createFormDataDeep } from 'lib/utils'
-import { request } from './app'
-import { showMessage } from './message'
+import {createFormDataDeep} from 'lib/utils'
+import {request} from './app'
+import {showMessage} from './message'
 import questionSchema from 'schema/question'
 import isRequesting from 'lib/isRequesting'
 
@@ -50,14 +50,14 @@ export const setQuestion = createAction(SET_QUESTION, ({
 })
 
 export const setQuestionDetail = createAction(SET_QUESTION_DETAIL, payload => {
-  return { detail: true, ...payload }
+  return {detail: true, ...payload}
 })
 
 export const clearQuestion = createAction(CLEAR_QUESTION)
 
-export const fetchQuestion = (query = { page: 1 }, opts = { force: false }) =>
+export const fetchQuestion = (query = {page: 1}, opts = {force: false}) =>
   (dispatch, getState) => {
-    const { app, question } = getState()
+    const {app, question} = getState()
     const page = question.get('page')
     const uuids = question.get('result')
 
@@ -86,7 +86,7 @@ export const fetchQuestion = (query = { page: 1 }, opts = { force: false }) =>
     )
   }
 
-export const fetchQuestionDetail = (uuid, opts = { force: false }) =>
+export const fetchQuestionDetail = (uuid, opts = {force: false}) =>
   (dispatch, getState) => {
     const entities = getState().question.get('entities')
 
@@ -99,7 +99,7 @@ export const fetchQuestionDetail = (uuid, opts = { force: false }) =>
         {
           url: `questions/${uuid}`
         },
-        ({ question }) => {
+        ({question}) => {
           dispatch(setQuestionDetail(question))
         }
       )
@@ -162,9 +162,9 @@ const mergeQuestion = (state, payload) =>
 
 export default handleActions(
   {
-    [SET_QUESTION]: (state, { payload }) =>
+    [SET_QUESTION]: (state, {payload}) =>
       mergeQuestion(state, payload).merge(omit(payload, 'entities')),
-    [SET_QUESTION_DETAIL]: (state, { payload }) =>
+    [SET_QUESTION_DETAIL]: (state, {payload}) =>
       state.setIn(['entities', 'question', payload.uuid], fromJS(payload)),
     [CLEAR_QUESTION]: () => new QuestionState()
   },

@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react'
-import { setDisplayName, setPropTypes, compose } from 'recompose'
+import React, {PropTypes} from 'react'
+import {setDisplayName, setPropTypes, compose} from 'recompose'
 import LastUpdateDisplay from './LastUpdateDisplay'
 import BlankLink from './BlankLink'
 
@@ -9,7 +9,7 @@ const ProjectDisplay = compose(
     project: PropTypes.string.isRequired,
     desc: PropTypes.string.isRequired
   })
-)(({ desc, project }) => (
+)(({desc, project}) => (
   <div>
     {desc}:
     <BlankLink href={ `https://github.com/Sunday-Without-God/${project}` }>

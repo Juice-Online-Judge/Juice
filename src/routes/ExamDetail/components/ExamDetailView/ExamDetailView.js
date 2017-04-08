@@ -1,9 +1,9 @@
-import React, { Component, PropTypes } from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
-import { connect } from 'react-redux'
+import React, {Component, PropTypes} from 'react'
+import {Switch, Route, Redirect} from 'react-router-dom'
+import {connect} from 'react-redux'
 
 import Inset from 'layouts/Inset'
-import { fetchExamToken } from 'redux/modules/exam'
+import {fetchExamToken} from 'redux/modules/exam'
 import redirect from 'routes/utils/redirect'
 
 import Questions from '../../routes/Questions'
@@ -13,7 +13,7 @@ import SwitchButton from './SwitchButton'
 
 class ExamDetailView extends Component {
   componentDidMount() {
-    const { examId } = this.props
+    const {examId} = this.props
     this.props.fetchExamToken(examId)
   }
 
@@ -22,12 +22,12 @@ class ExamDetailView extends Component {
       <Switch>
         <Route
           path={ `/exams/:examId/submissions` }
-          render={ ({ match: { params: { examId } } }) => (
+          render={ ({match: {params: {examId}}}) => (
             <SwitchButton examId={ examId } func='questions' />
           ) } />
         <Route
           path={ `/exams/:examId/questions` }
-          render={ ({ match: { params: { examId } } }) => (
+          render={ ({match: {params: {examId}}}) => (
             <SwitchButton examId={ examId } func='submissions' />
           ) } />
       </Switch>
@@ -35,7 +35,7 @@ class ExamDetailView extends Component {
   }
 
   render() {
-    const { exam, examId, func } = this.props
+    const {exam, examId, func} = this.props
     const token = exam.getIn(['tokens', `${examId}`])
 
     if (!func) {
@@ -64,10 +64,10 @@ class ExamDetailView extends Component {
 }
 
 export default connect(
-  ({ exam }, { match: { params: { examId, func } } }) => ({
+  ({exam}, {match: {params: {examId, func}}}) => ({
     exam,
     examId,
     func
   }),
-  { fetchExamToken }
+  {fetchExamToken}
 )(ExamDetailView)

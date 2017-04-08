@@ -1,6 +1,6 @@
 import React from 'react'
 import Remarkable from './Remarkable'
-import { highlightString } from 'lib/highlight'
+import {highlightString} from 'lib/highlight'
 import setDisplayName from 'recompose/setDisplayName'
 
 const remarkableOpts = {
@@ -19,7 +19,7 @@ const remarkableOpts = {
 }
 
 const Markdown = setDisplayName('Markdown')(props => {
-  const { children, ...rest } = props
+  const {children, ...rest} = props
 
   if (children) {
     return (

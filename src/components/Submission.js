@@ -1,9 +1,9 @@
-import React, { Component, PropTypes } from 'react'
+import React, {Component, PropTypes} from 'react'
 import Radium from 'radium'
-import { bind } from 'decko'
+import {bind} from 'decko'
 
-import { Row, Col } from 'react-flexbox-grid'
-import { Link } from 'react-router-dom'
+import {Row, Col} from 'react-flexbox-grid'
+import {Link} from 'react-router-dom'
 import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
 import IconButton from 'material-ui/IconButton'
@@ -16,7 +16,7 @@ const PENDING = 'PENDING'
 const REVIEWING = 'AC (Reviewing)'
 const HIDE_CLASS = 'xs-hide sm-hide'
 
-const getResult = ({ result, needReview }) => {
+const getResult = ({result, needReview}) => {
   if (!result) {
     return PENDING
   }
@@ -29,17 +29,17 @@ const getResult = ({ result, needReview }) => {
 
 export class Submission extends Component {
   @bind handleFilterQuestion() {
-    const { quesUuid } = this.props
-    this.addFilter({ question: quesUuid })
+    const {quesUuid} = this.props
+    this.addFilter({question: quesUuid})
   }
 
   @bind handleFilterUser() {
-    const { userId } = this.props
-    this.addFilter({ user: userId })
+    const {userId} = this.props
+    this.addFilter({user: userId})
   }
 
   addFilter(filter) {
-    const { addFilter } = this.props
+    const {addFilter} = this.props
     if (addFilter) {
       addFilter(filter)
     }
@@ -59,8 +59,8 @@ export class Submission extends Component {
       result,
       needReview
     } = this.props
-    const resultText = getResult({ result, needReview })
-    const resultStyle = { color: resultColor[result] || resultColor['fail'] }
+    const resultText = getResult({result, needReview})
+    const resultStyle = {color: resultColor[result] || resultColor['fail']}
     const origQuesUrl = `/questions/${quesUuid}`
     const quesUrl = examId ? `/exams/${examId}${origQuesUrl}` : origQuesUrl
     const origSubUrl = `/submissions/${id}/code`

@@ -1,5 +1,5 @@
-import { createAction, handleActions } from 'redux-actions'
-import { Record } from 'immutable'
+import {createAction, handleActions} from 'redux-actions'
+import {Record} from 'immutable'
 
 export const MessageState = new Record({
   open: false,
@@ -22,8 +22,8 @@ export const showMessage = msg =>
 
 export default handleActions(
   {
-    [SET_MESSAGE]: (state, { payload }) => state.set('message', payload),
-    [SET_OPEN]: (state, { payload }) => state.set('open', payload)
+    [SET_MESSAGE]: (state, {payload}) => state.set('message', payload),
+    [SET_OPEN]: (state, {payload}) => state.set('open', payload)
   },
   initialState
 )

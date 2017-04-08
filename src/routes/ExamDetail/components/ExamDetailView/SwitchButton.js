@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react'
-import { Link } from 'react-router-dom'
+import React, {PropTypes} from 'react'
+import {Link} from 'react-router-dom'
 import compose from 'recompose/compose'
 import setPropTypes from 'recompose/setPropTypes'
 import setDisplayName from 'recompose/setDisplayName'
@@ -14,7 +14,7 @@ const SwitchButton = compose(
     func: PropTypes.string.isRequired
   }),
   setDisplayName('Filter')
-)(({ examId, func }) => (
+)(({examId, func}) => (
   <Link to={ `/exams/${examId}/${func}` }>
     <FloatingActionButton style={ styles.floatBtn }>
       <FlipToFrontIcon />

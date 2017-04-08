@@ -1,6 +1,6 @@
-import { createAction, handleActions } from 'redux-actions'
-import { fromJS, Map } from 'immutable'
-import { createSelector } from 'reselect'
+import {createAction, handleActions} from 'redux-actions'
+import {fromJS, Map} from 'immutable'
+import {createSelector} from 'reselect'
 import validate from 'validate.js'
 
 const initialState = fromJS({
@@ -28,7 +28,7 @@ export const clearValidationMessage = createAction(CLEAR_VALIDATION_MESSAGE)
 
 export const validateForm = (fields, cb) =>
   (dispatch, getState) => {
-    const { validation } = getState()
+    const {validation} = getState()
     const messages = validate(fields, validation.get('rule').toJS())
     const result = !messages
     if (result) {
@@ -42,8 +42,8 @@ export const validateForm = (fields, cb) =>
     return result
   }
 
-const getComponentName = ({ validation }) => validation.get('name')
-const getValidation = ({ validation }) => validation
+const getComponentName = ({validation}) => validation.get('name')
+const getValidation = ({validation}) => validation
 export const getComponentMessage = createSelector(
   [getComponentName, getValidation],
   (name, validate) => validate.getIn(['message', name], new Map())
@@ -57,12 +57,12 @@ export const actions = {
 
 export default handleActions(
   {
-    [SET_VALIDATION_NAME]: (state, { payload }) => state.set('name', payload),
-    [SET_VALIDATION_RULE]: (state, { payload }) =>
+    [SET_VALIDATION_NAME]: (state, {payload}) => state.set('name', payload),
+    [SET_VALIDATION_RULE]: (state, {payload}) =>
       state.set('rule', fromJS(payload)),
-    [SET_VALIDATION_MESSAGE]: (state, { payload }) =>
+    [SET_VALIDATION_MESSAGE]: (state, {payload}) =>
       state.mergeIn(['message'], payload),
-    [CLEAR_VALIDATION_MESSAGE]: (state, { payload }) =>
+    [CLEAR_VALIDATION_MESSAGE]: (state, {payload}) =>
       state.setIn(['message', payload], new Map())
   },
   initialState

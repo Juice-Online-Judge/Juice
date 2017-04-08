@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, {Component, PropTypes} from 'react'
 import pick from 'lodash/fp/pick'
 
 import FlatButton from 'material-ui/FlatButton'
@@ -39,38 +39,38 @@ class QuestionSetting extends Component {
       const codeReview = setting.codeReview
       const goal = setting.goal || ''
       const reward = setting.reward || ''
-      this.setState({ score, type, goal, reward, codeReview, readFrom })
+      this.setState({score, type, goal, reward, codeReview, readFrom})
     }
   }
 
-  handleScoreChange = (event) => {
-    this.emitChange({ score: parseFloat(event.target.value) })
-  }
+  handleScoreChange = event => {
+    this.emitChange({score: parseFloat(event.target.value)})
+  };
 
   handleIntValChange = ({target: {name, value}}) => {
     const newState = {}
     newState[name] = parseInt(value)
     this.emitChange(newState)
-  }
+  };
 
   handleTypeChange = (_event, _idx, value) => {
-    this.emitChange({ type: value })
-  }
+    this.emitChange({type: value})
+  };
 
   handleReadFromChange = (_event, _idx, value) => {
-    this.emitChange({ readFrom: value })
-  }
+    this.emitChange({readFrom: value})
+  };
 
-  handleCodeReviewChange = ({ target: { checked } }) => {
-    this.emitChange({ codeReview: checked })
-  }
+  handleCodeReviewChange = ({target: {checked}}) => {
+    this.emitChange({codeReview: checked})
+  };
 
   emitChange(data) {
     const mergeData = {
       ...pickSettings(this.state),
       ...data
     }
-    const { uuid } = this.props
+    const {uuid} = this.props
     this.setState(data)
 
     // These proerty is not necessery when type is normal
@@ -84,8 +84,8 @@ class QuestionSetting extends Component {
   }
 
   render() {
-    const { detail, question, uuid } = this.props
-    const { score, type, readFrom, codeReview, goal, reward } = this.state
+    const {detail, question, uuid} = this.props
+    const {score, type, readFrom, codeReview, goal, reward} = this.state
 
     if (!detail) {
       return null

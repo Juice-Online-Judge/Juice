@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React, {PropTypes} from 'react'
 import setDisplayName from 'recompose/setDisplayName'
 import setPropTypes from 'recompose/setPropTypes'
 import compose from 'recompose/compose'
@@ -10,7 +10,7 @@ const QuestionList = compose(
     examId: PropTypes.string
   }),
   setDisplayName('QuestionList')
-)(({ question, examId }) => (
+)(({question, examId}) => (
   <div>
     {question
       .get('result')

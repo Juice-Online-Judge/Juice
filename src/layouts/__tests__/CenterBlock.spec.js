@@ -1,7 +1,7 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import {shallow} from 'enzyme'
 import CenterBlock from '../CenterBlock'
-import { Grid, Row, Col } from 'react-flexbox-grid'
+import {Grid, Row, Col} from 'react-flexbox-grid'
 
 describe('(Layout) <CenterBlock />', () => {
   let sut

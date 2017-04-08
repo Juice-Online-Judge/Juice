@@ -1,9 +1,9 @@
-import { createAction, handleActions } from 'redux-actions'
-import { Record, List, Map } from 'immutable'
-import { normalize } from 'normalizr'
+import {createAction, handleActions} from 'redux-actions'
+import {Record, List, Map} from 'immutable'
+import {normalize} from 'normalizr'
 import userSchema from 'schema/user'
 
-import { request } from './app'
+import {request} from './app'
 
 const UsersState = new Record({
   result: new List(),
@@ -26,7 +26,7 @@ export const fetchUsers = () =>
         {
           url: 'users'
         },
-        ({ users }) => {
+        ({users}) => {
           dispatch(setUsers(users))
         }
       )
@@ -40,7 +40,7 @@ export const actions = {
 
 export default handleActions(
   {
-    [SET_USERS]: (state, { payload }) => state.merge(payload),
+    [SET_USERS]: (state, {payload}) => state.merge(payload),
     [CLEAR_USERS]: () => new UsersState()
   },
   initialState

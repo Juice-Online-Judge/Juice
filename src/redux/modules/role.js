@@ -1,8 +1,8 @@
-import { createAction, handleActions } from 'redux-actions'
-import { Record, List, Map } from 'immutable'
-import { normalize } from 'normalizr'
+import {createAction, handleActions} from 'redux-actions'
+import {Record, List, Map} from 'immutable'
+import {normalize} from 'normalizr'
 
-import { request } from './app'
+import {request} from './app'
 import roleSchema from 'schema/role'
 
 const RoleState = new Record({
@@ -26,7 +26,7 @@ export const fetchRole = () =>
         {
           url: 'roles'
         },
-        ({ roles }) => {
+        ({roles}) => {
           dispatch(setRole(roles))
         }
       )
@@ -41,7 +41,7 @@ export const actions = {
 
 export default handleActions(
   {
-    [SET_ROLE]: (state, { payload }) => state.merge(payload),
+    [SET_ROLE]: (state, {payload}) => state.merge(payload),
     [CLEAR_ROLE]: () => new RoleState()
   },
   initialState

@@ -1,13 +1,13 @@
-import { RequestStatus } from 'lib/const'
+import {RequestStatus} from 'lib/const'
 import api from 'lib/api'
-import { setStatus } from '../modules/app'
+import {setStatus} from '../modules/app'
 import handleRequestError from './handleRequestError'
 
 const guardRequest = (dispatch, reqOpts, handleResult, handleError) => {
   dispatch(setStatus(RequestStatus.PENDING))
   return api
     .request(reqOpts)
-    .then(({ data }) => {
+    .then(({data}) => {
       if (handleResult) {
         handleResult(data)
       }
