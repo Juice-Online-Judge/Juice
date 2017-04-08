@@ -75,6 +75,7 @@
     "debug": "^2.6.2",
     "decko": "^1.2.0",
     "dotenv": "^4.0.0",
+    "events": "^1.1.1",
     "fbjs": "^0.8.12",
     "flexboxgrid": "^6.3.1",
     "github-markdown-css": "^2.5.0",
