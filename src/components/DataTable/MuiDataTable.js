@@ -105,8 +105,7 @@ export default class MuiDataTable extends Component {
 
   removeListeners() {
     if (this.model) {
-      this.model.removeListener('change', this.handleModelChange)
-      this.model.removeListener('checked', this.handleCheckedChange)
+      this.model.removeAllListeners()
     }
   }
 
