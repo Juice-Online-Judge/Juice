@@ -30,11 +30,13 @@ describe('Model', () => {
 
       expect(model.data).toEqual(data)
       model.setFilter('foo')
-      expect(model.data).toEqual([{
-        id: 0,
-        username: 'foo',
-        nickname: 'bar'
-      }])
+      expect(model.data).toEqual([
+        {
+          id: 0,
+          username: 'foo',
+          nickname: 'bar'
+        }
+      ])
       model.setFilter('')
       expect(model.data).toEqual(data)
     })

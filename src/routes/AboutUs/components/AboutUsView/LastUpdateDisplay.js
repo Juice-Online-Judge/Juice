@@ -1,4 +1,5 @@
-import React, {PropTypes, Component} from 'react'
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
 import parse from 'date-fns/parse'
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now'

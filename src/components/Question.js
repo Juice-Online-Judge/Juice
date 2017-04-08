@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import setDisplayName from 'recompose/setDisplayName'
 import setPropTypes from 'recompose/setPropTypes'
 import compose from 'recompose/compose'

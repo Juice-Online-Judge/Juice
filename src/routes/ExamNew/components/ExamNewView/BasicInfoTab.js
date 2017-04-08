@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import isAfter from 'date-fns/is_after'
 import setSeconds from 'date-fns/set_seconds'

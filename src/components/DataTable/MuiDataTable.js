@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import {
   Table,
   TableBody,
@@ -111,9 +112,9 @@ export default class MuiDataTable extends Component {
 
   handleModelChange = () => {
     this.setPage(1)
-  }
+  };
 
-  handleCheckedChange = (checked) => {
+  handleCheckedChange = checked => {
     const {onSelectedChange} = this.props
     if (onSelectedChange) {
       onSelectedChange(checked)
@@ -121,11 +122,11 @@ export default class MuiDataTable extends Component {
     this.setState(() => ({
       checked
     }))
-  }
+  };
 
-  handleRowChecked = (checked) => {
+  handleRowChecked = checked => {
     this.model.setCheckeds(checked)
-  }
+  };
 
   initModel(data) {
     const {paginated, search, fetchKey} = this.props
@@ -207,9 +208,7 @@ export default class MuiDataTable extends Component {
     return data.map((item, index) => {
       const key = fetchKey(item)
       return (
-        <TableRow
-          selected={ checked.includes(key) }
-          key={ key }>
+        <TableRow selected={ checked.includes(key) } key={ key }>
           {this.mapDataToProperties(properties, item)}
         </TableRow>
       )
@@ -229,10 +228,9 @@ export default class MuiDataTable extends Component {
   }
 
   shouldShowMenu(defaultStyle) {
-    if (
-      this.props.paginated &&
-      typeof this.props.paginated === 'boolean'
-    ) { return defaultStyle }
+    if (this.props.paginated && typeof this.props.paginated === 'boolean') {
+      return defaultStyle
+    }
 
     const menuOptions = this.props.paginated.menuOptions
 
@@ -300,7 +298,6 @@ export default class MuiDataTable extends Component {
     } else if (obj && obj.constructor === Object) {
       return this.setRowSelection('object', obj)
     } else {
-
     }
   }
 
@@ -310,7 +307,7 @@ export default class MuiDataTable extends Component {
       <Paper zDepth={ 1 }>
         <Table
           onRowSelection={ this.handleRowChecked }
-          multiSelectable={ multiSelectable } >
+          multiSelectable={ multiSelectable }>
           <TableHeader>
             <TableRow style={ this.shouldShowItem(this.props.search) }>
               <TableHeaderColumn
@@ -399,5 +396,5 @@ export default class MuiDataTable extends Component {
     multiSelectable: false,
     search: '',
     fetchKey: defaultFetchKey
-  }
+  };
 }

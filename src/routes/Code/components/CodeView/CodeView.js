@@ -1,4 +1,6 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
+
+import PropTypes from 'prop-types'
 
 import {Row, Col} from 'react-flexbox-grid'
 import Inset from 'layouts/Inset'

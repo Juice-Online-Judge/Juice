@@ -1,4 +1,5 @@
-import React, {PropTypes, Component} from 'react'
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import {bind} from 'decko'
 import isUndefined from 'lodash/isUndefined'
 import styles from 'lib/styles'

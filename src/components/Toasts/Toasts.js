@@ -1,4 +1,5 @@
-import React, {PropTypes, Children, Component} from 'react'
+import React, {Children, Component} from 'react'
+import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import {TransitionMotion, spring} from 'react-motion'
 

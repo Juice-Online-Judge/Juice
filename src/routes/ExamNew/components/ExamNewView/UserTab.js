@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import map from 'lodash/map'
 
@@ -37,8 +38,14 @@ class UserTab extends Component {
       <LoadingContainer>
         <DataTable
           data={ map(
-            users.getIn(['entities', 'user'], {toJS() { return {} }}).toJS()
-           ) }
+            users
+              .getIn(['entities', 'user'], {
+                toJS() {
+                  return {}
+                }
+              })
+              .toJS()
+          ) }
           search='username'
           multiSelectable
           paginated
