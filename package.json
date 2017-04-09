@@ -119,6 +119,12 @@
   },
   "devDependencies": {
     "@kadira/storybook": "^2.35.3",
+    "@webpack-blocks/babel6": "^0.4.1",
+    "@webpack-blocks/css-modules": "^0.4.0",
+    "@webpack-blocks/extract-text2": "^0.4.0",
+    "@webpack-blocks/postcss": "^0.4.3",
+    "@webpack-blocks/sass": "^0.4.0",
+    "@webpack-blocks/webpack2": "^0.4.0",
     "babel-core": "^6.24.1",
     "babel-eslint": "^7.2.1",
     "babel-jest": "^19.0.0",
