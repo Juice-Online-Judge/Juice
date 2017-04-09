@@ -124,6 +124,9 @@ export default class MuiDataTable extends Component {
   };
 
   handleRowChecked = checked => {
+    if (checked === 'all') {
+      this.model.setAllChecked()
+    }
     this.model.setCheckeds(checked)
   };
 
@@ -143,10 +146,6 @@ export default class MuiDataTable extends Component {
     this.model.setPerPages(val)
   }
 
-  paginationObject() {
-    return this.state.pageInfo
-  }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.data !== this.props.data) {
       this.initModel(nextProps.data)
@@ -155,7 +154,7 @@ export default class MuiDataTable extends Component {
   }
 
   showPaginationInfo() {
-    return this.paginationObject().currentlyShowing
+    return this.state.pageInfo.currentlyShowing
   }
 
   setPage(n) {
@@ -174,15 +173,15 @@ export default class MuiDataTable extends Component {
   }
 
   navigateRight() {
-    const paginationInfo = this.paginationObject()
+    const {pageInfo} = this.state
 
-    this.setPage(paginationInfo.nextPage)
+    this.setPage(pageInfo.nextPage)
   }
 
   navigateLeft() {
-    const paginationInfo = this.paginationObject()
+    const {pageInfo} = this.state
 
-    this.setPage(paginationInfo.previousPage)
+    this.setPage(pageInfo.previousPage)
   }
 
   mapColumnsToElems(cols) {

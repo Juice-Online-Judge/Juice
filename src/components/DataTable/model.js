@@ -2,9 +2,7 @@ import min from 'lodash/min'
 import memoize from 'lodash/memoize'
 import EventEmitter from 'events'
 import search from './utils/search'
-import {DEFAULT_PER_PAGE, defaultFetchKey} from './constants'
-
-const DEFAULT_CONFIG = {paginated: false, data: [], search: '', fetchKey: defaultFetchKey}
+import {DEFAULT_PER_PAGE, DEFAULT_CONFIG} from './constants'
 
 class Model extends EventEmitter {
   constructor(config) {
@@ -23,7 +21,11 @@ class Model extends EventEmitter {
 
   setFilter(filter) {
     const {search: key} = this
-    this._setData(search(key, filter, this.originalData))
+    this._setData(search({
+      key,
+      filter,
+      data: this.originalData
+    }))
   }
 
   setChecked(idx, checked) {
@@ -40,6 +42,14 @@ class Model extends EventEmitter {
     })
     idxs.forEach(idx => {
       this.checked.add(this.fetchKey(datas[idx]))
+    })
+    this._emitChecked()
+  }
+
+  setAllChecked() {
+    const {data: datas} = this.pageData(this.currentPage)
+    datas.forEach((data) => {
+      this.checked.add(this.fetchKey(data))
     })
     this._emitChecked()
   }
