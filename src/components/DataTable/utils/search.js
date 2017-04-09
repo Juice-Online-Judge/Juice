@@ -1,20 +1,22 @@
-const search = (key, word, data) => {
-  if (word.length < 1) return data
+const regexMatchFactory = (filter) => {
+  const regex = new RegExp(filter, 'i')
+  return (item) => String(item).match(regex)
+}
 
-  const res = []
-  const regex = new RegExp(word, 'i')
-  const keys = key.split('|')
+const search = ({key, filter, data, matchFactory = regexMatchFactory}) => {
+  if (filter.length < 1) return data
 
-  data.forEach(item => {
+  const match = matchFactory(filter)
+  const keys = typeof key === 'string' ? [key] : key
+
+  return data.filter((item) => {
     for (let i = 0; i < keys.length; i += 1) {
-      if (String(item[keys[i]]).match(regex)) {
-        res.push(item)
-        break
+      if (match(item[keys[i]])) {
+        return true
       }
     }
+    return false
   })
-
-  return res
 }
 
 export default search
