@@ -6,63 +6,19 @@ import {
   TableHeader,
   TableHeaderColumn,
   TableRow,
-  TableRowColumn,
-  TableFooter
+  TableRowColumn
 } from 'material-ui/Table'
-
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
 
 import Paper from 'material-ui/Paper'
 
-import FilterList from 'material-ui/svg-icons/content/filter-list'
-import SearchIcon from 'material-ui/svg-icons/action/search'
-import NavigateRight from 'material-ui/svg-icons/image/navigate-next'
-import NavigateLeft from 'material-ui/svg-icons/image/navigate-before'
+import SearchBar from './SearchBar'
+import DataTableFooter from './DataTableFooter'
 
 import Model from './model'
-import injectProp from './utils/injectProp'
-import {hasHtml, extractHtml} from './utils/handleHtmlProp'
-import {hasCustomRender, callCustomRender} from './utils/handleCustomRender'
 import {DEFAULT_PER_PAGE} from './constants'
-
-const iconStyleFilter = {
-  color: '#757575',
-  cursor: 'pointer',
-  transform: 'translateY(5px) translateX(-20px)'
-}
-
-const searchHeaderColumnStyle = {
-  position: 'relative',
-  textAlign: 'right'
-}
-
-const searchStyle = {
-  color: '#777777',
-  opacity: 0,
-  transitionDuration: '0.6s',
-  transitionProperty: 'opacity',
-  border: 0,
-  outline: 0,
-  fontSize: 16,
-  width: '100%',
-  marginLeft: -22,
-  padding: '7px 12px',
-  textIndent: 3,
-  cursor: 'text'
-}
-
-const iconStyleSearch = {
-  color: '#757575',
-  position: 'absolute',
-  top: '30%',
-  opacity: 0,
-  marginLeft: -76
-}
-
-const navigationStyle = {
-  cursor: 'pointer'
-}
+import {paginatedShape} from './prop-types'
+import injectProp from './utils/injectProp'
+import {hasCustomRender, callCustomRender} from './utils/handleCustomRender'
 
 const defaultFetchKey = ({id}) => id
 
@@ -74,14 +30,11 @@ export default class MuiDataTable extends Component {
 
     this.state = {
       disabled: true,
-      style: searchStyle,
-      perPageSelection: props.paginated.rowsPerPage || DEFAULT_PER_PAGE,
+      perPages: props.paginated.rowsPerPage || DEFAULT_PER_PAGE,
       searchData: [],
       tableData,
       pageInfo,
       isSearching: false,
-      navigationStyle,
-      iconStyleSearch,
       currentPage: 1,
       checked: []
     }
@@ -139,6 +92,9 @@ export default class MuiDataTable extends Component {
 
   handlePerPageChange = (evt, index, val) => {
     this.model.setPerPages(val)
+    this.setState(() => ({
+      perPages: val
+    }))
   }
 
   componentWillReceiveProps(nextProps) {
@@ -146,10 +102,6 @@ export default class MuiDataTable extends Component {
       this.initModel(nextProps.data)
       this.setPage(1)
     }
-  }
-
-  showPaginationInfo() {
-    return this.state.pageInfo.currentlyShowing
   }
 
   setPage(n) {
@@ -193,7 +145,7 @@ export default class MuiDataTable extends Component {
     ))
   }
 
-  populateTableWithdata(data, cols) {
+  populateTableWithData(data, cols) {
     const properties = cols.map(item => item.property)
     const {fetchKey} = this.props
     const {checked} = this.state
@@ -212,45 +164,6 @@ export default class MuiDataTable extends Component {
     return cols.length
   }
 
-  shouldShowItem(item) {
-    const styleObj = {
-      display: item ? '' : 'none'
-    }
-
-    return styleObj
-  }
-
-  shouldShowMenu(defaultStyle) {
-    if (this.props.paginated && typeof this.props.paginated === 'boolean') {
-      return defaultStyle
-    }
-
-    const menuOptions = this.props.paginated.menuOptions
-
-    return menuOptions ? defaultStyle : {display: 'none'}
-  }
-
-  toggleOpacity(val) {
-    return val === 0 ? 1 : 0
-  }
-
-  toggleSearch = () => {
-    const style = {...this.state.style}
-    const searchIconStyle = {...this.state.iconStyleSearch}
-    let disabledState = this.state.disabled
-
-    style.opacity = this.toggleOpacity(style.opacity)
-    searchIconStyle.opacity = this.toggleOpacity(searchIconStyle.opacity)
-
-    disabledState = !disabledState
-
-    this.setState({
-      style,
-      iconStyleSearch: searchIconStyle,
-      disabled: disabledState
-    })
-  }
-
   searchData = (e) => {
     const word = e.target.value
     this.model.setFilter(word)
@@ -261,108 +174,47 @@ export default class MuiDataTable extends Component {
 
     if (hasCustomRender(prop, columns)) {
       return callCustomRender(prop, columns, obj)
-    } else if (obj[prop] && hasHtml(prop, columns)) {
-      return (
-        <div>
-          {obj[prop]}
-          {extractHtml(prop, columns)}
-        </div>
-      )
-    } else if (!obj[prop] && hasHtml(prop, columns)) {
-      return extractHtml(prop, columns)
-    } else if (obj[prop] && !hasHtml(prop, columns)) {
+    } else if (obj[prop]) {
       return obj[prop]
     }
 
     return undefined
   }
 
-  setRowSelection(type, obj) {
-    const menuOptions = type === 'object' ? obj.menuOptions : [5, 10, 15]
-
-    return menuOptions.map((num, index) => (
-      <MenuItem value={ num } primaryText={ num } key={ index } />
-    ))
-  }
-
-  handleRowSelection(obj) {
-    if (obj && obj.constructor === Boolean) {
-      return this.setRowSelection('', obj)
-    } else if (obj && obj.constructor === Object) {
-      return this.setRowSelection('object', obj)
-    } else {
-    }
-  }
-
   render() {
-    const {multiSelectable} = this.props
+    const {multiSelectable, search, paginated} = this.props
+    const {pageInfo, perPages} = this.state
     return (
       <Paper zDepth={ 1 }>
         <Table
           onRowSelection={ this.handleRowChecked }
           multiSelectable={ multiSelectable }>
           <TableHeader>
-            <TableRow style={ this.shouldShowItem(this.props.search) }>
-              <TableHeaderColumn
-                colSpan={ this.calcColSpan(this.columns) }
-                style={ searchHeaderColumnStyle }>
-                <SearchIcon style={ this.state.iconStyleSearch } />
-                <input
-                  type='search'
-                  placeholder='Search'
-                  style={ this.state.style }
-                  disabled={ this.state.disabled }
-                  onKeyUp={ this.searchData } />
-                <FilterList
-                  style={ iconStyleFilter }
-                  onClick={ this.toggleSearch } />
-              </TableHeaderColumn>
-            </TableRow>
-
+            {
+              search && (
+                <SearchBar
+                  onChange={ this.searchData }
+                  columnLength={ this.calcColSpan(this.columns) } />
+              )
+            }
             <TableRow>
               {this.mapColumnsToElems(this.columns)}
             </TableRow>
           </TableHeader>
 
           <TableBody showRowHover>
-            {this.populateTableWithdata(this.state.tableData, this.columns)}
+            {this.populateTableWithData(this.state.tableData, this.columns)}
           </TableBody>
 
-          <TableFooter style={ this.shouldShowItem(this.props.paginated) }>
-            <TableRow>
-              <TableRowColumn
-                style={ {
-                  textAlign: 'right',
-                  verticalAlign: 'middle',
-                  width: '70%'
-                } }>
-                <span style={ this.shouldShowMenu({paddingRight: 15}) }>
-                  Rows per page:
-                </span>
-                <SelectField
-                  value={ this.state.perPageSelection }
-                  style={ this.shouldShowMenu({width: 35, fontSize: 13, top: 0}) }
-                  onChange={ this.handlePerPageChange }>
-                  {this.handleRowSelection(this.props.paginated)}
-                </SelectField>
-              </TableRowColumn>
-
-              <TableRowColumn
-                style={ {textAlign: 'right', verticalAlign: 'middle'} }>
-                <span> {this.showPaginationInfo()} </span>
-              </TableRowColumn>
-
-              <TableRowColumn
-                style={ {textAlign: 'right', verticalAlign: 'middle'} }>
-                <NavigateLeft
-                  onClick={ this.navigateLeft }
-                  style={ this.state.navigationStyle } />
-                <NavigateRight
-                  onClick={ this.navigateRight }
-                  style={ this.state.navigationStyle } />
-              </TableRowColumn>
-            </TableRow>
-          </TableFooter>
+          {paginated && (
+            <DataTableFooter
+              pageInfo={ pageInfo }
+              perPages={ perPages }
+              paginated={ paginated }
+              onPerPageChange={ this.handlePerPageChange }
+              onNavigateLeft={ this.navigateLeft }
+              onNavigateRight={ this.navigateRight } />
+          )}
 
         </Table>
       </Paper>
@@ -374,10 +226,7 @@ export default class MuiDataTable extends Component {
     search: PropTypes.string.isRequired,
     data: PropTypes.array.isRequired,
     multiSelectable: PropTypes.bool.isRequired,
-    paginated: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.object
-    ]).isRequired,
+    paginated: paginatedShape,
     fetchKey: PropTypes.func.isRequired,
     onSelectedChange: PropTypes.func
   };

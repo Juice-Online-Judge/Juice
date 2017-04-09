@@ -84,7 +84,7 @@ class Model extends EventEmitter {
       currentPage: n,
       nextPage: n === this.totalPages ? null : n + 1,
       previousPage: n - 1 === 0 ? null : n - 1,
-      currentlyShowing: this._calcShowing(n),
+      showing: this._calcShowing(n),
       isLastPage: n === this.totalPages,
       totalNumOfPages: this.totalPages,
       total: this.data.length
