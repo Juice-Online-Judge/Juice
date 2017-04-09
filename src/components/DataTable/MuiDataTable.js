@@ -87,11 +87,6 @@ export default class MuiDataTable extends Component {
     }
 
     this.columns = injectProp(props.columns)
-    this.toggleSearch = this.toggleSearch.bind(this)
-    this.searchData = this.searchData.bind(this)
-    this.handlePerPageChange = this.handlePerPageChange.bind(this)
-    this.navigateRight = this.navigateRight.bind(this)
-    this.navigateLeft = this.navigateLeft.bind(this)
   }
 
   componentWillUmount() {
@@ -142,7 +137,7 @@ export default class MuiDataTable extends Component {
     this.addListeners()
   }
 
-  handlePerPageChange(evt, index, val) {
+  handlePerPageChange = (evt, index, val) => {
     this.model.setPerPages(val)
   }
 
@@ -172,13 +167,13 @@ export default class MuiDataTable extends Component {
     })
   }
 
-  navigateRight() {
+  navigateRight = () => {
     const {pageInfo} = this.state
 
     this.setPage(pageInfo.nextPage)
   }
 
-  navigateLeft() {
+  navigateLeft = () => {
     const {pageInfo} = this.state
 
     this.setPage(pageInfo.previousPage)
@@ -239,7 +234,7 @@ export default class MuiDataTable extends Component {
     return val === 0 ? 1 : 0
   }
 
-  toggleSearch() {
+  toggleSearch = () => {
     const style = {...this.state.style}
     const searchIconStyle = {...this.state.iconStyleSearch}
     let disabledState = this.state.disabled
@@ -256,7 +251,7 @@ export default class MuiDataTable extends Component {
     })
   }
 
-  searchData(e) {
+  searchData = (e) => {
     const word = e.target.value
     this.model.setFilter(word)
   }
