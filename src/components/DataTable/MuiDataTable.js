@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import debounce from 'lodash/debounce'
 import PropTypes from 'prop-types'
 import {
   Table,
@@ -20,12 +21,7 @@ import {DEFAULT_PER_PAGE} from './constants'
 import {paginatedShape} from './prop-types'
 import injectProp from './utils/injectProp'
 import {hasCustomRender, callCustomRender} from './utils/handleCustomRender'
-
-/*
- * FIXME: Selected bug
- * Material-UI's table has an internal state that indicate which row checked
- * DataTable should render all rows of data but hide the row which should not be display.
- */
+import styles from 'lib/styles'
 
 const defaultFetchKey = ({id}) => id
 
@@ -156,16 +152,26 @@ export default class MuiDataTable extends Component {
   populateTableWithData(data, cols) {
     const properties = cols.map(item => item.property)
     const {fetchKey} = this.props
-    const {checked} = this.state
+    const {checked, tableData} = this.state
 
     return data.map((item) => {
       const key = fetchKey(item)
+      const show = tableData.has(key)
       return (
-        <TableRow selected={ checked.includes(key) } key={ key }>
-          {this.mapDataToProperties(properties, item)}
+        <TableRow
+          style={ this.calcShow(show) }
+          selected={ checked.includes(key) }
+          key={ key }>
+          {show && this.mapDataToProperties(properties, item)}
         </TableRow>
       )
     })
+  }
+
+  calcShow(cond) {
+    return cond
+      ? null
+      : styles.hidden
   }
 
   calcColSpan(cols) {
@@ -174,8 +180,12 @@ export default class MuiDataTable extends Component {
 
   searchData = (e) => {
     const word = e.target.value
-    this.model.setFilter(word)
+    this.setFilter(word)
   }
+
+  setFilter = debounce((word) => {
+    this.model.setFilter(word)
+  }, 300)
 
   renderTableData(obj, prop) {
     const columns = this.columns
@@ -211,7 +221,7 @@ export default class MuiDataTable extends Component {
           </TableHeader>
 
           <TableBody showRowHover preScanRows={ false } deselectOnClickaway={ false }>
-            {this.populateTableWithData(this.state.tableData, this.columns)}
+            {this.populateTableWithData(this.props.data, this.columns)}
           </TableBody>
           <TableFooter>
             {paginated && (

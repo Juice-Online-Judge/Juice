@@ -72,7 +72,9 @@ class Model extends EventEmitter {
       }
     }
 
-    const data = this.data.slice((n - 1) * this.perPage, n * this.perPage)
+    const data = new Set(
+      this.data.slice((n - 1) * this.perPage, n * this.perPage).map(this.fetchKey)
+    )
     return {
       data,
       pageInfo: this._pageInfo(n)
