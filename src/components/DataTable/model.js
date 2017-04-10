@@ -31,7 +31,7 @@ class Model extends EventEmitter {
   }
 
   setChecked(idx, checked) {
-    const {data: datas} = this.pageData(this.currentPage)
+    const datas = this.pageData(this.currentPage)
     const key = this.fetchKey(datas[idx])
     this.checked[checked ? 'add' : 'delete'](key)
     this._emitChecked()
@@ -71,10 +71,7 @@ class Model extends EventEmitter {
 
   pageData = memoize(n => {
     if (!this.paginated) {
-      return {
-        data: this.data,
-        pageInfo: this._pageInfo(1)
-      }
+      return this.data
     }
 
     const data = this.data.slice((n - 1) * this.perPage, n * this.perPage)
