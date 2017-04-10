@@ -74,11 +74,11 @@ export default class MuiDataTable extends Component {
     }))
   };
 
+  handleSelectAll = () => {
+    this.model.setAllChecked()
+  };
+
   handleRowChecked = checked => {
-    if (checked === 'all') {
-      this.model.setAllChecked()
-      return
-    }
     this.model.setCheckeds(checked)
   };
 
@@ -207,14 +207,14 @@ export default class MuiDataTable extends Component {
         <Table
           onRowSelection={ this.handleRowChecked }
           multiSelectable={ multiSelectable }>
-          <TableHeader>
-            {
-              search && (
-                <SearchBar
-                  onChange={ this.searchData }
-                  columnLength={ this.calcColSpan(this.columns) } />
-              )
-            }
+          <TableHeader
+            displaySelectAll={ false }
+            enableSelectAll={ false } >
+            <SearchBar
+              search={ !!search }
+              onChange={ this.searchData }
+              onSelectAll={ this.handleSelectAll }
+              columnLength={ this.calcColSpan(this.columns) } />
             <TableRow>
               {this.mapColumnsToElems(this.columns)}
             </TableRow>

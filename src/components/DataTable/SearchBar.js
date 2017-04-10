@@ -4,6 +4,7 @@ import {
   TableHeaderColumn,
   TableRow
 } from 'material-ui/Table'
+import FlatButton from 'material-ui/FlatButton'
 import FilterList from 'material-ui/svg-icons/content/filter-list'
 import SearchIcon from 'material-ui/svg-icons/action/search'
 
@@ -12,6 +13,9 @@ class SearchBar extends Component {
     const searchStyle = {...this.state.searchStyle}
     const iconStyle = {...this.state.iconStyle}
     const {disabled} = this.state
+    if (!this.props.search) {
+      return
+    }
 
     searchStyle.opacity = this.toggleOpacity(searchStyle.opacity)
     iconStyle.opacity = this.toggleOpacity(iconStyle.opacity)
@@ -28,7 +32,7 @@ class SearchBar extends Component {
   }
 
   render() {
-    const {onChange, columnLength} = this.props
+    const {onChange, columnLength, onSelectAll} = this.props
     const {iconStyle, searchStyle, disabled} = this.state
     return (
       <TableRow>
@@ -45,6 +49,7 @@ class SearchBar extends Component {
           <FilterList
             style={ iconStyleFilter }
             onClick={ this.toggleSearch } />
+          <FlatButton onClick={ onSelectAll } primary>Select All</FlatButton>
         </TableHeaderColumn>
       </TableRow>
     )
@@ -57,8 +62,14 @@ class SearchBar extends Component {
   }
 
   static propTypes = {
+    search: PropTypes.bool.isRequired,
     columnLength: PropTypes.number.isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    onSelectAll: PropTypes.func.isRequired
+  }
+
+  static defaultProps = {
+    search: false
   }
 }
 
