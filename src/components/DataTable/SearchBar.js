@@ -51,6 +51,7 @@ class SearchBar extends Component {
   }
 
   state = {
+    disabled: true,
     searchStyle,
     iconStyle
   }
