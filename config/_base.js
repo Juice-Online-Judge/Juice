@@ -89,15 +89,15 @@ const apiVersion = process.env.API_VERSION
 const apiHeader = `application/${apiSubtree}.${apiSubtype}.${apiVersion}+json`
 
 config.globals = {
-  'process.env.NODE_ENV': JSON.stringify(config.env),
-  'NODE_ENV': JSON.stringify(config.env),
-  API_HEADER: JSON.stringify(apiHeader),
+  'process.env.NODE_ENV': config.env,
+  'NODE_ENV': config.env,
+  API_HEADER: apiHeader,
   __DEV__: config.env === 'development',
   __PROD__: config.env === 'production',
   __TEST__: config.env === 'test',
   __DEBUG__: config.env === 'development' && !argv.no_debug,
   __COVERAGE__: !argv.watch && config.env === 'test',
-  __BASENAME__: JSON.stringify(process.env.BASENAME || '')
+  __BASENAME__: process.env.BASENAME || ''
 }
 
 // ------------------------------------
