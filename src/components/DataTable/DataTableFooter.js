@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 
 import {
   TableRow,
-  TableRowColumn,
-  TableFooter
+  TableRowColumn
 } from 'material-ui/Table'
 
 import SelectField from 'material-ui/SelectField'
@@ -45,47 +44,45 @@ class DataTableFooter extends Component {
       onPerPageChange
     } = this.props
     return (
-      <TableFooter>
-        <TableRow>
-          <TableRowColumn
-            style={ {
-              textAlign: 'right',
-              verticalAlign: 'middle',
-              width: '70%'
-            } }>
-            {
-              this.shouldShowMenu() && (
-                <div>
-                  <span style={ {paddingRight: 15} }>
-                    Rows per page:
-                  </span>
-                  <SelectField
-                    value={ perPages }
-                    style={ {width: 35, fontSize: 13, top: 0} }
-                    onChange={ onPerPageChange }>
-                    {this.handleRowSelection(paginated)}
-                  </SelectField>
-                </div>
-              )
-            }
-          </TableRowColumn>
+      <TableRow>
+        <TableRowColumn
+          style={ {
+            textAlign: 'right',
+            verticalAlign: 'middle',
+            width: '70%'
+          } }>
+          {
+            this.shouldShowMenu() && (
+              <div>
+                <span style={ {paddingRight: 15} }>
+                  Rows per page:
+                </span>
+                <SelectField
+                  value={ perPages }
+                  style={ {width: 35, fontSize: 13, top: 0} }
+                  onChange={ onPerPageChange }>
+                  {this.handleRowSelection(paginated)}
+                </SelectField>
+              </div>
+            )
+          }
+        </TableRowColumn>
 
-          <TableRowColumn
-            style={ rightAlign }>
-            <span> { pageInfo.showing } </span>
-          </TableRowColumn>
+        <TableRowColumn
+          style={ rightAlign }>
+          <span> { pageInfo.showing } </span>
+        </TableRowColumn>
 
-          <TableRowColumn
-            style={ rightAlign }>
-            <NavigateLeft
-              onClick={ onNavigateLeft }
-              style={ navigationStyle } />
-            <NavigateRight
-              onClick={ onNavigateRight }
-              style={ navigationStyle } />
-          </TableRowColumn>
-        </TableRow>
-      </TableFooter>
+        <TableRowColumn
+          style={ rightAlign }>
+          <NavigateLeft
+            onClick={ onNavigateLeft }
+            style={ navigationStyle } />
+          <NavigateRight
+            onClick={ onNavigateRight }
+            style={ navigationStyle } />
+        </TableRowColumn>
+      </TableRow>
     )
   }
 
