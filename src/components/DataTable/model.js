@@ -17,6 +17,7 @@ class Model extends EventEmitter {
     this._setData(data)
     this.fetchKey = fetchKey
     this.checked = new Set()
+    this.prevFilter = ''
   }
 
   setFilter(filter) {
@@ -24,8 +25,9 @@ class Model extends EventEmitter {
     this._setData(search({
       key,
       filter,
-      data: this.originalData
+      data: filter.length > this.prevFilter.length ? this.data : this.originalData
     }))
+    this.prevFilter = filter
   }
 
   setChecked(idx, checked) {
