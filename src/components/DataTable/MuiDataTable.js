@@ -5,6 +5,7 @@ import {
   TableBody,
   TableHeader,
   TableHeaderColumn,
+  TableFooter,
   TableRow,
   TableRowColumn
 } from 'material-ui/Table'
@@ -19,6 +20,12 @@ import {DEFAULT_PER_PAGE} from './constants'
 import {paginatedShape} from './prop-types'
 import injectProp from './utils/injectProp'
 import {hasCustomRender, callCustomRender} from './utils/handleCustomRender'
+
+/*
+ * FIXME: Selected bug
+ * Material-UI's table has an internal state that indicate which row checked
+ * DataTable should render all rows of data but hide the row which should not be display.
+ */
 
 const defaultFetchKey = ({id}) => id
 
@@ -74,6 +81,7 @@ export default class MuiDataTable extends Component {
   handleRowChecked = checked => {
     if (checked === 'all') {
       this.model.setAllChecked()
+      return
     }
     this.model.setCheckeds(checked)
   };
@@ -132,8 +140,8 @@ export default class MuiDataTable extends Component {
   }
 
   mapColumnsToElems(cols) {
-    return cols.map((item, index) => (
-      <TableHeaderColumn key={ index }>{item.title}</TableHeaderColumn>
+    return cols.map((item) => (
+      <TableHeaderColumn key={ item.property }>{item.title}</TableHeaderColumn>
     ))
   }
 
@@ -150,7 +158,7 @@ export default class MuiDataTable extends Component {
     const {fetchKey} = this.props
     const {checked} = this.state
 
-    return data.map((item, index) => {
+    return data.map((item) => {
       const key = fetchKey(item)
       return (
         <TableRow selected={ checked.includes(key) } key={ key }>
@@ -202,20 +210,20 @@ export default class MuiDataTable extends Component {
             </TableRow>
           </TableHeader>
 
-          <TableBody showRowHover>
+          <TableBody showRowHover preScanRows={ false } deselectOnClickaway={ false }>
             {this.populateTableWithData(this.state.tableData, this.columns)}
           </TableBody>
-
-          {paginated && (
-            <DataTableFooter
-              pageInfo={ pageInfo }
-              perPages={ perPages }
-              paginated={ paginated }
-              onPerPageChange={ this.handlePerPageChange }
-              onNavigateLeft={ this.navigateLeft }
-              onNavigateRight={ this.navigateRight } />
-          )}
-
+          <TableFooter>
+            {paginated && (
+              <DataTableFooter
+                pageInfo={ pageInfo }
+                perPages={ perPages }
+                paginated={ paginated }
+                onPerPageChange={ this.handlePerPageChange }
+                onNavigateLeft={ this.navigateLeft }
+                onNavigateRight={ this.navigateRight } />
+            )}
+          </TableFooter>
         </Table>
       </Paper>
     )
