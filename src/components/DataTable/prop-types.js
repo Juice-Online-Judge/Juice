@@ -14,7 +14,7 @@ export const pageInfoShape = PropTypes.shape({
   previousPage: PropTypes.number,
   showing: PropTypes.string.isRequired,
   isLastPage: PropTypes.bool.isRequired,
-  totalNumOfPages: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired
 }).isRequired
 
