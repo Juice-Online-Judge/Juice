@@ -38,7 +38,7 @@ class Model extends EventEmitter {
   }
 
   setCheckeds(idxs) {
-    const {data: datas} = this.pageData(this.currentPage)
+    const datas = this.pageData(this.currentPage)
     datas.forEach(data => {
       this.checked.delete(this.fetchKey(data))
     })
@@ -49,7 +49,7 @@ class Model extends EventEmitter {
   }
 
   setAllChecked() {
-    const {data: datas} = this.pageData(this.currentPage)
+    const datas = this.pageData(this.currentPage)
     datas.forEach((data) => {
       this.checked.add(this.fetchKey(data))
     })
@@ -63,7 +63,10 @@ class Model extends EventEmitter {
 
   page(n) {
     this.currentPage = n
-    return this.pageData(n)
+    return {
+      data: new Set(this.pageData(n).map(this.fetchKey)),
+      pageInfo: this._pageInfo(n)
+    }
   }
 
   pageData = memoize(n => {
@@ -74,13 +77,8 @@ class Model extends EventEmitter {
       }
     }
 
-    const data = new Set(
-      this.data.slice((n - 1) * this.perPage, n * this.perPage).map(this.fetchKey)
-    )
-    return {
-      data,
-      pageInfo: this._pageInfo(n)
-    }
+    const data = this.data.slice((n - 1) * this.perPage, n * this.perPage)
+    return data
   });
 
   _pageInfo(n) {
