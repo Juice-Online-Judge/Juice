@@ -1,12 +1,11 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {
-  TableHeaderColumn,
-  TableRow
-} from 'material-ui/Table'
 import FlatButton from 'material-ui/FlatButton'
 import FilterList from 'material-ui/svg-icons/content/filter-list'
 import SearchIcon from 'material-ui/svg-icons/action/search'
+
+import HeaderRow from './Table/HeaderRow'
+import HeaderColumn from './Table/HeaderColumn'
 
 class SearchBar extends Component {
   toggleSearch = () => {
@@ -35,8 +34,8 @@ class SearchBar extends Component {
     const {onChange, columnLength, onSelectAll} = this.props
     const {iconStyle, searchStyle, disabled} = this.state
     return (
-      <TableRow>
-        <TableHeaderColumn
+      <HeaderRow>
+        <HeaderColumn
           colSpan={ columnLength }
           style={ searchHeaderColumnStyle }>
           <SearchIcon style={ iconStyle } />
@@ -50,8 +49,8 @@ class SearchBar extends Component {
             style={ iconStyleFilter }
             onClick={ this.toggleSearch } />
           <FlatButton onClick={ onSelectAll } primary>Select All</FlatButton>
-        </TableHeaderColumn>
-      </TableRow>
+        </HeaderColumn>
+      </HeaderRow>
     )
   }
 

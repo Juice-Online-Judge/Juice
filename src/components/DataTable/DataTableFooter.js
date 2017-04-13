@@ -1,16 +1,14 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
-import {
-  TableRow,
-  TableRowColumn
-} from 'material-ui/Table'
-
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 
 import NavigateRight from 'material-ui/svg-icons/image/navigate-next'
 import NavigateLeft from 'material-ui/svg-icons/image/navigate-before'
+
+import Row from './Table/Row'
+import Column from './Table/Column'
 
 import {paginatedShape, pageInfoShape} from './prop-types'
 
@@ -44,8 +42,8 @@ class DataTableFooter extends Component {
       onPerPageChange
     } = this.props
     return (
-      <TableRow>
-        <TableRowColumn
+      <Row selectable={ false } >
+        <Column
           style={ {
             textAlign: 'right',
             verticalAlign: 'middle',
@@ -66,14 +64,14 @@ class DataTableFooter extends Component {
               </div>
             )
           }
-        </TableRowColumn>
+        </Column>
 
-        <TableRowColumn
+        <Column
           style={ rightAlign }>
           <span> { pageInfo.showing } </span>
-        </TableRowColumn>
+        </Column>
 
-        <TableRowColumn
+        <Column
           style={ rightAlign }>
           <NavigateLeft
             onClick={ onNavigateLeft }
@@ -81,8 +79,8 @@ class DataTableFooter extends Component {
           <NavigateRight
             onClick={ onNavigateRight }
             style={ navigationStyle } />
-        </TableRowColumn>
-      </TableRow>
+        </Column>
+      </Row>
     )
   }
 

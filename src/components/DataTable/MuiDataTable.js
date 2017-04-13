@@ -1,17 +1,15 @@
 import React, {Component} from 'react'
 import debounce from 'lodash/debounce'
 import PropTypes from 'prop-types'
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableFooter,
-  TableRow,
-  TableRowColumn
-} from 'material-ui/Table'
 
 import Paper from 'material-ui/Paper'
+
+import Table from './Table/Table'
+import TableHeader from './Table/TableHeader'
+import HeaderRow from './Table/HeaderRow'
+import HeaderColumn from './Table/HeaderColumn'
+import Row from './Table/Row'
+import Column from './Table/Column'
 
 import SearchBar from './SearchBar'
 import DataTableFooter from './DataTableFooter'
@@ -32,14 +30,12 @@ export default class MuiDataTable extends Component {
     const {data: tableData, pageInfo} = this.model.page(1)
 
     this.state = {
-      disabled: true,
+      allChecked: false,
       perPages: props.paginated.rowsPerPage || DEFAULT_PER_PAGE,
-      searchData: [],
       tableData,
       pageInfo,
-      isSearching: false,
       currentPage: 1,
-      checked: []
+      checked: new Set()
     }
 
     this.columns = injectProp(props.columns)
@@ -72,14 +68,17 @@ export default class MuiDataTable extends Component {
     this.setState(() => ({
       checked
     }))
+    this.setState(({tableData, checked}) => ({
+      allChecked: Array.from(tableData).every((key) => checked.has(key))
+    }))
   };
 
   handleSelectAll = () => {
     this.model.setAllChecked()
   };
 
-  handleRowChecked = checked => {
-    this.model.setCheckeds(checked)
+  handleSelect = (key, checked) => {
+    this.model.setChecked(key, checked)
   };
 
   initModel(data) {
@@ -137,15 +136,15 @@ export default class MuiDataTable extends Component {
 
   mapColumnsToElems(cols) {
     return cols.map((item) => (
-      <TableHeaderColumn key={ item.property }>{item.title}</TableHeaderColumn>
+      <HeaderColumn key={ item.property }>{item.title}</HeaderColumn>
     ))
   }
 
   mapDataToProperties(properties, obj) {
     return properties.map((prop, index) => (
-      <TableRowColumn key={ index }>
+      <Column key={ index }>
         {this.renderTableData(obj, prop)}
-      </TableRowColumn>
+      </Column>
     ))
   }
 
@@ -158,12 +157,14 @@ export default class MuiDataTable extends Component {
       const key = fetchKey(item)
       const show = tableData.has(key)
       return (
-        <TableRow
+        <Row
           style={ this.calcShow(show) }
-          selected={ checked.includes(key) }
+          selected={ checked.has(key) }
+          onSelect={ this.handleSelect }
+          id={ key }
           key={ key }>
           {show && this.mapDataToProperties(properties, item)}
-        </TableRow>
+        </Row>
       )
     })
   }
@@ -200,30 +201,25 @@ export default class MuiDataTable extends Component {
   }
 
   render() {
-    const {multiSelectable, search, paginated} = this.props
+    const {search, paginated} = this.props
     const {pageInfo, perPages} = this.state
     return (
       <Paper zDepth={ 1 }>
-        <Table
-          onRowSelection={ this.handleRowChecked }
-          multiSelectable={ multiSelectable }>
-          <TableHeader
-            displaySelectAll={ false }
-            enableSelectAll={ false } >
+        <Table>
+          <TableHeader>
             <SearchBar
               search={ !!search }
               onChange={ this.searchData }
-              onSelectAll={ this.handleSelectAll }
               columnLength={ this.calcColSpan(this.columns) } />
-            <TableRow>
+            <HeaderRow displaySelectAll>
               {this.mapColumnsToElems(this.columns)}
-            </TableRow>
+            </HeaderRow>
           </TableHeader>
 
-          <TableBody showRowHover preScanRows={ false } deselectOnClickaway={ false }>
+          <tbody>
             {this.populateTableWithData(this.props.data, this.columns)}
-          </TableBody>
-          <TableFooter>
+          </tbody>
+          <tfoot>
             {paginated && (
               <DataTableFooter
                 pageInfo={ pageInfo }
@@ -233,7 +229,7 @@ export default class MuiDataTable extends Component {
                 onNavigateLeft={ this.navigateLeft }
                 onNavigateRight={ this.navigateRight } />
             )}
-          </TableFooter>
+          </tfoot>
         </Table>
       </Paper>
     )
@@ -243,7 +239,6 @@ export default class MuiDataTable extends Component {
     columns: PropTypes.array.isRequired,
     search: PropTypes.string.isRequired,
     data: PropTypes.array.isRequired,
-    multiSelectable: PropTypes.bool.isRequired,
     paginated: paginatedShape,
     fetchKey: PropTypes.func.isRequired,
     onSelectedChange: PropTypes.func

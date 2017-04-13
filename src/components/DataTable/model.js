@@ -30,22 +30,14 @@ class Model extends EventEmitter {
     this.prevFilter = filter
   }
 
-  setChecked(idx, checked) {
-    const datas = this.pageData(this.currentPage)
-    const key = this.fetchKey(datas[idx])
+  setChecked(key, checked) {
     this.checked[checked ? 'add' : 'delete'](key)
     this._emitChecked()
   }
 
-  setCheckeds(idxs) {
+  idToKey(idx) {
     const datas = this.pageData(this.currentPage)
-    datas.forEach(data => {
-      this.checked.delete(this.fetchKey(data))
-    })
-    idxs.forEach(idx => {
-      this.checked.add(this.fetchKey(datas[idx]))
-    })
-    this._emitChecked()
+    return this.fetchKey(datas[idx])
   }
 
   setAllChecked() {
@@ -102,7 +94,7 @@ class Model extends EventEmitter {
   }
 
   _emitChecked() {
-    this.emit('checked', Array.from(this.checked).sort())
+    this.emit('checked', this.checked)
   }
 
   _emitChange() {
