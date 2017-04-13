@@ -49,24 +49,11 @@ describe('Model', () => {
       model.addListener('checked', spy)
 
       model.setChecked(0, true)
-      expect(spy).toHaveBeenCalledWith([0])
+      expect(spy).toHaveBeenCalledWith(new Set([0]))
       model.setChecked(1, true)
-      expect(spy).toHaveBeenCalledWith([0, 1])
+      expect(spy).toHaveBeenCalledWith(new Set([0, 1]))
       model.setChecked(1, false)
-      expect(spy).toHaveBeenCalledWith([0])
-    })
-  })
-
-  describe('#setCheckeds', () => {
-    it('Mark checked on data', () => {
-      const spy = jest.fn()
-      const model = new Model({data})
-      model.addListener('checked', spy)
-
-      model.setCheckeds([0, 1])
-      expect(spy).toHaveBeenCalledWith([0, 1])
-      model.setCheckeds([])
-      expect(spy).toHaveBeenCalledWith([])
+      expect(spy).toHaveBeenCalledWith(new Set([0]))
     })
   })
 
