@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import {css} from 'glamor'
 
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
@@ -44,20 +45,16 @@ class DataTableFooter extends Component {
     return (
       <Row selectable={ false } >
         <Column
-          style={ {
-            textAlign: 'right',
-            verticalAlign: 'middle',
-            width: '70%'
-          } }>
+          { ...mainColumnStyle }>
           {
             this.shouldShowMenu() && (
               <div>
-                <span style={ {paddingRight: 15} }>
+                <span { ...padding }>
                   Rows per page:
                 </span>
                 <SelectField
                   value={ perPages }
-                  style={ {width: 35, fontSize: 13, top: 0} }
+                  { ...selectFieldStyle }
                   onChange={ onPerPageChange }>
                   {this.handleRowSelection(paginated)}
                 </SelectField>
@@ -66,19 +63,17 @@ class DataTableFooter extends Component {
           }
         </Column>
 
-        <Column
-          style={ rightAlign }>
+        <Column { ...rightAlign }>
           <span> { pageInfo.showing } </span>
         </Column>
 
-        <Column
-          style={ rightAlign }>
+        <Column { ...rightAlign }>
           <NavigateLeft
             onClick={ onNavigateLeft }
-            style={ navigationStyle } />
+            { ...navigationStyle } />
           <NavigateRight
             onClick={ onNavigateRight }
-            style={ navigationStyle } />
+            { ...navigationStyle } />
         </Column>
       </Row>
     )
@@ -96,11 +91,25 @@ class DataTableFooter extends Component {
 
 export default DataTableFooter
 
-const rightAlign = {
+const padding = css({
+  paddingRight: 15
+})
+
+const selectFieldStyle = css({
+  width: 35,
+  fontSize: 13,
+  top: 0
+})
+
+const rightAlign = css({
   textAlign: 'right',
   verticalAlign: 'middle'
-}
+})
 
-const navigationStyle = {
+const mainColumnStyle = css({
+  width: '70%'
+}, rightAlign)
+
+const navigationStyle = css({
   cursor: 'pointer'
-}
+})

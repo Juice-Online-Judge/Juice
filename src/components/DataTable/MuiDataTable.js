@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import debounce from 'lodash/debounce'
 import PropTypes from 'prop-types'
+import {css} from 'glamor'
 
 import Paper from 'material-ui/Paper'
 
@@ -19,7 +20,6 @@ import {DEFAULT_PER_PAGE} from './constants'
 import {paginatedShape} from './prop-types'
 import injectProp from './utils/injectProp'
 import {hasCustomRender, callCustomRender} from './utils/handleCustomRender'
-import styles from 'lib/styles'
 
 const defaultFetchKey = ({id}) => id
 
@@ -158,7 +158,7 @@ export default class MuiDataTable extends Component {
       const show = tableData.has(key)
       return (
         <Row
-          style={ this.calcShow(show) }
+          { ...this.calcShow(show) }
           selected={ checked.has(key) }
           onSelect={ this.handleSelect }
           id={ key }
@@ -171,8 +171,8 @@ export default class MuiDataTable extends Component {
 
   calcShow(cond) {
     return cond
-      ? null
-      : styles.hidden
+      ? {}
+      : hidden
   }
 
   calcColSpan(cols) {
@@ -253,3 +253,7 @@ export default class MuiDataTable extends Component {
     fetchKey: defaultFetchKey
   };
 }
+
+const hidden = css({
+  display: 'none'
+})
