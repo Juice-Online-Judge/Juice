@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {css} from 'glamor'
-import FlatButton from 'material-ui/FlatButton'
 import FilterList from 'material-ui/svg-icons/content/filter-list'
 import SearchIcon from 'material-ui/svg-icons/action/search'
 
@@ -22,9 +21,8 @@ class SearchBar extends Component {
   }
 
   render() {
-    const {onChange, columnLength, onSelectAll} = this.props
+    const {onChange, columnLength} = this.props
     const {searchEnable} = this.state
-    const opacityStyle = searchEnable ? showStyle : hiddenStyle
     return (
       <HeaderRow>
         <HeaderColumn
@@ -34,13 +32,12 @@ class SearchBar extends Component {
           <input
             type='search'
             placeholder='Search'
-            { ...css(searchStyle, opacityStyle) }
+            { ...css(searchStyle, {opacity: searchEnable ? 1 : 0}) }
             disabled={ !searchEnable }
             onChange={ onChange } />
           <FilterList
-            { ...css(iconStyleFilter, opacityStyle) }
+            { ...css(iconStyleFilter, {opacity: searchEnable ? 0 : 1}) }
             onClick={ this.toggleSearch } />
-          <FlatButton onClick={ onSelectAll } primary>Select All</FlatButton>
         </HeaderColumn>
       </HeaderRow>
     )
@@ -53,8 +50,7 @@ class SearchBar extends Component {
   static propTypes = {
     search: PropTypes.bool.isRequired,
     columnLength: PropTypes.number.isRequired,
-    onChange: PropTypes.func.isRequired,
-    onSelectAll: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -73,14 +69,6 @@ const iconStyleFilter = css({
 const searchHeaderColumnStyle = css({
   position: 'relative',
   textAlign: 'right'
-})
-
-const hiddenStyle = css({
-  opacity: 0
-})
-
-const showStyle = css({
-  opacity: 1
 })
 
 const searchStyle = css({
