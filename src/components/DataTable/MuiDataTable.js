@@ -18,8 +18,6 @@ import DataTableFooter from './DataTableFooter'
 import Model from './model'
 import {DEFAULT_PER_PAGE} from './constants'
 import {paginatedShape} from './prop-types'
-import injectProp from './utils/injectProp'
-import {hasCustomRender, callCustomRender} from './utils/handleCustomRender'
 
 const defaultFetchKey = ({id}) => id
 
@@ -38,7 +36,7 @@ export default class MuiDataTable extends Component {
       checked: new Set()
     }
 
-    this.columns = injectProp(props.columns)
+    this.columns = props.columns
   }
 
   componentWillUmount() {
@@ -189,15 +187,7 @@ export default class MuiDataTable extends Component {
   }, 300)
 
   renderTableData(obj, prop) {
-    const columns = this.columns
-
-    if (hasCustomRender(prop, columns)) {
-      return callCustomRender(prop, columns, obj)
-    } else if (obj[prop]) {
-      return obj[prop]
-    }
-
-    return undefined
+    return obj[prop]
   }
 
   render() {
