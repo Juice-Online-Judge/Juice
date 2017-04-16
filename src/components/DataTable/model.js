@@ -22,11 +22,15 @@ class Model extends EventEmitter {
 
   setFilter(filter) {
     const {search: key} = this
-    this._setData(search({
-      key,
-      filter,
-      data: filter.length > this.prevFilter.length ? this.data : this.originalData
-    }))
+    this._setData(
+      search({
+        key,
+        filter,
+        data: filter.length > this.prevFilter.length
+          ? this.data
+          : this.originalData
+      })
+    )
     this.prevFilter = filter
   }
 
@@ -41,8 +45,14 @@ class Model extends EventEmitter {
   }
 
   setAllChecked() {
+    const keys = this.data.map(this.fetchKey)
+    this.checked = new Set(keys)
+    this._emitChecked()
+  }
+
+  setPageChecked() {
     const datas = this.pageData(this.currentPage)
-    datas.forEach((data) => {
+    datas.forEach(data => {
       this.checked.add(this.fetchKey(data))
     })
     this._emitChecked()
@@ -68,7 +78,7 @@ class Model extends EventEmitter {
 
     const data = this.data.slice((n - 1) * this.perPage, n * this.perPage)
     return data
-  });
+  })
 
   _pageInfo(n) {
     return {

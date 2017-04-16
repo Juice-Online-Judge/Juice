@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {css} from 'glamor'
+import FlatButton from 'material-ui/FlatButton'
 import FilterList from 'material-ui/svg-icons/content/filter-list'
 import SearchIcon from 'material-ui/svg-icons/action/search'
 
@@ -21,13 +22,11 @@ class SearchBar extends Component {
   }
 
   render() {
-    const {onChange, columnLength} = this.props
+    const {onChange, onSelectAllMatch, columnLength} = this.props
     const {searchEnable} = this.state
     return (
       <HeaderRow>
-        <HeaderColumn
-          colSpan={ columnLength }
-          { ...searchHeaderColumnStyle }>
+        <HeaderColumn colSpan={ columnLength } { ...searchHeaderColumnStyle }>
           <SearchIcon style={ iconStyle } />
           <input
             type='search'
@@ -38,6 +37,11 @@ class SearchBar extends Component {
           <FilterList
             { ...css(iconStyleFilter, {opacity: searchEnable ? 0 : 1}) }
             onClick={ this.toggleSearch } />
+          <FlatButton
+            disabled={ !searchEnable }
+            primary
+            onTouchTap={ onSelectAllMatch }
+            label='Select all match' />
         </HeaderColumn>
       </HeaderRow>
     )
@@ -50,7 +54,8 @@ class SearchBar extends Component {
   static propTypes = {
     search: PropTypes.bool.isRequired,
     columnLength: PropTypes.number.isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    onSelectAllMatch: PropTypes.func.isRequired
   }
 
   static defaultProps = {

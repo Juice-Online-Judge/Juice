@@ -58,6 +58,10 @@ export default class MuiDataTable extends Component {
     this.setPage(1)
   };
 
+  handleCheckMatch = () => {
+    this.model.setAllChecked()
+  }
+
   handleCheckedChange = checked => {
     const {onSelectedChange} = this.props
     if (onSelectedChange) {
@@ -69,10 +73,6 @@ export default class MuiDataTable extends Component {
     this.setState(({tableData, checked}) => ({
       allChecked: Array.from(tableData).every((key) => checked.has(key))
     }))
-  };
-
-  handleSelectAll = () => {
-    this.model.setAllChecked()
   };
 
   handleSelect = (key, checked) => {
@@ -200,6 +200,7 @@ export default class MuiDataTable extends Component {
             <SearchBar
               search={ !!search }
               onChange={ this.searchData }
+              onSelectAllMatch={ this.handleCheckMatch }
               columnLength={ this.calcColSpan(this.columns) } />
             <HeaderRow displaySelectAll>
               {this.mapColumnsToElems(this.columns)}
