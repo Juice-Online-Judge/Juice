@@ -32,7 +32,7 @@ export class MessageContainer extends Component {
     setOpen: PropTypes.func.isRequired,
     onRequestClose: PropTypes.func,
     children: PropTypes.node
-  };
+  }
 }
 
 export default connect(state => ({messageStore: state.message}), {setOpen})(

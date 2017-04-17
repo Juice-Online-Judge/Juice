@@ -77,13 +77,13 @@ class Filter extends Component {
   state = {
     filter: '',
     errorText: ''
-  };
+  }
 
   static propTypes = {
     submissionFilter: PropTypes.object.isRequired,
     addFilter: PropTypes.func.isRequired,
     clearFilter: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default connect(

@@ -41,12 +41,12 @@ class SetScoreButton extends Component {
     )
   }
 
-  correctness = '';
+  correctness = ''
 
   static propTypes = {
     needReview: PropTypes.bool,
     patchCorrectness: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default SetScoreButton

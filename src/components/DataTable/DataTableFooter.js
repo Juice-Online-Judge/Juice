@@ -25,11 +25,8 @@ class DataTableFooter extends Component {
   handleRowSelection(obj) {
     const menuOptions = obj.menuOptions || [5, 10, 15]
 
-    return menuOptions.map((num) => (
-      <MenuItem
-        value={ num }
-        primaryText={ num }
-        key={ num } />
+    return menuOptions.map(num => (
+      <MenuItem value={ num } primaryText={ num } key={ num } />
     ))
   }
 
@@ -43,37 +40,29 @@ class DataTableFooter extends Component {
       onPerPageChange
     } = this.props
     return (
-      <Row selectable={ false } >
-        <Column
-          { ...mainColumnStyle }>
-          {
-            this.shouldShowMenu() && (
-              <div>
-                <span { ...padding }>
-                  Rows per page:
-                </span>
-                <SelectField
-                  value={ perPages }
-                  { ...selectFieldStyle }
-                  onChange={ onPerPageChange }>
-                  {this.handleRowSelection(paginated)}
-                </SelectField>
-              </div>
-            )
-          }
+      <Row selectable={ false }>
+        <Column { ...mainColumnStyle }>
+          {this.shouldShowMenu() &&
+            <div>
+              <span { ...padding }>
+                Rows per page:
+              </span>
+              <SelectField
+                value={ perPages }
+                { ...selectFieldStyle }
+                onChange={ onPerPageChange }>
+                {this.handleRowSelection(paginated)}
+              </SelectField>
+            </div>}
         </Column>
 
         <Column { ...rightAlign }>
-          <span> { pageInfo.showing } </span>
+          <span> {pageInfo.showing} </span>
         </Column>
 
         <Column { ...rightAlign }>
-          <NavigateLeft
-            onClick={ onNavigateLeft }
-            { ...navigationStyle } />
-          <NavigateRight
-            onClick={ onNavigateRight }
-            { ...navigationStyle } />
+          <NavigateLeft onClick={ onNavigateLeft } { ...navigationStyle } />
+          <NavigateRight onClick={ onNavigateRight } { ...navigationStyle } />
         </Column>
       </Row>
     )
@@ -86,7 +75,7 @@ class DataTableFooter extends Component {
     onNavigateLeft: PropTypes.func.isRequired,
     onNavigateRight: PropTypes.func.isRequired,
     onPerPageChange: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default DataTableFooter
@@ -106,9 +95,12 @@ const rightAlign = css({
   verticalAlign: 'middle'
 })
 
-const mainColumnStyle = css({
-  width: '70%'
-}, rightAlign)
+const mainColumnStyle = css(
+  {
+    width: '70%'
+  },
+  rightAlign
+)
 
 const navigationStyle = css({
   cursor: 'pointer'

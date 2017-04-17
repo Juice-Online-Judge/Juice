@@ -20,23 +20,23 @@ class QuestionTab extends Component {
 
   handleRequestDetail = uuid => {
     this.setState({detail: true, detailUuid: uuid})
-  };
+  }
 
   handleSettingChange = (uuid, setting) => {
     const {questionDetail, selectedQuestion} = this.state
     questionDetail[uuid] = setting
     this.setState({questionDetail})
     this.emitChange(questionDetail, selectedQuestion)
-  };
+  }
 
   handleBack = () => {
     this.setState({detail: false, detailUuid: null})
-  };
+  }
 
   handlePageChange = page => {
     this.props.fetchQuestion({page})
     this.setState({page})
-  };
+  }
 
   handleQuestionChange = (selectedQuestion, uuid) => {
     this.setState(({questionDetail}) => {
@@ -50,7 +50,7 @@ class QuestionTab extends Component {
       this.emitChange(state.questionDetail, selectedQuestion)
       return state
     })
-  };
+  }
 
   emitChange(questionDetail, selectedQuestion) {
     this.props.onChange(pick(questionDetail, selectedQuestion))
@@ -95,14 +95,14 @@ class QuestionTab extends Component {
     questionDetail: {},
     detailUuid: null,
     detail: false
-  };
+  }
 
   static propTypes = {
     app: PropTypes.object.isRequired,
     question: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
     fetchQuestion: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default connect(state => ({app: state.app, question: state.question}), {

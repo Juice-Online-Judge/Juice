@@ -13,34 +13,33 @@ import {
   clearValidationMessage
 } from 'redux/modules/validation'
 
-const validateFormHoc = validateRule =>
-  WrappedComponent => {
-    const componentName = getDisplayName(WrappedComponent)
-    const mapStates = state => ({validation: getComponentMessage(state)})
+const validateFormHoc = validateRule => WrappedComponent => {
+  const componentName = getDisplayName(WrappedComponent)
+  const mapStates = state => ({validation: getComponentMessage(state)})
 
-    return compose(
-      connect(mapStates, {
-        validateForm,
-        clearValidationMessage,
-        setValidationName,
-        setValidationRule
-      }),
-      lifecycle({
-        componentWillMount() {
-          this.props.clearValidationMessage(componentName)
-          this.props.setValidationName(componentName)
-          this.props.setValidationRule(validateRule)
-        },
-        componentWillUnmount() {
-          this.props.setValidationName(null)
-          this.props.setValidationRule({})
-        }
-      }),
-      withHandlers({
-        validateForm: props => (fields, cb) => props.validateForm(fields, cb)
-      }),
-      setDisplayName(wrapDisplayName(WrappedComponent, 'Validate'))
-    )(WrappedComponent)
-  }
+  return compose(
+    connect(mapStates, {
+      validateForm,
+      clearValidationMessage,
+      setValidationName,
+      setValidationRule
+    }),
+    lifecycle({
+      componentWillMount() {
+        this.props.clearValidationMessage(componentName)
+        this.props.setValidationName(componentName)
+        this.props.setValidationRule(validateRule)
+      },
+      componentWillUnmount() {
+        this.props.setValidationName(null)
+        this.props.setValidationRule({})
+      }
+    }),
+    withHandlers({
+      validateForm: props => (fields, cb) => props.validateForm(fields, cb)
+    }),
+    setDisplayName(wrapDisplayName(WrappedComponent, 'Validate'))
+  )(WrappedComponent)
+}
 
 export default validateFormHoc

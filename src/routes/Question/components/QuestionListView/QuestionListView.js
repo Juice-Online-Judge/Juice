@@ -58,7 +58,7 @@ export class QuestionListView extends Component {
     admin: PropTypes.bool.isRequired,
     maxPage: PropTypes.number.isRequired,
     fetchQuestion: PropTypes.func.isRequired
-  };
+  }
 }
 
 const maxPageSelector = createMaxPageSelector()

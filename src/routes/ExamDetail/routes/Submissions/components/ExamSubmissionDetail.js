@@ -13,12 +13,9 @@ class ExamSubmissionDetail extends Component {
   componentDidMount() {
     const {examId, fetchExamSubmissions} = this.props
     fetchExamSubmissions(examId)
-    this.interval = setInterval(
-      () => {
-        fetchExamSubmissions(examId)
-      },
-      3000
-    )
+    this.interval = setInterval(() => {
+      fetchExamSubmissions(examId)
+    }, 3000)
   }
 
   componentWillUnmount() {
@@ -44,7 +41,7 @@ class ExamSubmissionDetail extends Component {
     admin: PropTypes.bool.isRequired,
     fetchExamSubmissions: PropTypes.func.isRequired,
     addFilter: PropTypes.func.isRequired
-  };
+  }
 }
 
 const isAdminSelector = createIsAdminSelector()

@@ -26,21 +26,20 @@ export const setValidationMessage = createAction(
 )
 export const clearValidationMessage = createAction(CLEAR_VALIDATION_MESSAGE)
 
-export const validateForm = (fields, cb) =>
-  (dispatch, getState) => {
-    const {validation} = getState()
-    const messages = validate(fields, validation.get('rule').toJS())
-    const result = !messages
-    if (result) {
-      dispatch(clearValidationMessage(validation.get('name')))
-    } else {
-      dispatch(setValidationMessage(validation.get('name'), messages))
-    }
-    if (cb) {
-      cb(result)
-    }
-    return result
+export const validateForm = (fields, cb) => (dispatch, getState) => {
+  const {validation} = getState()
+  const messages = validate(fields, validation.get('rule').toJS())
+  const result = !messages
+  if (result) {
+    dispatch(clearValidationMessage(validation.get('name')))
+  } else {
+    dispatch(setValidationMessage(validation.get('name'), messages))
   }
+  if (cb) {
+    cb(result)
+  }
+  return result
+}
 
 const getComponentName = ({validation}) => validation.get('name')
 const getValidation = ({validation}) => validation

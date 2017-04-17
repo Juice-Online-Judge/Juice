@@ -14,13 +14,7 @@ class PageButton extends Component {
   }
 
   render() {
-    const {
-      baseUrl,
-      page,
-      label,
-      disabled,
-      ...props
-    } = this.props
+    const {baseUrl, page, label, disabled, ...props} = this.props
     const text = label || page
     if (baseUrl && !disabled) {
       return (
@@ -49,7 +43,7 @@ class PageButton extends Component {
     onTouchTap: PropTypes.func,
     label: PropTypes.string,
     disabled: PropTypes.bool
-  };
+  }
 }
 
 export default PageButton

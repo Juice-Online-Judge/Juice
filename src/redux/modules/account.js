@@ -19,8 +19,10 @@ export class Account extends AccountRecord {
   }
 
   isAdmin() {
-    return this.isValid() &&
+    return (
+      this.isValid() &&
       this.getIn(['user', 'roles'], new List()).includes('admin')
+    )
   }
 
   isLogin() {
@@ -44,110 +46,108 @@ export const setUserInfo = createAction(SET_USER_INFO, payload => {
 })
 export const clearUser = createAction(CLEAR_USER)
 
-export const login = (username, password) =>
-  dispatch => {
-    const data = {username, password}
-    return dispatch(
-      request(
-        {
-          method: 'post',
-          url: 'auth/sign-in',
-          data
-        },
-        data => {
-          store.set('juice-token', data)
-          dispatch(fetchUserInfo({force: true}))
-        },
-        error => {
-          if (error instanceof Error) {
-            throw error
-          }
-
-          const {data} = error
-
-          if (data && data.message) {
-            dispatch(showMessage(data.message))
-          }
+export const login = (username, password) => dispatch => {
+  const data = {username, password}
+  return dispatch(
+    request(
+      {
+        method: 'post',
+        url: 'auth/sign-in',
+        data
+      },
+      data => {
+        store.set('juice-token', data)
+        dispatch(fetchUserInfo({force: true}))
+      },
+      error => {
+        if (error instanceof Error) {
+          throw error
         }
-      )
-    )
-  }
 
-export const oauthLogin = token =>
-  dispatch => {
-    store.set('juice-token', token)
-    dispatch(fetchUserInfo({force: true}))
-  }
+        const {data} = error
 
-export const logout = () =>
-  dispatch => {
-    dispatch(
-      request(
-        {
-          url: 'auth/sign-out'
-        },
-        () => {
-          store.remove('juice-token')
-          dispatch(clearUser())
+        if (data && data.message) {
+          dispatch(showMessage(data.message))
         }
-      )
+      }
     )
+  )
+}
+
+export const oauthLogin = token => dispatch => {
+  store.set('juice-token', token)
+  dispatch(fetchUserInfo({force: true}))
+}
+
+export const logout = () => dispatch => {
+  dispatch(
+    request(
+      {
+        url: 'auth/sign-out'
+      },
+      () => {
+        store.remove('juice-token')
+        dispatch(clearUser())
+      }
+    )
+  )
+}
+
+export const fetchUserInfo = (options = {force: false}) => (
+  dispatch,
+  getState
+) => {
+  const {force} = options
+  const {account} = getState()
+  if (account.get('valid') && !force) {
+    return
   }
 
-export const fetchUserInfo = (options = {force: false}) =>
-  (dispatch, getState) => {
-    const {force} = options
-    const {account} = getState()
-    if (account.get('valid') && !force) {
-      return
-    }
-
-    if (store.get('juice-token') === undefined) {
-      dispatch(setLoginState(false))
-      return
-    }
-
-    dispatch(
-      request(
-        {
-          url: 'account/profile'
-        },
-        data => {
-          dispatch(setUserInfo(data.user))
-        },
-        () => {
-          // Token maybe expired here, remove it
-          store.remove('juice-token')
-          dispatch(setLoginState(false))
-        }
-      )
-    )
+  if (store.get('juice-token') === undefined) {
+    dispatch(setLoginState(false))
+    return
   }
 
-export const registerUser = info =>
-  dispatch => {
-    const isValidation = dispatch(validateForm(info))
-
-    if (!isValidation) {
-      return
-    }
-
-    const data = renameKey(info, 'passwordConfirm', 'password_confirmation')
-
-    return dispatch(
-      request(
-        {
-          method: 'post',
-          url: 'auth/sign-up',
-          data
-        },
-        data => {
-          store.set('juice-token', data)
-          dispatch(setUserInfo(info))
-        }
-      )
+  dispatch(
+    request(
+      {
+        url: 'account/profile'
+      },
+      data => {
+        dispatch(setUserInfo(data.user))
+      },
+      () => {
+        // Token maybe expired here, remove it
+        store.remove('juice-token')
+        dispatch(setLoginState(false))
+      }
     )
+  )
+}
+
+export const registerUser = info => dispatch => {
+  const isValidation = dispatch(validateForm(info))
+
+  if (!isValidation) {
+    return
   }
+
+  const data = renameKey(info, 'passwordConfirm', 'password_confirmation')
+
+  return dispatch(
+    request(
+      {
+        method: 'post',
+        url: 'auth/sign-up',
+        data
+      },
+      data => {
+        store.set('juice-token', data)
+        dispatch(setUserInfo(info))
+      }
+    )
+  )
+}
 
 // Selectors
 
@@ -163,7 +163,8 @@ export const isNotAdminSelector = createSelector(
 )
 
 export const isLoginSelector = createSelector([accountSelector], account =>
-  account.isLogin())
+  account.isLogin()
+)
 
 // Helper function
 

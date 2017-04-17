@@ -20,7 +20,7 @@ class ExamQuestionDetail extends Component {
     examId: PropTypes.string.isRequired,
     question: PropTypes.object.isRequired,
     fetchExamQuestion: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default connect(

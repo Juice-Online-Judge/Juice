@@ -60,11 +60,11 @@ export const valuesAt = (array, indexes) =>
   compose(pick(indexes), values)(array)
 
 export const renameKey = (object, oldKey, newKey) => {
-  return mapKeys(object, (_value, key) => key === oldKey ? newKey : key)
+  return mapKeys(object, (_value, key) => (key === oldKey ? newKey : key))
 }
 
 export const renameKeys = (object, keysMap) => {
-  return mapKeys(object, (_value, key) => keysMap[key] ? keysMap[key] : key)
+  return mapKeys(object, (_value, key) => (keysMap[key] ? keysMap[key] : key))
 }
 
 export default {

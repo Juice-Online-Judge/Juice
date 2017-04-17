@@ -85,15 +85,15 @@ export class RestrictionTab extends Component {
     time: null,
     file: null,
     memory: null
-  };
+  }
 
   state = {
     strategy: 'normal'
-  };
+  }
 
   static propTypes = {
     onChange: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default RestrictionTab

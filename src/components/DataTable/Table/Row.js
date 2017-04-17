@@ -20,7 +20,7 @@ class Row extends Component {
   renderCheckboxColumn() {
     return (
       <Column>
-        { this.renderCheckbox() }
+        {this.renderCheckbox()}
       </Column>
     )
   }
@@ -35,9 +35,9 @@ class Row extends Component {
     }
 
     return (
-      <tr onClick={ this.handleCheck } { ... css(baseStyle, style) } { ...rest } >
-        { selectable && this.renderCheckboxColumn() }
-        { children }
+      <tr onClick={ this.handleCheck } { ...css(baseStyle, style) } { ...rest }>
+        {selectable && this.renderCheckboxColumn()}
+        {children}
       </tr>
     )
   }

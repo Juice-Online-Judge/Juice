@@ -36,143 +36,142 @@ export const setExam = createAction(SET_EXAM, ({page, total, data}) => ({
 export const setExamToken = createAction(SET_EXAM_TOKEN)
 export const clearExam = createAction(CLEAR_EXAM)
 
-export const fetchExams = (query, opts = {force: false}) =>
-  (dispatch, getState) => {
-    const {app, account, exam} = getState()
-    const page = exam.get('page')
-    query = query || {page}
+export const fetchExams = (query, opts = {force: false}) => (
+  dispatch,
+  getState
+) => {
+  const {app, account, exam} = getState()
+  const page = exam.get('page')
+  query = query || {page}
 
-    if (isRequesting(app) && !opts.force) {
-      return
-    }
-
-    if (exam.get('result').size && query.page === page && !opts.force) {
-      return
-    }
-
-    if (!isLogin(account)) {
-      dispatch(replace('/sign-in'))
-      return
-    }
-
-    dispatch(
-      request(
-        {
-          url: 'exams',
-          params: query
-        },
-        entity => {
-          dispatch(
-            setExam({
-              page: query.page,
-              total: entity.total,
-              data: entity.data
-            })
-          )
-        }
-      )
-    )
+  if (isRequesting(app) && !opts.force) {
+    return
   }
 
-export const addExam = data =>
-  dispatch => {
-    const examData = {
-      name: data.name,
-      role_id: data.roleId,
-      began_at: data.beganTime,
-      ended_at: data.endedTime,
-      user: data.users,
-      question: map(data.questions, (val, key) => ({
-        uuid: key,
-        info: JSON.stringify(
-          renameKeys(val, {
-            readFrom: 'read_from',
-            codeReview: 'code_review'
+  if (exam.get('result').size && query.page === page && !opts.force) {
+    return
+  }
+
+  if (!isLogin(account)) {
+    dispatch(replace('/sign-in'))
+    return
+  }
+
+  dispatch(
+    request(
+      {
+        url: 'exams',
+        params: query
+      },
+      entity => {
+        dispatch(
+          setExam({
+            page: query.page,
+            total: entity.total,
+            data: entity.data
           })
         )
-      }))
-    }
-
-    // No need to check login state here
-    // Because of we check it when access add exam page
-
-    return dispatch(
-      request(
-        {
-          method: 'post',
-          url: 'exams',
-          data: examData
-        },
-        () => {
-          dispatch(showMessage('Add success'))
-        },
-        () => {
-          dispatch(showMessage('Add fail'))
-        }
-      )
+      }
     )
+  )
+}
+
+export const addExam = data => dispatch => {
+  const examData = {
+    name: data.name,
+    role_id: data.roleId,
+    began_at: data.beganTime,
+    ended_at: data.endedTime,
+    user: data.users,
+    question: map(data.questions, (val, key) => ({
+      uuid: key,
+      info: JSON.stringify(
+        renameKeys(val, {
+          readFrom: 'read_from',
+          codeReview: 'code_review'
+        })
+      )
+    }))
   }
 
-export const fetchExamQuestion = examId =>
-  (dispatch, getState) => {
-    const {account} = getState()
+  // No need to check login state here
+  // Because of we check it when access add exam page
 
-    if (!isLogin(account)) {
-      return
-    }
+  return dispatch(
+    request(
+      {
+        method: 'post',
+        url: 'exams',
+        data: examData
+      },
+      () => {
+        dispatch(showMessage('Add success'))
+      },
+      () => {
+        dispatch(showMessage('Add fail'))
+      }
+    )
+  )
+}
 
-    dispatch(
-      request(
-        {
-          url: `exams/${examId}/questions`
-        },
-        ({questions}) => {
-          questions.sort((a, b) => {
-            if (a.uuid > b.uuid) {
-              return 1
-            } else if (a.uuid < b.uud) {
-              return -1
-            }
-            return 0
+export const fetchExamQuestion = examId => (dispatch, getState) => {
+  const {account} = getState()
+
+  if (!isLogin(account)) {
+    return
+  }
+
+  dispatch(
+    request(
+      {
+        url: `exams/${examId}/questions`
+      },
+      ({questions}) => {
+        questions.sort((a, b) => {
+          if (a.uuid > b.uuid) {
+            return 1
+          } else if (a.uuid < b.uud) {
+            return -1
+          }
+          return 0
+        })
+
+        dispatch(
+          setQuestion({
+            total: questions.length,
+            page: 1,
+            data: questions,
+            detail: true
           })
-
-          dispatch(
-            setQuestion({
-              total: questions.length,
-              page: 1,
-              data: questions,
-              detail: true
-            })
-          )
-        }
-      )
+        )
+      }
     )
+  )
+}
+
+export const fetchExamToken = examId => (dispatch, getState) => {
+  const {account} = getState()
+
+  if (!isLogin(account)) {
+    return
   }
 
-export const fetchExamToken = examId =>
-  (dispatch, getState) => {
-    const {account} = getState()
-
-    if (!isLogin(account)) {
-      return
-    }
-
-    dispatch(
-      request(
-        {
-          url: `exams/${examId}/token`
-        },
-        entity => {
-          dispatch(
-            setExamToken({
-              id: examId,
-              token: entity
-            })
-          )
-        }
-      )
+  dispatch(
+    request(
+      {
+        url: `exams/${examId}/token`
+      },
+      entity => {
+        dispatch(
+          setExamToken({
+            id: examId,
+            token: entity
+          })
+        )
+      }
     )
-  }
+  )
+}
 
 export const actions = {
   setExam,

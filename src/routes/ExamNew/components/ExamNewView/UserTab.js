@@ -26,7 +26,7 @@ class UserTab extends Component {
 
   handleUserSelect = selectedRow => {
     setImmediate(() => this.emitChange(selectedRow))
-  };
+  }
 
   emitChange(selectedRow) {
     this.props.onChange(selectedRow)
@@ -57,13 +57,13 @@ class UserTab extends Component {
 
   state = {
     selectedRow: []
-  };
+  }
 
   static propTypes = {
     users: PropTypes.object.isRequired,
     fetchUsers: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default connect(state => ({users: state.users}), {fetchUsers})(UserTab)

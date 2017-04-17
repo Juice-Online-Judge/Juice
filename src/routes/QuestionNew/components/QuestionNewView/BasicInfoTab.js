@@ -73,11 +73,11 @@ export class BasicInfoTab extends Component {
     title: null,
     description: null,
     public: true
-  };
+  }
 
   static propTypes = {
     onChange: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default BasicInfoTab

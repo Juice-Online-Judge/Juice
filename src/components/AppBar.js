@@ -107,13 +107,13 @@ export class AppBar extends React.Component {
 
   state = {
     open: false
-  };
+  }
 
   static propTypes = {
     account: PropTypes.object.isRequired,
     fetchUserInfo: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default connect(

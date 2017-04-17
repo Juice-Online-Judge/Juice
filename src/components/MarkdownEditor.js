@@ -178,11 +178,11 @@ class MarkdownEditor extends Component {
   state = {
     preview: false,
     text: ''
-  };
+  }
 
   static propTypes = {
     onChange: PropTypes.func
-  };
+  }
 }
 
 export default MarkdownEditor

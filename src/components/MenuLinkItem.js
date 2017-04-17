@@ -23,7 +23,7 @@ export class MenuLinkItem extends PureComponent {
   static propTypes = {
     to: PropTypes.string.isRequired,
     push: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default connect(() => ({}), {push})(MenuLinkItem)

@@ -47,7 +47,7 @@ export class Question extends Component {
     question: PropTypes.object.isRequired,
     fetchQuestionDetail: PropTypes.func.isRequired,
     fetchExamQuestion: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default connect(

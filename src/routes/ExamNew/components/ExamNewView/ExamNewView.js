@@ -27,15 +27,15 @@ export class ExamNewView extends Component {
 
   handleBasicInfoChange = data => {
     this.setData({...data})
-  };
+  }
 
   handleQuestionChange = questions => {
     this.setData({questions})
-  };
+  }
 
   handleUsersChange = users => {
     this.setData({users})
-  };
+  }
 
   handleAddExam() {
     this.props.addExam(this.data)
@@ -75,14 +75,14 @@ export class ExamNewView extends Component {
   state = {
     stepIndex: 0,
     finished: false
-  };
+  }
 
-  data = {};
+  data = {}
 
   static propTypes = {
     addExam: PropTypes.func.isRequired,
     clearCache: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default compose(redirectNotAdmin, connect(null, {addExam, clearCache}))(

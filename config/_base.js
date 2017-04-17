@@ -90,7 +90,7 @@ const apiHeader = `application/${apiSubtree}.${apiSubtype}.${apiVersion}+json`
 
 config.globals = {
   'process.env.NODE_ENV': config.env,
-  'NODE_ENV': config.env,
+  NODE_ENV: config.env,
   API_HEADER: apiHeader,
   __DEV__: config.env === 'development',
   __PROD__: config.env === 'production',

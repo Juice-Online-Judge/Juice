@@ -16,22 +16,22 @@ const SET_USERS = 'SET_USERS'
 const CLEAR_USERS = 'CLEAR_USERS'
 
 export const setUsers = createAction(SET_USERS, data =>
-  normalize(data, [userSchema]))
+  normalize(data, [userSchema])
+)
 export const clearUsers = createAction(CLEAR_USERS)
 
-export const fetchUsers = () =>
-  dispatch => {
-    dispatch(
-      request(
-        {
-          url: 'users'
-        },
-        ({users}) => {
-          dispatch(setUsers(users))
-        }
-      )
+export const fetchUsers = () => dispatch => {
+  dispatch(
+    request(
+      {
+        url: 'users'
+      },
+      ({users}) => {
+        dispatch(setUsers(users))
+      }
     )
-  }
+  )
+}
 
 export const actions = {
   setUsers,

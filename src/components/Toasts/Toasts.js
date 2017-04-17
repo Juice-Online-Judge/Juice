@@ -77,7 +77,7 @@ class Toasts extends Component {
 
   static propTypes = {
     children: PropTypes.arrayOf(PropTypes.element)
-  };
+  }
 }
 
 export default Toasts

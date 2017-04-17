@@ -124,7 +124,7 @@ export class FileArea extends Component {
 
   state = {
     type: 'file'
-  };
+  }
 
   static propTypes = {
     label: PropTypes.string,
@@ -134,7 +134,7 @@ export class FileArea extends Component {
     multiple: PropTypes.bool,
     mode: PropTypes.oneOf(['text', 'code']),
     onChange: PropTypes.func
-  };
+  }
 
   static defaultProps = {
     label: 'Select a file...',
@@ -142,7 +142,7 @@ export class FileArea extends Component {
     fileKey: 'file',
     textKey: 'textarea',
     mode: 'text'
-  };
+  }
 }
 
 export default FileArea

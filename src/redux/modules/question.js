@@ -55,84 +55,87 @@ export const setQuestionDetail = createAction(SET_QUESTION_DETAIL, payload => {
 
 export const clearQuestion = createAction(CLEAR_QUESTION)
 
-export const fetchQuestion = (query = {page: 1}, opts = {force: false}) =>
-  (dispatch, getState) => {
-    const {app, question} = getState()
-    const page = question.get('page')
-    const uuids = question.get('result')
+export const fetchQuestion = (query = {page: 1}, opts = {force: false}) => (
+  dispatch,
+  getState
+) => {
+  const {app, question} = getState()
+  const page = question.get('page')
+  const uuids = question.get('result')
 
-    if (!opts.force) {
-      if ((page === query.page && uuids.size) || isRequesting(app)) {
-        return
-      }
-    }
-
-    dispatch(
-      request(
-        {
-          url: 'questions',
-          params: query
-        },
-        entity => {
-          dispatch(
-            setQuestion({
-              data: entity.data,
-              page: query.page,
-              total: entity.total
-            })
-          )
-        }
-      )
-    )
-  }
-
-export const fetchQuestionDetail = (uuid, opts = {force: false}) =>
-  (dispatch, getState) => {
-    const entities = getState().question.get('entities')
-
-    if (entities.has(uuid) && entities.getIn([uuid, 'detail']) && !opts.force) {
+  if (!opts.force) {
+    if ((page === query.page && uuids.size) || isRequesting(app)) {
       return
     }
-
-    dispatch(
-      request(
-        {
-          url: `questions/${uuid}`
-        },
-        ({question}) => {
-          dispatch(setQuestionDetail(question))
-        }
-      )
-    )
   }
 
-export const addQuestion = data =>
-  dispatch => {
-    data = createFormDataDeep(data)
-    if (!data.uuid) {
-      Reflect.deleteProperty(data, 'uuid')
-    }
-
-    return dispatch(
-      request(
-        {
-          method: 'POST',
-          url: 'questions',
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          },
-          data
-        },
-        entity => {
-          dispatch(setQuestionDetail(entity))
-          dispatch(showMessage('Add success'))
-        },
-        () => {
-          dispatch(showMessage('Add fail'))
-        }
-      )
+  dispatch(
+    request(
+      {
+        url: 'questions',
+        params: query
+      },
+      entity => {
+        dispatch(
+          setQuestion({
+            data: entity.data,
+            page: query.page,
+            total: entity.total
+          })
+        )
+      }
     )
+  )
+}
+
+export const fetchQuestionDetail = (uuid, opts = {force: false}) => (
+  dispatch,
+  getState
+) => {
+  const entities = getState().question.get('entities')
+
+  if (entities.has(uuid) && entities.getIn([uuid, 'detail']) && !opts.force) {
+    return
   }
+
+  dispatch(
+    request(
+      {
+        url: `questions/${uuid}`
+      },
+      ({question}) => {
+        dispatch(setQuestionDetail(question))
+      }
+    )
+  )
+}
+
+export const addQuestion = data => dispatch => {
+  data = createFormDataDeep(data)
+  if (!data.uuid) {
+    Reflect.deleteProperty(data, 'uuid')
+  }
+
+  return dispatch(
+    request(
+      {
+        method: 'POST',
+        url: 'questions',
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        data
+      },
+      entity => {
+        dispatch(setQuestionDetail(entity))
+        dispatch(showMessage('Add success'))
+      },
+      () => {
+        dispatch(showMessage('Add fail'))
+      }
+    )
+  )
+}
 
 // Selector
 

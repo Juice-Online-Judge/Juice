@@ -3,8 +3,8 @@ import webpackCompiler from '../build/webpack-compiler'
 import webpackConfig from '../build/webpack.config'
 import config from '../config'
 
-const debug = _debug('app:bin:compile');
-(async function() {
+const debug = _debug('app:bin:compile')
+;(async function() {
   try {
     debug('Run compiler')
     const stats = await webpackCompiler(webpackConfig)

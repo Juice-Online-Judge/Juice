@@ -138,7 +138,7 @@ export class Submission extends Component {
     time: PropTypes.string,
     memory: PropTypes.string,
     result: PropTypes.string
-  };
+  }
 }
 
 const resultColor = {

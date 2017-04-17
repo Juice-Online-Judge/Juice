@@ -30,7 +30,7 @@ export class CopyButton extends Component {
   static propTypes = {
     text: PropTypes.string,
     setOpen: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default connect(null, {setOpen})(CopyButton)

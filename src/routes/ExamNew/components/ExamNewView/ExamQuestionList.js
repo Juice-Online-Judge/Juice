@@ -42,7 +42,7 @@ class ExamQuestionList extends Component {
     onChange: PropTypes.func.isRequired,
     onRequestDetail: PropTypes.func.isRequired,
     selectedQuestion: PropTypes.array.isRequired
-  };
+  }
 }
 
 export default ExamQuestionList

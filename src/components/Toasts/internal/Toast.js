@@ -24,7 +24,7 @@ class Toast extends Component {
     timeout: PropTypes.number.isRequired,
     onRequestClose: PropTypes.func.isRequired,
     id: PropTypes.any.isRequired
-  };
+  }
 }
 
 export default Toast

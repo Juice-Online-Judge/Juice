@@ -2,7 +2,7 @@ import redirectComponent from './redirectComponent'
 import {clearError, errorCodeSelector} from 'redux/modules/app'
 
 const shouldRedirectPath = ({errorCode}) =>
-  errorCode === 404 ? '/page-not-found' : null
+  (errorCode === 404 ? '/page-not-found' : null)
 
 export const redirectNotFound = redirectComponent(
   'RedirectNotFound',

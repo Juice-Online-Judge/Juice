@@ -61,7 +61,7 @@ class ExamDetailView extends Component {
     func: PropTypes.string,
     examId: PropTypes.string.isRequired,
     fetchExamToken: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default connect(

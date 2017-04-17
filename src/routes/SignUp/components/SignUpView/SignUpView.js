@@ -114,12 +114,12 @@ export class SignUpView extends React.Component {
     password: '',
     email: '',
     passwordConfirm: ''
-  };
+  }
 
   static propTypes = {
     validation: PropTypes.object.isRequired,
     registerUser: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default compose(

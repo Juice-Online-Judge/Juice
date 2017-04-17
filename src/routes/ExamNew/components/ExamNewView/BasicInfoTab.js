@@ -33,36 +33,35 @@ export class BasicInfoTab extends Component {
 
   handleNameChange = event => {
     this.handleChange({name: event.target.value})
-  };
+  }
 
   handleRoleSelect = selectedRow => {
     const {role} = this.props
     const selectedRole = selectedRow.map(idx => role.getIn(['result', idx]))
-    setImmediate(() =>
-      this.props.onChange({...this.state, role: selectedRole}))
-  };
+    setImmediate(() => this.props.onChange({...this.state, role: selectedRole}))
+  }
 
   handleBeganDateChange = (_event, date) => {
     const newDate = copyDate(this.state.beganTime, date)
     this.handleChange({beganTime: newDate})
     this.checkTime(date, this.state.endedTime)
-  };
+  }
 
   handleBeganTimeChange = (_event, date) => {
     this.handleChange({beganTime: date})
     this.checkTime(date, this.state.endedTime)
-  };
+  }
 
   handleEndedDateChange = (_event, date) => {
     const newDate = copyDate(this.state.endedTime, date)
     this.handleChange({endedTime: newDate})
     this.checkTime(this.state.beganTime, date)
-  };
+  }
 
   handleEndedTimeChange = (_event, date) => {
     this.handleChange({endedTime: date})
     this.checkTime(this.state.beganTime, date)
-  };
+  }
 
   handleChange(data = {}) {
     // Fire change event
@@ -164,15 +163,13 @@ export class BasicInfoTab extends Component {
     errorText: '',
     beganTime: setSeconds(new Date(), 0),
     endedTime: setSeconds(new Date(), 0)
-  };
+  }
 
   static propTypes = {
     role: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
     fetchRole: PropTypes.func.isRequired
-  };
+  }
 }
 
-export default connect(state => ({role: state.role}), {fetchRole})(
-  BasicInfoTab
-)
+export default connect(state => ({role: state.role}), {fetchRole})(BasicInfoTab)

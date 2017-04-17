@@ -38,17 +38,17 @@ export class FileButton extends Component {
 
   state = {
     filename: ''
-  };
+  }
 
   static propTypes = {
     label: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     multiple: PropTypes.bool
-  };
+  }
 
   static defaultProps = {
     label: 'Select a file...'
-  };
+  }
 }
 
 export default FileButton

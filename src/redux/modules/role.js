@@ -16,22 +16,22 @@ export const SET_ROLE = 'SET_ROLE'
 export const CLEAR_ROLE = 'CLEAR_ROLE'
 
 export const setRole = createAction(SET_ROLE, data =>
-  normalize(data, [roleSchema]))
+  normalize(data, [roleSchema])
+)
 export const clearRole = createAction(CLEAR_ROLE)
 
-export const fetchRole = () =>
-  dispatch => {
-    dispatch(
-      request(
-        {
-          url: 'roles'
-        },
-        ({roles}) => {
-          dispatch(setRole(roles))
-        }
-      )
+export const fetchRole = () => dispatch => {
+  dispatch(
+    request(
+      {
+        url: 'roles'
+      },
+      ({roles}) => {
+        dispatch(setRole(roles))
+      }
     )
-  }
+  )
+}
 
 export const actions = {
   setRole,

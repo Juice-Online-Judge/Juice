@@ -46,25 +46,25 @@ class QuestionSetting extends Component {
 
   handleScoreChange = event => {
     this.emitChange({score: parseFloat(event.target.value)})
-  };
+  }
 
   handleIntValChange = ({target: {name, value}}) => {
     const newState = {}
     newState[name] = parseInt(value)
     this.emitChange(newState)
-  };
+  }
 
   handleTypeChange = (_event, _idx, value) => {
     this.emitChange({type: value})
-  };
+  }
 
   handleReadFromChange = (_event, _idx, value) => {
     this.emitChange({readFrom: value})
-  };
+  }
 
   handleCodeReviewChange = ({target: {checked}}) => {
     this.emitChange({codeReview: checked})
-  };
+  }
 
   emitChange(data) {
     const mergeData = {
@@ -166,7 +166,7 @@ class QuestionSetting extends Component {
     type: 'normal',
     goal: '',
     reward: ''
-  };
+  }
 
   static propTypes = {
     question: PropTypes.object.isRequired,
@@ -175,7 +175,7 @@ class QuestionSetting extends Component {
     detail: PropTypes.bool.isRequired,
     setting: PropTypes.object,
     uuid: PropTypes.string
-  };
+  }
 }
 
 export default QuestionSetting

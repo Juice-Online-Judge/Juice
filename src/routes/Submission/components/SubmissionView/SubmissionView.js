@@ -27,7 +27,7 @@ export class SubmissionView extends Component {
   static propTypes = {
     submission: PropTypes.object.isRequired,
     fetchSubmissions: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default connect(state => ({submission: state.submission}), {

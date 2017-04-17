@@ -24,7 +24,7 @@ class Recaptcha extends Component {
         'expired-callback': onExpired
       })
     }
-  };
+  }
 
   render() {
     const {children} = this.props
@@ -43,7 +43,7 @@ class Recaptcha extends Component {
     sitekey: PropTypes.string.isRequired,
     onVerify: PropTypes.func,
     onExpired: PropTypes.func
-  };
+  }
 }
 
 export default Recaptcha

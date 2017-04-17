@@ -115,9 +115,7 @@ const webpackConfig = createConfig([
       defaultAttribute: 'defer'
     })
   ]),
-  env('development', [
-    sourceMaps()
-  ]),
+  env('development', [sourceMaps()]),
   env('production', [
     addPlugins([
       new webpack.optimize.OccurrenceOrderPlugin(),

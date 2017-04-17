@@ -44,18 +44,16 @@ export const setError = createAction(SET_ERROR)
 export const clearStatus = createAction(CLEAR_STATUS)
 export const clearError = createAction(CLEAR_ERROR)
 
-export const request = (config, handleSuccess, handleError) =>
-  dispatch => {
-    return guardRequest(dispatch, config, handleSuccess, handleError)
-  }
+export const request = (config, handleSuccess, handleError) => dispatch => {
+  return guardRequest(dispatch, config, handleSuccess, handleError)
+}
 
-export const clearCache = () =>
-  dispatch => {
-    dispatch(clearExam())
-    dispatch(clearQuestion())
-    dispatch(clearSubmissions())
-    dispatch(clearUsers())
-  }
+export const clearCache = () => dispatch => {
+  dispatch(clearExam())
+  dispatch(clearQuestion())
+  dispatch(clearSubmissions())
+  dispatch(clearUsers())
+}
 
 export const appStatusSelector = state => state.app.get('status')
 const appSelector = state => state.app
@@ -63,20 +61,21 @@ const appErrorSelector = state => state.app.messages
 const appErrorCodeSelector = state => state.app.errorCode
 
 export const isPendingSelector = createSelector([appSelector], app =>
-  app.isPending())
+  app.isPending()
+)
 
 export const createIsErrorSelector = () =>
   createSelector([appSelector], app => app.isError())
 
 export const errorCodeSelector = createSelector(
   [createIsErrorSelector(), appErrorCodeSelector],
-  (error, errorCode) => error ? errorCode : null
+  (error, errorCode) => (error ? errorCode : null)
 )
 
 export const createErrorSelector = () =>
   createSelector(
     [createIsErrorSelector(), appErrorSelector],
-    (error, message) => error ? message : null
+    (error, message) => (error ? message : null)
   )
 
 export const actions = {

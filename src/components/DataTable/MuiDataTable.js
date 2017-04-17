@@ -56,7 +56,7 @@ export default class MuiDataTable extends Component {
 
   handleModelChange = () => {
     this.setPage(1)
-  };
+  }
 
   handleCheckMatch = () => {
     this.model.setAllChecked()
@@ -71,13 +71,13 @@ export default class MuiDataTable extends Component {
       checked
     }))
     this.setState(({tableData, checked}) => ({
-      allChecked: Array.from(tableData).every((key) => checked.has(key))
+      allChecked: Array.from(tableData).every(key => checked.has(key))
     }))
-  };
+  }
 
   handleSelect = (key, checked) => {
     this.model.setChecked(key, checked)
-  };
+  }
 
   initModel(data) {
     const {paginated, search, fetchKey} = this.props
@@ -133,7 +133,7 @@ export default class MuiDataTable extends Component {
   }
 
   mapColumnsToElems(cols) {
-    return cols.map((item) => (
+    return cols.map(item => (
       <HeaderColumn key={ item.property }>{item.title}</HeaderColumn>
     ))
   }
@@ -151,7 +151,7 @@ export default class MuiDataTable extends Component {
     const {fetchKey} = this.props
     const {checked, tableData} = this.state
 
-    return data.map((item) => {
+    return data.map(item => {
       const key = fetchKey(item)
       const show = tableData.has(key)
       return (
@@ -168,21 +168,19 @@ export default class MuiDataTable extends Component {
   }
 
   calcShow(cond) {
-    return cond
-      ? {}
-      : hidden
+    return cond ? {} : hidden
   }
 
   calcColSpan(cols) {
     return cols.length
   }
 
-  searchData = (e) => {
+  searchData = e => {
     const word = e.target.value
     this.setFilter(word)
   }
 
-  setFilter = debounce((word) => {
+  setFilter = debounce(word => {
     this.model.setFilter(word)
   }, 300)
 
@@ -211,15 +209,14 @@ export default class MuiDataTable extends Component {
             {this.populateTableWithData(this.props.data, this.columns)}
           </tbody>
           <tfoot>
-            {paginated && (
+            {paginated &&
               <DataTableFooter
                 pageInfo={ pageInfo }
                 perPages={ perPages }
                 paginated={ paginated }
                 onPerPageChange={ this.handlePerPageChange }
                 onNavigateLeft={ this.navigateLeft }
-                onNavigateRight={ this.navigateRight } />
-            )}
+                onNavigateRight={ this.navigateRight } />}
           </tfoot>
         </Table>
       </Paper>
@@ -233,7 +230,7 @@ export default class MuiDataTable extends Component {
     paginated: paginatedShape,
     fetchKey: PropTypes.func.isRequired,
     onSelectedChange: PropTypes.func
-  };
+  }
 
   static defaultProps = {
     columns: [],
@@ -242,7 +239,7 @@ export default class MuiDataTable extends Component {
     multiSelectable: false,
     search: '',
     fetchKey: defaultFetchKey
-  };
+  }
 }
 
 const hidden = css({

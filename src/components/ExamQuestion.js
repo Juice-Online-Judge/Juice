@@ -12,13 +12,13 @@ class ExamQuestion extends Component {
   handleCheck = _event => {
     const {checked} = this.props
     this.props.onCheck(!checked, this.props.uuid)
-  };
+  }
 
   handleRequestDetail = () => {
     if (this.props.checked) {
       this.props.onRequestDetail(this.props.uuid)
     }
-  };
+  }
 
   render() {
     const {uuid, question, checked} = this.props
@@ -51,7 +51,7 @@ class ExamQuestion extends Component {
     checked: PropTypes.bool,
     onCheck: PropTypes.func.isRequired,
     onRequestDetail: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default connect(state => ({question: state.question}))(ExamQuestion)

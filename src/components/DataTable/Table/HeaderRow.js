@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {css} from 'glamor'
@@ -24,7 +23,7 @@ class HeaderRow extends Component {
   renderCheckboxColumn() {
     return (
       <HeaderColumn>
-        { this.renderCheckbox() }
+        {this.renderCheckbox()}
       </HeaderColumn>
     )
   }
@@ -37,9 +36,9 @@ class HeaderRow extends Component {
     }
 
     return (
-      <tr { ... css(baseStyle, style) } { ...rest } >
-        { displaySelectAll && this.renderCheckboxColumn() }
-        { children }
+      <tr { ...css(baseStyle, style) } { ...rest }>
+        {displaySelectAll && this.renderCheckboxColumn()}
+        {children}
       </tr>
     )
   }

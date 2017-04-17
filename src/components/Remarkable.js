@@ -53,7 +53,7 @@ class Remarkable extends Component {
   static propTypes = {
     source: PropTypes.string,
     children: PropTypes.node
-  };
+  }
 }
 
 export default Remarkable

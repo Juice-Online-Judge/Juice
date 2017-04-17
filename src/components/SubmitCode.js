@@ -59,14 +59,14 @@ export class SubmitCode extends Component {
 
   state = {
     language: 'c'
-  };
+  }
 
   static propTypes = {
     uuid: PropTypes.string.isRequired,
     examId: PropTypes.string,
     submitCode: PropTypes.func.isRequired,
     goBack: PropTypes.func.isRequired
-  };
+  }
 }
 
 const styles = {

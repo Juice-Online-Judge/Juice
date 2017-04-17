@@ -99,11 +99,11 @@ export class SignInView extends React.Component {
   data = {
     username: '',
     password: ''
-  };
+  }
 
   static propTypes = {
     login: PropTypes.func.isRequired
-  };
+  }
 }
 
 const isOAuthError = token => token === 'server-error' || token === 'failed'

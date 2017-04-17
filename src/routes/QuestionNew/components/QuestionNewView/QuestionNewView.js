@@ -81,12 +81,12 @@ class QuestionNewView extends Component {
     )
   }
 
-  data = {};
+  data = {}
 
   static propTypes = {
     addQuestion: PropTypes.func.isRequired,
     clearStatus: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default compose(

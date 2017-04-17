@@ -49,11 +49,11 @@ class LastUpdateDisplay extends Component {
 
   static propTypes = {
     project: PropTypes.string.isRequired
-  };
+  }
 
   state = {
     log: null
-  };
+  }
 }
 
 export default LastUpdateDisplay

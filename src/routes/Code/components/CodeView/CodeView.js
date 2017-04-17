@@ -56,7 +56,7 @@ class CodeView extends Component {
     canReview: PropTypes.bool.isRequired,
     patchCorrectness: PropTypes.func.isRequired,
     fetchCode: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default CodeView

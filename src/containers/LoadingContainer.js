@@ -24,12 +24,12 @@ class LoadingContainer extends Component {
 
   state = {
     left: window.innerWidth / 2 - 20
-  };
+  }
 
   static propTypes = {
     children: PropTypes.node,
     pending: PropTypes.bool.isRequired
-  };
+  }
 }
 
 export default connect(state => ({pending: isPendingSelector(state)}))(

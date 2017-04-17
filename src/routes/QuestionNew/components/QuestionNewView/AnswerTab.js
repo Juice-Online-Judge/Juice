@@ -45,11 +45,11 @@ export class AnswerTab extends Component {
   data = {
     input: null,
     output: null
-  };
+  }
 
   static propTypes = {
     onChange: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default AnswerTab

@@ -49,7 +49,7 @@ class ExamListView extends Component {
     exam: PropTypes.object.isRequired,
     admin: PropTypes.bool.isRequired,
     fetchExams: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default ExamListView

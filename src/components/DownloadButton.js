@@ -59,14 +59,14 @@ export class DownloadButton extends Component {
 
   state = {
     url: null
-  };
+  }
 
   static propTypes = {
     text: PropTypes.string,
     label: PropTypes.string.isRequired,
     disabled: PropTypes.bool,
     filename: PropTypes.string
-  };
+  }
 }
 
 export default DownloadButton

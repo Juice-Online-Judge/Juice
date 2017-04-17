@@ -77,7 +77,7 @@ export class Pagination extends Component {
     current: PropTypes.number.isRequired,
     onChange: PropTypes.func,
     maxPage: PropTypes.number.isRequired
-  };
+  }
 }
 
 export default Pagination

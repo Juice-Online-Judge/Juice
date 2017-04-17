@@ -14,11 +14,10 @@ export const SET_OPEN = 'SET_OPEN'
 export const setMessage = createAction(SET_MESSAGE)
 export const setOpen = createAction(SET_OPEN)
 
-export const showMessage = msg =>
-  dispatch => {
-    dispatch(setMessage(msg))
-    dispatch(setOpen(true))
-  }
+export const showMessage = msg => dispatch => {
+  dispatch(setMessage(msg))
+  dispatch(setOpen(true))
+}
 
 export default handleActions(
   {
