@@ -1,18 +1,17 @@
 import redirectComponent from './redirectComponent'
-import {clearError, errorCodeSelector} from 'redux/modules/app'
+import invoke from 'lodash/fp/invoke'
+import { clearError, errorCodeSelector } from 'redux/modules/app'
 
-const shouldRedirectPath = ({errorCode}) =>
-  (errorCode === 401 ? '/sign-in' : null)
+const shouldRedirect = ({ errorCode }) => errorCode === 401
 
-export const redirectNotAuth = redirectComponent(
-  'RedirectNotAuth',
-  state => ({errorCode: errorCodeSelector(state)}),
-  shouldRedirectPath,
-  {
-    actions: {clearError},
-    cleanUp: ({clearError}) => clearError(),
-    omitProps: ['errorCode', 'clearError']
-  }
-)
+export const redirectNotAuth = redirectComponent({
+  name: 'RedirectNotAuth',
+  mapStateToProp: state => ({ errorCode: errorCodeSelector(state) }),
+  shouldRedirect,
+  redirectPath: '/sign-in',
+  actions: { clearError },
+  cleanUp: invoke('clearError'),
+  omitProps: ['errorCode', 'clearError']
+})
 
 export default redirectNotAuth

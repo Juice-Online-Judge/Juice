@@ -1,13 +1,13 @@
 import redirectComponent from './redirectComponent'
-import {isNotAdminSelector} from 'redux/modules/account'
+import get from 'lodash/fp/get'
+import { isNotAdminSelector } from 'redux/modules/account'
 
-const redirectNotAdmin = redirectComponent(
-  'RedirectNotAdmin',
-  state => ({isNotAdmin: isNotAdminSelector(state)}),
-  ({isNotAdmin}) => (isNotAdmin ? '/permission-denied' : null),
-  {
-    omitProps: 'isNotAdmin'
-  }
-)
+const redirectNotAdmin = redirectComponent({
+  name: 'RedirectNotAdmin',
+  mapStateToProp: state => ({ isNotAdmin: isNotAdminSelector(state) }),
+  shouldRedirect: get('isNotAdmin'),
+  redirectPath: '/permission-denied',
+  omitProps: 'isNotAdmin'
+})
 
 export default redirectNotAdmin

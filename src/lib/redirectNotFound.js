@@ -1,18 +1,17 @@
 import redirectComponent from './redirectComponent'
-import {clearError, errorCodeSelector} from 'redux/modules/app'
+import invoke from 'lodash/fp/invoke'
+import { clearError, errorCodeSelector } from 'redux/modules/app'
 
-const shouldRedirectPath = ({errorCode}) =>
-  (errorCode === 404 ? '/page-not-found' : null)
+const shouldRedirect = ({ errorCode }) => errorCode === 404
 
-export const redirectNotFound = redirectComponent(
-  'RedirectNotFound',
-  state => ({errorCode: errorCodeSelector(state)}),
-  shouldRedirectPath,
-  {
-    actions: {clearError},
-    cleanUp: ({clearError}) => clearError(),
-    omitProps: ['errorCode', 'clearError']
-  }
-)
+export const redirectNotFound = redirectComponent({
+  name: 'RedirectNotFound',
+  mapStateToProp: state => ({ errorCode: errorCodeSelector(state) }),
+  shouldRedirect,
+  redirectPath: '/page-not-found',
+  actions: { clearError },
+  cleanUp: invoke('clearError'),
+  omitProps: ['errorCode', 'clearError']
+})
 
 export default redirectNotFound

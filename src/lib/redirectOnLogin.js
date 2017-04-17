@@ -1,13 +1,13 @@
 import redirectComponent from './redirectComponent'
-import {isLoginSelector} from 'redux/modules/account'
+import get from 'lodash/fp/get'
+import { isLoginSelector } from 'redux/modules/account'
 
-export const redirectOnLogin = redirectComponent(
-  'RedirectOnLogin',
-  state => ({isLogin: isLoginSelector(state)}),
-  ({isLogin}) => (isLogin ? '/' : null),
-  {
-    omitProps: 'isLogin'
-  }
-)
+export const redirectOnLogin = redirectComponent({
+  name: 'RedirectOnLogin',
+  mapStateToProp: state => ({ isLogin: isLoginSelector(state) }),
+  shouldRedirect: get('isLogin'),
+  redirectPath: '/',
+  omitProps: 'isLogin'
+})
 
 export default redirectOnLogin
