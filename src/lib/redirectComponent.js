@@ -8,7 +8,7 @@ import branch from 'recompose/branch'
 import renderComponent from 'recompose/renderComponent'
 import omitPropsHOC from './omitProps'
 
-export const redirectComponent = ({
+const redirectComponent = ({
   name,
   mapStateToProp,
   shouldRedirect,
