@@ -43,9 +43,24 @@ const presets = [
   'react'
 ]
 
-if (__PROD__) {
-  presets.push('react-optimize')
-}
+const basePlugins = [
+  'transform-runtime',
+  'transform-decorators-legacy',
+  'transform-class-properties',
+  'transform-export-extensions',
+  'transform-object-rest-spread',
+  'syntax-dynamic-import',
+  'dev-expression'
+]
+
+const prodPlugins = [
+  ['transform-react-remove-prop-types', { removeImport: true }],
+  'transform-react-pure-class-to-function',
+  'transform-react-inline-elements',
+  'transform-react-constant-elements'
+]
+
+const plugins = __PROD__ ? basePlugins.concat(prodPlugins) : basePlugins
 
 debug('Create config')
 
@@ -70,15 +85,7 @@ const webpackConfig = createConfig([
   pug(),
   json(),
   babel({
-    plugins: [
-      'transform-runtime',
-      'transform-decorators-legacy',
-      'transform-class-properties',
-      'transform-export-extensions',
-      'transform-object-rest-spread',
-      'syntax-dynamic-import',
-      'dev-expression'
-    ],
+    plugins,
     presets
   }),
   sass(),

@@ -25,7 +25,12 @@
   ],
   "env": {
     "production": {
-      "presets": ["react-optimize"]
+      "plugins": [
+        ["transform-react-remove-prop-types", { "removeImport": true }],
+        "transform-react-pure-class-to-function",
+        "transform-react-inline-elements",
+        "transform-react-constant-elements"
+      ]
     }
   }
 }
