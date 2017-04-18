@@ -17,11 +17,12 @@ const redirectComponent = ({
   actions,
   omitProps = []
 }) => WrappedComponent => {
+  const redirect = <Redirect to={ redirectPath } />
   const redirectComponentHOC = props => {
     if (cleanUp) {
       cleanUp(props)
     }
-    return <Redirect to={ redirectPath } />
+    return redirect
   }
 
   return compose(
