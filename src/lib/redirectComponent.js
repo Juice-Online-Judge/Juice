@@ -1,3 +1,4 @@
+import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import setDisplayName from 'recompose/setDisplayName'
@@ -5,7 +6,6 @@ import wrapDisplayName from 'recompose/wrapDisplayName'
 import compose from 'recompose/compose'
 import branch from 'recompose/branch'
 import renderComponent from 'recompose/renderComponent'
-import createEagerElement from 'recompose/createEagerElement'
 import omitPropsHOC from './omitProps'
 
 const redirectComponent = ({
@@ -17,7 +17,7 @@ const redirectComponent = ({
   actions,
   omitProps = []
 }) => WrappedComponent => {
-  const redirect = createEagerElement(Redirect, { to: redirectPath })
+  const redirect = <Redirect to={ redirectPath } />
   const redirectComponentHOC = props => {
     if (cleanUp) {
       cleanUp(props)
