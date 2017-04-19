@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Link} from 'react-router-dom'
-import {connect} from 'react-redux'
-import {bind} from 'decko'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import MuiAppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
@@ -15,7 +14,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import LeftNav from './LeftNav'
 import MenuLinkItem from './MenuLinkItem'
 
-import {fetchUserInfo, logout} from 'redux/modules/account'
+import { fetchUserInfo, logout } from 'redux/modules/account'
 import commonStyles from 'lib/styles'
 
 export class AppBar extends React.Component {
@@ -23,17 +22,12 @@ export class AppBar extends React.Component {
     this.props.fetchUserInfo()
   }
 
-  @bind logout() {
-    this.props.logout()
+  handleClose = () => {
+    this.setState({ open: false })
   }
 
-  @bind handleClose() {
-    this.setState({open: false})
-  }
-
-  @bind handleToggle() {
-    const open = !this.state.open
-    this.setState({open})
+  handleToggle = () => {
+    this.setState(({open}) => ({ open: !open }))
   }
 
   get leftMenu() {
@@ -45,7 +39,7 @@ export class AppBar extends React.Component {
   }
 
   get rightMenu() {
-    const {account} = this.props
+    const { account, logout } = this.props
     if (account.get('state')) {
       return (
         <div>
@@ -53,11 +47,10 @@ export class AppBar extends React.Component {
             <FlatButton labelStyle={ commonStyles.whiteColor } label='About us' />
           </Link>
           <span
-            style={ Object.assign(
-              {},
-              commonStyles.whiteColor,
-              styles.verticalAlign
-            ) }>
+            style={ {
+              ...commonStyles.whiteColor,
+              ...styles.verticalAlign
+            } }>
             {account.getIn(['user', 'nickname'])}
           </span>
           <IconMenu
@@ -69,7 +62,7 @@ export class AppBar extends React.Component {
             targetOrigin={ styles.origin }
             anchorOrigin={ styles.origin }>
             <MenuLinkItem primaryText='Submission' to='/submissions' />
-            <MenuItem primaryText='Logout' onTouchTap={ this.logout } />
+            <MenuItem primaryText='Logout' onTouchTap={ logout } />
           </IconMenu>
         </div>
       )
@@ -107,20 +100,20 @@ export class AppBar extends React.Component {
 
   state = {
     open: false
-  }
+  };
 
   static propTypes = {
     account: PropTypes.object.isRequired,
     fetchUserInfo: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired
-  }
+  };
 }
 
 export default connect(
   state => ({
     account: state.account
   }),
-  {fetchUserInfo, logout}
+  { fetchUserInfo, logout }
 )(AppBar)
 
 const styles = {
