@@ -8,9 +8,8 @@ html
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto:400,300,500')
     link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css')
-    script(src='/vendor/fallback/fallback.min.js' defer=true)
-    script(src='/vendor/fallback.config.js' defer=true)
     base(href='/')
   body
     #root(style='height: 100%')
+    script(src='https://cdn.polyfill.io/v2/polyfill.min.js' defer=true)
     script(src!='https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit', async=true, defer=true)

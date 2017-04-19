@@ -27,8 +27,6 @@ deployment:
       - cp .env.example .env
       - npm rebuild node-sass # Temp sol for https://github.com/sass/node-sass/issues/1804
       - yarn run deploy
-      - yarn global add bower
-      - bower install
       - ssh circleci@juice.cs.ccu.edu.tw
       - |
         sftp circleci_sftp@juice.cs.ccu.edu.tw <<EOF
@@ -37,8 +35,7 @@ deployment:
         put public/*.css
         put public/*.map
         put public/*.gz
-        put -r public/vendor
         cd /html/resources/views
         put resources/views/main.blade.php
         EOF
-      - tar -jcvf "$CIRCLE_ARTIFACTS/bundle.tar.bz2" public/*.js public/*.css public/*.map public/vendor resources/views/main.blade.php
+      - tar -jcvf "$CIRCLE_ARTIFACTS/bundle.tar.bz2" public/*.js public/*.css public/*.map resources/views/main.blade.php
