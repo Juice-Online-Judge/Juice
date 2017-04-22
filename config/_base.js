@@ -1,7 +1,7 @@
 /* eslint key-spacing:0 spaced-comment:0 */
 import _debug from 'debug'
 import path from 'path'
-import {argv} from 'yargs'
+import { argv } from 'yargs'
 
 const debug = _debug('app:config:_base')
 const config = {
@@ -47,6 +47,7 @@ const config = {
     'normalizr',
     'pinkie',
     'react',
+    'react-dom',
     'react-redux',
     'react-router-dom',
     'redux',
@@ -66,7 +67,10 @@ const config = {
   // Test Configuration
   // ----------------------------------
   coverage_enabled: !argv.watch,
-  coverage_reporters: [{type: 'text-summary'}, {type: 'html', dir: 'coverage'}]
+  coverage_reporters: [
+    { type: 'text-summary' },
+    { type: 'html', dir: 'coverage' }
+  ]
 }
 
 /************************************************
