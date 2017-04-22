@@ -10,7 +10,7 @@ import {
   setDevTool,
   sourceMaps
 } from '@webpack-blocks/webpack2'
-import babel from '@webpack-blocks/babel6'
+import babel from './babel'
 import postcss from '@webpack-blocks/postcss'
 import cssmodules from '@webpack-blocks/css-modules'
 import extractText from '@webpack-blocks/extract-text2'
@@ -85,6 +85,7 @@ const webpackConfig = createConfig([
   pug(),
   json(),
   babel({
+    babelrc: false,
     plugins,
     presets
   }),
@@ -98,6 +99,11 @@ const webpackConfig = createConfig([
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor'],
       chunks: ['app']
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      async: true,
+      children: true,
+      minChunks: 3
     }),
     new webpack.LoaderOptionsPlugin({
       options: {
