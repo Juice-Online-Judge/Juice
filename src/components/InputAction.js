@@ -15,12 +15,10 @@ const InputAction = compose(
   setPropTypes({
     name: PropTypes.string.isRequired,
     message: PropTypes.object,
-    onChange: PropTypes.func.isRequired,
-    onKeyDown: PropTypes.func.isRequired,
     label: PropTypes.string.isRequired
   }),
   setDisplayName('InputAction')
-)(({message, name, label: floatingLabelText, ...rest}) => {
+)(({ message, name, label: floatingLabelText, ...rest }) => {
   const props = {
     floatingLabelText,
     name,
