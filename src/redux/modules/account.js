@@ -1,11 +1,11 @@
-import {createAction, handleActions} from 'redux-actions'
-import {Record, Map, List} from 'immutable'
+import { createAction, handleActions } from 'redux-actions'
+import { Record, Map, List } from 'immutable'
 import store from 'store/dist/store.modern'
-import {createSelector} from 'reselect'
-import {request} from './app'
-import {showMessage} from './message'
-import {validateForm} from './validation'
-import {renameKey} from 'lib/utils'
+import { createSelector } from 'reselect'
+import { request } from './app'
+import { showMessage } from './message'
+import { validateForm, setValidationMessage } from './validation'
+import { renameKey } from 'lib/utils'
 
 export const AccountRecord = new Record({
   valid: false,
@@ -47,7 +47,7 @@ export const setUserInfo = createAction(SET_USER_INFO, payload => {
 export const clearUser = createAction(CLEAR_USER)
 
 export const login = (username, password) => dispatch => {
-  const data = {username, password}
+  const data = { username, password }
   return dispatch(
     request(
       {
@@ -57,14 +57,14 @@ export const login = (username, password) => dispatch => {
       },
       data => {
         store.set('juice-token', data)
-        dispatch(fetchUserInfo({force: true}))
+        dispatch(fetchUserInfo({ force: true }))
       },
       error => {
         if (error instanceof Error) {
           throw error
         }
 
-        const {data} = error
+        const { data } = error
 
         if (data && data.message) {
           dispatch(showMessage(data.message))
@@ -76,7 +76,7 @@ export const login = (username, password) => dispatch => {
 
 export const oauthLogin = token => dispatch => {
   store.set('juice-token', token)
-  dispatch(fetchUserInfo({force: true}))
+  dispatch(fetchUserInfo({ force: true }))
 }
 
 export const logout = () => dispatch => {
@@ -93,12 +93,12 @@ export const logout = () => dispatch => {
   )
 }
 
-export const fetchUserInfo = (options = {force: false}) => (
+export const fetchUserInfo = (options = { force: false }) => (
   dispatch,
   getState
 ) => {
-  const {force} = options
-  const {account} = getState()
+  const { force } = options
+  const { account } = getState()
   if (account.get('valid') && !force) {
     return
   }
@@ -144,6 +144,13 @@ export const registerUser = info => dispatch => {
       data => {
         store.set('juice-token', data)
         dispatch(setUserInfo(info))
+      },
+      err => {
+        if (err.response.status === 422) {
+          dispatch(
+            setValidationMessage('SignUpView', err.response.data.errors)
+          )
+        }
       }
     )
   )
@@ -184,11 +191,11 @@ export const actions = {
 
 export default handleActions(
   {
-    [SET_LOGIN_STATE]: (state, {payload}) =>
-      state.merge({valid: true, state: payload}),
-    [SET_USER_INFO]: (state, {payload}) =>
-      state.merge({valid: true, state: true, user: payload}),
-    [CLEAR_USER]: state => state.merge({valid: true, state: false, user: {}})
+    [SET_LOGIN_STATE]: (state, { payload }) =>
+      state.merge({ valid: true, state: payload }),
+    [SET_USER_INFO]: (state, { payload }) =>
+      state.merge({ valid: true, state: true, user: payload }),
+    [CLEAR_USER]: state => state.merge({ valid: true, state: false, user: {} })
   },
   initialState
 )
