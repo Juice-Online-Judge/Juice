@@ -1,15 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {StyleRoot} from 'radium'
 import setPropTypes from 'recompose/setPropTypes'
 import setDisplayName from 'recompose/setDisplayName'
 import compose from 'recompose/compose'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-import 'github-markdown-css'
-import 'codemirror/lib/codemirror.css'
-import '../../styles/core.scss'
-import theme from '../../themes/light'
+import 'styles/core.scss'
+import theme from 'themes/light'
 
 import AppBar from 'components/AppBar'
 
@@ -18,14 +15,12 @@ export const CoreLayout = compose(
   setPropTypes({
     children: PropTypes.element
   })
-)(({children}) => (
+)(({ children }) => (
   <MuiThemeProvider muiTheme={ theme }>
     <div className='page-container' style={ styles.container }>
       <div className='view-container' style={ styles.container }>
-        <StyleRoot>
-          <AppBar />
-          {children}
-        </StyleRoot>
+        <AppBar />
+        {children}
       </div>
     </div>
   </MuiThemeProvider>
