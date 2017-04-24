@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { css } from 'glamor'
 
 import { Row, Col } from 'react-flexbox-grid'
 import { Link } from 'react-router-dom'
@@ -13,7 +14,12 @@ import CodeIcon from 'material-ui/svg-icons/action/code'
 
 const PENDING = 'PENDING'
 const REVIEWING = 'AC (Reviewing)'
-const HIDE_CLASS = 'xs-hide sm-hide'
+
+const smHidden = css({
+  '@media (max-width: 52em)': {
+    display: 'none'
+  }
+})
 
 const getResult = ({ result, needReview }) => {
   if (!result) {
@@ -84,13 +90,13 @@ export class Submission extends Component {
                 {resultText}
               </span>
             </Col>
-            <Col className={ HIDE_CLASS } style={ styles.upperCase } md={ 1 }>
+            <Col { ...smHidden } style={ styles.upperCase } md={ 1 }>
               {language}
             </Col>
-            <Col className={ HIDE_CLASS } md={ 1 }>
+            <Col { ...smHidden } md={ 1 }>
               {time || 'N/A'} s
             </Col>
-            <Col className={ HIDE_CLASS } md={ 1 }>
+            <Col { ...smHidden } md={ 1 }>
               {memory || 'N/A'} MB
             </Col>
             <Col xs={ 1 }>
