@@ -58,7 +58,6 @@ const config = {
     'react-tap-event-plugin',
     'reselect',
     'recompose',
-    'radium',
     'store',
     'validate.js'
   ],
