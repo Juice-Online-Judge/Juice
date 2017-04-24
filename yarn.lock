@@ -3615,9 +3615,9 @@ glamor@next:
     fbjs "^0.8.8"
     object-assign "^4.1.0"
 
-glamorous@^3.10.0:
-  version "3.10.0"
-  resolved "https://registry.yarnpkg.com/glamorous/-/glamorous-3.10.0.tgz#15f30f1df468dae24defcf98d405b1daf425fe8c"
+glamorous@^3.11.0:
+  version "3.11.0"
+  resolved "https://registry.yarnpkg.com/glamorous/-/glamorous-3.11.0.tgz#e7a4feb7aa72bba31db87607145a42f6979994e2"
   dependencies:
     brcast "^2.0.0"
     fast-memoize "^2.2.7"
@@ -6272,7 +6272,7 @@ promise@^7.0.1, promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.0.0, prop-types@^15.5.4, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@~15.5.7:
+prop-types@^15.0.0, prop-types@^15.5.0, prop-types@^15.5.4, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@~15.5.7:
   version "15.5.8"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.8.tgz#6b7b2e141083be38c8595aa51fc55775c7199394"
   dependencies:
@@ -6502,11 +6502,12 @@ react-addons-transition-group@^15.4.0:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
 
-react-clipboard.js@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/react-clipboard.js/-/react-clipboard.js-1.0.1.tgz#56dea0547c13977cd1a1650fc740e0349aa90bdf"
+react-clipboard.js@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-clipboard.js/-/react-clipboard.js-1.1.1.tgz#66dae95e4286c332f093c21a9fdf4c7b1f88ee65"
   dependencies:
     clipboard "^1.4.0"
+    prop-types "^15.5.0"
 
 react-codemirror@^0.3.0:
   version "0.3.0"
@@ -6546,11 +6547,12 @@ react-event-listener@^0.4.5:
     prop-types "^15.5.4"
     warning "^3.0.0"
 
-react-flexbox-grid@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-flexbox-grid/-/react-flexbox-grid-1.0.2.tgz#28e33b0d346427502ba454a7be51406266d78f9f"
+react-flexbox-grid@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-flexbox-grid/-/react-flexbox-grid-1.1.0.tgz#db8021cfa176895297b23a8651b4d2d48b61a793"
   dependencies:
     flexboxgrid "^6.3.0"
+    prop-types "^15.5.8"
 
 react-fuzzy@^0.3.3:
   version "0.3.3"
