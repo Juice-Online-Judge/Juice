@@ -1,11 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {bind} from 'decko'
+import { connect } from 'react-redux'
 import compose from 'recompose/compose'
-import Radium from 'radium'
 
-import {registerUser} from 'redux/modules/account'
+import { registerUser } from 'redux/modules/account'
 
 import Paper from 'material-ui/Paper'
 import Card from 'material-ui/Card/Card'
@@ -47,35 +45,35 @@ const inputs = [
 ]
 
 export class SignUpView extends React.Component {
-  @bind handleChange(event) {
+  handleChange = event => {
     const newState = {}
     newState[event.target.name] = event.target.value
     this.setData(newState)
-  }
+  };
 
   signup() {
     this.props.registerUser(this.data)
   }
 
-  @bind handleVerify(response) {
-    this.setData({'g-recaptcha-response': response})
+  handleVerify = response => {
+    this.setData({ 'g-recaptcha-response': response })
     this.signup()
-  }
+  };
 
-  @bind handleExpired() {
+  handleExpired = () => {
     Reflect.deleteProperty(this.data, 'g-recaptcha-response')
-  }
+  };
 
-  @bind handleClick(event) {
+  handleClick = event => {
     event.preventDefault()
     if (!Reflect.has(this.data, 'g-recaptcha-response')) {
       return
     }
     this.signup()
-  }
+  };
 
   setData(newData) {
-    this.data = {...this.data, ...newData}
+    this.data = { ...this.data, ...newData }
   }
 
   render() {
@@ -85,7 +83,7 @@ export class SignUpView extends React.Component {
         <Paper zDepth={ 3 } style={ styles.marginTop20 }>
           <Card>
             <CardTitle title='SignUp' />
-            {inputs.map(({name, label, ...rest}) => (
+            {inputs.map(({ name, label, ...rest }) => (
               <InputAction
                 key={ name }
                 name={ name }
@@ -114,17 +112,16 @@ export class SignUpView extends React.Component {
     password: '',
     email: '',
     passwordConfirm: ''
-  }
+  };
 
   static propTypes = {
     validation: PropTypes.object.isRequired,
     registerUser: PropTypes.func.isRequired
-  }
+  };
 }
 
 export default compose(
   redirectOnLogin,
-  connect(state => ({loginState: state.account}), {registerUser}),
-  validateForm(rule),
-  Radium
+  connect(state => ({ loginState: state.account }), { registerUser }),
+  validateForm(rule)
 )(SignUpView)
