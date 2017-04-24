@@ -98,7 +98,6 @@
     "prop-types": "^15.5.8",
     "qhistory": "^1.0.0",
     "qs": "^6.4.0",
-    "radium": "^0.18.1",
     "react": "^15.5.4",
     "react-clipboard.js": "^1.0.1",
     "react-codemirror": "^0.3.0",
