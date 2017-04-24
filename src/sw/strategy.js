@@ -1,19 +1,19 @@
 const CACHE_NAME = 'v1'
 
-export function preCache(list) {
+export function preCache (list) {
   return caches.open(CACHE_NAME).then(cache => {
     return cache.addAll(list)
   })
 }
 
-export function cacheFirst(request) {
+export function cacheFirst (request) {
   return caches.match(request).then(response => {
     const fetchPromise = fetchAndCache(request)
     return response || fetchPromise
   })
 }
 
-export function networkAndCache(request) {
+export function networkAndCache (request) {
   return fetch(request)
     .then(response => {
       return caches
@@ -30,7 +30,7 @@ export function networkAndCache(request) {
     })
 }
 
-export function networkFirst(request) {
+export function networkFirst (request) {
   return fetch(request)
     .then(response => {
       return updateCache(request, response)
@@ -40,11 +40,11 @@ export function networkFirst(request) {
     })
 }
 
-export function networkOnly(request) {
+export function networkOnly (request) {
   return fetch(request)
 }
 
-export function fetchAndCache(request) {
+export function fetchAndCache (request) {
   return fetch(request)
     .then(response => {
       return updateCache(request, response)
@@ -52,7 +52,7 @@ export function fetchAndCache(request) {
     .catch(() => null)
 }
 
-export function updateCache(request, response) {
+export function updateCache (request, response) {
   const url = new URL(request.url)
 
   if (url.hostname !== 'localhost' && url.protocol !== 'https') {

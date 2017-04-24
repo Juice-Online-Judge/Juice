@@ -16,8 +16,8 @@ const SwitchButton = compose(
   }),
   setDisplayName('Filter')
 )(({examId, func}) => (
-  <Link to={ `/exams/${examId}/${func}` }>
-    <FloatingActionButton style={ styles.floatBtn }>
+  <Link to={`/exams/${examId}/${func}`}>
+    <FloatingActionButton style={styles.floatBtn}>
       <FlipToFrontIcon />
     </FloatingActionButton>
   </Link>

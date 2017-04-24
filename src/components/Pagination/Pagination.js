@@ -6,33 +6,33 @@ import CenterBlock from 'layouts/CenterBlock'
 import PageButton from './PageButton'
 
 export class Pagination extends Component {
-  get prevButton() {
+  get prevButton () {
     const {baseUrl, current} = this.props
 
     return (
       <PageButton
-        baseUrl={ baseUrl }
-        page={ current - 1 }
-        disabled={ current === 1 }
+        baseUrl={baseUrl}
+        page={current - 1}
+        disabled={current === 1}
         label='Prev'
-        onTouchTap={ this.props.onChange } />
+        onTouchTap={this.props.onChange} />
     )
   }
 
-  get nextButton() {
+  get nextButton () {
     const {baseUrl, current, maxPage} = this.props
 
     return (
       <PageButton
-        baseUrl={ baseUrl }
-        page={ current + 1 }
-        disabled={ current === maxPage }
+        baseUrl={baseUrl}
+        page={current + 1}
+        disabled={current === maxPage}
         label='Next'
-        onTouchTap={ this.props.onChange } />
+        onTouchTap={this.props.onChange} />
     )
   }
 
-  get pagination() {
+  get pagination () {
     const {baseUrl, current, maxPage} = this.props
     let min = current - 4
     // Calculate min page
@@ -50,18 +50,18 @@ export class Pagination extends Component {
       const page = min + i
       return (
         <PageButton
-          key={ i }
-          baseUrl={ baseUrl }
-          primary={ page === current }
-          style={ styles.page }
-          labelStyle={ styles.noPadding }
-          page={ page }
-          onTouchTap={ this.props.onChange } />
+          key={i}
+          baseUrl={baseUrl}
+          primary={page === current}
+          style={styles.page}
+          labelStyle={styles.noPadding}
+          page={page}
+          onTouchTap={this.props.onChange} />
       )
     })
   }
 
-  render() {
+  render () {
     const {prevButton, pagination, nextButton} = this
     return (
       <CenterBlock fullwidth>

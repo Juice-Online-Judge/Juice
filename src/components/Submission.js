@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import { css } from 'glamor'
+import {css} from 'glamor'
 
-import { Row, Col } from 'react-flexbox-grid'
-import { Link } from 'react-router-dom'
+import {Row, Col} from 'react-flexbox-grid'
+import {Link} from 'react-router-dom'
 import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
 import IconButton from 'material-ui/IconButton'
@@ -21,7 +21,7 @@ const smHidden = css({
   }
 })
 
-const getResult = ({ result, needReview }) => {
+const getResult = ({result, needReview}) => {
   if (!result) {
     return PENDING
   }
@@ -34,23 +34,23 @@ const getResult = ({ result, needReview }) => {
 
 export class Submission extends Component {
   handleFilterQuestion = () => {
-    const { quesUuid } = this.props
-    this.addFilter({ question: quesUuid })
-  };
+    const {quesUuid} = this.props
+    this.addFilter({question: quesUuid})
+  }
 
   handleFilterUser = () => {
-    const { userId } = this.props
-    this.addFilter({ user: userId })
-  };
+    const {userId} = this.props
+    this.addFilter({user: userId})
+  }
 
-  addFilter(filter) {
-    const { addFilter } = this.props
+  addFilter (filter) {
+    const {addFilter} = this.props
     if (addFilter) {
       addFilter(filter)
     }
   }
 
-  render() {
+  render () {
     const {
       id,
       addFilter,
@@ -64,62 +64,62 @@ export class Submission extends Component {
       result,
       needReview
     } = this.props
-    const resultText = getResult({ result, needReview })
-    const resultStyle = { color: resultColor[result] || resultColor['fail'] }
+    const resultText = getResult({result, needReview})
+    const resultStyle = {color: resultColor[result] || resultColor['fail']}
     const origQuesUrl = `/questions/${quesUuid}`
     const quesUrl = examId ? `/exams/${examId}${origQuesUrl}` : origQuesUrl
     const origSubUrl = `/submissions/${id}/code`
     const subUrl = examId ? `/exams/${examId}${origSubUrl}` : origSubUrl
     return (
       <Card>
-        <CardText style={ styles.padding }>
+        <CardText style={styles.padding}>
           <Row middle='xs'>
-            <Col xs={ 1 }>
+            <Col xs={1}>
               {id}
             </Col>
-            <Col xs={ addFilter ? 6 : 7 } md={ addFilter ? 4 : 5 }>
-              <Link to={ quesUrl }>
+            <Col xs={addFilter ? 6 : 7} md={addFilter ? 4 : 5}>
+              <Link to={quesUrl}>
                 {title}
               </Link>
             </Col>
-            <Col xs={ 1 }>
+            <Col xs={1}>
               {examId ? username : null}
             </Col>
-            <Col xs={ 2 } md={ 1 }>
-              <span style={ resultStyle }>
+            <Col xs={2} md={1}>
+              <span style={resultStyle}>
                 {resultText}
               </span>
             </Col>
-            <Col { ...smHidden } style={ styles.upperCase } md={ 1 }>
+            <Col {...smHidden} style={styles.upperCase} md={1}>
               {language}
             </Col>
-            <Col { ...smHidden } md={ 1 }>
+            <Col {...smHidden} md={1}>
               {time || 'N/A'} s
             </Col>
-            <Col { ...smHidden } md={ 1 }>
+            <Col {...smHidden} md={1}>
               {memory || 'N/A'} MB
             </Col>
-            <Col xs={ 1 }>
-              <Link to={ subUrl }>
+            <Col xs={1}>
+              <Link to={subUrl}>
                 <IconButton tooltip='View Code'>
                   <CodeIcon />
                 </IconButton>
               </Link>
             </Col>
             {addFilter
-              ? <Col xs={ 1 }>
+              ? <Col xs={1}>
                 <IconMenu
                   iconButtonElement={
                     <IconButton> <MoreVertIcon /> </IconButton>
                     }
-                  anchorOrigin={ styles.origin }
-                  targetOrigin={ styles.origin }>
+                  anchorOrigin={styles.origin}
+                  targetOrigin={styles.origin}>
                   <MenuItem
                     primaryText='Filter by this question'
-                    onTouchTap={ this.handleFilterQuestion } />
+                    onTouchTap={this.handleFilterQuestion} />
                   <MenuItem
                     primaryText='Filter by this user'
-                    onTouchTap={ this.handleFilterUser } />
+                    onTouchTap={this.handleFilterUser} />
                 </IconMenu>
               </Col>
               : null}
@@ -142,7 +142,7 @@ export class Submission extends Component {
     time: PropTypes.string,
     memory: PropTypes.string,
     result: PropTypes.string
-  };
+  }
 }
 
 const resultColor = {

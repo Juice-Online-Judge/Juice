@@ -18,21 +18,21 @@ const fetchLastCommit = async project => {
 }
 
 class LastUpdateDisplay extends Component {
-  async componentDidMount() {
+  async componentDidMount () {
     const {project} = this.props
     const log = await fetchLastCommit(project)
     this.setState({log})
   }
 
-  render() {
+  render () {
     const {log} = this.state
 
     return (
-      <span style={ styles.marginLeft }>
+      <span style={styles.marginLeft}>
         Last update:
         {log
           ? <span>
-            <a href={ log.url }> {log.hash} </a>
+            <a href={log.url}> {log.hash} </a>
             {' '}
               from
               {' '}

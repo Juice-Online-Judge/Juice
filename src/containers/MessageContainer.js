@@ -6,22 +6,22 @@ import Message from 'components/Message'
 import {setOpen} from 'redux/modules/message'
 
 export class MessageContainer extends Component {
-  @bind handleClose() {
+  @bind handleClose () {
     this.props.setOpen(false)
     if (this.props.onRequestClose) {
       this.props.onRequestClose()
     }
   }
 
-  render() {
+  render () {
     const {children, messageStore, message} = this.props
     return (
       <div>
         {children}
         <Message
-          open={ messageStore.get('open') }
-          message={ message || messageStore.get('message') }
-          onRequestClose={ this.handleClose } />
+          open={messageStore.get('open')}
+          message={message || messageStore.get('message')}
+          onRequestClose={this.handleClose} />
       </div>
     )
   }

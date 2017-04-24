@@ -19,42 +19,42 @@ import BulletedIcon from 'material-ui/svg-icons/editor/format-list-bulleted'
 import NumberedIcon from 'material-ui/svg-icons/editor/format-list-numbered'
 
 class MarkdownEditor extends Component {
-  shouldComponentUpdate(_nextProps, nextState) {
+  shouldComponentUpdate (_nextProps, nextState) {
     return !shallowEqual(this.state, nextState)
   }
 
-  @bind handlePreviewToggle() {
+  @bind handlePreviewToggle () {
     this.setState({preview: !this.state.preview})
   }
 
-  @bind getTextField(textField) {
+  @bind getTextField (textField) {
     this.textField = textField
   }
 
-  @bind handleSelect(event) {
+  @bind handleSelect (event) {
     this.selectionStart = event.target.selectionStart
     this.selectionEnd = event.target.selectionEnd
   }
 
-  @bind handleBold() {
+  @bind handleBold () {
     this.appendOrWrapText('****')
   }
 
-  @bind handleItalic() {
+  @bind handleItalic () {
     this.appendOrWrapText('__')
   }
 
-  @bind handleBulleted() {
+  @bind handleBulleted () {
     const {text} = this.state
     this.appendText(text ? '\n- ' : '- ')
   }
 
-  @bind handleNumbered() {
+  @bind handleNumbered () {
     const {text} = this.state
     this.appendText(text ? '\n1. ' : '1. ')
   }
 
-  appendOrWrapText(addText) {
+  appendOrWrapText (addText) {
     if (this.isSelection()) {
       this.wrapText(addText)
     } else {
@@ -62,7 +62,7 @@ class MarkdownEditor extends Component {
     }
   }
 
-  wrapText(wrappedText) {
+  wrapText (wrappedText) {
     wrappedText = wrappedText.substr(0, wrappedText.length / 2)
     const start = this.selectionStart
     const end = this.selectionEnd
@@ -80,26 +80,26 @@ class MarkdownEditor extends Component {
     )
   }
 
-  appendTextAndMoveCursor(appendText) {
+  appendTextAndMoveCursor (appendText) {
     const {text} = this.state
     this.setState({text: `${text}${appendText}`}, () => {
       this.moveCursorBack(appendText.length / 2)
     })
   }
 
-  appendText(appendText) {
+  appendText (appendText) {
     const {text} = this.state
     this.setState({text: `${text}${appendText}`}, () => {
       this.moveCursorBack(0)
     })
   }
 
-  moveCursorBack(count) {
+  moveCursorBack (count) {
     const {text} = this.state
     this.moveCursor(text.length - count)
   }
 
-  moveCursor(pos) {
+  moveCursor (pos) {
     const {preview} = this.state
     if (preview) {
       return
@@ -109,14 +109,14 @@ class MarkdownEditor extends Component {
     this.textField.focus()
   }
 
-  isSelection() {
+  isSelection () {
     if (isUndefined(this.selectionStart)) {
       return false
     }
     return this.selectionStart !== this.selectedEnd
   }
 
-  @bind handleChange(event) {
+  @bind handleChange (event) {
     const {onChange} = this.props
     const {value} = event.target
     this.setState({
@@ -128,47 +128,47 @@ class MarkdownEditor extends Component {
     }
   }
 
-  render() {
+  render () {
     const {preview, text} = this.state
     return (
       <div>
         <Toolbar>
           <ToolbarGroup firstChild>
             <FlatButton
-              icon={ <EditIcon /> }
-              style={ preview ? styles.none : styles.active }
-              label={ preview ? 'Preview' : 'Edit' }
-              onTouchTap={ this.handlePreviewToggle } />
+              icon={<EditIcon />}
+              style={preview ? styles.none : styles.active}
+              label={preview ? 'Preview' : 'Edit'}
+              onTouchTap={this.handlePreviewToggle} />
           </ToolbarGroup>
           <ToolbarGroup>
             <ToolbarTitle>
               Markdown Editor
             </ToolbarTitle>
-            <IconButton disabled={ preview } onTouchTap={ this.handleBold }>
+            <IconButton disabled={preview} onTouchTap={this.handleBold}>
               <BoldIcon />
             </IconButton>
-            <IconButton disabled={ preview } onTouchTap={ this.handleItalic }>
+            <IconButton disabled={preview} onTouchTap={this.handleItalic}>
               <ItalicIcon />
             </IconButton>
-            <IconButton disabled={ preview } onTouchTap={ this.handleBulleted }>
+            <IconButton disabled={preview} onTouchTap={this.handleBulleted}>
               <BulletedIcon />
             </IconButton>
-            <IconButton disabled={ preview } onTouchTap={ this.handleNumbered }>
+            <IconButton disabled={preview} onTouchTap={this.handleNumbered}>
               <NumberedIcon />
             </IconButton>
           </ToolbarGroup>
         </Toolbar>
         {preview
-          ? <div style={ {height: '15em'} }>
-            <Markdown source={ text || 'Nothing to preview' } />
+          ? <div style={{height: '15em'}}>
+            <Markdown source={text || 'Nothing to preview'} />
           </div>
           : <TextField
-            ref={ this.getTextField }
-            onChange={ this.handleChange }
-            onSelect={ this.handleSelect }
-            value={ text }
+            ref={this.getTextField}
+            onChange={this.handleChange}
+            onSelect={this.handleSelect}
+            value={text}
             multiLine
-            rows={ 10 }
+            rows={10}
             hintText='Input here'
             fullWidth />}
       </div>

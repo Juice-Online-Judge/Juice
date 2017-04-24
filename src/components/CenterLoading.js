@@ -18,7 +18,7 @@ export const CenterLoading = compose(
   return (
     <Row center='xs'>
       <Col>
-        <RefreshIndicator status={ status } left={ left } top={ 10 } />
+        <RefreshIndicator status={status} left={left} top={10} />
       </Col>
     </Row>
   )

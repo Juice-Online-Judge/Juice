@@ -9,7 +9,7 @@ const BlankLink = compose(
     children: PropTypes.node.isRequired
   })
 )(({href, children}) => (
-  <a href={ href } target='_blank' rel='noopener noreferrer'>
+  <a href={href} target='_blank' rel='noopener noreferrer'>
     {children}
   </a>
 ))

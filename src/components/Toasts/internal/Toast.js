@@ -3,16 +3,16 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
 class Toast extends Component {
-  componentDidMount() {
+  componentDidMount () {
     const {id, timeout, onRequestClose} = this.props
     setTimeout(() => onRequestClose(id), timeout)
   }
 
-  render() {
+  render () {
     const {children, style} = this.props
 
     return (
-      <div style={ style }>
+      <div style={style}>
         {children}
       </div>
     )

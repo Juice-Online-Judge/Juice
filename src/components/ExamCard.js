@@ -18,8 +18,8 @@ const ExamCard = compose(
   }),
   setDisplayName('ExamCard')
 )(({id, name, beganTime, endedTime}) => (
-  <Link to={ `/exams/${id}` } style={ styles.noUnderline }>
-    <TitleCard title={ name } subtitle={ `${beganTime} ~ ${endedTime}` } />
+  <Link to={`/exams/${id}`} style={styles.noUnderline}>
+    <TitleCard title={name} subtitle={`${beganTime} ~ ${endedTime}`} />
   </Link>
 ))
 

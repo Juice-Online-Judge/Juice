@@ -14,7 +14,7 @@ module.exports = babel
  * @param {string[]}                [options.presets]   Babel presets to use.
  * @return {Function}
  */
-function babel(options) {
+function babel (options) {
   options = options || {}
 
   const babelDefaultConfig = {
@@ -49,17 +49,17 @@ function babel(options) {
       // Return empty config snippet (configuration will be created by the post hook)
       return {}
     },
-    { post: postConfig }
+    {post: postConfig}
   )
 }
 
-function postConfig(context) {
+function postConfig (context) {
   const exclude = context.babel.exclude
   const include = context.babel.include
 
   const babelOptions = Object.assign({}, context.babel)
-  delete babelOptions.exclude
-  delete babelOptions.include
+  Reflect.deleteProperty(babelOptions, 'exclude')
+  Reflect.deleteProperty(babelOptions, 'include')
 
   const loaderConfig = Object.assign(
     {

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 
 import setDisplayName from 'recompose/setDisplayName'
 import setPropTypes from 'recompose/setPropTypes'
@@ -14,8 +14,8 @@ import Markdown from './Markdown'
 
 import SubmitCode from './SubmitCode'
 
-import { fetchQuestionDetail, questionSelector } from 'redux/modules/question'
-import { fetchExamQuestion } from 'redux/modules/exam'
+import {fetchQuestionDetail, questionSelector} from 'redux/modules/question'
+import {fetchExamQuestion} from 'redux/modules/exam'
 
 export const Question = compose(
   setDisplayName('Question'),
@@ -24,9 +24,9 @@ export const Question = compose(
     examId: PropTypes.string,
     question: PropTypes.object.isRequired
   })
-)(({ uuid, examId, question }) => (
+)(({uuid, examId, question}) => (
   <Card>
-    <CardTitle title={ question.get('title') } subtitle={ `uuid: ${uuid}` } />
+    <CardTitle title={question.get('title')} subtitle={`uuid: ${uuid}`} />
     <CardText>
       <div>
         Time limit: {question.getIn(['judge', 'restriction', 'time'])} s
@@ -39,10 +39,10 @@ export const Question = compose(
       </div>
     </CardText>
     <CardText>
-      <Markdown source={ question.get('description', '') } />
+      <Markdown source={question.get('description', '')} />
     </CardText>
     <CardActions>
-      <SubmitCode examId={ examId } uuid={ uuid } />
+      <SubmitCode examId={examId} uuid={uuid} />
     </CardActions>
   </Card>
 ))
@@ -51,11 +51,11 @@ export default connect(
   (state, props) => ({
     question: questionSelector(state, props)
   }),
-  { fetchQuestionDetail, fetchExamQuestion },
-  (state, { fetchExamQuestion, fetchQuestionDetail }, props) => {
-    const { uuid, examId } = props
-    const { question } = state
-    const mergedProps = { ...props, ...state }
+  {fetchQuestionDetail, fetchExamQuestion},
+  (state, {fetchExamQuestion, fetchQuestionDetail}, props) => {
+    const {uuid, examId} = props
+    const {question} = state
+    const mergedProps = {...props, ...state}
     if (question && question.get('detail')) {
       return mergedProps
     }
@@ -64,7 +64,7 @@ export default connect(
       // It an exam's question.
       fetchExamQuestion(examId)
     } else {
-      fetchQuestionDetail(uuid, { force: true })
+      fetchQuestionDetail(uuid, {force: true})
     }
     return mergedProps
   }

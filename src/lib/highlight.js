@@ -6,11 +6,11 @@ import 'prismjs/components/prism-cpp'
 
 global.Prism = Prism
 
-function isCpp(lang) {
+function isCpp (lang) {
   return lang === 'c++' || lang === 'cpp'
 }
 
-function getGrammer(lang) {
+function getGrammer (lang) {
   if (isCpp(lang)) {
     return Prism.languages.cpp
   } else {
@@ -18,7 +18,7 @@ function getGrammer(lang) {
   }
 }
 
-function reactify(token, key) {
+function reactify (token, key) {
   if (isString(token)) {
     return token
   }
@@ -28,13 +28,13 @@ function reactify(token, key) {
   }
 
   return (
-    <span className={ `token ${token.type}` } key={ key }>
+    <span className={`token ${token.type}`} key={key}>
       {reactify(token.content)}
     </span>
   )
 }
 
-export function highlightReact(code, lang) {
+export function highlightReact (code, lang) {
   const grammer = getGrammer(lang)
 
   if (!grammer) {
@@ -45,7 +45,7 @@ export function highlightReact(code, lang) {
   return reactify(tokens)
 }
 
-export function highlightString(code, lang) {
+export function highlightString (code, lang) {
   const grammer = getGrammer(lang)
 
   if (!grammer) {

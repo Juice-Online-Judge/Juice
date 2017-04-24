@@ -27,7 +27,7 @@ const copyDate = (origDate, date) => {
 }
 
 export class BasicInfoTab extends Component {
-  componentDidMount() {
+  componentDidMount () {
     this.props.fetchRole()
   }
 
@@ -63,13 +63,13 @@ export class BasicInfoTab extends Component {
     this.checkTime(this.state.beganTime, date)
   }
 
-  handleChange(data = {}) {
+  handleChange (data = {}) {
     // Fire change event
     this.props.onChange({...this.state, ...data})
     this.setState(data)
   }
 
-  checkTime(begin, end) {
+  checkTime (begin, end) {
     if (isAfter(end, begin)) {
       this.setState(() => ({
         errorText: ''
@@ -81,7 +81,7 @@ export class BasicInfoTab extends Component {
     }))
   }
 
-  render() {
+  render () {
     const {role} = this.props
 
     return (
@@ -90,63 +90,63 @@ export class BasicInfoTab extends Component {
           <TextField
             floatingLabelText='測驗名稱'
             fullWidth
-            onChange={ this.handleNameChange } />
+            onChange={this.handleNameChange} />
         </div>
         <Row>
-          <Col md={ 2 } xs={ 12 }>
+          <Col md={2} xs={12}>
             <Label>
               Begin time:
             </Label>
           </Col>
-          <Col md={ 4 } xs={ 12 }>
+          <Col md={4} xs={12}>
             <DatePicker
               hintText='Begin Date'
-              defaultDate={ now }
-              onChange={ this.handleBeganDateChange } />
+              defaultDate={now}
+              onChange={this.handleBeganDateChange} />
           </Col>
-          <Col md={ 4 } xs={ 12 }>
+          <Col md={4} xs={12}>
             <TimePicker
               hintText='Begin Time'
-              onChange={ this.handleBeganTimeChange }
-              value={ this.state.beganTime } />
+              onChange={this.handleBeganTimeChange}
+              value={this.state.beganTime} />
           </Col>
         </Row>
         <Row>
-          <Col md={ 2 } xs={ 12 }>
+          <Col md={2} xs={12}>
             <Label>
               End time:
             </Label>
           </Col>
-          <Col md={ 4 } xs={ 12 }>
+          <Col md={4} xs={12}>
             <DatePicker
               hintText='End Date'
-              errorText={ this.state.errorText }
-              defaultDate={ now }
-              onChange={ this.handleEndedDateChange } />
+              errorText={this.state.errorText}
+              defaultDate={now}
+              onChange={this.handleEndedDateChange} />
           </Col>
-          <Col md={ 4 } xs={ 12 }>
+          <Col md={4} xs={12}>
             <TimePicker
               hintText='End Time'
-              errorText={ this.state.errorText }
-              onChange={ this.handleEndedTimeChange }
-              value={ this.state.endedTime } />
+              errorText={this.state.errorText}
+              onChange={this.handleEndedTimeChange}
+              value={this.state.endedTime} />
           </Col>
         </Row>
         <Table
           height='200px'
           fixedHeader
           selectable
-          onRowSelection={ this.handleRoleSelect }>
-          <TableHeader enableSelectAll={ false }>
+          onRowSelection={this.handleRoleSelect}>
+          <TableHeader enableSelectAll={false}>
             <TableRow>
               <TableHeaderColumn>
                 管理群組 (目前無法使用)
               </TableHeaderColumn>
             </TableRow>
           </TableHeader>
-          <TableBody deselectOnClickaway={ false }>
+          <TableBody deselectOnClickaway={false}>
             {role.get('result').map(id => (
-              <TableRow key={ id }>
+              <TableRow key={id}>
                 <TableRowColumn>
                   {role.getIn(['entities', 'role', `${id}`, 'name'])}
                 </TableRowColumn>

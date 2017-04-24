@@ -7,54 +7,54 @@ import Toggle from 'material-ui/Toggle'
 import MarkdownEditor from 'components/MarkdownEditor'
 
 export class BasicInfoTab extends Component {
-  componentDidMount() {
+  componentDidMount () {
     // Fire event to set default value
     this.handleChange()
   }
 
-  @bind handleUuidChange(event) {
+  @bind handleUuidChange (event) {
     this.handleChange({uuid: event.target.value})
   }
 
-  @bind handleTitleChange(event) {
+  @bind handleTitleChange (event) {
     this.handleChange({title: event.target.value})
   }
 
-  @bind handleDescChange(text) {
+  @bind handleDescChange (text) {
     this.handleChange({description: text})
   }
 
-  @bind handlePublicChange(event) {
+  @bind handlePublicChange (event) {
     this.handleChange({public: event.target.checked})
   }
 
-  handleChange(data = {}) {
+  handleChange (data = {}) {
     // Fire change event
     this.setData(data)
     this.props.onChange(this.data)
   }
 
-  setData(data) {
+  setData (data) {
     this.data = {...this.data, ...data}
   }
 
-  render() {
+  render () {
     return (
       <div>
         <div>
           <TextField
             floatingLabelText='題目代號 (optional)'
             fullWidth
-            onChange={ this.handleUuidChange } />
+            onChange={this.handleUuidChange} />
         </div>
         <div>
           <TextField
             floatingLabelText='題目名稱'
             fullWidth
-            onChange={ this.handleTitleChange } />
+            onChange={this.handleTitleChange} />
         </div>
         <div>
-          <MarkdownEditor onChange={ this.handleDescChange } />
+          <MarkdownEditor onChange={this.handleDescChange} />
         </div>
         <div>
           <strong>考試題目請設為不公開</strong>
@@ -62,7 +62,7 @@ export class BasicInfoTab extends Component {
             label='Public'
             labelPosition='right'
             defaultToggled
-            onToggle={ this.handlePublicChange } />
+            onToggle={this.handlePublicChange} />
         </div>
       </div>
     )

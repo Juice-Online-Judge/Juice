@@ -1,6 +1,6 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
-import { connect } from 'react-redux'
+import {Redirect} from 'react-router-dom'
+import {connect} from 'react-redux'
 import setDisplayName from 'recompose/setDisplayName'
 import wrapDisplayName from 'recompose/wrapDisplayName'
 import compose from 'recompose/compose'
@@ -17,7 +17,7 @@ const redirectComponent = ({
   actions,
   omitProps = []
 }) => WrappedComponent => {
-  const redirect = <Redirect to={ redirectPath } />
+  const redirect = <Redirect to={redirectPath} />
   const redirectComponentHOC = props => {
     if (cleanUp) {
       cleanUp(props)

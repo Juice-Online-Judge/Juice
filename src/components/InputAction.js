@@ -8,7 +8,7 @@ import CardActions from 'material-ui/Card/CardActions'
 import TextField from 'material-ui/TextField'
 
 const emptyMessage = {
-  first() {}
+  first () {}
 }
 
 const InputAction = compose(
@@ -18,7 +18,7 @@ const InputAction = compose(
     label: PropTypes.string.isRequired
   }),
   setDisplayName('InputAction')
-)(({ message, name, label: floatingLabelText, ...rest }) => {
+)(({message, name, label: floatingLabelText, ...rest}) => {
   const props = {
     floatingLabelText,
     name,
@@ -29,7 +29,7 @@ const InputAction = compose(
 
   return (
     <CardActions>
-      <TextField style={ styles.action } { ...props } />
+      <TextField style={styles.action} {...props} />
     </CardActions>
   )
 })

@@ -10,11 +10,11 @@ import SetScoreButton from './SetScoreButton'
 import ErrorMessage from './ErrorMessage'
 
 class CodeView extends Component {
-  componentWillMount() {
+  componentWillMount () {
     this.props.fetchCode()
   }
 
-  render() {
+  render () {
     const {id} = this.props
     const {
       canReview,
@@ -32,18 +32,18 @@ class CodeView extends Component {
       <Inset>
         <Row middle='md' end='md'>
           <SetScoreButton
-            needReview={ needReview && canReview }
-            patchCorrectness={ patchCorrectness } />
-          <Col md={ 3 }>
+            needReview={needReview && canReview}
+            patchCorrectness={patchCorrectness} />
+          <Col md={3}>
             <DownloadButton
               label='Download Code'
-              text={ code }
-              filename={ `submission${id}.${ext}` } />
+              text={code}
+              filename={`submission${id}.${ext}`} />
           </Col>
         </Row>
-        <ErrorMessage isFail={ isFail } judgeMessage={ judgeMessage } />
+        <ErrorMessage isFail={isFail} judgeMessage={judgeMessage} />
         <div>Code:</div>
-        <Prism linenumber code={ code } lang={ lang } />
+        <Prism linenumber code={code} lang={lang} />
       </Inset>
     )
   }

@@ -19,13 +19,13 @@ export const QuestionView = setPropTypes({
   history: PropTypes.shape({
     goBack: PropTypes.func.isRequired
   })
-})(({ match: { params: { examId, uuid } }, history: { goBack } }) => (
+})(({match: {params: {examId, uuid}}, history: {goBack}}) => (
   <Inset>
     <FlatButton
-      onTouchTap={ goBack }
-      icon={ <ChevronLeft /> }
+      onTouchTap={goBack}
+      icon={<ChevronLeft />}
       label='Back to List' />
-    <Question examId={ examId } uuid={ uuid } />
+    <Question examId={examId} uuid={uuid} />
   </Inset>
 ))
 

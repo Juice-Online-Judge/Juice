@@ -17,7 +17,7 @@ export const TitleCard = compose(
   setDisplayName('TitleCard')
 )(({style, title, subtitle, children}) => (
   <Card>
-    <CardTitle style={ style } title={ title } subtitle={ subtitle }>
+    <CardTitle style={style} title={title} subtitle={subtitle}>
       {children}
     </CardTitle>
   </Card>

@@ -14,7 +14,7 @@ import Column from './Table/Column'
 import {paginatedShape, pageInfoShape} from './prop-types'
 
 class DataTableFooter extends Component {
-  shouldShowMenu(defaultStyle) {
+  shouldShowMenu (defaultStyle) {
     if (this.props.paginated && typeof this.props.paginated === 'boolean') {
       return true
     }
@@ -22,15 +22,15 @@ class DataTableFooter extends Component {
     return !!this.props.paginated.menuOptions
   }
 
-  handleRowSelection(obj) {
+  handleRowSelection (obj) {
     const menuOptions = obj.menuOptions || [5, 10, 15]
 
     return menuOptions.map(num => (
-      <MenuItem value={ num } primaryText={ num } key={ num } />
+      <MenuItem value={num} primaryText={num} key={num} />
     ))
   }
 
-  render() {
+  render () {
     const {
       paginated,
       pageInfo,
@@ -40,29 +40,29 @@ class DataTableFooter extends Component {
       onPerPageChange
     } = this.props
     return (
-      <Row selectable={ false }>
-        <Column { ...mainColumnStyle }>
+      <Row selectable={false}>
+        <Column {...mainColumnStyle}>
           {this.shouldShowMenu() &&
             <div>
-              <span { ...padding }>
+              <span {...padding}>
                 Rows per page:
               </span>
               <SelectField
-                value={ perPages }
-                { ...selectFieldStyle }
-                onChange={ onPerPageChange }>
+                value={perPages}
+                {...selectFieldStyle}
+                onChange={onPerPageChange}>
                 {this.handleRowSelection(paginated)}
               </SelectField>
             </div>}
         </Column>
 
-        <Column { ...rightAlign }>
+        <Column {...rightAlign}>
           <span> {pageInfo.showing} </span>
         </Column>
 
-        <Column { ...rightAlign }>
-          <NavigateLeft onClick={ onNavigateLeft } { ...navigationStyle } />
-          <NavigateRight onClick={ onNavigateRight } { ...navigationStyle } />
+        <Column {...rightAlign}>
+          <NavigateLeft onClick={onNavigateLeft} {...navigationStyle} />
+          <NavigateRight onClick={onNavigateRight} {...navigationStyle} />
         </Column>
       </Row>
     )

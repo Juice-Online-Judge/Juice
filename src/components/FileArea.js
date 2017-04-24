@@ -13,7 +13,7 @@ import FileButton from './FileButton'
 import styles from 'lib/styles'
 
 export class FileArea extends Component {
-  @bind handleFileChange(fileList) {
+  @bind handleFileChange (fileList) {
     const content = {}
     const {multiple} = this.props
     const files = Array.from(fileList)
@@ -24,12 +24,12 @@ export class FileArea extends Component {
     this.handleChange(content)
   }
 
-  @bind handleTextAreaChange(event) {
+  @bind handleTextAreaChange (event) {
     const {value} = event.target
     this.handleTextChange(value)
   }
 
-  @bind handleTextChange(value) {
+  @bind handleTextChange (value) {
     const {multiple} = this.props
     const content = {}
 
@@ -46,18 +46,18 @@ export class FileArea extends Component {
     this.handleChange(content)
   }
 
-  handleChange(content) {
+  handleChange (content) {
     if (this.props.onChange) {
       this.props.onChange(content)
     }
   }
 
-  @bind handleTypeChange(event) {
+  @bind handleTypeChange (event) {
     const {value} = event.target
     this.setState({type: value})
   }
 
-  get textareas() {
+  get textareas () {
     const {rows, mode} = this.props
     const options = {
       mode: 'clike',
@@ -67,52 +67,52 @@ export class FileArea extends Component {
     if (mode === 'text') {
       return (
         <TextField
-          onChange={ this.handleTextAreaChange }
+          onChange={this.handleTextAreaChange}
           floatingLabelText='Input in here'
           multiLine
-          rows={ rows } />
+          rows={rows} />
       )
     } else {
       return (
         <Codemirror
           autoSave
-          onChange={ this.handleTextChange }
-          options={ options } />
+          onChange={this.handleTextChange}
+          options={options} />
       )
     }
   }
 
-  areaContent(type) {
+  areaContent (type) {
     const {label} = this.props
 
     if (type === 'file') {
       return (
         <FileButton
-          onChange={ this.handleFileChange }
-          multiple={ this.props.multiple }
-          label={ label } />
+          onChange={this.handleFileChange}
+          multiple={this.props.multiple}
+          label={label} />
       )
     } else {
       return this.textareas
     }
   }
 
-  render() {
+  render () {
     return (
       <div>
         <div>
           <RadioButtonGroup
-            name={ `FileArea-type-${uniqueId()}` }
+            name={`FileArea-type-${uniqueId()}`}
             defaultSelected='file'
-            onChange={ this.handleTypeChange }>
+            onChange={this.handleTypeChange}>
             <RadioButton
-              style={ styles.inlineRadio }
-              labelStyle={ styles.inlineRadioLabel }
+              style={styles.inlineRadio}
+              labelStyle={styles.inlineRadioLabel}
               value='file'
               label='File' />
             <RadioButton
-              style={ styles.inlineRadio }
-              labelStyle={ styles.inlineRadioLabel }
+              style={styles.inlineRadio}
+              labelStyle={styles.inlineRadioLabel}
               value='textarea'
               label='直接輸入' />
           </RadioButtonGroup>

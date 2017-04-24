@@ -8,7 +8,7 @@ describe('(Component) <CenterLoading />', () => {
   let sut
 
   beforeEach(() => {
-    sut = shallow(<CenterLoading loading={ false } left={ 10 } />)
+    sut = shallow(<CenterLoading loading={false} left={10} />)
   })
 
   it('Render <Row /> with prop center', () => {
@@ -33,7 +33,7 @@ describe('(Component) <CenterLoading />', () => {
 
     describe('When true', () => {
       it('Render <RefreshIndicator status="loading" />', () => {
-        const sut = shallow(<CenterLoading loading left={ 10 } />)
+        const sut = shallow(<CenterLoading loading left={10} />)
         expect(sut.find(RefreshIndicator)).toHaveProp('status', 'loading')
       })
     })

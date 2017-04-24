@@ -16,7 +16,7 @@ const ErrorMessage = compose(
   return isFail
     ? <div>
       <div>Error message:</div>
-      <Prism code={ judgeMessage } lang='txt' />
+      <Prism code={judgeMessage} lang='txt' />
     </div>
     : null
 })

@@ -24,15 +24,15 @@ const pickSettings = pick([
 ])
 
 class QuestionSetting extends Component {
-  componentDidMount() {
+  componentDidMount () {
     this.settingToState(this.props.setting)
   }
 
-  componentWillReceiveProps(newProps) {
+  componentWillReceiveProps (newProps) {
     this.settingToState(newProps.setting)
   }
 
-  settingToState(setting) {
+  settingToState (setting) {
     if (setting) {
       const score = setting.score || ''
       const type = setting.type || 'normal'
@@ -66,7 +66,7 @@ class QuestionSetting extends Component {
     this.emitChange({codeReview: checked})
   }
 
-  emitChange(data) {
+  emitChange (data) {
     const mergeData = {
       ...pickSettings(this.state),
       ...data
@@ -84,7 +84,7 @@ class QuestionSetting extends Component {
     this.props.onChange(uuid, mergeData)
   }
 
-  render() {
+  render () {
     const {detail, question, uuid} = this.props
     const {score, type, readFrom, codeReview, goal, reward} = this.state
 
@@ -98,8 +98,8 @@ class QuestionSetting extends Component {
           <CardTitle>
             <FlatButton
               label='Back'
-              onTouchTap={ this.props.onBack }
-              icon={ <ChevronLeft /> } />
+              onTouchTap={this.props.onBack}
+              icon={<ChevronLeft />} />
             <span>
               {' '}
               Setting "
@@ -112,12 +112,12 @@ class QuestionSetting extends Component {
             <TextField
               fullWidth
               floatingLabelText='Score (%)'
-              onChange={ this.handleScoreChange }
-              value={ score } />
+              onChange={this.handleScoreChange}
+              value={score} />
           </CardActions>
           <CardActions>
             <Label> 題目類型 </Label>
-            <SelectField value={ type } onChange={ this.handleTypeChange }>
+            <SelectField value={type} onChange={this.handleTypeChange}>
               <MenuItem value='normal' primaryText='一般' />
               <MenuItem value='proportion' primaryText='部份給分' />
               <MenuItem value='portion_num' primaryText='誤差容許 (數字)' />
@@ -126,7 +126,7 @@ class QuestionSetting extends Component {
           </CardActions>
           <CardActions>
             <Label> 測資來源 </Label>
-            <SelectField value={ readFrom } onChange={ this.handleReadFromChange }>
+            <SelectField value={readFrom} onChange={this.handleReadFromChange}>
               <MenuItem value='stdin' primaryText='stdin' />
               <MenuItem value='file' primaryText='file' />
             </SelectField>
@@ -135,26 +135,26 @@ class QuestionSetting extends Component {
             <Toggle
               label='Code review'
               labelPosition='right'
-              toggled={ codeReview }
-              onToggle={ this.handleCodeReviewChange } />
+              toggled={codeReview}
+              onToggle={this.handleCodeReviewChange} />
           </CardActions>
           <CardActions>
             <TextField
               fullWidth
               name='goal'
-              disabled={ isNotPortion(type) }
+              disabled={isNotPortion(type)}
               floatingLabelText='Goal'
-              onChange={ this.handleIntValChange }
-              value={ goal } />
+              onChange={this.handleIntValChange}
+              value={goal} />
           </CardActions>
           <CardActions>
             <TextField
               fullWidth
               name='reward'
-              disabled={ isNotPortion(type) }
+              disabled={isNotPortion(type)}
               floatingLabelText='Reward'
-              onChange={ this.handleIntValChange }
-              value={ reward } />
+              onChange={this.handleIntValChange}
+              value={reward} />
           </CardActions>
         </Card>
       </div>

@@ -17,12 +17,12 @@ import Pagination from 'components/Pagination'
 import styles from 'lib/styles'
 
 export class QuestionListView extends Component {
-  componentDidMount() {
+  componentDidMount () {
     const {query} = this.props.location
     this.props.fetchQuestion(query, {force: true})
   }
 
-  componentWillReceiveProps(newProps) {
+  componentWillReceiveProps (newProps) {
     const {query} = newProps.location
 
     if (query.page !== this.props.location.query.page) {
@@ -30,7 +30,7 @@ export class QuestionListView extends Component {
     }
   }
 
-  render() {
+  render () {
     const {maxPage, admin, question} = this.props
     const {query} = this.props.location
     const page = parseInt(query.page || 1)
@@ -38,12 +38,12 @@ export class QuestionListView extends Component {
     return (
       <LoadingContainer>
         <Inset>
-          <QuestionList question={ question } />
+          <QuestionList question={question} />
         </Inset>
-        <Pagination baseUrl='/questions' maxPage={ maxPage } current={ page } />
+        <Pagination baseUrl='/questions' maxPage={maxPage} current={page} />
         {admin
           ? <Link to='/questions/new'>
-            <FloatingActionButton style={ styles.floatBtn }>
+            <FloatingActionButton style={styles.floatBtn}>
               <AddIcon />
             </FloatingActionButton>
           </Link>

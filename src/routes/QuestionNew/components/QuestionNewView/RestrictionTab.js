@@ -9,23 +9,23 @@ import MenuItem from 'material-ui/MenuItem'
 import Label from 'components/Label'
 
 export class RestrictionTab extends Component {
-  componentDidMount() {
+  componentDidMount () {
     this.handleChange()
   }
 
-  @bind handleFileChange(event) {
+  @bind handleFileChange (event) {
     this.handleChange({file: event.target.value})
   }
 
-  @bind handleMemoryChange(event) {
+  @bind handleMemoryChange (event) {
     this.handleChange({memory: event.target.value})
   }
 
-  @bind handleTimeChange(event) {
+  @bind handleTimeChange (event) {
     this.handleChange({time: event.target.value})
   }
 
-  @bind handleStrategyChange(_event, _key, value) {
+  @bind handleStrategyChange (_event, _key, value) {
     this.setState({strategy: value})
     this.emitChange({
       ...this.data,
@@ -33,7 +33,7 @@ export class RestrictionTab extends Component {
     })
   }
 
-  handleChange(data = {}) {
+  handleChange (data = {}) {
     // Fire change event
     this.setData(data)
     this.emitChange({
@@ -42,22 +42,22 @@ export class RestrictionTab extends Component {
     })
   }
 
-  emitChange(data) {
+  emitChange (data) {
     this.props.onChange({restriction: data})
   }
 
-  setData(data) {
+  setData (data) {
     this.data = {...this.data, ...data}
   }
 
-  render() {
+  render () {
     const {strategy} = this.state
 
     return (
       <div>
         <div>
           <Label> Strategy </Label>
-          <DropDownMenu value={ strategy } onChange={ this.handleStrategyChange }>
+          <DropDownMenu value={strategy} onChange={this.handleStrategyChange}>
             <MenuItem primaryText='Normal' value='normal' />
             <MenuItem primaryText='Tolerance newline' value='tolerance_nl' />
           </DropDownMenu>
@@ -65,17 +65,17 @@ export class RestrictionTab extends Component {
         <div>
           <TextField
             floatingLabelText='Time limit(s)'
-            onChange={ this.handleTimeChange } />
+            onChange={this.handleTimeChange} />
         </div>
         <div>
           <TextField
             floatingLabelText='Memory limit(MB)'
-            onChange={ this.handleMemoryChange } />
+            onChange={this.handleMemoryChange} />
         </div>
         <div>
           <TextField
             floatingLabelText='File limit'
-            onChange={ this.handleFileChange } />
+            onChange={this.handleFileChange} />
         </div>
       </div>
     )

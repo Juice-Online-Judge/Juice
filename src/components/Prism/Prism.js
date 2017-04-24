@@ -27,10 +27,10 @@ export const Prism = compose(
   const {lang} = props
   const langClass = `language-${lang}`
   return (
-    <pre className={ classNames(langClass, {'line-numbers': props.linenumber}) }>
-      <code className={ langClass }>
+    <pre className={classNames(langClass, {'line-numbers': props.linenumber})}>
+      <code className={langClass}>
         {highlightReact(code, lang)}
-        {props.linenumber && <LineNumbers code={ code } />}
+        {props.linenumber && <LineNumbers code={code} />}
       </code>
     </pre>
   )

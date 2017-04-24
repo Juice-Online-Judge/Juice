@@ -17,11 +17,11 @@ import {addExam} from 'redux/modules/exam'
 import {clearCache} from 'redux/modules/app'
 
 export class ExamNewView extends Component {
-  componentWillMount() {
+  componentWillMount () {
     this.props.clearCache()
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.props.clearCache()
   }
 
@@ -37,34 +37,34 @@ export class ExamNewView extends Component {
     this.setData({users})
   }
 
-  handleAddExam() {
+  handleAddExam () {
     this.props.addExam(this.data)
   }
 
-  setData(newData) {
+  setData (newData) {
     this.data = {...this.data, ...newData}
   }
 
-  render() {
+  render () {
     return (
       <MessageContainer>
         <Inset>
           <Card>
             <CardTitle title='基本資訊' />
             <CardActions>
-              <BasicInfoTab onChange={ this.handleBasicInfoChange } />
+              <BasicInfoTab onChange={this.handleBasicInfoChange} />
             </CardActions>
           </Card>
           <Card>
             <CardTitle title='測驗問題' />
             <CardActions>
-              <QuestionTab onChange={ this.handleQuestionChange } />
+              <QuestionTab onChange={this.handleQuestionChange} />
             </CardActions>
           </Card>
           <Card>
             <CardTitle title='參加者' />
             <CardActions>
-              <UserTab onChange={ this.handleUsersChange } />
+              <UserTab onChange={this.handleUsersChange} />
             </CardActions>
           </Card>
         </Inset>

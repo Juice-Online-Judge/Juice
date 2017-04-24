@@ -10,31 +10,31 @@ import ExamList from './ExamList'
 import styles from 'lib/styles'
 
 class ExamListView extends Component {
-  componentDidMount() {
+  componentDidMount () {
     const {query} = this.props
     this.fetchExams(query, {force: true})
   }
 
-  componentWillReceiveProps(newProps) {
+  componentWillReceiveProps (newProps) {
     const {query} = newProps
     if (query.page !== this.props.query.page) {
       this.fetchExams(query)
     }
   }
 
-  fetchExams(query, opts) {
+  fetchExams (query, opts) {
     const page = parseInt(query.page) || 1
     this.props.fetchExams({page}, opts)
   }
 
-  render() {
+  render () {
     const {exam, maxPage, admin} = this.props
     return (
       <div>
-        <ExamList exam={ exam } maxPage={ maxPage } />
+        <ExamList exam={exam} maxPage={maxPage} />
         {admin
           ? <Link to='/exams/new'>
-            <FloatingActionButton style={ styles.floatBtn }>
+            <FloatingActionButton style={styles.floatBtn}>
               <AddIcon />
             </FloatingActionButton>
           </Link>

@@ -9,33 +9,33 @@ import CopyButton from 'components/CopyButton'
 import Filter from './Filter'
 
 class ExamDetailHeader extends Component {
-  @bind getTextField(textField) {
+  @bind getTextField (textField) {
     this.textField = textField
   }
 
-  @bind handleFocus() {
+  @bind handleFocus () {
     if (this.textField) {
       this.textField.select()
     }
   }
 
-  render() {
+  render () {
     const {token, isSubmission} = this.props
     return (
       <Row middle='md'>
-        <Route path='/exam/:examId/questions' component={ Filter } />
-        <Col md={ 1 } mdOffset={ isSubmission ? 0 : 7 }>
+        <Route path='/exam/:examId/questions' component={Filter} />
+        <Col md={1} mdOffset={isSubmission ? 0 : 7}>
           <span>Token: </span>
         </Col>
-        <Col md={ 3 }>
+        <Col md={3}>
           <TextField
-            ref={ this.getTextField }
+            ref={this.getTextField}
             name='token'
-            onFocus={ this.handleFocus }
-            value={ token || 'Unavailable' } />
+            onFocus={this.handleFocus}
+            value={token || 'Unavailable'} />
         </Col>
-        <Col md={ 1 }>
-          <CopyButton text={ token } />
+        <Col md={1}>
+          <CopyButton text={token} />
         </Col>
       </Row>
     )

@@ -23,9 +23,9 @@ if (Reflect.has(navigator, 'serviceWorker')) {
 injectTapEventPlugin()
 
 const Root = (
-  <Provider store={ store }>
-    <div style={ {height: '100%'} }>
-      <ConnectedRouter history={ browserHistory }>
+  <Provider store={store}>
+    <div style={{height: '100%'}}>
+      <ConnectedRouter history={browserHistory}>
         <Routes />
       </ConnectedRouter>
     </div>

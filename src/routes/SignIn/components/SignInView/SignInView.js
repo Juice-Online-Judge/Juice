@@ -34,57 +34,57 @@ const inputs = [
 ]
 
 export class SignInView extends React.Component {
-  @bind handleChange(event) {
+  @bind handleChange (event) {
     const newState = {}
     newState[event.target.name] = event.target.value
     this.setData(newState)
   }
 
-  @bind login(event) {
+  @bind login (event) {
     const {username, password} = this.data
     event.preventDefault()
     this.props.login(username, password)
   }
 
-  @bind handleKeyDown(event) {
+  @bind handleKeyDown (event) {
     if (event.keyCode === 13 && event.target.name === 'password') {
       this.login(event)
     }
   }
 
-  setData(newData) {
+  setData (newData) {
     this.data = {...this.data, ...newData}
   }
 
-  render() {
+  render () {
     return (
       <CenterBlock>
         <MessageContainer>
-          <Paper zDepth={ 3 } style={ styles.marginTop20 }>
+          <Paper zDepth={3} style={styles.marginTop20}>
             <Card>
               <CardTitle title='Juice' />
               {inputs.map(({name, label, ...rest}) => (
                 <InputAction
-                  key={ name }
-                  name={ name }
-                  label={ label }
-                  onChange={ this.handleChange }
-                  onKeyDown={ this.handleKeyDown }
-                  { ...rest } />
+                  key={name}
+                  name={name}
+                  label={label}
+                  onChange={this.handleChange}
+                  onKeyDown={this.handleKeyDown}
+                  {...rest} />
               ))}
               <CardActions>
                 <Row>
-                  <Col mdOffset={ 2 } md={ 8 } xs={ 12 }>
+                  <Col mdOffset={2} md={8} xs={12}>
                     <Row center='xs'>
                       <Col>
                         <FlatButton
                           label='Signin'
                           primary
-                          onClick={ this.login } />
+                          onClick={this.login} />
                       </Col>
                     </Row>
                   </Col>
-                  <Col md={ 2 } xs={ 12 }>
+                  <Col md={2} xs={12}>
                     <OAuthButtons />
                   </Col>
                 </Row>

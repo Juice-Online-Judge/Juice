@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import compose from 'recompose/compose'
 
-import { registerUser } from 'redux/modules/account'
+import {registerUser} from 'redux/modules/account'
 
 import Paper from 'material-ui/Paper'
 import Card from 'material-ui/Card/Card'
@@ -49,20 +49,20 @@ export class SignUpView extends React.Component {
     const newState = {}
     newState[event.target.name] = event.target.value
     this.setData(newState)
-  };
+  }
 
-  signup() {
+  signup () {
     this.props.registerUser(this.data)
   }
 
   handleVerify = response => {
-    this.setData({ 'g-recaptcha-response': response })
+    this.setData({'g-recaptcha-response': response})
     this.signup()
-  };
+  }
 
   handleExpired = () => {
     Reflect.deleteProperty(this.data, 'g-recaptcha-response')
-  };
+  }
 
   handleClick = event => {
     event.preventDefault()
@@ -70,34 +70,34 @@ export class SignUpView extends React.Component {
       return
     }
     this.signup()
-  };
-
-  setData(newData) {
-    this.data = { ...this.data, ...newData }
   }
 
-  render() {
+  setData (newData) {
+    this.data = {...this.data, ...newData}
+  }
+
+  render () {
     const message = this.props.validation
     return (
       <CenterBlock>
-        <Paper zDepth={ 3 } style={ styles.marginTop20 }>
+        <Paper zDepth={3} style={styles.marginTop20}>
           <Card>
             <CardTitle title='SignUp' />
-            {inputs.map(({ name, label, ...rest }) => (
+            {inputs.map(({name, label, ...rest}) => (
               <InputAction
-                key={ name }
-                name={ name }
-                label={ label }
-                message={ message }
-                onChange={ this.handleChange }
-                { ...rest } />
+                key={name}
+                name={name}
+                label={label}
+                message={message}
+                onChange={this.handleChange}
+                {...rest} />
             ))}
             <CardActions>
               <Recaptcha
-                onVerify={ this.handleVerify }
-                onExpired={ this.handleExpired }
+                onVerify={this.handleVerify}
+                onExpired={this.handleExpired}
                 sitekey='6LeBKhsUAAAAAFfiapN0MqwR02A1Id-y2wFVuzZ7'>
-                <FlatButton label='Signup' primary onClick={ this.handleClick } />
+                <FlatButton label='Signup' primary onClick={this.handleClick} />
               </Recaptcha>
             </CardActions>
           </Card>
@@ -112,16 +112,16 @@ export class SignUpView extends React.Component {
     password: '',
     email: '',
     passwordConfirm: ''
-  };
+  }
 
   static propTypes = {
     validation: PropTypes.object.isRequired,
     registerUser: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default compose(
   redirectOnLogin,
-  connect(state => ({ loginState: state.account }), { registerUser }),
+  connect(state => ({loginState: state.account}), {registerUser}),
   validateForm(rule)
 )(SignUpView)

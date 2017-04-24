@@ -20,58 +20,58 @@ import Inset from 'layouts/Inset'
 import MessageContainer from 'containers/MessageContainer'
 
 class QuestionNewView extends Component {
-  componentWillMount() {
+  componentWillMount () {
     this.props.clearStatus()
   }
 
-  @bind handleBasicInfoChange(data) {
+  @bind handleBasicInfoChange (data) {
     this.setData(data)
   }
 
-  @bind handleAnswerChange(data) {
+  @bind handleAnswerChange (data) {
     this.setData(data)
   }
 
-  @bind handleRestrictionChange(data) {
+  @bind handleRestrictionChange (data) {
     this.setData(data)
   }
 
-  setData(data) {
+  setData (data) {
     this.data = {...this.data, ...data}
   }
 
-  @bind handleAddQuestion() {
+  @bind handleAddQuestion () {
     this.props.addQuestion(this.data)
   }
 
-  render() {
+  render () {
     return (
       <MessageContainer>
         <Inset>
           <Card>
             <CardTitle title='基本資訊' />
             <CardActions>
-              <BasicInfoTab onChange={ this.handleBasicInfoChange } />
+              <BasicInfoTab onChange={this.handleBasicInfoChange} />
             </CardActions>
           </Card>
           <Card>
             <CardTitle title='答案' />
             <CardActions>
-              <AnswerTab onChange={ this.handleAnswerChange } />
+              <AnswerTab onChange={this.handleAnswerChange} />
             </CardActions>
           </Card>
           <Card>
             <CardTitle title='題目限制' />
             <CardActions>
-              <RestrictionTab onChange={ this.handleRestrictionChange } />
+              <RestrictionTab onChange={this.handleRestrictionChange} />
             </CardActions>
             <CardActions>
               <Row end='xs'>
-                <Col md={ 2 } sm={ 6 }>
+                <Col md={2} sm={6}>
                   <RaisedButton
                     primary
                     label='Add'
-                    onTouchTap={ this.handleAddQuestion } />
+                    onTouchTap={this.handleAddQuestion} />
                 </Col>
               </Row>
             </CardActions>

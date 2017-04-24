@@ -5,14 +5,14 @@ import PropTypes from 'prop-types'
 import FlatButton from 'material-ui/FlatButton'
 
 export class DownloadButton extends Component {
-  componentDidMount() {
+  componentDidMount () {
     const {text, disabled} = this.props
     if (!disabled && text) {
       this.createURL(text)
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (
       nextProps.text &&
       !nextProps.disabled &&
@@ -23,11 +23,11 @@ export class DownloadButton extends Component {
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.revokeURL()
   }
 
-  createURL(text) {
+  createURL (text) {
     const blob = new Blob([text], {type: 'text/plain'})
     const url = URL.createObjectURL(blob)
     this.setState({
@@ -35,7 +35,7 @@ export class DownloadButton extends Component {
     })
   }
 
-  revokeURL() {
+  revokeURL () {
     const {url} = this.state
     if (url) {
       URL.revokeObjectURL(url)
@@ -45,15 +45,15 @@ export class DownloadButton extends Component {
     }
   }
 
-  render() {
+  render () {
     const {label, filename} = this.props
     const {url} = this.state
     if (!url) {
-      return <FlatButton label={ label } disabled />
+      return <FlatButton label={label} disabled />
     }
 
     return (
-      <FlatButton href={ url } label={ label } download={ filename || 'download' } />
+      <FlatButton href={url} label={label} download={filename || 'download'} />
     )
   }
 

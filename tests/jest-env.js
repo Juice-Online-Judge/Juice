@@ -6,7 +6,7 @@ import reporters from 'jasmine-reporters'
 
 const jestImmutable = mapValues(jasmineImmutable, matcherFactory => {
   const matcher = matcherFactory()
-  return function() {
+  return function () {
     const {isNot} = this
     const {pass, message} = matcher[isNot ? 'negativeCompare' : 'compare'](
       ...arguments

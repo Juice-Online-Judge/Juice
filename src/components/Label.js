@@ -11,7 +11,7 @@ export const Label = compose(
     children: PropTypes.node
   })
 )(({label, children}) => (
-  <label style={ styles.label }>
+  <label style={styles.label}>
     {label || children}
   </label>
 ))

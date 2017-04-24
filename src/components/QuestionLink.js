@@ -18,8 +18,8 @@ const QuestionLink = compose(
   const quesUrl = `/questions/${uuid}`
   const url = examId ? `/exams/${examId}${quesUrl}` : quesUrl
   return (
-    <Link style={ styles.noUnderline } to={ url }>
-      <TitleCard title={ title } />
+    <Link style={styles.noUnderline} to={url}>
+      <TitleCard title={title} />
     </Link>
   )
 })

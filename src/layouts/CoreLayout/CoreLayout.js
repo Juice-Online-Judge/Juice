@@ -15,10 +15,10 @@ export const CoreLayout = compose(
   setPropTypes({
     children: PropTypes.element
   })
-)(({ children }) => (
-  <MuiThemeProvider muiTheme={ theme }>
-    <div className='page-container' style={ styles.container }>
-      <div className='view-container' style={ styles.container }>
+)(({children}) => (
+  <MuiThemeProvider muiTheme={theme}>
+    <div className='page-container' style={styles.container}>
+      <div className='view-container' style={styles.container}>
         <AppBar />
         {children}
       </div>

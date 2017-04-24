@@ -6,7 +6,7 @@ import {TransitionMotion, spring} from 'react-motion'
 import Toast from './internal/Toast'
 
 class Toasts extends Component {
-  componentDidMount() {
+  componentDidMount () {
     const container = document.createElement('div')
     document.body.appendChild(container)
     this.container = container
@@ -14,15 +14,15 @@ class Toasts extends Component {
     this.renderSubtree(children)
   }
 
-  componentWillReceiveProps({children}) {
+  componentWillReceiveProps ({children}) {
     this.renderSubtree(children)
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     document.body.removeChild(this.container)
   }
 
-  renderSubtree(children) {
+  renderSubtree (children) {
     const transitionStyles = Children.map(children, toast => ({
       key: toast.key,
       data: {
@@ -37,17 +37,17 @@ class Toasts extends Component {
 
     const child = (
       <TransitionMotion
-        styles={ transitionStyles }
-        willEnter={ this.willEnter }
-        willLeave={ this.willLeave }>
+        styles={transitionStyles}
+        willEnter={this.willEnter}
+        willLeave={this.willLeave}>
         {configs => (
-          <div style={ styles.fullScreen }>
+          <div style={styles.fullScreen}>
             {configs.map(config => (
               <Toast
-                key={ config.key }
-                id={ config.data.id }
-                { ...config.data.props }
-                style={ {...config.style, ...styles.toast} } />
+                key={config.key}
+                id={config.data.id}
+                {...config.data.props}
+                style={{...config.style, ...styles.toast}} />
             ))}
           </div>
         )}
@@ -57,21 +57,21 @@ class Toasts extends Component {
     ReactDOM.unstable_renderSubtreeIntoContainer(this, child, this.container)
   }
 
-  willEnter() {
+  willEnter () {
     return {
       opacity: 0,
       marginTop: 20
     }
   }
 
-  willLeave() {
+  willLeave () {
     return {
       marginTop: spring(0),
       opacity: spring(0)
     }
   }
 
-  render() {
+  render () {
     return null
   }
 

@@ -22,13 +22,13 @@ export default connect(
     id: props.params.id
   }),
   dispatch => ({
-    fetchCode(id) {
+    fetchCode (id) {
       return () => {
         dispatch(fetchCode(id))
         dispatch(fetchSubmission(id))
       }
     },
-    patchCorrectness(id) {
+    patchCorrectness (id) {
       return correctness => {
         dispatch(patchSubmissionCorrectness(id, correctness))
       }

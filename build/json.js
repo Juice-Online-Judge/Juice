@@ -1,4 +1,4 @@
-function json() {
+function json () {
   return context => ({
     module: {
       loaders: [

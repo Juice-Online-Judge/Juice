@@ -29,7 +29,8 @@ self.addEventListener('fetch', event => {
   } else if (url.pathname.includes('.')) {
     event.respondWith(networkFirst(request))
   } else if (
-    url.pathname.startsWith('/api') || url.pathname.startsWith('/oauth')
+    url.pathname.startsWith('/api') ||
+    url.pathname.startsWith('/oauth')
   ) {
     event.respondWith(apiHandler(request))
   } else {
@@ -37,7 +38,7 @@ self.addEventListener('fetch', event => {
   }
 })
 
-function apiHandler(request) {
+function apiHandler (request) {
   return router.dispatch(request).then(
     result =>
       (typeof result === 'string'

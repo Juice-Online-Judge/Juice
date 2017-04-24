@@ -1,25 +1,25 @@
 import invariant from 'invariant'
 import defer from './defer'
 
-export function createRecaptcha() {
+export function createRecaptcha () {
   const deferred = defer()
 
   return {
-    setRecaptcha(recap) {
+    setRecaptcha (recap) {
       deferred.resolve(recap)
     },
 
-    getRecaptcha() {
+    getRecaptcha () {
       return deferred.promise
     },
 
-    render(ele, options, cb) {
+    render (ele, options, cb) {
       this.getRecaptcha().then(recap => {
         cb(recap.render(ele, options))
       })
     },
 
-    reset(widgetId) {
+    reset (widgetId) {
       if (typeof widgetId === 'undefined') {
         return
       }
@@ -28,7 +28,7 @@ export function createRecaptcha() {
       this.getRecaptcha().then(recap => recap.reset(widgetId))
     },
 
-    execute(widgetId) {
+    execute (widgetId) {
       if (typeof widgetId === 'undefined') {
         return
       }
@@ -37,13 +37,13 @@ export function createRecaptcha() {
       this.getRecaptcha().then(recap => recap.execute(widgetId))
     },
 
-    checkRecaptchaLoad() {
+    checkRecaptchaLoad () {
       if (window.hasOwnProperty('grecaptcha')) {
         this.setRecaptcha(window.grecaptcha)
       }
     },
 
-    assertRecaptchaLoad() {
+    assertRecaptchaLoad () {
       invariant(deferred.resolved(), 'ReCAPTCHA has not been loaded')
     }
   }

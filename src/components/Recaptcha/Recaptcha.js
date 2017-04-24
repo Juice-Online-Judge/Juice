@@ -4,11 +4,11 @@ import {findDOMNode} from 'react-dom'
 import recaptcha from './recaptcha-wrapper'
 
 class Recaptcha extends Component {
-  shouldComponentUpdate() {
+  shouldComponentUpdate () {
     return false
   }
 
-  componentDidMount() {
+  componentDidMount () {
     recaptcha.checkRecaptchaLoad()
     this.recaptcha = recaptcha
   }
@@ -26,7 +26,7 @@ class Recaptcha extends Component {
     }
   }
 
-  render() {
+  render () {
     const {children} = this.props
 
     if (children) {
@@ -35,7 +35,7 @@ class Recaptcha extends Component {
       })
     }
 
-    return <div ref={ this.getContainer } />
+    return <div ref={this.getContainer} />
   }
 
   static propTypes = {

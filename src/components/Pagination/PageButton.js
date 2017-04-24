@@ -6,33 +6,33 @@ import {Link} from 'react-router-dom'
 import FlatButton from 'material-ui/FlatButton'
 
 class PageButton extends Component {
-  @bind handleTouchTap() {
+  @bind handleTouchTap () {
     const {disabled, onTouchTap} = this.props
     if (!disabled && onTouchTap) {
       onTouchTap(this.props.page)
     }
   }
 
-  render() {
+  render () {
     const {baseUrl, page, label, disabled, ...props} = this.props
     const text = label || page
     if (baseUrl && !disabled) {
       return (
-        <Link to={ `${baseUrl}?page=${page}` }>
+        <Link to={`${baseUrl}?page=${page}`}>
           <FlatButton
-            { ...props }
-            label={ text }
-            disabled={ disabled }
-            onTouchTap={ this.handleTouchTap } />
+            {...props}
+            label={text}
+            disabled={disabled}
+            onTouchTap={this.handleTouchTap} />
         </Link>
       )
     } else {
       return (
         <FlatButton
-          { ...props }
-          label={ text }
-          disabled={ disabled }
-          onTouchTap={ this.handleTouchTap } />
+          {...props}
+          label={text}
+          disabled={disabled}
+          onTouchTap={this.handleTouchTap} />
       )
     }
   }

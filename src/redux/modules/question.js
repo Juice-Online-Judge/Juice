@@ -29,25 +29,23 @@ const markDetail = question => ({
   ...question
 })
 
-export const setQuestion = createAction(SET_QUESTION, ({
-  data,
-  page,
-  total,
-  detail
-}) => {
-  const payload = {
-    page,
-    total,
-    ...normalize(data, [questionSchema])
-  }
-  const questions = payload.entities.question
+export const setQuestion = createAction(
+  SET_QUESTION,
+  ({data, page, total, detail}) => {
+    const payload = {
+      page,
+      total,
+      ...normalize(data, [questionSchema])
+    }
+    const questions = payload.entities.question
 
-  if (detail) {
-    payload.entities.question = mapValues(questions, markDetail)
-  }
+    if (detail) {
+      payload.entities.question = mapValues(questions, markDetail)
+    }
 
-  return payload
-})
+    return payload
+  }
+)
 
 export const setQuestionDetail = createAction(SET_QUESTION_DETAIL, payload => {
   return {detail: true, ...payload}

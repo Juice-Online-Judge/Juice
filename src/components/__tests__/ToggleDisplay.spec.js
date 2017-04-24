@@ -27,7 +27,7 @@ describe('(Component) <ToggleDisplay />', () => {
 
     describe('When false', () => {
       it('Style must not have { display: none }', () => {
-        const sut = shallow(<ToggleDisplay hide={ false } />)
+        const sut = shallow(<ToggleDisplay hide={false} />)
         expect(sut).not.toHaveStyle('display', 'none')
       })
     })
@@ -43,7 +43,7 @@ describe('(Component) <ToggleDisplay />', () => {
 
     describe('When false', () => {
       it('Style is { display: none }', () => {
-        const sut = shallow(<ToggleDisplay show={ false } />)
+        const sut = shallow(<ToggleDisplay show={false} />)
         expect(sut).toHaveStyle('display', 'none')
       })
     })

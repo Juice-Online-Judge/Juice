@@ -13,43 +13,43 @@ import ExamDetailHeader from './ExamDetailHeader'
 import SwitchButton from './SwitchButton'
 
 class ExamDetailView extends Component {
-  componentDidMount() {
+  componentDidMount () {
     const {examId} = this.props
     this.props.fetchExamToken(examId)
   }
 
-  get switchButton() {
+  get switchButton () {
     return (
       <Switch>
         <Route
-          path={ `/exams/:examId/submissions` }
-          render={ ({match: {params: {examId}}}) => (
-            <SwitchButton examId={ examId } func='questions' />
-          ) } />
+          path={`/exams/:examId/submissions`}
+          render={({match: {params: {examId}}}) => (
+            <SwitchButton examId={examId} func='questions' />
+          )} />
         <Route
-          path={ `/exams/:examId/questions` }
-          render={ ({match: {params: {examId}}}) => (
-            <SwitchButton examId={ examId } func='submissions' />
-          ) } />
+          path={`/exams/:examId/questions`}
+          render={({match: {params: {examId}}}) => (
+            <SwitchButton examId={examId} func='submissions' />
+          )} />
       </Switch>
     )
   }
 
-  render() {
+  render () {
     const {exam, examId, func} = this.props
     const token = exam.getIn(['tokens', `${examId}`])
 
     if (!func) {
-      return <Redirect to={ `/exams/${examId}/questions` } />
+      return <Redirect to={`/exams/${examId}/questions`} />
     }
 
     return (
       <Inset>
-        <ExamDetailHeader token={ token } isSubmission={ func === 'submissions' } />
+        <ExamDetailHeader token={token} isSubmission={func === 'submissions'} />
         <Switch>
-          <Route path='/exams/:examId/questions' component={ Questions } />
-          <Route path='/exams/:examId/submissions' component={ Submissions } />
-          <Route component={ redirect(`/exams/${examId}/questions`) } />
+          <Route path='/exams/:examId/questions' component={Questions} />
+          <Route path='/exams/:examId/submissions' component={Submissions} />
+          <Route component={redirect(`/exams/${examId}/questions`)} />
         </Switch>
         {this.switchButton}
       </Inset>

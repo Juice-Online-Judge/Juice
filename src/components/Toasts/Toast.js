@@ -1,7 +1,8 @@
 import {Component} from 'react'
+import PropTypes from 'prop-types'
 
 class Toast extends Component {
-  render() {
+  render () {
     return null
   }
 

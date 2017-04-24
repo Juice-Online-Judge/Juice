@@ -3,7 +3,7 @@ import pTap from 'p-tap'
 const defer = () => {
   let state = false
   const deferred = {
-    resolved() {
+    resolved () {
       return state
     }
   }

@@ -15,19 +15,19 @@ export const AppRecord = new Record({
 })
 
 export class App extends AppRecord {
-  isPending() {
+  isPending () {
     return this.status === RequestStatus.PENDING
   }
 
-  isError() {
+  isError () {
     return this.status === RequestStatus.FAIL
   }
 
-  get messages() {
+  get messages () {
     return this.isError ? this.getIn(['error', 'messages']) : null
   }
 
-  get errorCode() {
+  get errorCode () {
     return this.isError ? this.getIn(['error', 'code']) : null
   }
 }

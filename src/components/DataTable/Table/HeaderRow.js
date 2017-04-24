@@ -16,11 +16,11 @@ class HeaderRow extends Component {
     }
   }
 
-  renderCheckbox() {
-    return <Checkbox onCheck={ this.handleCheck } />
+  renderCheckbox () {
+    return <Checkbox onCheck={this.handleCheck} />
   }
 
-  renderCheckboxColumn() {
+  renderCheckboxColumn () {
     return (
       <HeaderColumn>
         {this.renderCheckbox()}
@@ -28,7 +28,7 @@ class HeaderRow extends Component {
     )
   }
 
-  render() {
+  render () {
     const {displaySelectAll, children, ...rest} = this.props
     const {selected} = this.state
     const style = {
@@ -36,7 +36,7 @@ class HeaderRow extends Component {
     }
 
     return (
-      <tr { ...css(baseStyle, style) } { ...rest }>
+      <tr {...css(baseStyle, style)} {...rest}>
         {displaySelectAll && this.renderCheckboxColumn()}
         {children}
       </tr>

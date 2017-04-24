@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
+import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
 
 import MuiAppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
@@ -14,55 +14,55 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import LeftNav from './LeftNav'
 import MenuLinkItem from './MenuLinkItem'
 
-import { fetchUserInfo, logout } from 'redux/modules/account'
+import {fetchUserInfo, logout} from 'redux/modules/account'
 import commonStyles from 'lib/styles'
 
 export class AppBar extends React.Component {
-  componentDidMount() {
+  componentDidMount () {
     this.props.fetchUserInfo()
   }
 
   handleClose = () => {
-    this.setState({ open: false })
+    this.setState({open: false})
   }
 
   handleToggle = () => {
-    this.setState(({open}) => ({ open: !open }))
+    this.setState(({open}) => ({open: !open}))
   }
 
-  get leftMenu() {
+  get leftMenu () {
     return (
-      <IconButton onTouchTap={ this.handleToggle }>
+      <IconButton onTouchTap={this.handleToggle}>
         <MenuIcon />
       </IconButton>
     )
   }
 
-  get rightMenu() {
-    const { account, logout } = this.props
+  get rightMenu () {
+    const {account, logout} = this.props
     if (account.get('state')) {
       return (
         <div>
           <Link to='/about-us'>
-            <FlatButton labelStyle={ commonStyles.whiteColor } label='About us' />
+            <FlatButton labelStyle={commonStyles.whiteColor} label='About us' />
           </Link>
           <span
-            style={ {
+            style={{
               ...commonStyles.whiteColor,
               ...styles.verticalAlign
-            } }>
+            }}>
             {account.getIn(['user', 'nickname'])}
           </span>
           <IconMenu
             iconButtonElement={
-              <IconButton iconStyle={ commonStyles.whiteIcon }>
+              <IconButton iconStyle={commonStyles.whiteIcon}>
                 <MoreVertIcon />
               </IconButton>
             }
-            targetOrigin={ styles.origin }
-            anchorOrigin={ styles.origin }>
+            targetOrigin={styles.origin}
+            anchorOrigin={styles.origin}>
             <MenuLinkItem primaryText='Submission' to='/submissions' />
-            <MenuItem primaryText='Logout' onTouchTap={ logout } />
+            <MenuItem primaryText='Logout' onTouchTap={logout} />
           </IconMenu>
         </div>
       )
@@ -70,50 +70,50 @@ export class AppBar extends React.Component {
       return (
         <div>
           <Link to='/about-us'>
-            <FlatButton labelStyle={ commonStyles.whiteColor } label='About us' />
+            <FlatButton labelStyle={commonStyles.whiteColor} label='About us' />
           </Link>
           <Link to='/sign-up'>
-            <FlatButton labelStyle={ commonStyles.whiteColor } label='Signup' />
+            <FlatButton labelStyle={commonStyles.whiteColor} label='Signup' />
           </Link>
           <Link to='/sign-in'>
-            <FlatButton labelStyle={ commonStyles.whiteColor } label='Signin' />
+            <FlatButton labelStyle={commonStyles.whiteColor} label='Signin' />
           </Link>
         </div>
       )
     }
   }
 
-  render() {
+  render () {
     return (
       <MuiAppBar
         title={
-          <Link style={ commonStyles.whiteLink } to='/'>
+          <Link style={commonStyles.whiteLink} to='/'>
             Juice
           </Link>
         }
-        iconElementLeft={ this.leftMenu }
-        iconElementRight={ this.rightMenu }>
-        <LeftNav open={ this.state.open } onRequestChange={ this.handleClose } />
+        iconElementLeft={this.leftMenu}
+        iconElementRight={this.rightMenu}>
+        <LeftNav open={this.state.open} onRequestChange={this.handleClose} />
       </MuiAppBar>
     )
   }
 
   state = {
     open: false
-  };
+  }
 
   static propTypes = {
     account: PropTypes.object.isRequired,
     fetchUserInfo: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired
-  };
+  }
 }
 
 export default connect(
   state => ({
     account: state.account
   }),
-  { fetchUserInfo, logout }
+  {fetchUserInfo, logout}
 )(AppBar)
 
 const styles = {

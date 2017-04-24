@@ -13,11 +13,11 @@ class Row extends Component {
     }
   }
 
-  renderCheckbox() {
-    return <Checkbox checked={ this.props.selected } onCheck={ this.handleCheck } />
+  renderCheckbox () {
+    return <Checkbox checked={this.props.selected} onCheck={this.handleCheck} />
   }
 
-  renderCheckboxColumn() {
+  renderCheckboxColumn () {
     return (
       <Column>
         {this.renderCheckbox()}
@@ -25,7 +25,7 @@ class Row extends Component {
     )
   }
 
-  render() {
+  render () {
     const {selected, selectable, children, id, ...rest} = this.props
     const style = {
       '& td': {
@@ -35,7 +35,7 @@ class Row extends Component {
     }
 
     return (
-      <tr onClick={ this.handleCheck } { ...css(baseStyle, style) } { ...rest }>
+      <tr onClick={this.handleCheck} {...css(baseStyle, style)} {...rest}>
         {selectable && this.renderCheckboxColumn()}
         {children}
       </tr>

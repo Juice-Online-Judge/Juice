@@ -3,16 +3,16 @@ import pathToRegexp from 'path-to-regexp'
 import {networkOnly} from './strategy'
 
 class Router {
-  constructor(basePath = '') {
+  constructor (basePath = '') {
     this.basePath = basePath
     this.routes = new Map()
   }
 
-  all(path, handler) {
+  all (path, handler) {
     this.addRoute(null, path, handler)
   }
 
-  addRoute(method, path, handler) {
+  addRoute (method, path, handler) {
     const keys = []
     const regex = pathToRegexp(path, keys)
     const routes = this.routes.get(regex) || {keys, handlers: []}
@@ -20,7 +20,7 @@ class Router {
     this.routes.set(regex, routes)
   }
 
-  dispatch(request) {
+  dispatch (request) {
     const {routes} = this
     const path = request.url
     const method = request.method
@@ -60,12 +60,12 @@ class Router {
 }
 
 ;['get', 'post', 'put', 'delete'].forEach(method => {
-  Router.prototype[method] = function(path, handler) {
+  Router.prototype[method] = function (path, handler) {
     this.addRoute(method, path, handler)
   }
 })
 
-function isResponse(response) {
+function isResponse (response) {
   return response && response instanceof Response
 }
 

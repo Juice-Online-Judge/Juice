@@ -20,23 +20,23 @@ class ExamQuestion extends Component {
     }
   }
 
-  render() {
+  render () {
     const {uuid, question, checked} = this.props
     const questionDetail = question.getIn(['entities', 'question', uuid])
     return (
-      <TitleCard style={ styles.card }>
+      <TitleCard style={styles.card}>
         <Row middle='md'>
-          <Col md={ 1 }>
-            <Checkbox checked={ checked } onCheck={ this.handleCheck } />
+          <Col md={1}>
+            <Checkbox checked={checked} onCheck={this.handleCheck} />
           </Col>
-          <Col style={ styles.clickable } onClick={ this.handleCheck } md={ 10 }>
+          <Col style={styles.clickable} onClick={this.handleCheck} md={10}>
             {questionDetail.get('title')}
           </Col>
           <Col>
             <FlatButton
-              disabled={ !checked }
-              icon={ <ChevronRight /> }
-              onTouchTap={ this.handleRequestDetail }>
+              disabled={!checked}
+              icon={<ChevronRight />}
+              onTouchTap={this.handleRequestDetail}>
               評分設定
             </FlatButton>
           </Col>

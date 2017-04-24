@@ -25,18 +25,18 @@ export default compose(
         {exam.get('result').map(id => {
           return (
             <ExamCard
-              id={ id }
-              key={ id }
-              name={ examData.getIn([`${id}`, 'name']) }
-              beganTime={ examData.getIn([`${id}`, 'began_at']) }
-              endedTime={ examData.getIn([`${id}`, 'ended_at']) } />
+              id={id}
+              key={id}
+              name={examData.getIn([`${id}`, 'name'])}
+              beganTime={examData.getIn([`${id}`, 'began_at'])}
+              endedTime={examData.getIn([`${id}`, 'ended_at'])} />
           )
         })}
       </Inset>
       <Pagination
         baseUrl='/exams'
-        current={ exam.get('page') }
-        maxPage={ maxPage } />
+        current={exam.get('page')}
+        maxPage={maxPage} />
     </div>
   )
 })

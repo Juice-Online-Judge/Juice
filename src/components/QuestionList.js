@@ -16,10 +16,10 @@ const QuestionList = compose(
       .get('result')
       .map(uuid => (
         <QuestionLink
-          key={ uuid }
-          title={ question.getIn(['entities', 'question', uuid, 'title']) }
-          examId={ examId }
-          uuid={ uuid } />
+          key={uuid}
+          title={question.getIn(['entities', 'question', uuid, 'title'])}
+          examId={examId}
+          uuid={uuid} />
       ))}
   </div>
 ))

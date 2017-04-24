@@ -7,34 +7,34 @@ import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 
 class SetScoreButton extends Component {
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate (nextProps) {
     return nextProps.needReview !== this.props.needReview
   }
 
-  @bind handleScoreChange({target: {value}}) {
+  @bind handleScoreChange ({target: {value}}) {
     this.correctness = value
   }
 
-  @bind handleSetScore(event) {
+  @bind handleSetScore (event) {
     this.props.patchCorrectness(this.correctness)
   }
 
-  render() {
+  render () {
     const {needReview} = this.props
     if (!needReview) {
       return null
     }
 
     return (
-      <Col md={ 4 }>
+      <Col md={4}>
         <Row middle='md'>
-          <Col md={ 6 }>
+          <Col md={6}>
             <TextField
-              onChange={ this.handleScoreChange }
+              onChange={this.handleScoreChange}
               floatingLabelText='Score' />
           </Col>
-          <Col md={ 6 }>
-            <FlatButton label='Set score' onTouchTap={ this.handleSetScore } />
+          <Col md={6}>
+            <FlatButton label='Set score' onTouchTap={this.handleSetScore} />
           </Col>
         </Row>
       </Col>

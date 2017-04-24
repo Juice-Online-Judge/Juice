@@ -25,12 +25,12 @@ const validateFormHoc = validateRule => WrappedComponent => {
       setValidationRule
     }),
     lifecycle({
-      componentWillMount() {
+      componentWillMount () {
         this.props.clearValidationMessage(componentName)
         this.props.setValidationName(componentName)
         this.props.setValidationRule(validateRule)
       },
-      componentWillUnmount() {
+      componentWillUnmount () {
         this.props.setValidationName(null)
         this.props.setValidationRule({})
       }

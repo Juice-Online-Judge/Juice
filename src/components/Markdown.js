@@ -5,7 +5,7 @@ import setDisplayName from 'recompose/setDisplayName'
 
 const remarkableOpts = {
   langPrefix: 'language-',
-  highlight(str, lang) {
+  highlight (str, lang) {
     if (lang) {
       if (lang === 'txt' || lang === 'plain') {
         return ''
@@ -24,7 +24,7 @@ const Markdown = setDisplayName('Markdown')(props => {
   if (children) {
     return (
       <span className='markdown-body'>
-        <Remarkable { ...rest } options={ remarkableOpts }>
+        <Remarkable {...rest} options={remarkableOpts}>
           {children}
         </Remarkable>
       </span>
@@ -33,7 +33,7 @@ const Markdown = setDisplayName('Markdown')(props => {
 
   return (
     <span className='markdown-body'>
-      <Remarkable { ...rest } options={ remarkableOpts } />
+      <Remarkable {...rest} options={remarkableOpts} />
     </span>
   )
 })

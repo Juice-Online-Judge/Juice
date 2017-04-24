@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import { css } from 'glamor'
+import {css} from 'glamor'
 import FlatButton from 'material-ui/FlatButton'
 import FilterList from 'material-ui/svg-icons/content/filter-list'
 import SearchIcon from 'material-ui/svg-icons/action/search'
@@ -10,7 +10,7 @@ import HeaderColumn from './Table/HeaderColumn'
 
 class SearchBar extends Component {
   toggleSearch = () => {
-    const { searchEnable } = this.state
+    const {searchEnable} = this.state
 
     if (!this.props.search) {
       return
@@ -19,28 +19,28 @@ class SearchBar extends Component {
     this.setState({
       searchEnable: !searchEnable
     })
-  };
+  }
 
-  render() {
-    const { onChange, onSelectAllMatch, columnLength } = this.props
-    const { searchEnable } = this.state
+  render () {
+    const {onChange, onSelectAllMatch, columnLength} = this.props
+    const {searchEnable} = this.state
     return (
       <HeaderRow>
-        <HeaderColumn colSpan={ columnLength } { ...searchHeaderColumnStyle }>
+        <HeaderColumn colSpan={columnLength} {...searchHeaderColumnStyle}>
           <SearchIcon />
           <input
             type='search'
             placeholder='Search'
-            { ...css(searchStyle, { opacity: searchEnable ? 1 : 0 }) }
-            disabled={ !searchEnable }
-            onChange={ onChange } />
+            {...css(searchStyle, {opacity: searchEnable ? 1 : 0})}
+            disabled={!searchEnable}
+            onChange={onChange} />
           <FilterList
-            { ...css(iconStyleFilter, { opacity: searchEnable ? 0 : 1 }) }
-            onClick={ this.toggleSearch } />
+            {...css(iconStyleFilter, {opacity: searchEnable ? 0 : 1})}
+            onClick={this.toggleSearch} />
           <FlatButton
-            disabled={ !searchEnable }
+            disabled={!searchEnable}
             primary
-            onTouchTap={ onSelectAllMatch }
+            onTouchTap={onSelectAllMatch}
             label='Select all match' />
         </HeaderColumn>
       </HeaderRow>
@@ -49,18 +49,18 @@ class SearchBar extends Component {
 
   state = {
     searchEnable: false
-  };
+  }
 
   static propTypes = {
     search: PropTypes.bool.isRequired,
     columnLength: PropTypes.number.isRequired,
     onChange: PropTypes.func.isRequired,
     onSelectAllMatch: PropTypes.func.isRequired
-  };
+  }
 
   static defaultProps = {
     search: false
-  };
+  }
 }
 
 export default SearchBar

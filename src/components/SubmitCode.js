@@ -15,15 +15,15 @@ import MessageContainer from 'containers/MessageContainer'
 import {submitCode} from 'redux/modules/submission'
 
 export class SubmitCode extends Component {
-  @bind handleLanguageChange(_event, _index, value) {
+  @bind handleLanguageChange (_event, _index, value) {
     this.setState({language: value})
   }
 
-  @bind handleCodeChange(content) {
+  @bind handleCodeChange (content) {
     this.setState({code: content.code})
   }
 
-  @bind handleSubmit() {
+  @bind handleSubmit () {
     const {uuid, examId} = this.props
     this.props.submitCode({
       uuid,
@@ -32,18 +32,18 @@ export class SubmitCode extends Component {
     })
   }
 
-  @bind handleClose() {
+  @bind handleClose () {
     this.props.goBack()
   }
 
-  render() {
+  render () {
     return (
-      <MessageContainer onRequestClose={ this.handleClose }>
+      <MessageContainer onRequestClose={this.handleClose}>
         <Label label='Language: ' />
         <SelectField
-          style={ styles.margin }
-          value={ this.state.language }
-          onChange={ this.handleLanguageChange }>
+          style={styles.margin}
+          value={this.state.language}
+          onChange={this.handleLanguageChange}>
           <MenuItem value='c' primaryText='C' />
           <MenuItem value='c++' primaryText='C++' />
         </SelectField>
@@ -51,8 +51,8 @@ export class SubmitCode extends Component {
           fileKey='code'
           textKey='code'
           mode='code'
-          onChange={ this.handleCodeChange } />
-        <FlatButton label='Submit' primary onTouchTap={ this.handleSubmit } />
+          onChange={this.handleCodeChange} />
+        <FlatButton label='Submit' primary onTouchTap={this.handleSubmit} />
       </MessageContainer>
     )
   }

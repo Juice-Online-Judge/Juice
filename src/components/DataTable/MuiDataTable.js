@@ -22,7 +22,7 @@ import {paginatedShape} from './prop-types'
 const defaultFetchKey = ({id}) => id
 
 export default class MuiDataTable extends Component {
-  constructor(props, ...rest) {
+  constructor (props, ...rest) {
     super(props, ...rest)
     this.initModel(props.data)
     const {data: tableData, pageInfo} = this.model.page(1)
@@ -39,16 +39,16 @@ export default class MuiDataTable extends Component {
     this.columns = props.columns
   }
 
-  componentWillUmount() {
+  componentWillUmount () {
     this.removeListeners()
   }
 
-  addListeners() {
+  addListeners () {
     this.model.addListener('change', this.handleModelChange)
     this.model.addListener('checked', this.handleCheckedChange)
   }
 
-  removeListeners() {
+  removeListeners () {
     if (this.model) {
       this.model.removeAllListeners()
     }
@@ -79,7 +79,7 @@ export default class MuiDataTable extends Component {
     this.model.setChecked(key, checked)
   }
 
-  initModel(data) {
+  initModel (data) {
     const {paginated, search, fetchKey} = this.props
     this.removeListeners()
     this.model = new Model({
@@ -98,14 +98,14 @@ export default class MuiDataTable extends Component {
     }))
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (nextProps.data !== this.props.data) {
       this.initModel(nextProps.data)
       this.setPage(1)
     }
   }
 
-  setPage(n) {
+  setPage (n) {
     if (!n) {
       return
     }
@@ -132,21 +132,21 @@ export default class MuiDataTable extends Component {
     this.setPage(pageInfo.previousPage)
   }
 
-  mapColumnsToElems(cols) {
+  mapColumnsToElems (cols) {
     return cols.map(item => (
-      <HeaderColumn key={ item.property }>{item.title}</HeaderColumn>
+      <HeaderColumn key={item.property}>{item.title}</HeaderColumn>
     ))
   }
 
-  mapDataToProperties(properties, obj) {
+  mapDataToProperties (properties, obj) {
     return properties.map((prop, index) => (
-      <Column key={ index }>
+      <Column key={index}>
         {this.renderTableData(obj, prop)}
       </Column>
     ))
   }
 
-  populateTableWithData(data, cols) {
+  populateTableWithData (data, cols) {
     const properties = cols.map(item => item.property)
     const {fetchKey} = this.props
     const {checked, tableData} = this.state
@@ -156,22 +156,22 @@ export default class MuiDataTable extends Component {
       const show = tableData.has(key)
       return (
         <Row
-          { ...this.calcShow(show) }
-          selected={ checked.has(key) }
-          onSelect={ this.handleSelect }
-          id={ key }
-          key={ key }>
+          {...this.calcShow(show)}
+          selected={checked.has(key)}
+          onSelect={this.handleSelect}
+          id={key}
+          key={key}>
           {show && this.mapDataToProperties(properties, item)}
         </Row>
       )
     })
   }
 
-  calcShow(cond) {
+  calcShow (cond) {
     return cond ? {} : hidden
   }
 
-  calcColSpan(cols) {
+  calcColSpan (cols) {
     return cols.length
   }
 
@@ -184,22 +184,22 @@ export default class MuiDataTable extends Component {
     this.model.setFilter(word)
   }, 300)
 
-  renderTableData(obj, prop) {
+  renderTableData (obj, prop) {
     return obj[prop]
   }
 
-  render() {
+  render () {
     const {search, paginated} = this.props
     const {pageInfo, perPages} = this.state
     return (
-      <Paper zDepth={ 1 }>
+      <Paper zDepth={1}>
         <Table>
           <TableHeader>
             <SearchBar
-              search={ !!search }
-              onChange={ this.searchData }
-              onSelectAllMatch={ this.handleCheckMatch }
-              columnLength={ this.calcColSpan(this.columns) } />
+              search={!!search}
+              onChange={this.searchData}
+              onSelectAllMatch={this.handleCheckMatch}
+              columnLength={this.calcColSpan(this.columns)} />
             <HeaderRow displaySelectAll>
               {this.mapColumnsToElems(this.columns)}
             </HeaderRow>
@@ -211,12 +211,12 @@ export default class MuiDataTable extends Component {
           <tfoot>
             {paginated &&
               <DataTableFooter
-                pageInfo={ pageInfo }
-                perPages={ perPages }
-                paginated={ paginated }
-                onPerPageChange={ this.handlePerPageChange }
-                onNavigateLeft={ this.navigateLeft }
-                onNavigateRight={ this.navigateRight } />}
+                pageInfo={pageInfo}
+                perPages={perPages}
+                paginated={paginated}
+                onPerPageChange={this.handlePerPageChange}
+                onNavigateLeft={this.navigateLeft}
+                onNavigateRight={this.navigateRight} />}
           </tfoot>
         </Table>
       </Paper>

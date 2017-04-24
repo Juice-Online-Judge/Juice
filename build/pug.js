@@ -1,4 +1,4 @@
-function pug() {
+function pug () {
   return context => ({
     module: {
       loaders: [

@@ -38,7 +38,7 @@ describe('(Component) <TitleCard />', () => {
   describe('(Prop) style', () => {
     it('Pass to <CardTitle />', () => {
       const style = {foo: 'bar'}
-      const sut = shallow(<TitleCard style={ style } />)
+      const sut = shallow(<TitleCard style={style} />)
 
       expect(sut.find(CardTitle)).toHaveProp('style', style)
     })

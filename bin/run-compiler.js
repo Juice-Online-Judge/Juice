@@ -5,7 +5,7 @@ import webpackCompiler from '../build/webpack-compiler'
 import webpackConfig from '../build/webpack.config'
 import config from '../config'
 
-export default async function({ debug, compilerConfig = {}, json = false }) {
+export default async function ({debug, compilerConfig = {}, json = false}) {
   try {
     debug('Run compiler')
     const stats = await webpackCompiler({...webpackConfig, ...compilerConfig})
@@ -14,7 +14,10 @@ export default async function({ debug, compilerConfig = {}, json = false }) {
       process.exit(1)
     }
     if (json) {
-      await pify(fs.writeFile)(path.join(__dirname, '..', 'stats.json'), JSON.stringify(stats))
+      await pify(fs.writeFile)(
+        path.join(__dirname, '..', 'stats.json'),
+        JSON.stringify(stats)
+      )
       debug('Write state to state.json')
     }
   } catch (e) {

@@ -20,7 +20,7 @@ const columns = [
 ]
 
 class UserTab extends Component {
-  componentDidMount() {
+  componentDidMount () {
     this.props.fetchUsers()
   }
 
@@ -28,29 +28,29 @@ class UserTab extends Component {
     setImmediate(() => this.emitChange(selectedRow))
   }
 
-  emitChange(selectedRow) {
+  emitChange (selectedRow) {
     this.props.onChange(selectedRow)
   }
 
-  render() {
+  render () {
     const {users} = this.props
     return (
       <LoadingContainer>
         <DataTable
-          data={ map(
+          data={map(
             users
               .getIn(['entities', 'user'], {
-                toJS() {
+                toJS () {
                   return {}
                 }
               })
               .toJS()
-          ) }
+          )}
           search='username'
           multiSelectable
           paginated
-          onSelectedChange={ this.handleUserSelect }
-          columns={ columns } />
+          onSelectedChange={this.handleUserSelect}
+          columns={columns} />
       </LoadingContainer>
     )
   }

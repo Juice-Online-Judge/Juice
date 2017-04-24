@@ -3,7 +3,7 @@ const regexMatchFactory = filter => {
   return item => String(item).match(regex)
 }
 
-const search = ({ key, filter, data, matchFactory = regexMatchFactory }) => {
+const search = ({key, filter, data, matchFactory = regexMatchFactory}) => {
   if (filter.length < 1) return data
 
   const match = matchFactory(filter)

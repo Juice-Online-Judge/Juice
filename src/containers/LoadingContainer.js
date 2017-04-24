@@ -6,17 +6,17 @@ import CenterLoading from 'components/CenterLoading'
 import {isPendingSelector} from 'redux/modules/app'
 
 class LoadingContainer extends Component {
-  componentDidMount() {
+  componentDidMount () {
     this.setState({
       left: this.refs.container.offsetWidth / 2 - 20
     })
   }
 
-  render() {
+  render () {
     const {pending, children} = this.props
     return (
-      <div ref='container' style={ styles.container }>
-        <CenterLoading left={ this.state.left } loading={ pending } />
+      <div ref='container' style={styles.container}>
+        <CenterLoading left={this.state.left} loading={pending} />
         {children}
       </div>
     )

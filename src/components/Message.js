@@ -14,10 +14,10 @@ const Message = compose(
   setDisplayName('Message')
 )(({open, message, onRequestClose}) => (
   <Snackbar
-    open={ open }
-    message={ message }
-    autoHideDuration={ 2000 }
-    onRequestClose={ onRequestClose } />
+    open={open}
+    message={message}
+    autoHideDuration={2000}
+    onRequestClose={onRequestClose} />
 ))
 
 export default Message

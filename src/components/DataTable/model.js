@@ -5,7 +5,7 @@ import search from './utils/search'
 import {DEFAULT_PER_PAGE, DEFAULT_CONFIG} from './constants'
 
 class Model extends EventEmitter {
-  constructor(config) {
+  constructor (config) {
     super()
     const {paginated, data, search, fetchKey} = {...DEFAULT_CONFIG, ...config}
     this.originalData = data
@@ -20,7 +20,7 @@ class Model extends EventEmitter {
     this.prevFilter = ''
   }
 
-  setFilter(filter) {
+  setFilter (filter) {
     const {search: key} = this
     this._setData(
       search({
@@ -34,23 +34,23 @@ class Model extends EventEmitter {
     this.prevFilter = filter
   }
 
-  setChecked(key, checked) {
+  setChecked (key, checked) {
     this.checked[checked ? 'add' : 'delete'](key)
     this._emitChecked()
   }
 
-  idToKey(idx) {
+  idToKey (idx) {
     const datas = this.pageData(this.currentPage)
     return this.fetchKey(datas[idx])
   }
 
-  setAllChecked() {
+  setAllChecked () {
     const keys = this.data.map(this.fetchKey)
     this.checked = new Set(keys)
     this._emitChecked()
   }
 
-  setPageChecked() {
+  setPageChecked () {
     const datas = this.pageData(this.currentPage)
     datas.forEach(data => {
       this.checked.add(this.fetchKey(data))
@@ -58,12 +58,12 @@ class Model extends EventEmitter {
     this._emitChecked()
   }
 
-  setPerPages(n) {
+  setPerPages (n) {
     this.perPage = n
     this._emitChange()
   }
 
-  page(n) {
+  page (n) {
     this.currentPage = n
     return {
       data: new Set(this.pageData(n).map(this.fetchKey)),
@@ -80,7 +80,7 @@ class Model extends EventEmitter {
     return data
   })
 
-  _pageInfo(n) {
+  _pageInfo (n) {
     return {
       currentPage: n,
       nextPage: n === this.totalPages ? null : n + 1,
@@ -92,22 +92,22 @@ class Model extends EventEmitter {
     }
   }
 
-  _calcShowing(n) {
+  _calcShowing (n) {
     const start = (n - 1) * this.perPage + 1
     const end = min([n * this.perPage, this.data.length])
     return `${start} - ${end} of ${this.totalPages}`
   }
 
-  _setData(data) {
+  _setData (data) {
     this.data = data
     this._emitChange()
   }
 
-  _emitChecked() {
+  _emitChecked () {
     this.emit('checked', this.checked)
   }
 
-  _emitChange() {
+  _emitChange () {
     this.currentPage = 1
     this.totalPages = this.paginated
       ? Math.floor(this.data.length / this.perPage)

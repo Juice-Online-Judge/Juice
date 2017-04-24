@@ -13,7 +13,7 @@ import QuestionSetting from './QuestionSetting'
 import {fetchQuestion} from 'redux/modules/question'
 
 class QuestionTab extends Component {
-  componentDidMount() {
+  componentDidMount () {
     const {page} = this.state
     this.props.fetchQuestion({page}, {force: true})
   }
@@ -52,38 +52,38 @@ class QuestionTab extends Component {
     })
   }
 
-  emitChange(questionDetail, selectedQuestion) {
+  emitChange (questionDetail, selectedQuestion) {
     this.props.onChange(pick(questionDetail, selectedQuestion))
   }
 
-  render() {
+  render () {
     const {app, question} = this.props
     const {selectedQuestion, detail, detailUuid, questionDetail} = this.state
     const total = question.get('total')
     return (
       <div>
-        <ToggleDisplay hide={ detail }>
+        <ToggleDisplay hide={detail}>
           <LoadingContainer
-            loading={ app.get('status') === RequestStatus.PENDING }>
+            loading={app.get('status') === RequestStatus.PENDING}>
             <ExamQuestionList
-              question={ question }
-              selectedQuestion={ selectedQuestion }
-              onChange={ this.handleQuestionChange }
-              onRequestDetail={ this.handleRequestDetail } />
+              question={question}
+              selectedQuestion={selectedQuestion}
+              onChange={this.handleQuestionChange}
+              onRequestDetail={this.handleRequestDetail} />
             <Pagination
-              current={ this.state.page }
-              maxPage={ Math.ceil(total / 10) }
-              onChange={ this.handlePageChange } />
+              current={this.state.page}
+              maxPage={Math.ceil(total / 10)}
+              onChange={this.handlePageChange} />
           </LoadingContainer>
         </ToggleDisplay>
-        <ToggleDisplay show={ detail }>
+        <ToggleDisplay show={detail}>
           <QuestionSetting
-            detail={ detail }
-            question={ question }
-            onBack={ this.handleBack }
-            onChange={ this.handleSettingChange }
-            setting={ detail ? questionDetail[detailUuid] : null }
-            uuid={ detailUuid } />
+            detail={detail}
+            question={question}
+            onBack={this.handleBack}
+            onChange={this.handleSettingChange}
+            setting={detail ? questionDetail[detailUuid] : null}
+            uuid={detailUuid} />
         </ToggleDisplay>
       </div>
     )
