@@ -14,7 +14,7 @@
     "deploy": "better-npm-run deploy",
     "deploy:dev": "better-npm-run deploy:dev",
     "watch": "yarn run clean && nodemon -x 'node -r dotenv/config -r babel-register --harmony' bin/watch.js",
-    "lint": "prettier-eslint --write '{bin,build,config,src,tests}/**/*.js'",
+    "lint": "prettier-eslint --write '{bin,build,config,src,tests}/**/*.js' && eslint bin build config src tests",
     "test": "better-npm-run test",
     "test:dev": "yarn run test -- --watch"
   },
