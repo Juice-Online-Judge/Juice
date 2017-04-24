@@ -1,5 +1,5 @@
 import _debug from 'debug'
-import config from './_base'
+import config from './project'
 import environments from './environments'
 
 const debug = _debug('app:config')
