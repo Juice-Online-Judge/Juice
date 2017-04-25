@@ -3,7 +3,6 @@ import lifecycle from 'recompose/lifecycle'
 import withHandlers from 'recompose/withHandlers'
 import setDisplayName from 'recompose/setDisplayName'
 import wrapDisplayName from 'recompose/wrapDisplayName'
-import getDisplayName from 'recompose/getDisplayName'
 import compose from 'recompose/compose'
 import {
   getComponentMessage,
