@@ -13,8 +13,7 @@ import {
   clearValidationMessage
 } from 'redux/modules/validation'
 
-const validateFormHoc = validateRule => WrappedComponent => {
-  const componentName = getDisplayName(WrappedComponent)
+const validateFormHoc = (key, validateRule) => WrappedComponent => {
   const mapStates = state => ({validation: getComponentMessage(state)})
 
   return compose(
@@ -26,8 +25,8 @@ const validateFormHoc = validateRule => WrappedComponent => {
     }),
     lifecycle({
       componentWillMount () {
-        this.props.clearValidationMessage(componentName)
-        this.props.setValidationName(componentName)
+        this.props.clearValidationMessage(key)
+        this.props.setValidationName(key)
         this.props.setValidationRule(validateRule)
       },
       componentWillUnmount () {

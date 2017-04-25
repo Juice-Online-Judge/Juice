@@ -120,8 +120,10 @@ export class SignUpView extends React.Component {
   }
 }
 
+const VALIDATE_KEY = 'SIGN_UP'
+
 export default compose(
   redirectOnLogin,
   connect(state => ({loginState: state.account}), {registerUser}),
-  validateForm(rule)
+  validateForm(VALIDATE_KEY, rule)
 )(SignUpView)
