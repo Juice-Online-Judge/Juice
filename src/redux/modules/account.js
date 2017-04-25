@@ -125,7 +125,7 @@ export const fetchUserInfo = (options = {force: false}) => (
   )
 }
 
-export const registerUser = info => dispatch => {
+export const registerUser = info => (dispatch, getState) => {
   const isValidation = dispatch(validateForm(info))
 
   if (!isValidation) {
@@ -147,7 +147,8 @@ export const registerUser = info => dispatch => {
       },
       err => {
         if (err.response.status === 422) {
-          dispatch(setValidationMessage('SignUpView', err.response.data.errors))
+          const {validation} = getState()
+          dispatch(setValidationMessage(validation.get('name'), err.response.data.errors))
         }
       }
     )
