@@ -149,7 +149,12 @@ export const registerUser = info => (dispatch, getState) => {
       err => {
         if (idx(err, _ => _.response.status) === 422) {
           const {validation} = getState()
-          dispatch(setValidationMessage(validation.get('name'), err.response.data.errors))
+          dispatch(
+            setValidationMessage(
+              validation.get('name'),
+              err.response.data.errors
+            )
+          )
         }
       }
     )
