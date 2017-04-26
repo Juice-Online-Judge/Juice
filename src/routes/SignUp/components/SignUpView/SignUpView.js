@@ -15,7 +15,6 @@ import CenterBlock from 'layouts/CenterBlock'
 import Recaptcha from 'components/Recaptcha'
 import InputAction from 'components/InputAction'
 import rule from 'validation/register'
-import redirectOnLogin from 'lib/redirectOnLogin'
 import validateForm from 'lib/validateForm'
 import styles from 'lib/styles'
 
@@ -123,7 +122,6 @@ export class SignUpView extends React.Component {
 const VALIDATE_KEY = 'SIGN_UP'
 
 export default compose(
-  redirectOnLogin,
   connect(state => ({loginState: state.account}), {registerUser}),
   validateForm(VALIDATE_KEY, rule)
 )(SignUpView)

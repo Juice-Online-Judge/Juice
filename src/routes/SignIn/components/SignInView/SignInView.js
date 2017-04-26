@@ -3,10 +3,8 @@ import PropTypes from 'prop-types'
 import {bind} from 'decko'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import compose from 'recompose/compose'
 
 import {login, oauthLogin} from 'redux/modules/account'
-import redirectOnLogin from 'lib/redirectOnLogin'
 
 import Paper from 'material-ui/Paper'
 import Card from 'material-ui/Card/Card'
@@ -108,21 +106,18 @@ export class SignInView extends React.Component {
 
 const isOAuthError = token => token === 'server-error' || token === 'failed'
 
-export default compose(
-  redirectOnLogin,
-  connect(
-    () => ({}),
-    (dispatch, {location: {query: {oauth}}}) => {
-      if (!isOAuthError(oauth)) {
-        dispatch(oauthLogin(oauth))
-      }
-
-      return bindActionCreators(
-        {
-          login
-        },
-        dispatch
-      )
+export default connect(
+  () => ({}),
+  (dispatch, {location: {query: {oauth}}}) => {
+    if (!isOAuthError(oauth)) {
+      dispatch(oauthLogin(oauth))
     }
-  )
+
+    return bindActionCreators(
+      {
+        login
+      },
+      dispatch
+    )
+  }
 )(SignInView)

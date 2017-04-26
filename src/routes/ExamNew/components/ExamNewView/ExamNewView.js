@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import compose from 'recompose/compose'
 
 import Card from 'material-ui/Card/Card'
 import CardTitle from 'material-ui/Card/CardTitle'
@@ -10,7 +9,6 @@ import Inset from 'layouts/Inset'
 import BasicInfoTab from './BasicInfoTab'
 import QuestionTab from './QuestionTab'
 import UserTab from './UserTab'
-import redirectNotAdmin from 'lib/redirectNotAdmin'
 import MessageContainer from 'containers/MessageContainer'
 
 import {addExam} from 'redux/modules/exam'
@@ -85,6 +83,4 @@ export class ExamNewView extends Component {
   }
 }
 
-export default compose(redirectNotAdmin, connect(null, {addExam, clearCache}))(
-  ExamNewView
-)
+export default connect(null, {addExam, clearCache})(ExamNewView)
