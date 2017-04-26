@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {goBack} from 'react-router-redux'
-import {bind} from 'decko'
 
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
@@ -15,15 +14,15 @@ import MessageContainer from 'containers/MessageContainer'
 import {submitCode} from 'redux/modules/submission'
 
 export class SubmitCode extends Component {
-  @bind handleLanguageChange (_event, _index, value) {
+  handleLanguageChange = (_event, _index, value) => {
     this.setState({language: value})
   }
 
-  @bind handleCodeChange (content) {
+  handleCodeChange = content => {
     this.setState({code: content.code})
   }
 
-  @bind handleSubmit () {
+  handleSubmit = () => {
     const {uuid, examId} = this.props
     this.props.submitCode({
       uuid,
@@ -32,7 +31,7 @@ export class SubmitCode extends Component {
     })
   }
 
-  @bind handleClose () {
+  handleClose = () => {
     this.props.goBack()
   }
 
