@@ -2,6 +2,7 @@ import {createAction, handleActions} from 'redux-actions'
 import {Record, Map, List} from 'immutable'
 import store from 'store/dist/store.modern'
 import {createSelector} from 'reselect'
+import idx from 'idx'
 import {request} from './app'
 import {showMessage} from './message'
 import {validateForm, setValidationMessage} from './validation'
@@ -146,7 +147,7 @@ export const registerUser = info => (dispatch, getState) => {
         dispatch(setUserInfo(info))
       },
       err => {
-        if (err.response.status === 422) {
+        if (idx(err, _ => _.response.status) === 422) {
           const {validation} = getState()
           dispatch(setValidationMessage(validation.get('name'), err.response.data.errors))
         }
