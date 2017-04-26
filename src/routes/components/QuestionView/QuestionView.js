@@ -7,8 +7,6 @@ import ChevronLeft from 'material-ui/svg-icons/navigation/chevron-left'
 import Question from 'components/Question'
 import Inset from 'layouts/Inset'
 
-import redirectNotFound from 'lib/redirectNotFound'
-
 export const QuestionView = setPropTypes({
   match: PropTypes.shape({
     params: PropTypes.shape({
@@ -29,4 +27,4 @@ export const QuestionView = setPropTypes({
   </Inset>
 ))
 
-export default redirectNotFound(QuestionView)
+export default QuestionView

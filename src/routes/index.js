@@ -1,5 +1,9 @@
 import React from 'react'
 import {Route, Switch} from 'react-router-dom'
+import AuthRoute from './components/AuthRoute'
+import GuestRoute from './components/GuestRoute'
+import AdminRoute from './components/AdminRoute'
+import ExistRoute from './components/ExistRoute'
 
 import redirect from './utils/redirect'
 import CoreLayout from 'layouts/CoreLayout/CoreLayout'
@@ -22,19 +26,23 @@ export default () => (
     <Switch>
       <Route exact path='/' component={redirect('/exams')} />
       <Route path='/about-us' component={AboutUs} />
-      <Route path='(exams/:examId/)submissions/:id/code' component={Code} />
-      <Route exact path='/exams' component={Exam} />
-      <Route path='/exams/new' component={ExamNew} />
-      <Route path='/exams/:examId/questions/:uuid' component={QuestionDetail} />
-      <Route path='/exams/:examId/:func?' component={ExamDetail} />
+      <ExistRoute
+        path='(exams/:examId/)submissions/:id/code'
+        component={Code} />
+      <AuthRoute exact path='/exams' component={Exam} />
+      <AdminRoute path='/exams/new' component={ExamNew} />
+      <ExistRoute
+        path='/exams/:examId/questions/:uuid'
+        component={QuestionDetail} />
+      <ExistRoute path='/exams/:examId/:func?' component={ExamDetail} />
       <Route path='/page-not-found' component={NotFound} />
       <Route path='/permission-denied' component={PermissionDenied} />
       <Route exact path='/questions' component={Question} />
-      <Route path='/questions/new' component={QuestionNew} />
-      <Route path='/questions/:uuid' component={QuestionDetail} />
-      <Route path='/sign-in' component={SignIn} />
-      <Route path='/sign-up' component={SignUp} />
-      <Route path='/submissions' component={Submission} />
+      <AdminRoute path='/questions/new' component={QuestionNew} />
+      <ExistRoute path='/questions/:uuid' component={QuestionDetail} />
+      <GuestRoute path='/sign-in' component={SignIn} />
+      <GuestRoute path='/sign-up' component={SignUp} />
+      <AuthRoute path='/submissions' component={Submission} />
       <Route component={redirect('/page-not-found')} />
     </Switch>
   </CoreLayout>
