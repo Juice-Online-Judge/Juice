@@ -1,4 +1,5 @@
 import {createAction, handleActions} from 'redux-actions'
+import {redirect} from 'react-router-redux'
 import {Record, Map, List} from 'immutable'
 import store from 'store/dist/store.modern'
 import {createSelector} from 'reselect'
@@ -92,6 +93,7 @@ export const logout = () => dispatch => {
       }
     )
   )
+  dispatch(redirect('/sign-in'))
 }
 
 export const fetchUserInfo = (options = {force: false}) => (
