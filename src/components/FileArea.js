@@ -1,19 +1,19 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {bind} from 'decko'
 import uniqueId from 'lodash/uniqueId'
 
 import TextField from 'material-ui/TextField'
 import RadioButton from 'material-ui/RadioButton/RadioButton'
 import RadioButtonGroup from 'material-ui/RadioButton/RadioButtonGroup'
-import Codemirror from 'react-codemirror'
-import 'codemirror/mode/clike/clike'
 
+import loadable from 'lib/loadable'
 import FileButton from './FileButton'
 import styles from 'lib/styles'
 
+const Codemirror = loadable(() => import('./Codemirror'))
+
 export class FileArea extends Component {
-  @bind handleFileChange (fileList) {
+  handleFileChange = fileList => {
     const content = {}
     const {multiple} = this.props
     const files = Array.from(fileList)
@@ -24,12 +24,12 @@ export class FileArea extends Component {
     this.handleChange(content)
   }
 
-  @bind handleTextAreaChange (event) {
+  handleTextAreaChange = event => {
     const {value} = event.target
     this.handleTextChange(value)
   }
 
-  @bind handleTextChange (value) {
+  handleTextChange = value => {
     const {multiple} = this.props
     const content = {}
 
@@ -52,7 +52,7 @@ export class FileArea extends Component {
     }
   }
 
-  @bind handleTypeChange (event) {
+  handleTypeChange = event => {
     const {value} = event.target
     this.setState({type: value})
   }
