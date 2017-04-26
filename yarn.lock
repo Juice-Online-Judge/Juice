@@ -3026,15 +3026,15 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-standard-jsx@^3.0.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-standard-jsx/-/eslint-config-standard-jsx-3.3.0.tgz#cab0801a15a360bf63facb97ab22fbdd88d8a5e0"
+eslint-config-standard-jsx@^4.0.0:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-standard-jsx/-/eslint-config-standard-jsx-4.0.1.tgz#cd4e463d0268e2d9e707f61f42f73f5b3333c642"
 
-eslint-config-standard-react@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-standard-react/-/eslint-config-standard-react-4.3.0.tgz#7e0d3575f15a3c0b6639ccb63949dfb5ba3a0a8a"
+eslint-config-standard-react@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-standard-react/-/eslint-config-standard-react-5.0.0.tgz#64c7b8140172852be810a53d48ee87649ff178e3"
   dependencies:
-    eslint-config-standard-jsx "^3.0.0"
+    eslint-config-standard-jsx "^4.0.0"
 
 eslint-config-standard@^10.2.1:
   version "10.2.1"
@@ -3619,9 +3619,9 @@ glamor@next:
     fbjs "^0.8.8"
     object-assign "^4.1.0"
 
-glamorous@^3.11.0:
-  version "3.11.0"
-  resolved "https://registry.yarnpkg.com/glamorous/-/glamorous-3.11.0.tgz#e7a4feb7aa72bba31db87607145a42f6979994e2"
+glamorous@^3.11.1:
+  version "3.11.1"
+  resolved "https://registry.yarnpkg.com/glamorous/-/glamorous-3.11.1.tgz#f2b059e56dfc71268eda98ad95fc324d592c9a5c"
   dependencies:
     brcast "^2.0.0"
     fast-memoize "^2.2.7"
@@ -6555,9 +6555,9 @@ react-event-listener@^0.4.5:
     prop-types "^15.5.4"
     warning "^3.0.0"
 
-react-flexbox-grid@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/react-flexbox-grid/-/react-flexbox-grid-1.1.0.tgz#db8021cfa176895297b23a8651b4d2d48b61a793"
+react-flexbox-grid@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-flexbox-grid/-/react-flexbox-grid-1.1.1.tgz#09040dcd5f37be9356f25b8551df97527174aeae"
   dependencies:
     flexboxgrid "^6.3.0"
     prop-types "^15.5.8"
