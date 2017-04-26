@@ -4,8 +4,13 @@ import {connect} from 'react-redux'
 import GuardRoute from '../GuardRoute'
 import {errorCodeSelector} from 'redux/modules/app'
 
-function ExistRoute ({errorCode}) {
-  return <GuardRoute condition={() => errorCode === 404} />
+function ExistRoute ({errorCode, ...rest}) {
+  return (
+    <GuardRoute
+      condition={() => errorCode === 404}
+      redirectPath='/page-not-found'
+      {...rest} />
+  )
 }
 
 ExistRoute.propTypes = {
