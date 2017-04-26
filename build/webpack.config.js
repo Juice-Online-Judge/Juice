@@ -12,9 +12,8 @@ import {
 } from '@webpack-blocks/webpack2'
 import babel from './babel'
 import postcss from '@webpack-blocks/postcss'
-import cssmodules from '@webpack-blocks/css-modules'
-import extractText from '@webpack-blocks/extract-text2'
 import sass from '@webpack-blocks/sass'
+import extractText from './extract-text'
 import pug from './pug'
 import json from './json'
 import webpack from 'webpack'
@@ -91,12 +90,10 @@ const webpackConfig = createConfig([
     presets
   }),
   sass(),
-  cssmodules({
-    exclude: /(?!node_modules\/flexboxgrid)\/node_modules\//
-  }),
   postcss(),
   defineConstants(config.globals),
   addPlugins([
+    new webpack.IgnorePlugin(/.*/, /idx$/),
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor'],
       chunks: ['app']
