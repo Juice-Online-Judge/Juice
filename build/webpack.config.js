@@ -1,3 +1,11 @@
+import path from 'path'
+import _debug from 'debug'
+import webpack from 'webpack'
+import BabiliPlugin from 'babili-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import CompressionPlugin from 'compression-webpack-plugin'
+import ScriptExtHtmlWebpackPlugin from 'script-ext-html-webpack-plugin'
+
 import {
   createConfig,
   defineConstants,
@@ -10,19 +18,14 @@ import {
   setDevTool,
   sourceMaps
 } from '@webpack-blocks/webpack2'
-import babel from './babel'
 import postcss from '@webpack-blocks/postcss'
 import sass from '@webpack-blocks/sass'
-import extractText from './extract-text'
-import pug from './pug'
-import json from './json'
-import webpack from 'webpack'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import CompressionPlugin from 'compression-webpack-plugin'
-import ScriptExtHtmlWebpackPlugin from 'script-ext-html-webpack-plugin'
-import BabiliPlugin from 'babili-webpack-plugin'
+import babel from './blocks/babel'
+import extractText from './blocks/extract-text'
+import json from './blocks/json'
+import pug from './blocks/pug'
+
 import config from '../config'
-import _debug from 'debug'
 
 const debug = _debug('app:webpack:config')
 const paths = config.utils_paths
@@ -50,7 +53,8 @@ const basePlugins = [
   'transform-object-rest-spread',
   'syntax-dynamic-import',
   'dev-expression',
-  'idx'
+  'idx',
+  path.join(__dirname, 'babel', 'transform-loadable')
 ]
 
 const prodPlugins = [
