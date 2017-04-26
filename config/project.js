@@ -39,7 +39,6 @@ const config = {
     colors: true
   },
   compiler_vendor: [
-    'any-promise',
     'axios',
     'classnames',
     'decko',
