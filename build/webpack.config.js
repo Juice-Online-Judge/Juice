@@ -50,7 +50,8 @@ const basePlugins = [
   'transform-export-extensions',
   'transform-object-rest-spread',
   'syntax-dynamic-import',
-  'dev-expression'
+  'dev-expression',
+  'idx'
 ]
 
 const prodPlugins = [
