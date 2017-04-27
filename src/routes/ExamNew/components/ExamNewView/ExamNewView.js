@@ -37,7 +37,7 @@ export class ExamNewView extends Component {
     this.setData({users})
   }
 
-  handleAddExam () {
+  handleAddExam = () => {
     this.props.addExam(this.data)
   }
 
