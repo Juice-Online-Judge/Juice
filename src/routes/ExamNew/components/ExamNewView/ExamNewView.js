@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 
+import {Row, Col} from 'react-flexbox-grid'
+import RaisedButton from 'material-ui/RaisedButton'
 import Card from 'material-ui/Card/Card'
 import CardTitle from 'material-ui/Card/CardTitle'
 import CardActions from 'material-ui/Card/CardActions'
@@ -63,6 +65,18 @@ export class ExamNewView extends Component {
             <CardTitle title='參加者' />
             <CardActions>
               <UserTab onChange={this.handleUsersChange} />
+            </CardActions>
+          </Card>
+          <Card>
+            <CardActions>
+              <Row end='xs'>
+                <Col md={2} sm={6}>
+                  <RaisedButton
+                    primary
+                    label='Add'
+                    onTouchTap={this.handleAddExam} />
+                </Col>
+              </Row>
             </CardActions>
           </Card>
         </Inset>
