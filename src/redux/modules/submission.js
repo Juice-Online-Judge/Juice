@@ -149,7 +149,7 @@ export const patchSubmissionCorrectness = (id, correctness) => dispatch => {
 export const isNeedReviewScore = score => score === null || score === -1
 
 const getSubmission = ({submission}) => submission
-const getSubmissionWithId = ({submission}, {params: {id}}) =>
+const getSubmissionWithId = ({submission}, {match: {params: {id}}}) =>
   submission.getIn(['entities', 'submission', id], new Map())
 
 export const codeSelector = createSelector([getSubmission], submission =>
