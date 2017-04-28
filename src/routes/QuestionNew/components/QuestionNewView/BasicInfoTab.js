@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {bind} from 'decko'
 
 import TextField from 'material-ui/TextField'
 import Toggle from 'material-ui/Toggle'
@@ -12,19 +11,19 @@ export class BasicInfoTab extends Component {
     this.handleChange()
   }
 
-  @bind handleUuidChange (event) {
+  handleUuidChange = event => {
     this.handleChange({uuid: event.target.value})
   }
 
-  @bind handleTitleChange (event) {
+  handleTitleChange = event => {
     this.handleChange({title: event.target.value})
   }
 
-  @bind handleDescChange (text) {
+  handleDescChange = text => {
     this.handleChange({description: text})
   }
 
-  @bind handlePublicChange (event) {
+  handlePublicChange = event => {
     this.handleChange({public: event.target.checked})
   }
 
@@ -61,7 +60,6 @@ export class BasicInfoTab extends Component {
           <Toggle
             label='Public'
             labelPosition='right'
-            defaultToggled
             onToggle={this.handlePublicChange} />
         </div>
       </div>
@@ -72,7 +70,7 @@ export class BasicInfoTab extends Component {
     uuid: null,
     title: null,
     description: null,
-    public: true
+    public: false
   }
 
   static propTypes = {
