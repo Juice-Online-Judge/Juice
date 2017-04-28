@@ -27,7 +27,7 @@ export default () => (
       <Route exact path='/' component={redirect('/exams')} />
       <Route path='/about-us' component={AboutUs} />
       <ExistRoute
-        path='(exams/:examId/)submissions/:id/code'
+        path='/(exams/:examId/)submissions/:id/code'
         component={Code} />
       <AuthRoute exact path='/exams' component={Exam} />
       <AdminRoute path='/exams/new' component={ExamNew} />
