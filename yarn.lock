@@ -1293,9 +1293,9 @@ babel-plugin-transform-react-pure-class-to-function@^1.0.1:
   dependencies:
     babel-helper-is-react-class "^1.0.0"
 
-babel-plugin-transform-react-remove-prop-types@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/babel-plugin-transform-react-remove-prop-types/-/babel-plugin-transform-react-remove-prop-types-0.4.1.tgz#50d6376d3973c6052087b274ca9bd21b8a07409a"
+babel-plugin-transform-react-remove-prop-types@^0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-react-remove-prop-types/-/babel-plugin-transform-react-remove-prop-types-0.4.3.tgz#fdff5c12933efc3ac979817adcdc0f612c5e3563"
 
 babel-plugin-transform-regenerator@6.16.1:
   version "6.16.1"
@@ -2348,7 +2348,7 @@ create-hmac@^1.1.0, create-hmac@^1.1.2:
     create-hash "^1.1.0"
     inherits "^2.0.1"
 
-create-react-class@^15.5.1, create-react-class@^15.5.2:
+create-react-class@^15.5.1:
   version "15.5.2"
   resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.5.2.tgz#6a8758348df660b88326a0e764d569f274aad681"
   dependencies:
@@ -2562,9 +2562,13 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-date-fns@^1.23.0, date-fns@^1.28.3:
+date-fns@^1.23.0:
   version "1.28.3"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.28.3.tgz#145d87adc3f5a82c6bda668de97eee1132c97ea1"
+
+date-fns@^1.28.4:
+  version "1.28.4"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.28.4.tgz#7938aec34ba31fc8bd134d2344bc2e0bbfd95165"
 
 date-now@^0.1.4:
   version "0.1.4"
@@ -2582,19 +2586,21 @@ debug@2.6.1:
   dependencies:
     ms "0.7.2"
 
-debug@^2.1.1, debug@^2.2.0, debug@^2.3.3, debug@^2.4.5, debug@^2.6.4:
+debug@^2.1.1, debug@^2.2.0, debug@^2.3.3, debug@^2.4.5:
   version "2.6.4"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.4.tgz#7586a9b3c39741c0282ae33445c4e8ac74734fe0"
+  dependencies:
+    ms "0.7.3"
+
+debug@^2.6.6:
+  version "2.6.6"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.6.tgz#a9fa6fbe9ca43cf1e79f73b75c0189cbb7d6db5a"
   dependencies:
     ms "0.7.3"
 
 decamelize@^1.0.0, decamelize@^1.1.1, decamelize@^1.1.2:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
-
-decko@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/decko/-/decko-1.2.0.tgz#fd43c735e967b8013306884a56fbe665996b6817"
 
 deep-equal-ident@^1.1.1:
   version "1.1.1"
@@ -3619,9 +3625,9 @@ glamor@next:
     fbjs "^0.8.8"
     object-assign "^4.1.0"
 
-glamorous@^3.11.1:
-  version "3.11.1"
-  resolved "https://registry.yarnpkg.com/glamorous/-/glamorous-3.11.1.tgz#f2b059e56dfc71268eda98ad95fc324d592c9a5c"
+glamorous@^3.11.2:
+  version "3.11.2"
+  resolved "https://registry.yarnpkg.com/glamorous/-/glamorous-3.11.2.tgz#0f9e6e0878e56553143fa61b63f05576da518643"
   dependencies:
     brcast "^2.0.0"
     fast-memoize "^2.2.7"
@@ -6555,9 +6561,9 @@ react-event-listener@^0.4.5:
     prop-types "^15.5.4"
     warning "^3.0.0"
 
-react-flexbox-grid@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/react-flexbox-grid/-/react-flexbox-grid-1.1.1.tgz#09040dcd5f37be9356f25b8551df97527174aeae"
+react-flexbox-grid@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react-flexbox-grid/-/react-flexbox-grid-1.1.2.tgz#c62f0655d79142c513d6f60095119f59253780de"
   dependencies:
     flexboxgrid "^6.3.0"
     prop-types "^15.5.8"
@@ -6617,11 +6623,10 @@ react-modal@^1.2.0, react-modal@^1.2.1:
     exenv "1.2.0"
     lodash.assign "^4.2.0"
 
-react-motion@^0.4.8:
-  version "0.4.8"
-  resolved "https://registry.yarnpkg.com/react-motion/-/react-motion-0.4.8.tgz#23bb2dd27c2d8e00d229e45572d105efcf40a35e"
+react-motion@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/react-motion/-/react-motion-0.5.0.tgz#1708fc2aee552900d21c1e6bed28346863e017b6"
   dependencies:
-    create-react-class "^15.5.2"
     performance-now "^0.2.0"
     prop-types "^15.5.8"
     raf "^3.1.0"
