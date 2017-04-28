@@ -41,7 +41,6 @@ const config = {
   compiler_vendor: [
     'axios',
     'classnames',
-    'decko',
     'flexboxgrid',
     'immutable',
     'normalizr',
