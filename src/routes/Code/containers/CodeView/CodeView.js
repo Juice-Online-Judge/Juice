@@ -19,7 +19,7 @@ export default connect(
     submission: submissionSelector(state, props),
     canReview: !!(props.match.params.examId && isAdminSelector(state)),
     needReview: needReviewSelector(state, props),
-    id: props.params.id
+    id: props.match.params.id
   }),
   dispatch => ({
     fetchCode (id) {
