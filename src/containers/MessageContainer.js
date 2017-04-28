@@ -1,12 +1,11 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {bind} from 'decko'
 import Message from 'components/Message'
 import {setOpen} from 'redux/modules/message'
 
 export class MessageContainer extends Component {
-  @bind handleClose () {
+  handleClose = () => {
     this.props.setOpen(false)
     if (this.props.onRequestClose) {
       this.props.onRequestClose()

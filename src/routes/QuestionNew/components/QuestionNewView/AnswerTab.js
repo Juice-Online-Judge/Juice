@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {bind} from 'decko'
 
 import FileButton from 'components/FileButton'
 
@@ -9,11 +8,11 @@ export class AnswerTab extends Component {
     this.handleChange()
   }
 
-  @bind handleInputChange (file) {
+  handleInputChange = file => {
     this.handleChange({input: {file}})
   }
 
-  @bind handleOutputChange (file) {
+  handleOutputChange = file => {
     this.handleChange({output: {file}})
   }
 

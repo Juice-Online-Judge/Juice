@@ -1,13 +1,12 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {bind} from 'decko'
 import map from 'lodash/map'
 
 import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 
 export class FileButton extends Component {
-  @bind handleChange (event) {
+  handleChange = event => {
     const files = event.target.files
     if (files.length) {
       const filename = map(files, 'name').join(', ')

@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {bind} from 'decko'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 
@@ -32,19 +31,19 @@ const inputs = [
 ]
 
 export class SignInView extends React.Component {
-  @bind handleChange (event) {
+  handleChange = event => {
     const newState = {}
     newState[event.target.name] = event.target.value
     this.setData(newState)
   }
 
-  @bind login (event) {
+  login = event => {
     const {username, password} = this.data
     event.preventDefault()
     this.props.login(username, password)
   }
 
-  @bind handleKeyDown (event) {
+  handleKeyDown = event => {
     if (event.keyCode === 13 && event.target.name === 'password') {
       this.login(event)
     }

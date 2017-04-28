@@ -1,12 +1,11 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {bind} from 'decko'
 import without from 'lodash/without'
 
 import ExamQuestion from 'components/ExamQuestion'
 
 class ExamQuestionList extends Component {
-  @bind handleQuestionCheck (selected, uuid) {
+  handleQuestionCheck = (selected, uuid) => {
     const {selectedQuestion} = this.props
     if (selected) {
       this.props.onChange(selectedQuestion.concat(uuid), uuid)
@@ -15,7 +14,7 @@ class ExamQuestionList extends Component {
     }
   }
 
-  @bind handleRequestDetail (uuid) {
+  handleRequestDetail = uuid => {
     this.props.onRequestDetail(uuid)
   }
 

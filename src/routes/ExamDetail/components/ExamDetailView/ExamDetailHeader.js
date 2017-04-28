@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {bind} from 'decko'
 import {Route} from 'react-router-dom'
 import {Row, Col} from 'react-flexbox-grid'
 
@@ -9,11 +8,11 @@ import CopyButton from 'components/CopyButton'
 import Filter from './Filter'
 
 class ExamDetailHeader extends Component {
-  @bind getTextField (textField) {
+  getTextField = textField => {
     this.textField = textField
   }
 
-  @bind handleFocus () {
+  handleFocus = () => {
     if (this.textField) {
       this.textField.select()
     }

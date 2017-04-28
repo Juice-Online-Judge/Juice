@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {bind} from 'decko'
 
 import {Row, Col} from 'react-flexbox-grid'
 import TextField from 'material-ui/TextField'
@@ -11,11 +10,11 @@ class SetScoreButton extends Component {
     return nextProps.needReview !== this.props.needReview
   }
 
-  @bind handleScoreChange ({target: {value}}) {
+  handleScoreChange = ({target: {value}}) => {
     this.correctness = value
   }
 
-  @bind handleSetScore (event) {
+  handleSetScore = event => {
     this.props.patchCorrectness(this.correctness)
   }
 

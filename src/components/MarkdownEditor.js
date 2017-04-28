@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {bind} from 'decko'
 import isUndefined from 'lodash/isUndefined'
 import styles from 'lib/styles'
 import shallowEqual from 'fbjs/lib/shallowEqual'
@@ -23,33 +22,33 @@ class MarkdownEditor extends Component {
     return !shallowEqual(this.state, nextState)
   }
 
-  @bind handlePreviewToggle () {
+  handlePreviewToggle = () => {
     this.setState({preview: !this.state.preview})
   }
 
-  @bind getTextField (textField) {
+  getTextField = textField => {
     this.textField = textField
   }
 
-  @bind handleSelect (event) {
+  handleSelect = event => {
     this.selectionStart = event.target.selectionStart
     this.selectionEnd = event.target.selectionEnd
   }
 
-  @bind handleBold () {
+  handleBold = () => {
     this.appendOrWrapText('****')
   }
 
-  @bind handleItalic () {
+  handleItalic = () => {
     this.appendOrWrapText('__')
   }
 
-  @bind handleBulleted () {
+  handleBulleted = () => {
     const {text} = this.state
     this.appendText(text ? '\n- ' : '- ')
   }
 
-  @bind handleNumbered () {
+  handleNumbered = () => {
     const {text} = this.state
     this.appendText(text ? '\n1. ' : '1. ')
   }
@@ -116,7 +115,7 @@ class MarkdownEditor extends Component {
     return this.selectionStart !== this.selectedEnd
   }
 
-  @bind handleChange (event) {
+  handleChange = event => {
     const {onChange} = this.props
     const {value} = event.target
     this.setState({

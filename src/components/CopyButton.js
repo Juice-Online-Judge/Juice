@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {bind} from 'decko'
 import {connect} from 'react-redux'
 import FlatButton from 'material-ui/FlatButton'
 import ClipboardButton from 'react-clipboard.js'
@@ -9,7 +8,7 @@ import {setOpen} from 'redux/modules/message'
 import MessageContainer from '../containers/MessageContainer'
 
 export class CopyButton extends Component {
-  @bind handleCopySuccess () {
+  handleCopySuccess = () => {
     this.props.setOpen(true)
   }
 

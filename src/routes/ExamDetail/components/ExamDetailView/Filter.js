@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {bind} from 'decko'
 
 import {
   filterStringify,
@@ -28,11 +27,11 @@ class Filter extends Component {
     }
   }
 
-  @bind handleChange (event) {
+  handleChange = event => {
     this.setState({filter: event.target.value})
   }
 
-  @bind handleKeyDown (event) {
+  handleKeyDown = event => {
     if (event.keyCode === 13) {
       const newFilter = parseFilter(this.state.filter)
       if (newFilter === null) {
@@ -44,7 +43,7 @@ class Filter extends Component {
     }
   }
 
-  @bind handleClearFilter () {
+  handleClearFilter = () => {
     this.props.clearFilter()
   }
 
