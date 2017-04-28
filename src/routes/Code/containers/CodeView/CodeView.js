@@ -17,7 +17,7 @@ export default connect(
   (state, props) => ({
     code: codeSelector(state),
     submission: submissionSelector(state, props),
-    canReview: !!(props.params.examId && isAdminSelector(state)),
+    canReview: !!(props.match.params.examId && isAdminSelector(state)),
     needReview: needReviewSelector(state, props),
     id: props.params.id
   }),
