@@ -15,17 +15,4 @@ describe('defer', () => {
       expect(await deferred.promise).toBe(value)
     })
   })
-
-  describe('#resolved', () => {
-    it('Return state', done => {
-      const deferred = defer()
-
-      expect(deferred.resolved()).toBe(false)
-      deferred.resolve()
-      setImmediate(() => {
-        expect(deferred.resolved()).toBe(true)
-        done()
-      })
-    })
-  })
 })
