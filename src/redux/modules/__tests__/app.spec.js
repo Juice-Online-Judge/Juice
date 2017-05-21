@@ -3,10 +3,6 @@ import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import {RequestStatus} from 'lib/const'
 import reducer, * as app from '../app'
-import {clearExam} from 'redux/modules/exam'
-import {clearQuestion} from 'redux/modules/question'
-import {clearSubmissions} from 'redux/modules/submission'
-import {clearUsers} from 'redux/modules/users'
 import api from 'lib/api'
 
 jest.mock('lib/api')
@@ -51,20 +47,12 @@ describe('(Redux) app', () => {
     })
   })
 
-  describe('(Async Actions) #clearCache', () => {
-    it('Clear all cache', () => {
-      const store = mockStore({})
-
-      store.dispatch(app.clearCache())
-
-      expect(store.getActions()).toEqual(
-        jasmine.arrayContaining([
-          clearExam(),
-          clearQuestion(),
-          clearUsers(),
-          clearSubmissions()
-        ])
-      )
+  describe('(Action Creators) #clearCache', () => {
+    it('Create action to clear cache', () => {
+      expect(app.clearCache()).toEqual({
+        type: app.CLEAR_CACHE,
+        payload: undefined
+      })
     })
   })
 
