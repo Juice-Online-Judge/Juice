@@ -38,21 +38,16 @@ export const SET_STATUS = 'SET_STATUS'
 export const SET_ERROR = 'SET_ERROR'
 export const CLEAR_STATUS = 'CLEAR_STATUS'
 export const CLEAR_ERROR = 'CLEAR_ERROR'
+export const CLEAR_CACHE = 'CLEAR_CACHE'
 
 export const setStatus = createAction(SET_STATUS)
 export const setError = createAction(SET_ERROR)
 export const clearStatus = createAction(CLEAR_STATUS)
 export const clearError = createAction(CLEAR_ERROR)
+export const clearCache = createAction(CLEAR_CACHE)
 
 export const request = (config, handleSuccess, handleError) => dispatch => {
   return guardRequest(dispatch, config, handleSuccess, handleError)
-}
-
-export const clearCache = () => dispatch => {
-  dispatch(clearExam())
-  dispatch(clearQuestion())
-  dispatch(clearSubmissions())
-  dispatch(clearUsers())
 }
 
 export const appStatusSelector = state => state.app.get('status')

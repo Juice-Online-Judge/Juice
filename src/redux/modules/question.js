@@ -6,7 +6,7 @@ import mapValues from 'lodash/mapValues'
 import {createSelector} from 'reselect'
 
 import {createFormDataDeep} from 'lib/utils'
-import {request} from './app'
+import {request, CLEAR_CACHE} from './app'
 import {showMessage} from './message'
 import questionSchema from 'schema/question'
 import isRequesting from 'lib/isRequesting'
@@ -22,7 +22,6 @@ const initialState = new QuestionState()
 
 const SET_QUESTION = 'SET_QUESTION'
 const SET_QUESTION_DETAIL = 'SET_QUESTION_DETAIL'
-const CLEAR_QUESTION = 'CLEAR_QUESTION'
 
 const markDetail = question => ({
   detail: true,
@@ -50,8 +49,6 @@ export const setQuestion = createAction(
 export const setQuestionDetail = createAction(SET_QUESTION_DETAIL, payload => {
   return {detail: true, ...payload}
 })
-
-export const clearQuestion = createAction(CLEAR_QUESTION)
 
 export const fetchQuestion = (query = {page: 1}, opts = {force: false}) => (
   dispatch,
@@ -167,7 +164,7 @@ export default handleActions(
       mergeQuestion(state, payload).merge(omit(payload, 'entities')),
     [SET_QUESTION_DETAIL]: (state, {payload}) =>
       state.setIn(['entities', 'question', payload.uuid], fromJS(payload)),
-    [CLEAR_QUESTION]: () => new QuestionState()
+    [CLEAR_CACHE]: () => new QuestionState()
   },
   initialState
 )

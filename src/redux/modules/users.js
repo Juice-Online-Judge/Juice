@@ -3,7 +3,7 @@ import {Record, List, Map} from 'immutable'
 import {normalize} from 'normalizr'
 import userSchema from 'schema/user'
 
-import {request} from './app'
+import {request, CLEAR_CACHE} from './app'
 
 const UsersState = new Record({
   result: new List(),
@@ -13,13 +13,10 @@ const UsersState = new Record({
 const initialState = new UsersState()
 
 const SET_USERS = 'SET_USERS'
-const CLEAR_USERS = 'CLEAR_USERS'
 
 export const setUsers = createAction(SET_USERS, data =>
   normalize(data, [userSchema])
 )
-export const clearUsers = createAction(CLEAR_USERS)
-
 export const fetchUsers = () => dispatch => {
   dispatch(
     request(
@@ -41,7 +38,7 @@ export const actions = {
 export default handleActions(
   {
     [SET_USERS]: (state, {payload}) => state.merge(payload),
-    [CLEAR_USERS]: () => new UsersState()
+    [CLEAR_CACHE]: () => new UsersState()
   },
   initialState
 )

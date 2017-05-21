@@ -7,7 +7,7 @@ import {normalize} from 'normalizr'
 import {replace} from 'react-router-redux'
 import {createFormDataDeep} from 'lib/utils'
 
-import {request} from './app'
+import {request, CLEAR_CACHE} from './app'
 import {isLogin} from './account'
 import {showMessage} from './message'
 import submissionSchema from 'schema/submission'
@@ -23,7 +23,6 @@ const initialState = new SubmissionState()
 const SET_SUBMISSIONS = 'SET_SUBMISSIONS'
 const SET_SUBMISSION = 'SET_SUBMISSION'
 const SET_SUBMISSION_CODE = 'SET_SUCMISSION_CODE'
-const CLEAR_SUBMISSIONS = 'CLEAR_SUBMISSIONS'
 const CLEAR_SUBMISSION_CODE = 'CLEAR_SUBMISSION_CODE'
 
 export const setSubmissions = createAction(SET_SUBMISSIONS, data =>
@@ -33,7 +32,6 @@ export const setSubmission = createAction(SET_SUBMISSION, data =>
   normalize(data, submissionSchema)
 )
 export const setSubmissionCode = createAction(SET_SUBMISSION_CODE)
-export const clearSubmissions = createAction(CLEAR_SUBMISSIONS)
 export const clearSubmissionCode = createAction(CLEAR_SUBMISSION_CODE)
 
 export const submitCode = submitData => dispatch => {
@@ -180,7 +178,7 @@ export default handleActions(
   {
     [SET_SUBMISSIONS]: (state, {payload}) => state.merge(payload),
     [SET_SUBMISSION]: (state, {payload}) => state.merge(payload),
-    [CLEAR_SUBMISSIONS]: () => new SubmissionState(),
+    [CLEAR_CACHE]: () => new SubmissionState(),
     [SET_SUBMISSION_CODE]: (state, {payload}) => state.set('code', payload),
     [CLEAR_SUBMISSION_CODE]: state => state.set('code', '')
   },

@@ -8,7 +8,7 @@ import {replace} from 'react-router-redux'
 import examSchema from 'schema/exam'
 import isRequesting from 'lib/isRequesting'
 import {renameKeys} from 'lib/utils'
-import {request} from './app'
+import {request, CLEAR_CACHE} from './app'
 import {setQuestion} from './question'
 import {isLogin} from './account'
 import {showMessage} from './message'
@@ -25,7 +25,6 @@ const initialState = new ExamStatus()
 
 export const SET_EXAM = 'SET_EXAM'
 export const SET_EXAM_TOKEN = 'SET_EXAM_TOKEN'
-export const CLEAR_EXAM = 'CLEAR_EXAM'
 
 export const setExam = createAction(SET_EXAM, ({page, total, data}) => ({
   page,
@@ -34,7 +33,6 @@ export const setExam = createAction(SET_EXAM, ({page, total, data}) => ({
 }))
 
 export const setExamToken = createAction(SET_EXAM_TOKEN)
-export const clearExam = createAction(CLEAR_EXAM)
 
 export const fetchExams = (query, opts = {force: false}) => (
   dispatch,
@@ -189,7 +187,7 @@ export default handleActions(
         .mergeDeep({entities: payload.entities}),
     [SET_EXAM_TOKEN]: (state, {payload}) =>
       state.setIn(['tokens', `${payload.id}`], payload.token),
-    [CLEAR_EXAM]: () => new ExamStatus()
+    [CLEAR_CACHE]: () => new ExamStatus()
   },
   initialState
 )
