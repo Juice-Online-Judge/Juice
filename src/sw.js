@@ -41,7 +41,7 @@ self.addEventListener('fetch', event => {
 function apiHandler (request) {
   return router.dispatch(request).then(
     result =>
-      (typeof result === 'string'
+      typeof result === 'string'
         ? new Response(JSON.stringify(result), {
           status: 200,
           statusText: 'OK',
@@ -49,6 +49,6 @@ function apiHandler (request) {
             'Content-Type': 'applcation/json; charset=utf8'
           }
         })
-        : result)
+        : result
   )
 }

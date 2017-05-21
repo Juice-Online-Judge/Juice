@@ -38,8 +38,9 @@ export class SubmitCode extends Component {
   render () {
     return (
       <MessageContainer onRequestClose={this.handleClose}>
-        <Label label='Language: ' />
+        <Label label='Language: ' htmlFor='language' />
         <SelectField
+          name='language'
           style={styles.margin}
           value={this.state.language}
           onChange={this.handleLanguageChange}>

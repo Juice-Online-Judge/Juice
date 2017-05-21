@@ -3,10 +3,6 @@ import {createSelector} from 'reselect'
 import {fromJS, Record} from 'immutable'
 
 import {RequestStatus} from 'lib/const'
-import {clearExam} from './exam'
-import {clearQuestion} from './question'
-import {clearSubmissions} from './submission'
-import {clearUsers} from './users'
 import guardRequest from '../utils/guardRequest'
 
 export const AppRecord = new Record({

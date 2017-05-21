@@ -55,8 +55,11 @@ export class RestrictionTab extends Component {
     return (
       <div>
         <div>
-          <Label> Strategy </Label>
-          <DropDownMenu value={strategy} onChange={this.handleStrategyChange}>
+          <Label htmlFor='strategy'> Strategy </Label>
+          <DropDownMenu
+            name='strategy'
+            value={strategy}
+            onChange={this.handleStrategyChange}>
             <MenuItem primaryText='Normal' value='normal' />
             <MenuItem primaryText='Tolerance newline' value='tolerance_nl' />
           </DropDownMenu>

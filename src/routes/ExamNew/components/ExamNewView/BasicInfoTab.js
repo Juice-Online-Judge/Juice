@@ -94,12 +94,13 @@ export class BasicInfoTab extends Component {
         </div>
         <Row>
           <Col md={2} xs={12}>
-            <Label>
+            <Label htmlFor='begin-date'>
               Begin time:
             </Label>
           </Col>
           <Col md={4} xs={12}>
             <DatePicker
+              name='begin-date'
               hintText='Begin Date'
               defaultDate={now}
               onChange={this.handleBeganDateChange} />
@@ -113,12 +114,13 @@ export class BasicInfoTab extends Component {
         </Row>
         <Row>
           <Col md={2} xs={12}>
-            <Label>
+            <Label htmlFor='end-date'>
               End time:
             </Label>
           </Col>
           <Col md={4} xs={12}>
             <DatePicker
+              name='end-date'
               hintText='End Date'
               errorText={this.state.errorText}
               defaultDate={now}

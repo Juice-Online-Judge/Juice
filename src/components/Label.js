@@ -8,10 +8,11 @@ export const Label = compose(
   setDisplayName('Label'),
   setPropTypes({
     label: PropTypes.string,
-    children: PropTypes.node
+    children: PropTypes.node,
+    htmlFor: PropTypes.string.isRequired
   })
-)(({label, children}) => (
-  <label style={styles.label}>
+)(({label, htmlFor, children}) => (
+  <label style={styles.label} htmlFor={htmlFor}>
     {label || children}
   </label>
 ))

@@ -116,8 +116,11 @@ class QuestionSetting extends Component {
               value={score} />
           </CardActions>
           <CardActions>
-            <Label> 題目類型 </Label>
-            <SelectField value={type} onChange={this.handleTypeChange}>
+            <Label htmlFor='type'> 題目類型 </Label>
+            <SelectField
+              name='type'
+              value={type}
+              onChange={this.handleTypeChange}>
               <MenuItem value='normal' primaryText='一般' />
               <MenuItem value='proportion' primaryText='部份給分' />
               <MenuItem value='portion_num' primaryText='誤差容許 (數字)' />
@@ -125,8 +128,11 @@ class QuestionSetting extends Component {
             </SelectField>
           </CardActions>
           <CardActions>
-            <Label> 測資來源 </Label>
-            <SelectField value={readFrom} onChange={this.handleReadFromChange}>
+            <Label htmlFor='source'> 測資來源 </Label>
+            <SelectField
+              name='source'
+              value={readFrom}
+              onChange={this.handleReadFromChange}>
               <MenuItem value='stdin' primaryText='stdin' />
               <MenuItem value='file' primaryText='file' />
             </SelectField>
