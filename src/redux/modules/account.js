@@ -146,7 +146,7 @@ export const registerUser = info => (dispatch, getState) => {
       },
       data => {
         store.set('juice-token', data)
-        dispatch(setUserInfo(info))
+        dispatch(fetchUserInfo({force: true}))
       },
       err => {
         if (idx(err, _ => _.response.status) === 422) {
