@@ -1,7 +1,8 @@
 import glamorous from 'glamorous'
+import {hsl} from 'polished'
 
 const Table = glamorous.table({
-  backgroundColor: 'hsl(0, 0%, 100%)',
+  backgroundColor: hsl(0, 0, 1),
   borderCollapse: 'collapse',
   borderSpacing: 0,
   fontFamily: 'Roboto, sans-serif',

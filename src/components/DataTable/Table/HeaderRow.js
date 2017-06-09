@@ -4,6 +4,7 @@ import {css} from 'glamor'
 
 import HeaderColumn from './HeaderColumn'
 import Checkbox from 'material-ui/Checkbox'
+import {rowStyle as baseStyle} from './styles'
 
 class HeaderRow extends Component {
   handleCheck = (_event, selected) => {
@@ -57,11 +58,5 @@ class HeaderRow extends Component {
     displaySelectAll: false
   }
 }
-
-const baseStyle = css({
-  borderBottom: '1px solid hsl(0, 0%, 88%)',
-  color: 'hsla(0, 0%, 0%, .88)',
-  height: '48px'
-})
 
 export default HeaderRow

@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {css} from 'glamor'
+import {hsl, hsla} from 'polished'
 
 import Column from './Column'
 import Checkbox from 'material-ui/Checkbox'
+import {rowStyle} from './styles'
 
 class Row extends Component {
   handleCheck = () => {
@@ -56,10 +58,7 @@ class Row extends Component {
   }
 }
 
-const baseStyle = css({
-  borderBottom: '1px solid hsl(0, 0%, 88%)',
-  color: 'hsla(0, 0%, 0%, .88)',
-  height: '48px',
+const baseStyle = css(rowStyle, {
   ':hover': {
     '& td': {
       backgroundColor: 'hsl(0, 0%, 96%)'

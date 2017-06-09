@@ -1,7 +1,8 @@
 import glamorous from 'glamorous'
+import {hsl} from 'polished'
 
 const HeaderColumn = glamorous.th({
-  color: 'hsl(0, 0%, 64%)',
+  color: hsl(0, 0, 0.64),
   fontSize: 12,
   fontWeight: 'normal',
   height: '56px',
