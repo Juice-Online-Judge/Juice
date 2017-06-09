@@ -14,7 +14,7 @@
     "deploy": "better-npm-run deploy",
     "deploy:dev": "better-npm-run deploy:dev",
     "watch": "yarn run clean && nodemon -x 'node -r dotenv/config -r babel-register --harmony' bin/watch.js",
-    "lint": "prettier-eslint --write '{bin,build,config,src,tests}/**/*.js' && eslint bin build config src tests",
+    "lint": "prettier-eslint --write '{.storybook,bin,build,config,src,tests}/**/*.js' && eslint .storybook bin build config src tests",
     "test": "better-npm-run test",
     "test:dev": "yarn run test -- --watch"
   },
@@ -121,7 +121,6 @@
     "validate.js": "^0.11.1"
   },
   "devDependencies": {
-    "@kadira/storybook": "^2.35.3",
     "@webpack-blocks/css-modules": "^0.4.0",
     "@webpack-blocks/extract-text2": "^0.4.0",
     "@webpack-blocks/postcss": "^0.4.3",
@@ -192,6 +191,7 @@
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.8",
     "webpack": "^2.6.1",
-    "webpack-bundle-analyzer": "^2.8.2"
+    "webpack-bundle-analyzer": "^2.8.2",
+    "@storybook/react": "3.0.1"
   }
 }
