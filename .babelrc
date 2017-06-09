@@ -22,7 +22,8 @@
     "transform-export-extensions",
     "transform-object-rest-spread",
     "syntax-dynamic-import",
-    "idx"
+    "idx",
+    "polished"
   ],
   "env": {
     "production": {
