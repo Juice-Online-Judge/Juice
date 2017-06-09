@@ -5,7 +5,7 @@ import setPropTypes from 'recompose/setPropTypes'
 
 export const Inset = setPropTypes({
   children: PropTypes.node
-})(({children}) => (
+})(({children}) =>
   <Grid>
     <Row>
       <Col xs={12}>
@@ -13,6 +13,6 @@ export const Inset = setPropTypes({
       </Col>
     </Row>
   </Grid>
-))
+)
 
 export default Inset

@@ -8,11 +8,10 @@ import ExamCard from 'components/ExamCard'
 import Pagination from 'components/Pagination'
 
 const examKey = ['entities', 'exam']
-const emptyHint = () => (
+const emptyHint = () =>
   <Inset>
     無測驗可顯示
   </Inset>
-)
 
 export default compose(
   withProps(({exam}) => ({empty: exam.get('result').isEmpty()})),

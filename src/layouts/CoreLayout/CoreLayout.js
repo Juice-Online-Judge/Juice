@@ -15,7 +15,7 @@ export const CoreLayout = compose(
   setPropTypes({
     children: PropTypes.element
   })
-)(({children}) => (
+)(({children}) =>
   <MuiThemeProvider muiTheme={theme}>
     <div className='page-container' style={styles.container}>
       <div className='view-container' style={styles.container}>
@@ -24,7 +24,7 @@ export const CoreLayout = compose(
       </div>
     </div>
   </MuiThemeProvider>
-))
+)
 
 export default CoreLayout
 

@@ -11,18 +11,18 @@ const QuestionList = compose(
     examId: PropTypes.string
   }),
   setDisplayName('QuestionList')
-)(({question, examId}) => (
+)(({question, examId}) =>
   <div>
     {question
       .get('result')
-      .map(uuid => (
+      .map(uuid =>
         <QuestionLink
           key={uuid}
           title={question.getIn(['entities', 'question', uuid, 'title'])}
           examId={examId}
           uuid={uuid} />
-      ))}
+      )}
   </div>
-))
+)
 
 export default QuestionList

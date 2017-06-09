@@ -11,11 +11,11 @@ export const Label = compose(
     children: PropTypes.node,
     htmlFor: PropTypes.string.isRequired
   })
-)(({label, htmlFor, children}) => (
+)(({label, htmlFor, children}) =>
   <label style={styles.label} htmlFor={htmlFor}>
     {label || children}
   </label>
-))
+)
 
 export default Label
 

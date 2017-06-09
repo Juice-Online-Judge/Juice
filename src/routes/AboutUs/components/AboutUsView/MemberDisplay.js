@@ -10,11 +10,11 @@ const MemberDisplay = compose(
     github: PropTypes.string.isRequired,
     desc: PropTypes.string.isRequired
   })
-)(({name, github, desc}) => (
+)(({name, github, desc}) =>
   <p>
     <BlankLink href={`https://github.com/${github}`}> {name} </BlankLink>:
     {desc}
   </p>
-))
+)
 
 export default MemberDisplay

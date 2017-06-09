@@ -3,7 +3,7 @@ import React from 'react'
 import IconButton from 'material-ui/IconButton'
 import {Row, Col} from 'react-flexbox-grid'
 
-export const OAuthButtons = () => (
+export const OAuthButtons = () =>
   <Row end='xs'>
     <Col>
       <a href='/oauth/facebook'>
@@ -14,6 +14,5 @@ export const OAuthButtons = () => (
       </a>
     </Col>
   </Row>
-)
 
 export default OAuthButtons

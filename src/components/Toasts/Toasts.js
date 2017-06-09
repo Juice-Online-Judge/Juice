@@ -40,17 +40,16 @@ class Toasts extends Component {
         styles={transitionStyles}
         willEnter={this.willEnter}
         willLeave={this.willLeave}>
-        {configs => (
+        {configs =>
           <div style={styles.fullScreen}>
-            {configs.map(config => (
+            {configs.map(config =>
               <Toast
                 key={config.key}
                 id={config.data.id}
                 {...config.data.props}
                 style={{...config.style, ...styles.toast}} />
-            ))}
-          </div>
-        )}
+            )}
+          </div>}
       </TransitionMotion>
     )
 

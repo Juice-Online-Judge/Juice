@@ -15,7 +15,7 @@ const LeftNav = compose(
   setPropTypes({
     onRequestChange: PropTypes.func.isRequired
   })
-)(props => (
+)(props =>
   <Drawer {...props} docked={false}>
     <Link to='/exams' style={styles.noUnderline}>
       <MenuItem onTouchTap={props.onRequestChange}>
@@ -25,7 +25,7 @@ const LeftNav = compose(
     <Switch>
       <Route
         path='/exams/:id'
-        render={({match: {params: {id}}}) => (
+        render={({match: {params: {id}}}) =>
           <div>
             <Link to={`/exams/${id}/questions`} style={styles.noUnderline}>
               <MenuItem onTouchTap={props.onRequestChange}>
@@ -37,10 +37,9 @@ const LeftNav = compose(
                 Submission
               </MenuItem>
             </Link>
-          </div>
-        )} />
+          </div>} />
       <Route
-        render={() => (
+        render={() =>
           <div>
             <Link to='/questions' style={styles.noUnderline}>
               <MenuItem onTouchTap={props.onRequestChange}>
@@ -52,10 +51,9 @@ const LeftNav = compose(
                 Submission
               </MenuItem>
             </Link>
-          </div>
-        )} />
+          </div>} />
     </Switch>
   </Drawer>
-))
+)
 
 export default LeftNav

@@ -25,9 +25,9 @@ class DataTableFooter extends Component {
   handleRowSelection (obj) {
     const menuOptions = obj.menuOptions || [5, 10, 15]
 
-    return menuOptions.map(num => (
+    return menuOptions.map(num =>
       <MenuItem value={num} primaryText={num} key={num} />
-    ))
+    )
   }
 
   render () {
@@ -57,7 +57,9 @@ class DataTableFooter extends Component {
         </Column>
 
         <Column {...rightAlign}>
-          <span> {pageInfo.showing} </span>
+          <span>
+            {pageInfo.showing}
+          </span>
         </Column>
 
         <Column {...rightAlign}>

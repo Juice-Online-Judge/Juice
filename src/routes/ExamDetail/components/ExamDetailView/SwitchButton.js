@@ -15,12 +15,12 @@ const SwitchButton = compose(
     func: PropTypes.string.isRequired
   }),
   setDisplayName('Filter')
-)(({examId, func}) => (
+)(({examId, func}) =>
   <Link to={`/exams/${examId}/${func}`}>
     <FloatingActionButton style={styles.floatBtn}>
       <FlipToFrontIcon />
     </FloatingActionButton>
   </Link>
-))
+)
 
 export default SwitchButton

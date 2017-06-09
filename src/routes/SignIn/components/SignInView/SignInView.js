@@ -60,7 +60,7 @@ export class SignInView extends React.Component {
           <Paper zDepth={3} style={styles.marginTop20}>
             <Card>
               <CardTitle title='Juice' />
-              {inputs.map(({name, label, ...rest}) => (
+              {inputs.map(({name, label, ...rest}) =>
                 <InputAction
                   key={name}
                   name={name}
@@ -68,7 +68,7 @@ export class SignInView extends React.Component {
                   onChange={this.handleChange}
                   onKeyDown={this.handleKeyDown}
                   {...rest} />
-              ))}
+              )}
               <CardActions>
                 <Row>
                   <Col mdOffset={2} md={8} xs={12}>

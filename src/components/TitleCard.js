@@ -15,12 +15,12 @@ export const TitleCard = compose(
     subtitle: PropTypes.string
   }),
   setDisplayName('TitleCard')
-)(({style, title, subtitle, children}) => (
+)(({style, title, subtitle, children}) =>
   <Card>
     <CardTitle style={style} title={title} subtitle={subtitle}>
       {children}
     </CardTitle>
   </Card>
-))
+)
 
 export default TitleCard

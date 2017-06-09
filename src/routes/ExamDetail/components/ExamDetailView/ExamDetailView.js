@@ -23,14 +23,12 @@ class ExamDetailView extends Component {
       <Switch>
         <Route
           path={`/exams/:examId/submissions`}
-          render={({match: {params: {examId}}}) => (
-            <SwitchButton examId={examId} func='questions' />
-          )} />
+          render={({match: {params: {examId}}}) =>
+            <SwitchButton examId={examId} func='questions' />} />
         <Route
           path={`/exams/:examId/questions`}
-          render={({match: {params: {examId}}}) => (
-            <SwitchButton examId={examId} func='submissions' />
-          )} />
+          render={({match: {params: {examId}}}) =>
+            <SwitchButton examId={examId} func='submissions' />} />
       </Switch>
     )
   }

@@ -147,13 +147,13 @@ export class BasicInfoTab extends Component {
             </TableRow>
           </TableHeader>
           <TableBody deselectOnClickaway={false}>
-            {role.get('result').map(id => (
+            {role.get('result').map(id =>
               <TableRow key={id}>
                 <TableRowColumn>
                   {role.getIn(['entities', 'role', `${id}`, 'name'])}
                 </TableRowColumn>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </div>

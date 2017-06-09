@@ -3,7 +3,7 @@ import {Card, CardTitle, CardText} from 'material-ui/Card'
 import ProjectDisplay from './ProjectDisplay'
 import MemberDisplay from './MemberDisplay'
 
-const AboutUsView = () => (
+const AboutUsView = () =>
   <Card>
     <CardTitle title='Juice: Join Us In Code Education.' />
     <CardText>
@@ -29,6 +29,5 @@ const AboutUsView = () => (
         desc='CLI client &amp; Server Admin.' />
     </CardText>
   </Card>
-)
 
 export default AboutUsView

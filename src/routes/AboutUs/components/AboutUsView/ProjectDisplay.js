@@ -10,7 +10,7 @@ const ProjectDisplay = compose(
     project: PropTypes.string.isRequired,
     desc: PropTypes.string.isRequired
   })
-)(({desc, project}) => (
+)(({desc, project}) =>
   <div>
     {desc}:
     <BlankLink href={`https://github.com/Juice-Online-Judge/${project}`}>
@@ -18,6 +18,6 @@ const ProjectDisplay = compose(
     </BlankLink>
     <LastUpdateDisplay project={project} />
   </div>
-))
+)
 
 export default ProjectDisplay

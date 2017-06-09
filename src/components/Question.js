@@ -24,7 +24,7 @@ export const Question = compose(
     examId: PropTypes.string,
     question: PropTypes.object.isRequired
   })
-)(({uuid, examId, question}) => (
+)(({uuid, examId, question}) =>
   <Card>
     <CardTitle title={question.get('title')} subtitle={`uuid: ${uuid}`} />
     <CardText>
@@ -45,7 +45,7 @@ export const Question = compose(
       <SubmitCode examId={examId} uuid={uuid} />
     </CardActions>
   </Card>
-))
+)
 
 export default connect(
   (state, props) => ({

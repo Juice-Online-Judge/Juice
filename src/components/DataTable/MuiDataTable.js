@@ -133,17 +133,17 @@ export default class MuiDataTable extends Component {
   }
 
   mapColumnsToElems (cols) {
-    return cols.map(item => (
+    return cols.map(item =>
       <HeaderColumn key={item.property}>{item.title}</HeaderColumn>
-    ))
+    )
   }
 
   mapDataToProperties (properties, obj) {
-    return properties.map((prop, index) => (
+    return properties.map((prop, index) =>
       <Column key={index}>
         {this.renderTableData(obj, prop)}
       </Column>
-    ))
+    )
   }
 
   populateTableWithData (data, cols) {

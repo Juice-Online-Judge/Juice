@@ -21,7 +21,7 @@ import SignIn from './SignIn'
 import SignUp from './SignUp'
 import Submission from './Submission'
 
-export default () => (
+export default () =>
   <CoreLayout>
     <Switch>
       <Route exact path='/' component={redirect('/exams')} />
@@ -45,4 +45,3 @@ export default () => (
       <Route component={redirect('/page-not-found')} />
     </Switch>
   </CoreLayout>
-)

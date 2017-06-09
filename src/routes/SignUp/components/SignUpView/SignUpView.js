@@ -82,7 +82,7 @@ export class SignUpView extends React.Component {
         <Paper zDepth={3} style={styles.marginTop20}>
           <Card>
             <CardTitle title='SignUp' />
-            {inputs.map(({name, label, ...rest}) => (
+            {inputs.map(({name, label, ...rest}) =>
               <InputAction
                 key={name}
                 name={name}
@@ -90,7 +90,7 @@ export class SignUpView extends React.Component {
                 message={message}
                 onChange={this.handleChange}
                 {...rest} />
-            ))}
+            )}
             <CardActions>
               <Recaptcha
                 onVerify={this.handleVerify}

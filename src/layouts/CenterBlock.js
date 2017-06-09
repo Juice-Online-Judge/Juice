@@ -11,7 +11,7 @@ export const CenterBlock = compose(
     fullwidth: PropTypes.bool,
     children: PropTypes.node
   })
-)(({fullwidth, children}) => (
+)(({fullwidth, children}) =>
   <Grid>
     <Row center='xs' middle='md'>
       <Col md={fullwidth ? 12 : 6} xs={12}>
@@ -19,6 +19,6 @@ export const CenterBlock = compose(
       </Col>
     </Row>
   </Grid>
-))
+)
 
 export default CenterBlock
