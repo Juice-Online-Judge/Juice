@@ -54,7 +54,13 @@ const basePlugins = [
   'syntax-dynamic-import',
   'dev-expression',
   'idx',
-  path.join(__dirname, 'babel', 'transform-loadable')
+  'polished',
+  [
+    'import-inspector',
+    {
+      webpackRequireWeakId: true
+    }
+  ]
 ]
 
 const prodPlugins = [

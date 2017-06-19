@@ -23,7 +23,10 @@
     "transform-object-rest-spread",
     "syntax-dynamic-import",
     "idx",
-    "polished"
+    "polished",
+    ["import-inspector", {
+      "webpackRequireWeakId": true
+    }]
   ],
   "env": {
     "production": {
