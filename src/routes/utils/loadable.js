@@ -21,5 +21,5 @@ LoadingComponent.propTypes = {
 export default loader =>
   loadable({
     loader,
-    LoadingComponent
+    loading: LoadingComponent
   })
