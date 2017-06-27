@@ -9,7 +9,6 @@
   "presets": [
     ["env", {
       "targets": {
-        "browsers": ["last 2 versions", "safari >= 10"],
         "node": "current"
       }
     }],
@@ -20,22 +19,6 @@
     "transform-decorators-legacy",
     "transform-class-properties",
     "transform-export-extensions",
-    "transform-object-rest-spread",
-    "syntax-dynamic-import",
-    "idx",
-    "polished",
-    ["import-inspector", {
-      "webpackRequireWeakId": true
-    }]
-  ],
-  "env": {
-    "production": {
-      "plugins": [
-        ["transform-react-remove-prop-types", { "removeImport": true }],
-        "transform-react-pure-class-to-function",
-        "transform-react-inline-elements",
-        "transform-react-constant-elements"
-      ]
-    }
-  }
+    "transform-object-rest-spread"
+  ]
 }
