@@ -1,7 +1,7 @@
 ---
 machine:
   node:
-    version: 7.0.0
+    version: 8.1.2
   environment:
     YARN_VERSION: 0.21.3
     PATH: "${PATH}:${HOME}/.yarn/bin"
