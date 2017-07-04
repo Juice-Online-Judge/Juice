@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import compose from 'recompose/compose'
 import mapValues from 'lodash/mapValues'
 import first from 'lodash/first'
+import constant from 'lodash/constant'
 import {Formik} from 'formik'
 
 import {registerUser} from 'redux/modules/account'
@@ -119,7 +120,7 @@ export default compose(
   connect(null, {registerUser}),
   Formik({
     validationSchema: rule,
-    mapPropsToValues: () => {},
+    mapPropsToValues: constant({}),
     handleSubmit (payload, {props: {registerUser}, setErrors, setSubmitting}) {
       console.log(payload)
       registerUser(payload).then(() => setSubmitting(false)).catch(err => {
