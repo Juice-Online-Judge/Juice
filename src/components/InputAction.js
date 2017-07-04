@@ -7,14 +7,10 @@ import compose from 'recompose/compose'
 import CardActions from 'material-ui/Card/CardActions'
 import TextField from 'material-ui/TextField'
 
-const emptyMessage = {
-  first () {}
-}
-
 const InputAction = compose(
   setPropTypes({
     name: PropTypes.string.isRequired,
-    message: PropTypes.object,
+    message: PropTypes.object.isRequired,
     label: PropTypes.string.isRequired
   }),
   setDisplayName('InputAction')
@@ -25,7 +21,7 @@ const InputAction = compose(
     ...rest
   }
 
-  props.errorText = message && message.get(name, emptyMessage).first()
+  props.errorText = message[name]
 
   return (
     <CardActions>

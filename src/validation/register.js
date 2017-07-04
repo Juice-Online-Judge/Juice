@@ -1,33 +1,9 @@
-export default {
-  username: {
-    presence: true,
-    length: {
-      maximum: 24,
-      minimum: 5
-    }
-  },
-  nickname: {
-    presence: true,
-    length: {
-      maximum: 16,
-      minimum: 5
-    }
-  },
-  password: {
-    presence: true,
-    length: {
-      minimum: 6
-    }
-  },
-  passwordConfirm: {
-    presence: true,
-    equality: 'password'
-  },
-  email: {
-    presence: true,
-    email: true,
-    length: {
-      maximum: 48
-    }
-  }
-}
+import {object, string, ref} from 'yup'
+
+export default object().shape({
+  username: string().max(24).min(5).required(),
+  nickname: string().max(16).min(5).required(),
+  password: string().min(6).required(),
+  passwordConfirm: string().sameAs(ref('password')).required(),
+  email: string().max(48).email().required()
+})

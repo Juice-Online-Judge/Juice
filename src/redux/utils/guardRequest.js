@@ -16,10 +16,10 @@ const guardRequest = (dispatch, reqOpts, handleResult, handleError) => {
       return true
     })
     .catch(error => {
-      if (handleError) {
-        handleError(error)
-      }
       handleRequestError(dispatch, error)
+      if (handleError) {
+        throw handleError(error)
+      }
       return false
     })
 }

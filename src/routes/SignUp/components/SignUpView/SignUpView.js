@@ -2,6 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import compose from 'recompose/compose'
+import mapValues from 'lodash/mapValues'
+import first from 'lodash/first'
+import {Formik} from 'formik'
 
 import {registerUser} from 'redux/modules/account'
 
@@ -15,7 +18,6 @@ import CenterBlock from 'layouts/CenterBlock'
 import Recaptcha from 'components/Recaptcha'
 import InputAction from 'components/InputAction'
 import rule from 'validation/register'
-import validateForm from 'lib/validateForm'
 import styles from 'lib/styles'
 
 const inputs = [
@@ -44,39 +46,30 @@ const inputs = [
 ]
 
 export class SignUpView extends React.Component {
-  handleChange = event => {
-    const newState = {}
-    newState[event.target.name] = event.target.value
-    this.setData(newState)
-  }
-
-  signup () {
-    this.props.registerUser(this.data)
+  signup (e) {
+    this.props.handleSubmit(e)
   }
 
   handleVerify = response => {
-    this.setData({'g-recaptcha-response': response})
-    this.signup()
+    this.props.handleChangeValue('g-recaptcha-response', response)
+    this.signup(new CustomEvent('submit'))
   }
 
   handleExpired = () => {
-    Reflect.deleteProperty(this.data, 'g-recaptcha-response')
+    this.props.handleChangeValue('g-recaptcha-response', undefined)
   }
 
   handleClick = event => {
     event.preventDefault()
-    if (!Reflect.has(this.data, 'g-recaptcha-response')) {
+    if (!this.props.values['g-recaptcha-response']) {
       return
     }
-    this.signup()
-  }
-
-  setData (newData) {
-    this.data = {...this.data, ...newData}
+    this.signup(event)
   }
 
   render () {
-    const message = this.props.validation
+    const {handleChange} = this.props
+    const errors = this.props.errors
     return (
       <CenterBlock>
         <Paper zDepth={3} style={styles.marginTop20}>
@@ -87,8 +80,8 @@ export class SignUpView extends React.Component {
                 key={name}
                 name={name}
                 label={label}
-                message={message}
-                onChange={this.handleChange}
+                message={errors}
+                onChange={handleChange}
                 {...rest} />
             )}
             <CardActions>
@@ -114,14 +107,25 @@ export class SignUpView extends React.Component {
   }
 
   static propTypes = {
-    validation: PropTypes.object.isRequired,
-    registerUser: PropTypes.func.isRequired
+    values: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired,
+    handleChange: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
+    handleChangeValue: PropTypes.func.isRequired
   }
 }
 
-const VALIDATE_KEY = 'SIGN_UP'
-
 export default compose(
-  connect(state => ({loginState: state.account}), {registerUser}),
-  validateForm(VALIDATE_KEY, rule)
+  connect(null, {registerUser}),
+  Formik({
+    validationSchema: rule,
+    mapPropsToValues: () => {},
+    handleSubmit (payload, {props: {registerUser}, setErrors, setSubmitting}) {
+      console.log(payload)
+      registerUser(payload).then(() => setSubmitting(false)).catch(err => {
+        setSubmitting(false)
+        setErrors(mapValues(err.response.data.errors, first))
+      })
+    }
+  })
 )(SignUpView)

@@ -129,11 +129,11 @@ export const fetchUserInfo = (options = {force: false}) => (
 }
 
 export const registerUser = info => (dispatch, getState) => {
-  const isValidation = dispatch(validateForm(info))
+  // const isValidation = dispatch(validateForm(info))
 
-  if (!isValidation) {
-    return
-  }
+  // if (!isValidation) {
+  //   return
+  // }
 
   const data = renameKey(info, 'passwordConfirm', 'password_confirmation')
 
@@ -150,13 +150,14 @@ export const registerUser = info => (dispatch, getState) => {
       },
       err => {
         if (idx(err, _ => _.response.status) === 422) {
-          const {validation} = getState()
-          dispatch(
-            setValidationMessage(
-              validation.get('name'),
-              err.response.data.errors
-            )
-          )
+          return err.response.data.errors
+          // const {validation} = getState()
+          // dispatch(
+          //   setValidationMessage(
+          //     validation.get('name'),
+          //     err.response.data.errors
+          //   )
+          // )
         }
       }
     )
