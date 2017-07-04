@@ -120,7 +120,6 @@
     "reselect": "^3.0.1",
     "ress": "^1.2.2",
     "store": "^2.0.12",
-    "validate.js": "^0.11.1",
     "yup": "^0.21.3"
   },
   "devDependencies": {

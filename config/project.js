@@ -62,7 +62,7 @@ const config = {
     'redux-thunk',
     'reselect',
     'store',
-    'validate.js'
+    'yup'
   ],
 
   // ----------------------------------
