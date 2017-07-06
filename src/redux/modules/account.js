@@ -6,7 +6,6 @@ import {createSelector} from 'reselect'
 import idx from 'idx'
 import {request} from './app'
 import {showMessage} from './message'
-import {validateForm, setValidationMessage} from './validation'
 import {renameKey} from 'lib/utils'
 
 export const AccountRecord = new Record({
