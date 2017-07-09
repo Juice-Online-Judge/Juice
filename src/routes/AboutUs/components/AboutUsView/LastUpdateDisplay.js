@@ -6,7 +6,7 @@ import distanceInWordsToNow from 'date-fns/distance_in_words_to_now'
 
 const fetchLastCommit = async project => {
   const {data: ref} = await axios.get(
-    `https://api.github.com/repos/Sunday-Without-God/${project}/git/refs/heads/master`
+    `https://api.github.com/repos/Juice-Online-Judge/${project}/git/refs/heads/master`
   )
   const {data: commit} = await axios.get(ref.object.url)
   return {
