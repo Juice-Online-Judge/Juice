@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import setPropTypes from 'recompose/setPropTypes'
 import setDisplayName from 'recompose/setDisplayName'
+import defaultProps from 'recompose/defaultProps'
 import compose from 'recompose/compose'
 
 import CardActions from 'material-ui/Card/CardActions'
@@ -12,6 +13,9 @@ const InputAction = compose(
     name: PropTypes.string.isRequired,
     message: PropTypes.object.isRequired,
     label: PropTypes.string.isRequired
+  }),
+  defaultProps({
+    message: {}
   }),
   setDisplayName('InputAction')
 )(({message, name, label: floatingLabelText, ...rest}) => {
