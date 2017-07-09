@@ -111,7 +111,7 @@ export class Submission extends Component {
                 <IconMenu
                   iconButtonElement={
                     <IconButton> <MoreVertIcon /> </IconButton>
-                    }
+                  }
                   anchorOrigin={styles.origin}
                   targetOrigin={styles.origin}>
                   <MenuItem

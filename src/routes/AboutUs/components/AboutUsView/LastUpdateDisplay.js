@@ -32,14 +32,7 @@ class LastUpdateDisplay extends Component {
         Last update:
         {log
           ? <span>
-            <a href={log.url}> {log.hash} </a>
-            {' '}
-              from
-              {' '}
-            {log.date}
-            {' '}
-              ago by
-              {' '}
+            <a href={log.url}> {log.hash} </a> from {log.date} ago by{' '}
             {log.author}
           </span>
           : 'fetching'}
