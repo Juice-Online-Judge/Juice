@@ -12,6 +12,7 @@ export const Label = compose(
     htmlFor: PropTypes.string.isRequired
   })
 )(({label, htmlFor, children}) =>
+  // eslint-disable-next-line
   <label style={styles.label} htmlFor={htmlFor}>
     {label || children}
   </label>
