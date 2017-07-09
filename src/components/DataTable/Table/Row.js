@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {css} from 'glamor'
-import {hsl, hsla} from 'polished'
 
 import Column from './Column'
 import Checkbox from 'material-ui/Checkbox'

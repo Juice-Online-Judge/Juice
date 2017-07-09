@@ -3,7 +3,7 @@ module.exports = ({types: t, template}) => {
     `_Loadable({
       loader: LOADER,
       webpackRequireWeakId: () => require.resolveWeak(MODULE),
-      LoadingComponent
+      loading: LoadingComponent
     })`
   )
 

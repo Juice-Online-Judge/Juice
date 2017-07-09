@@ -1,4 +1,3 @@
-import path from 'path'
 import _debug from 'debug'
 import webpack from 'webpack'
 import BabiliPlugin from 'babili-webpack-plugin'
