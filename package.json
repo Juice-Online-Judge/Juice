@@ -132,7 +132,7 @@
     "reselect": "^3.0.1",
     "ress": "^1.2.2",
     "store": "^2.0.12",
-    "yup": "^0.21.3"
+    "yup": "^0.22.0"
   },
   "devDependencies": {
     "@storybook/react": "^3.1.3",
