@@ -122,7 +122,7 @@
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
     "react-router-redux": "5.0.0-alpha.6",
-    "react-tap-event-plugin": "^2.0.0",
+    "react-tap-event-plugin": "^3.0.0",
     "recompose": "^0.25.0",
     "redux": "^3.7.0",
     "redux-actions": "^2.0.3",
