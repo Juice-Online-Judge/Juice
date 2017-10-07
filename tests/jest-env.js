@@ -3,12 +3,16 @@ import path from 'path'
 import * as jasmineImmutable from 'jasmine-immutable-matchers'
 import mapValues from 'lodash/mapValues'
 import reporters from 'jasmine-reporters'
+import enzyme from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
+
+enzyme.configure({ adapter: new Adapter() })
 
 const jestImmutable = mapValues(jasmineImmutable, matcherFactory => {
   const matcher = matcherFactory()
   return function () {
-    const {isNot} = this
-    const {pass, message} = matcher[isNot ? 'negativeCompare' : 'compare'](
+    const { isNot } = this
+    const { pass, message } = matcher[isNot ? 'negativeCompare' : 'compare'](
       ...arguments
     )
     return {

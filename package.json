@@ -8,27 +8,24 @@
     "storybook": "start-storybook -p 9001",
     "clean": "rm -rf public/*.js public/*.map public/*.css public/*.gz",
     "compile": "node -r dotenv/config -r babel-register --harmony bin/compile",
-    "compile:stat": "node -r dotenv/config -r babel-register --harmony bin/compile --json",
+    "compile:stat":
+      "node -r dotenv/config -r babel-register --harmony bin/compile --json",
     "dev": "concurrently --kill-others 'yarn run watch' 'php artisan serve'",
-    "dev:test": "concurrently --kill-others 'yarn run watch' 'php artisan serve' 'yarn run test:dev'",
+    "dev:test":
+      "concurrently --kill-others 'yarn run watch' 'php artisan serve' 'yarn run test:dev'",
     "deploy": "better-npm-run deploy",
     "deploy:dev": "better-npm-run deploy:dev",
-    "watch": "yarn run clean && nodemon -x 'node -r dotenv/config -r babel-register --harmony' bin/watch.js",
-    "lint": "prettier-eslint --write '{.storybook,bin,build,config,src,tests}/**/*.js' && eslint .storybook bin build config src tests",
+    "watch":
+      "yarn run clean && nodemon -x 'node -r dotenv/config -r babel-register --harmony' bin/watch.js",
+    "lint":
+      "prettier-eslint --write '{.storybook,bin,build,config,src,tests}/**/*.js' && eslint .storybook bin build config src tests",
     "test": "better-npm-run test",
     "test:dev": "yarn run test -- --watch",
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": [
-      "prettier-eslint --write",
-      "eslint --fix",
-      "git add"
-    ],
-    "*.{css,scss}": [
-      "prettier --write",
-      "git add"
-    ]
+    "*.js": ["prettier-eslint --write", "eslint --fix", "git add"],
+    "*.{css,scss}": ["prettier --write", "git add"]
   },
   "betterScripts": {
     "deploy": {
@@ -51,19 +48,13 @@
     }
   },
   "jest": {
-    "modulePaths": [
-      "src"
-    ],
+    "modulePaths": ["src"],
     "moduleNameMapper": {
       "^.+\\.(css|scss)$": "<rootDir>/tests/mocks/style-mock.js",
       "flexboxgrid": "<rootDir>/tests/mocks/style-mock.js"
     },
-    "roots": [
-      "<rootDir>/src"
-    ],
-    "setupFiles": [
-      "./src/bootstrap.js"
-    ],
+    "roots": ["<rootDir>/src"],
+    "setupFiles": ["./tests/shim.js", "./src/bootstrap.js"],
     "setupTestFrameworkScriptFile": "./tests/jest-env.js"
   },
   "repository": {
@@ -118,7 +109,6 @@
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
     "react-router-redux": "5.0.0-alpha.6",
-    "react-tap-event-plugin": "^2.0.0",
     "recompose": "^0.26.0",
     "redux": "^3.7.0",
     "redux-actions": "^2.0.3",
@@ -167,7 +157,8 @@
     "concurrently": "^3.5.0",
     "css-loader": "^0.28.4",
     "cssnano": "^3.10.0",
-    "enzyme": "^2.8.2",
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-16": "^1.0.1",
     "eslint": "^4.1.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-config-standard-react": "^5.0.0",
@@ -187,7 +178,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jasmine-immutable-matchers": "^1.5.0",
     "jasmine-reporters": "^2.2.0",
-    "jest-enzyme": "^3.3.0",
+    "jest-enzyme": "^4.0.0",
     "json-loader": "^0.5.4",
     "lint-staged": "^4.0.1",
     "node-sass": "^4.5.3",
