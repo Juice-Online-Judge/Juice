@@ -1,14 +1,9 @@
 function pug () {
-  return context => ({
-    module: {
-      loaders: [
-        {
-          test: /\.pug$/,
-          loader: 'pug-loader'
-        }
-      ]
-    }
-  })
+  return (context, utils) =>
+    utils.addLoader({
+      test: /\.pug$/,
+      loader: 'pug-loader'
+    })
 }
 
 export default pug

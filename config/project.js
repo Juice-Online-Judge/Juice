@@ -1,7 +1,7 @@
 /* eslint key-spacing:0 spaced-comment:0 */
 import _debug from 'debug'
 import path from 'path'
-import {argv} from 'yargs'
+import { argv } from 'yargs'
 
 const debug = _debug('app:config:project')
 const config = {
@@ -54,7 +54,6 @@ const config = {
     'react-redux',
     'react-router-dom',
     'react-router-redux',
-    'react-tap-event-plugin',
     'recompose',
     'redux',
     'redux-actions',
@@ -69,7 +68,10 @@ const config = {
   // Test Configuration
   // ----------------------------------
   coverage_enabled: !argv.watch,
-  coverage_reporters: [{type: 'text-summary'}, {type: 'html', dir: 'coverage'}]
+  coverage_reporters: [
+    { type: 'text-summary' },
+    { type: 'html', dir: 'coverage' }
+  ]
 }
 
 /************************************************

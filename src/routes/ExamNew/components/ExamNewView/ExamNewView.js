@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
-import {Row, Col} from 'react-flexbox-grid'
+import { Row, Col } from 'react-flexbox-grid'
 import RaisedButton from 'material-ui/RaisedButton'
 import Card from 'material-ui/Card/Card'
 import CardTitle from 'material-ui/Card/CardTitle'
@@ -13,8 +13,8 @@ import QuestionTab from './QuestionTab'
 import UserTab from './UserTab'
 import MessageContainer from 'containers/MessageContainer'
 
-import {addExam} from 'redux/modules/exam'
-import {clearCache} from 'redux/modules/app'
+import { addExam } from 'redux/modules/exam'
+import { clearCache } from 'redux/modules/app'
 
 export class ExamNewView extends Component {
   componentWillMount () {
@@ -26,15 +26,15 @@ export class ExamNewView extends Component {
   }
 
   handleBasicInfoChange = data => {
-    this.setData({...data})
+    this.setData({ ...data })
   }
 
   handleQuestionChange = questions => {
-    this.setData({questions})
+    this.setData({ questions })
   }
 
   handleUsersChange = users => {
-    this.setData({users})
+    this.setData({ users })
   }
 
   handleAddExam = () => {
@@ -42,7 +42,7 @@ export class ExamNewView extends Component {
   }
 
   setData (newData) {
-    this.data = {...this.data, ...newData}
+    this.data = { ...this.data, ...newData }
   }
 
   render () {
@@ -74,7 +74,7 @@ export class ExamNewView extends Component {
                   <RaisedButton
                     primary
                     label='Add'
-                    onTouchTap={this.handleAddExam} />
+                    onClick={this.handleAddExam} />
                 </Col>
               </Row>
             </CardActions>
@@ -97,4 +97,4 @@ export class ExamNewView extends Component {
   }
 }
 
-export default connect(null, {addExam, clearCache})(ExamNewView)
+export default connect(null, { addExam, clearCache })(ExamNewView)

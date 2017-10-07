@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import FlatButton from 'material-ui/FlatButton'
 import copy from 'copy-text-to-clipboard'
 
-import {setOpen} from 'redux/modules/message'
+import { setOpen } from 'redux/modules/message'
 import MessageContainer from '../containers/MessageContainer'
 
 export class CopyButton extends Component {
@@ -15,11 +15,11 @@ export class CopyButton extends Component {
   }
 
   render () {
-    const {text} = this.props
+    const { text } = this.props
     return (
       <MessageContainer message='Copy success'>
         <FlatButton
-          onTouchTap={this.handleClick}
+          onClick={this.handleClick}
           label='Copy'
           primary
           disabled={!text} />
@@ -33,4 +33,4 @@ export class CopyButton extends Component {
   }
 }
 
-export default connect(null, {setOpen})(CopyButton)
+export default connect(null, { setOpen })(CopyButton)

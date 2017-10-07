@@ -15,12 +15,12 @@ import {
   customConfig,
   setContext,
   setDevTool,
-  sourceMaps
-} from '@webpack-blocks/webpack2'
-import postcss from '@webpack-blocks/postcss'
-import sass from '@webpack-blocks/sass'
-import babel from './blocks/babel'
-import extractText from './blocks/extract-text'
+  sourceMaps,
+  postcss,
+  sass,
+  babel,
+  extractText
+} from 'webpack-blocks'
 import json from './blocks/json'
 import pug from './blocks/pug'
 
@@ -28,7 +28,7 @@ import config from '../config'
 
 const debug = _debug('app:webpack:config')
 const paths = config.utils_paths
-const {__PROD__} = config.globals
+const { __PROD__ } = config.globals
 const APP_ENTRY_PATH = paths.base(config.dir_client) + '/main.js'
 
 const presets = [
@@ -63,7 +63,7 @@ const basePlugins = [
 ]
 
 const prodPlugins = [
-  ['transform-react-remove-prop-types', {removeImport: true}],
+  ['transform-react-remove-prop-types', { removeImport: true }],
   'transform-react-pure-class-to-function',
   'transform-react-inline-elements',
   'transform-react-constant-elements'
@@ -139,8 +139,8 @@ const webpackConfig = createConfig([
   env('production', [
     addPlugins([
       new webpack.optimize.OccurrenceOrderPlugin(),
-      new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
-      new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000}),
+      new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 15 }),
+      new webpack.optimize.MinChunkSizePlugin({ minChunkSize: 10000 }),
       new BabiliPlugin({
         removeDebugger: true
       }),

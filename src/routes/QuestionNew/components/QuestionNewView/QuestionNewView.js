@@ -1,15 +1,15 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 import RaisedButton from 'material-ui/RaisedButton'
 import Card from 'material-ui/Card/Card'
 import CardTitle from 'material-ui/Card/CardTitle'
 import CardActions from 'material-ui/Card/CardActions'
-import {Row, Col} from 'react-flexbox-grid'
+import { Row, Col } from 'react-flexbox-grid'
 
-import {addQuestion} from 'redux/modules/question'
-import {clearStatus} from 'redux/modules/app'
+import { addQuestion } from 'redux/modules/question'
+import { clearStatus } from 'redux/modules/app'
 import BasicInfoTab from './BasicInfoTab'
 import AnswerTab from './AnswerTab'
 import RestrictionTab from './RestrictionTab'
@@ -34,7 +34,7 @@ class QuestionNewView extends Component {
   }
 
   setData (data) {
-    this.data = {...this.data, ...data}
+    this.data = { ...this.data, ...data }
   }
 
   handleAddQuestion = () => {
@@ -68,7 +68,7 @@ class QuestionNewView extends Component {
                   <RaisedButton
                     primary
                     label='Add'
-                    onTouchTap={this.handleAddQuestion} />
+                    onClick={this.handleAddQuestion} />
                 </Col>
               </Row>
             </CardActions>
@@ -86,4 +86,4 @@ class QuestionNewView extends Component {
   }
 }
 
-export default connect(null, {addQuestion, clearStatus})(QuestionNewView)
+export default connect(null, { addQuestion, clearStatus })(QuestionNewView)

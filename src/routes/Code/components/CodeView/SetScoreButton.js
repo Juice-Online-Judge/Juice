@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import {Row, Col} from 'react-flexbox-grid'
+import { Row, Col } from 'react-flexbox-grid'
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 
@@ -10,7 +10,7 @@ class SetScoreButton extends Component {
     return nextProps.needReview !== this.props.needReview
   }
 
-  handleScoreChange = ({target: {value}}) => {
+  handleScoreChange = ({ target: { value } }) => {
     this.correctness = value
   }
 
@@ -19,7 +19,7 @@ class SetScoreButton extends Component {
   }
 
   render () {
-    const {needReview} = this.props
+    const { needReview } = this.props
     if (!needReview) {
       return null
     }
@@ -33,7 +33,7 @@ class SetScoreButton extends Component {
               floatingLabelText='Score' />
           </Col>
           <Col md={6}>
-            <FlatButton label='Set score' onTouchTap={this.handleSetScore} />
+            <FlatButton label='Set score' onClick={this.handleSetScore} />
           </Col>
         </Row>
       </Col>

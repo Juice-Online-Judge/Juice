@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {goBack} from 'react-router-redux'
+import { connect } from 'react-redux'
+import { goBack } from 'react-router-redux'
 
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
@@ -11,19 +11,19 @@ import FileArea from './FileArea'
 import Label from './Label'
 import MessageContainer from 'containers/MessageContainer'
 
-import {submitCode} from 'redux/modules/submission'
+import { submitCode } from 'redux/modules/submission'
 
 export class SubmitCode extends Component {
   handleLanguageChange = (_event, _index, value) => {
-    this.setState({language: value})
+    this.setState({ language: value })
   }
 
   handleCodeChange = content => {
-    this.setState({code: content.code})
+    this.setState({ code: content.code })
   }
 
   handleSubmit = () => {
-    const {uuid, examId} = this.props
+    const { uuid, examId } = this.props
     this.props.submitCode({
       uuid,
       examId,
@@ -52,7 +52,7 @@ export class SubmitCode extends Component {
           textKey='code'
           mode='code'
           onChange={this.handleCodeChange} />
-        <FlatButton label='Submit' primary onTouchTap={this.handleSubmit} />
+        <FlatButton label='Submit' primary onClick={this.handleSubmit} />
       </MessageContainer>
     )
   }
@@ -76,4 +76,4 @@ const styles = {
   }
 }
 
-export default connect(() => ({}), {submitCode, goBack})(SubmitCode)
+export default connect(() => ({}), { submitCode, goBack })(SubmitCode)

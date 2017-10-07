@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {css} from 'glamor'
+import { css } from 'glamor'
 import FlatButton from 'material-ui/FlatButton'
 import FilterList from 'material-ui/svg-icons/content/filter-list'
 import SearchIcon from 'material-ui/svg-icons/action/search'
@@ -10,7 +10,7 @@ import HeaderColumn from './Table/HeaderColumn'
 
 class SearchBar extends Component {
   toggleSearch = () => {
-    const {searchEnable} = this.state
+    const { searchEnable } = this.state
 
     if (!this.props.search) {
       return
@@ -22,8 +22,8 @@ class SearchBar extends Component {
   }
 
   render () {
-    const {onChange, onSelectAllMatch, columnLength} = this.props
-    const {searchEnable} = this.state
+    const { onChange, onSelectAllMatch, columnLength } = this.props
+    const { searchEnable } = this.state
     return (
       <HeaderRow>
         <HeaderColumn colSpan={columnLength} {...searchHeaderColumnStyle}>
@@ -31,16 +31,16 @@ class SearchBar extends Component {
           <input
             type='search'
             placeholder='Search'
-            {...css(searchStyle, {opacity: searchEnable ? 1 : 0})}
+            {...css(searchStyle, { opacity: searchEnable ? 1 : 0 })}
             disabled={!searchEnable}
             onChange={onChange} />
           <FilterList
-            {...css(iconStyleFilter, {opacity: searchEnable ? 0 : 1})}
+            {...css(iconStyleFilter, { opacity: searchEnable ? 0 : 1 })}
             onClick={this.toggleSearch} />
           <FlatButton
             disabled={!searchEnable}
             primary
-            onTouchTap={onSelectAllMatch}
+            onClick={onSelectAllMatch}
             label='Select all match' />
         </HeaderColumn>
       </HeaderRow>

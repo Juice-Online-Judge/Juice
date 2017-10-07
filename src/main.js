@@ -2,15 +2,14 @@ import 'any-promise/register/pinkie'
 import './bootstrap'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import injectTapEventPlugin from 'react-tap-event-plugin'
-import {Provider} from 'react-redux'
-import {ConnectedRouter} from 'react-router-redux'
+import { Provider } from 'react-redux'
+import { ConnectedRouter } from 'react-router-redux'
 import browserHistory from 'lib/history'
 import Routes from './routes'
 import configureStore from './redux/configureStore'
 
 const initialState = window.__INITIAL_STATE__
-const store = configureStore({initialState, browserHistory})
+const store = configureStore({ initialState, browserHistory })
 
 if (Reflect.has(navigator, 'serviceWorker')) {
   navigator.serviceWorker.getRegistrations().then(registrations => {
@@ -20,11 +19,9 @@ if (Reflect.has(navigator, 'serviceWorker')) {
   })
 }
 
-injectTapEventPlugin()
-
 const Root = (
   <Provider store={store}>
-    <div style={{height: '100%'}}>
+    <div style={{ height: '100%' }}>
       <ConnectedRouter history={browserHistory}>
         <Routes />
       </ConnectedRouter>

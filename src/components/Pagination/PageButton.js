@@ -1,19 +1,19 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import FlatButton from 'material-ui/FlatButton'
 
 class PageButton extends Component {
-  handleTouchTap = () => {
-    const {disabled, onTouchTap} = this.props
-    if (!disabled && onTouchTap) {
-      onTouchTap(this.props.page)
+  handleClick = () => {
+    const { disabled, onClick } = this.props
+    if (!disabled && onClick) {
+      onClick(this.props.page)
     }
   }
 
   render () {
-    const {baseUrl, page, label, disabled, ...props} = this.props
+    const { baseUrl, page, label, disabled, ...props } = this.props
     const text = label || page
     if (baseUrl && !disabled) {
       return (
@@ -22,7 +22,7 @@ class PageButton extends Component {
             {...props}
             label={text}
             disabled={disabled}
-            onTouchTap={this.handleTouchTap} />
+            onClick={this.handleClick} />
         </Link>
       )
     } else {
@@ -31,7 +31,7 @@ class PageButton extends Component {
           {...props}
           label={text}
           disabled={disabled}
-          onTouchTap={this.handleTouchTap} />
+          onClick={this.handleClick} />
       )
     }
   }
@@ -39,7 +39,7 @@ class PageButton extends Component {
   static propTypes = {
     baseUrl: PropTypes.string,
     page: PropTypes.number.isRequired,
-    onTouchTap: PropTypes.func,
+    onClick: PropTypes.func,
     label: PropTypes.string,
     disabled: PropTypes.bool
   }

@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import pick from 'lodash/fp/pick'
 
@@ -40,30 +40,30 @@ class QuestionSetting extends Component {
       const codeReview = setting.codeReview
       const goal = setting.goal || ''
       const reward = setting.reward || ''
-      this.setState({score, type, goal, reward, codeReview, readFrom})
+      this.setState({ score, type, goal, reward, codeReview, readFrom })
     }
   }
 
   handleScoreChange = event => {
-    this.emitChange({score: parseFloat(event.target.value)})
+    this.emitChange({ score: parseFloat(event.target.value) })
   }
 
-  handleIntValChange = ({target: {name, value}}) => {
+  handleIntValChange = ({ target: { name, value } }) => {
     const newState = {}
     newState[name] = parseInt(value)
     this.emitChange(newState)
   }
 
   handleTypeChange = (_event, _idx, value) => {
-    this.emitChange({type: value})
+    this.emitChange({ type: value })
   }
 
   handleReadFromChange = (_event, _idx, value) => {
-    this.emitChange({readFrom: value})
+    this.emitChange({ readFrom: value })
   }
 
-  handleCodeReviewChange = ({target: {checked}}) => {
-    this.emitChange({codeReview: checked})
+  handleCodeReviewChange = ({ target: { checked } }) => {
+    this.emitChange({ codeReview: checked })
   }
 
   emitChange (data) {
@@ -71,7 +71,7 @@ class QuestionSetting extends Component {
       ...pickSettings(this.state),
       ...data
     }
-    const {uuid} = this.props
+    const { uuid } = this.props
     this.setState(data)
 
     // These proerty is not necessery when type is normal
@@ -85,8 +85,8 @@ class QuestionSetting extends Component {
   }
 
   render () {
-    const {detail, question, uuid} = this.props
-    const {score, type, readFrom, codeReview, goal, reward} = this.state
+    const { detail, question, uuid } = this.props
+    const { score, type, readFrom, codeReview, goal, reward } = this.state
 
     if (!detail) {
       return null
@@ -98,14 +98,15 @@ class QuestionSetting extends Component {
           <CardTitle>
             <FlatButton
               label='Back'
-              onTouchTap={this.props.onBack}
+              onClick={this.props.onBack}
               icon={<ChevronLeft />} />
             <span>
-              {' '}
-              Setting "
-              {question.getIn(['entities', 'question', uuid, 'title'])}
-              "
-              {' '}
+              Setting "{question.getIn([
+                'entities',
+                'question',
+                uuid,
+                'title'
+              ])}"
             </span>
           </CardTitle>
           <CardActions>

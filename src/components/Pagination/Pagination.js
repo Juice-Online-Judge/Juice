@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import times from 'lodash/times'
 
@@ -7,7 +7,7 @@ import PageButton from './PageButton'
 
 export class Pagination extends Component {
   get prevButton () {
-    const {baseUrl, current} = this.props
+    const { baseUrl, current } = this.props
 
     return (
       <PageButton
@@ -15,12 +15,12 @@ export class Pagination extends Component {
         page={current - 1}
         disabled={current === 1}
         label='Prev'
-        onTouchTap={this.props.onChange} />
+        onClick={this.props.onChange} />
     )
   }
 
   get nextButton () {
-    const {baseUrl, current, maxPage} = this.props
+    const { baseUrl, current, maxPage } = this.props
 
     return (
       <PageButton
@@ -28,12 +28,12 @@ export class Pagination extends Component {
         page={current + 1}
         disabled={current === maxPage}
         label='Next'
-        onTouchTap={this.props.onChange} />
+        onClick={this.props.onChange} />
     )
   }
 
   get pagination () {
-    const {baseUrl, current, maxPage} = this.props
+    const { baseUrl, current, maxPage } = this.props
     let min = current - 4
     // Calculate min page
     min = Math.max(min, 1)
@@ -56,13 +56,13 @@ export class Pagination extends Component {
           style={styles.page}
           labelStyle={styles.noPadding}
           page={page}
-          onTouchTap={this.props.onChange} />
+          onClick={this.props.onChange} />
       )
     })
   }
 
   render () {
-    const {prevButton, pagination, nextButton} = this
+    const { prevButton, pagination, nextButton } = this
     return (
       <CenterBlock fullwidth>
         {prevButton}

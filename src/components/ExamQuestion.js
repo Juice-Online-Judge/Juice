@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
-import {Row, Col} from 'react-flexbox-grid'
+import { Row, Col } from 'react-flexbox-grid'
 import Checkbox from 'material-ui/Checkbox'
 import FlatButton from 'material-ui/FlatButton'
 import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right'
@@ -10,7 +10,7 @@ import TitleCard from './TitleCard'
 
 class ExamQuestion extends Component {
   handleCheck = _event => {
-    const {checked} = this.props
+    const { checked } = this.props
     this.props.onCheck(!checked, this.props.uuid)
   }
 
@@ -21,7 +21,7 @@ class ExamQuestion extends Component {
   }
 
   render () {
-    const {uuid, question, checked} = this.props
+    const { uuid, question, checked } = this.props
     const questionDetail = question.getIn(['entities', 'question', uuid])
     return (
       <TitleCard style={styles.card}>
@@ -36,7 +36,7 @@ class ExamQuestion extends Component {
             <FlatButton
               disabled={!checked}
               icon={<ChevronRight />}
-              onTouchTap={this.handleRequestDetail}>
+              onClick={this.handleRequestDetail}>
               評分設定
             </FlatButton>
           </Col>
@@ -54,7 +54,7 @@ class ExamQuestion extends Component {
   }
 }
 
-export default connect(state => ({question: state.question}))(ExamQuestion)
+export default connect(state => ({ question: state.question }))(ExamQuestion)
 
 const styles = {
   card: {

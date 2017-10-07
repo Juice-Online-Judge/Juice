@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Link} from 'react-router-dom'
-import {connect} from 'react-redux'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import MuiAppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
@@ -14,7 +14,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import LeftNav from './LeftNav'
 import MenuLinkItem from './MenuLinkItem'
 
-import {fetchUserInfo, logout} from 'redux/modules/account'
+import { fetchUserInfo, logout } from 'redux/modules/account'
 import commonStyles from 'lib/styles'
 
 export class AppBar extends React.Component {
@@ -23,23 +23,23 @@ export class AppBar extends React.Component {
   }
 
   handleClose = () => {
-    this.setState({open: false})
+    this.setState({ open: false })
   }
 
   handleToggle = () => {
-    this.setState(({open}) => ({open: !open}))
+    this.setState(({ open }) => ({ open: !open }))
   }
 
   get leftMenu () {
     return (
-      <IconButton onTouchTap={this.handleToggle}>
+      <IconButton onClick={this.handleToggle}>
         <MenuIcon />
       </IconButton>
     )
   }
 
   get rightMenu () {
-    const {account, logout} = this.props
+    const { account, logout } = this.props
     if (account.get('state')) {
       return (
         <div>
@@ -62,7 +62,7 @@ export class AppBar extends React.Component {
             targetOrigin={styles.origin}
             anchorOrigin={styles.origin}>
             <MenuLinkItem primaryText='Submission' to='/submissions' />
-            <MenuItem primaryText='Logout' onTouchTap={logout} />
+            <MenuItem primaryText='Logout' onClick={logout} />
           </IconMenu>
         </div>
       )
@@ -113,7 +113,7 @@ export default connect(
   state => ({
     account: state.account
   }),
-  {fetchUserInfo, logout}
+  { fetchUserInfo, logout }
 )(AppBar)
 
 const styles = {
