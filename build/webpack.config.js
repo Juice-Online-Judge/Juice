@@ -138,9 +138,11 @@ const webpackConfig = createConfig([
   env('development', [sourceMaps()]),
   env('production', [
     addPlugins([
+      new webpack.HashedModuleIdsPlugin(),
       new webpack.optimize.OccurrenceOrderPlugin(),
       new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 15 }),
       new webpack.optimize.MinChunkSizePlugin({ minChunkSize: 10000 }),
+      new webpack.optimize.ModuleConcatenationPlugin(),
       new BabiliPlugin({
         removeDebugger: true
       }),
