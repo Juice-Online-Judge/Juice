@@ -178,7 +178,7 @@
     "html-webpack-plugin": "^2.28.0",
     "husky": "^0.14.3",
     "identity-obj-proxy": "^3.0.0",
-    "jasmine-immutable-matchers": "^1.5.0",
+    "jasmine-immutable-matchers": "^2.0.0",
     "jasmine-reporters": "^2.2.0",
     "jest-enzyme": "^4.0.0",
     "json-loader": "^0.5.4",
