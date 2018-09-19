@@ -109,7 +109,7 @@
     "prop-types": "^15.5.10",
     "qhistory": "^1.0.0",
     "qs": "^6.4.0",
-    "react": "^16.0.0",
+    "react": "^16.5.2",
     "react-codemirror": "^1.0.0",
     "react-dom": "^16.0.0",
     "react-flexbox-grid": "^2.0.0",
