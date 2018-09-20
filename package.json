@@ -180,7 +180,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jasmine-immutable-matchers": "^2.0.0",
     "jasmine-reporters": "^2.2.0",
-    "jest-enzyme": "^6.0.0",
+    "jest-enzyme": "^6.0.5",
     "json-loader": "^0.5.4",
     "lint-staged": "^7.0.0",
     "node-sass": "^4.5.3",
