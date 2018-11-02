@@ -120,7 +120,7 @@
     "react-router-redux": "5.0.0-alpha.8",
     "recompose": "^0.26.0",
     "redux": "^3.7.0",
-    "redux-actions": "^2.0.3",
+    "redux-actions": "2.6.3",
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.2.0",
     "remarkable": "^1.7.1",
