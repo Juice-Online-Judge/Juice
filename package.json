@@ -183,7 +183,7 @@
     "jest-enzyme": "^6.0.0",
     "json-loader": "^0.5.4",
     "lint-staged": "^7.0.0",
-    "node-sass": "^4.5.3",
+    "node-sass": "^4.11.0",
     "nodemon": "^1.11.0",
     "pify": "^3.0.0",
     "postcss-loader": "^2.0.6",
