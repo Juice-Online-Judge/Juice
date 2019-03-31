@@ -100,7 +100,7 @@
     "material-ui": "^0.20.0",
     "normalizr": "^3.2.3",
     "p-tap": "^1.0.0",
-    "p-try": "^1.0.0",
+    "p-try": "^2.2.0",
     "path-to-regexp": "^2.0.0",
     "pinkie": "^2.0.4",
     "polished": "^1.2.0",
