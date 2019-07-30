@@ -200,6 +200,6 @@
     "url-loader": "^1.0.0",
     "webpack": "^3.6.0",
     "webpack-blocks": "^1.0.0-rc",
-    "webpack-bundle-analyzer": "^2.9.0"
+    "webpack-bundle-analyzer": "^3.4.1"
   }
 }
