@@ -80,7 +80,7 @@
     "classnames": "^2.2.5",
     "codemirror": "^5.26.0",
     "copy-text-to-clipboard": "^1.0.2",
-    "date-fns": "^1.28.5",
+    "date-fns": "^2.4.0",
     "debug": "^3.0.0",
     "dotenv": "^5.0.0",
     "events": "^2.0.0",
