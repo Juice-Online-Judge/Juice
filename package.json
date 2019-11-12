@@ -101,7 +101,7 @@
     "normalizr": "^3.2.3",
     "p-tap": "^1.0.0",
     "p-try": "^1.0.0",
-    "path-to-regexp": "^2.0.0",
+    "path-to-regexp": "^4.0.4",
     "pinkie": "^2.0.4",
     "polished": "^1.2.0",
     "prism-themes": "^1.0.0",
